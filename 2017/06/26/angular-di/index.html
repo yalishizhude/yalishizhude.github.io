@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js,angular," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="这篇文章是探索对于Angular开发者来说既熟悉又陌生的概念：依赖注入。">
+<meta name="keywords" content="js,angular">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular的依赖注入是怎么实现的？">
+<meta property="og:url" content="http://yoursite.com/2017/06/26/angular-di/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="这篇文章是探索对于Angular开发者来说既熟悉又陌生的概念：依赖注入。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.099Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angular的依赖注入是怎么实现的？">
+<meta name="twitter:description" content="这篇文章是探索对于Angular开发者来说既熟悉又陌生的概念：依赖注入。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/26/angular-di/"/>
+
+
+
+
+
+  <title>Angular的依赖注入是怎么实现的？ | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/26/angular-di/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Angular的依赖注入是怎么实现的？</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-26T14:01:08+08:00">
+                2017-06-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/angular/" itemprop="url" rel="index">
+                    <span itemprop="name">angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇文章是探索对于Angular开发者来说既熟悉又陌生的概念：依赖注入。</p>
+<a id="more"></a>
+<p>我们在定义控制器、服务(甚至是指令)的时候通常会依赖一些服务，例如下面这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//按照Angular的严格模式，希望我们这样写：</span><br><span class="line">angular.module(&apos;app&apos;, []).controller(&apos;ctrl&apos;, [&apos;$scop&apos;, $http&apos;, function($scope, $http) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;])</span><br><span class="line"></span><br><span class="line">//在非严格模式下也可以这样写减少代码量：</span><br><span class="line">angular.module(&apos;app&apos;, []).controller(&apos;ctrl&apos;, function($scope, $http) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h1><p>按照科学方法（提出假设——&gt;进行实验——&gt;得出结论）可以先猜想一下Angular的实现过程：</p>
+<ul>
+<li>解析参数。</li>
+</ul>
+<p>提取所需的服务（即函数参数）显得有点麻烦，因为js并没有提供原生的方法，可能需要手动实现。</p>
+<p>一种常用的解析字符串的方法就是用正则表达式。</p>
+<ul>
+<li>实例化服务</li>
+</ul>
+<p>得到了参数之后就需要根据参数来生成其对应的服务实例了，因为Angular的服务是单例模式，所以很可能会用到缓存的方式来来避免多个相同的服务。</p>
+<ul>
+<li>执行定义函数</li>
+</ul>
+<p>传入服务并调用我们的声明函数，创建对应的控制器/服务/指令等。</p>
+<h1 id="源码探究"><a href="#源码探究" class="headerlink" title="源码探究"></a>源码探究</h1><h2 id="依赖解析"><a href="#依赖解析" class="headerlink" title="依赖解析"></a>依赖解析</h2><p>我们以(Angular1.3)[<a href="https://cdn.bootcss.com/angular.js/1.3.20/angular.js]版本源码为例。" target="_blank" rel="noopener">https://cdn.bootcss.com/angular.js/1.3.20/angular.js]版本源码为例。</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 第3492行</span><br><span class="line">// var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;</span><br><span class="line">// fn为传入的定义函数，通过toString函数来获取它的源代码</span><br><span class="line">// 这里的主要目的是去除函数源码中的注释</span><br><span class="line">fnText = fn.toString().replace(STRIP_COMMENTS, &apos;&apos;);</span><br><span class="line"></span><br><span class="line">// var FN_ARGS = /^function\s*[^\(]*\(\s*([^\)]*)\)/m;</span><br><span class="line">// 将函数定义的头部取出来，舍弃函数体，得到 function abc(...) 这种形式</span><br><span class="line">argDecl = fnText.match(FN_ARGS);</span><br><span class="line"></span><br><span class="line">// var FN_ARG_SPLIT = /,/;</span><br><span class="line">// 通过逗号分隔参数进行遍历，并将每个参数放入数组中</span><br><span class="line">forEach(argDecl[1].split(FN_ARG_SPLIT), function(arg) &#123;</span><br><span class="line">    // var FN_ARG = /^\s*(_?)(\S+?)\1\s*$/;</span><br><span class="line">    arg.replace(FN_ARG, function(all, underscore, name) &#123;</span><br><span class="line">        $inject.push(name);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>简而言之，这一部分代码流程也很简单：获取函数源码，取到函数头部，分割放入数组。</p>
+<p>这样就获得了我们依赖注入所需要的参数名，这是针对前面所说的第二种情况，第一种情况则很简单，直接从数组中提取就行。</p>
+<h2 id="服务实例"><a href="#服务实例" class="headerlink" title="服务实例"></a>服务实例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 第4201行</span><br><span class="line">//遍历函数依赖的服务</span><br><span class="line">for (i = 0, length = $inject.length; i &lt; length; i++) &#123;</span><br><span class="line">    key = $inject[i];</span><br><span class="line">    //从缓存中获取或者从provider中获取服务</span><br><span class="line">    args.push(</span><br><span class="line">        locals &amp;&amp; locals.hasOwnProperty(key)</span><br><span class="line">        ? locals[key]</span><br><span class="line">        // getService函数负责从provider中获取对应的定义函数</span><br><span class="line">        : getService(key, serviceName)</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这一部分代码完整的贴出来看起来会比较费解，因为它的执行方式很像递归函数。</p>
+<p>简而言之就是执行服务的定义函数，然后在执行环境（this指针上）绑定对应的函数，然后返回改执行环境。</p>
+<p>这样依赖它的函数就可以访问服务内部的函数了</p>
+<p>同时也用了一个json对象来(locals变量)缓存服务。</p>
+<h2 id="调用函数"><a href="#调用函数" class="headerlink" title="调用函数"></a>调用函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 第4219行</span><br><span class="line">return fn.apply(self, args);</span><br></pre></td></tr></table></figure>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>从截取的部分源码分析来看，基本上如开始所想。解析依赖服务，然后以回调的方式找到所需服务并调用函数。</p>
+<p>源码地址：<br><a href="https://cdn.bootcss.com/angular.js/1.3.20/angular.js" target="_blank" rel="noopener">https://cdn.bootcss.com/angular.js/1.3.20/angular.js</a><br>参考文章：<br><a href="http://www.alexrothenberg.com/2013/02/11/the-magic-behind-angularjs-dependency-injection.html" target="_blank" rel="noopener">《The “Magic” behind AngularJS Dependency Injection》</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+            <a href="/tags/angular/" rel="tag"># angular</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/20/angular-databinding/" rel="next" title="为什么你的Angular双向数据绑定会失效？">
+                <i class="fa fa-chevron-left"></i> 为什么你的Angular双向数据绑定会失效？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/25/rest-constraints/" rel="prev" title="【译】REST的6个约束">
+                【译】REST的6个约束 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实现过程"><span class="nav-number">1.</span> <span class="nav-text">实现过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#源码探究"><span class="nav-number">2.</span> <span class="nav-text">源码探究</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖解析"><span class="nav-number">2.1.</span> <span class="nav-text">依赖解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务实例"><span class="nav-number">2.2.</span> <span class="nav-text">服务实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用函数"><span class="nav-number">2.3.</span> <span class="nav-text">调用函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结论"><span class="nav-number">3.</span> <span class="nav-text">结论</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

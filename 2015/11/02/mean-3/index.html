@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="node.js,mean," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="原文地址 https://blog.udemy.com/node-js-tutorial感谢来自Udemy的Samantha来信分享  从数据库中查询所有视频首先，我们来实现一个简单的功能：在首页上展示数据库中所有的视频。有几种方式来实现这个功能。我们可以从前端到后端开发，也可以反过来。这并没有什么对错，不过在本教程中">
+<meta name="keywords" content="node.js,mean">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【译】基于MEAN的全栈开发实例教程3：通过Angular展示数据">
+<meta property="og:url" content="http://yoursite.com/2015/11/02/mean-3/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="原文地址 https://blog.udemy.com/node-js-tutorial感谢来自Udemy的Samantha来信分享  从数据库中查询所有视频首先，我们来实现一个简单的功能：在首页上展示数据库中所有的视频。有几种方式来实现这个功能。我们可以从前端到后端开发，也可以反过来。这并没有什么对错，不过在本教程中，处于教学原因我推荐从后端开始开发。我们将通过以下几个步骤来实现：  我们将在">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2015/11/02/mean-3/robomongo-1.png">
+<meta property="og:image" content="http://yoursite.com/2015/11/02/mean-3/robomongo-2.png">
+<meta property="og:image" content="http://yoursite.com/2015/11/02/mean-3/robomongo-3.png">
+<meta property="og:image" content="http://yoursite.com/2015/11/02/mean-3/robomongo-4.png">
+<meta property="og:image" content="http://yoursite.com/2015/11/02/mean-3/json.png">
+<meta property="og:image" content="http://yoursite.com/2015/11/02/mean-3/home.png">
+<meta property="og:image" content="http://yoursite.com/2015/11/02/mean-3/list.png">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.217Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【译】基于MEAN的全栈开发实例教程3：通过Angular展示数据">
+<meta name="twitter:description" content="原文地址 https://blog.udemy.com/node-js-tutorial感谢来自Udemy的Samantha来信分享  从数据库中查询所有视频首先，我们来实现一个简单的功能：在首页上展示数据库中所有的视频。有几种方式来实现这个功能。我们可以从前端到后端开发，也可以反过来。这并没有什么对错，不过在本教程中，处于教学原因我推荐从后端开始开发。我们将通过以下几个步骤来实现：  我们将在">
+<meta name="twitter:image" content="http://yoursite.com/2015/11/02/mean-3/robomongo-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/11/02/mean-3/"/>
+
+
+
+
+
+  <title>【译】基于MEAN的全栈开发实例教程3：通过Angular展示数据 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/11/02/mean-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【译】基于MEAN的全栈开发实例教程3：通过Angular展示数据</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-11-02T21:36:35+08:00">
+                2015-11-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>原文地址 <a href="https://blog.udemy.com/node-js-tutorial" target="_blank" rel="noopener">https://blog.udemy.com/node-js-tutorial</a><br>感谢来自Udemy的Samantha来信分享</p>
+</blockquote>
+<h1 id="从数据库中查询所有视频"><a href="#从数据库中查询所有视频" class="headerlink" title="从数据库中查询所有视频"></a>从数据库中查询所有视频</h1><p>首先，我们来实现一个简单的功能：在首页上展示数据库中所有的视频。有几种方式来实现这个功能。我们可以从前端到后端开发，也可以反过来。这并没有什么对错，不过在本教程中，处于教学原因我推荐从后端开始开发。<br>我们将通过以下几个步骤来实现：</p>
+<ol>
+<li>我们将在Mongo中创建一个数据库并且构建一些视频文件。</li>
+<li>然后我们通过Express在数据库中创建一个API</li>
+<li>最后我们用Angular来调用API并显示这些数据<br>如果你对这些技术没有任何经验也并无大碍。在本章节中，将覆盖这些技术的基础知识。然而，学习起来可能会有一点曲折。请保持耐心，因为一旦我们实现了接下来这些功能，在你再次运用这些概念的时候将会变得得心应手。</li>
+</ol>
+<a id="more"></a>
+<h2 id="第1步：构建数据库"><a href="#第1步：构建数据库" class="headerlink" title="第1步：构建数据库"></a>第1步：构建数据库</h2><p>我们怎么通过数据文件来构建MongoDB数据库？MongoDB有一个可以通过控制台访问的脚本，然而通过脚本访问并不是很友好，所以为了开发变得简单，我们将用到一个免费的工具——RboMongo。登陆到 <a href="http://robomongo.org" target="_blank" rel="noopener">http://robomongo.org</a> 然后下载适合你操作系统的安装程序。<br>启动RoboMongo。你将看见一个用来连接MongoDB服务器的对话框<br><img src="/2015/11/02/mean-3/robomongo-1.png"><br>点击顶部的 <strong>Create</strong>按钮。<br>将连接名称改为 <strong>localhost</strong>。注意连接地址指向的是<strong>localhost:27017。默认情况下MongoDB将在27017端口上启动。<br><img src="/2015/11/02/mean-3/robomongo-2.png"><br>如果你点击 </strong>Test<strong>按钮，你可能看到一个类似这样的错误“Authorization skipped by you”。不用担心，忽略这个错误连接你本地的MongoDB。<br>保存配置的连接。回到 </strong>Connect<strong>对话框。连接 </strong>localhost<strong>。<br>在 </strong>View<strong>菜单中，勾选 </strong>Explorer<strong>选项。现在你的RoboMongo看起来应该是这样：<br><img src="/2015/11/02/mean-3/robomongo-3.png"><br>在 </strong>Explorer<strong>面板，右键 </strong>localhost<strong>选择 </strong>Create Database<strong>。命名数据库为 </strong>vidzy<strong>。展开 </strong>vidzy<strong>，右键 </strong>Collections<strong>然后点击
+ </strong>Create Collection<strong>。在MongoDB中，一个集合就类似于关系型数据库中的一张表。将这个集合命名为 </strong>videos<strong>。然后这个集合就显示在了列表中。<br> 接下来右键 </strong>videos<strong> 集合然后选择 </strong>Insert Document**。1个文档再MongoDB中类似关系型数据库中的1条记录。而MongoDB文档与之不同的是可以包含其它的文档。在Mongo中，我们使用JSON格式来展现文档。复制粘贴下面的代码到对话框中来新增一个视频文档：</p>
+<pre><code>{
+ &quot;title&quot; : &quot;Terminator Genisys&quot;,
+ &quot;genre&quot; : &quot;SciFi&quot;,
+ &quot;description&quot; : &quot;When John Connor, leader of the human resistance, sends Sgt. Kyle Reese back to 1984 to protect Sarah Connor and safeguard the future, an unexpected turn of events creates a fractured timeline.&quot;
+}
+</code></pre><p>注意：在粘贴这些代码之前请确保对话框中的内容已经清除，不然可能会得到一个非JSON对象。<br>重复上一步继续添加两个文档到videos集合：</p>
+<pre><code>{
+ &quot;title&quot; : &quot;The Lord of the Rings&quot;,
+ &quot;genre&quot; : &quot;Fantasy&quot;,
+ &quot;description&quot; : &quot;A meek hobbit of the Shire and eight companions set out on a journey to Mount Doom to destroy the One Ring and the dark lord Sauron.&quot;
+}
+{
+ &quot;title&quot; : &quot;Apollo 13&quot;,
+ &quot;genre&quot; : &quot;Drama&quot;,
+ &quot;description&quot; : &quot;NASA must devise a strategy to return Apollo 13 to Earth safely after the spacecraft undergoes massive internal damage putting the lives of the three astronauts on board in jeopardy.&quot;
+}
+</code></pre><p>现在右键videos集合并选择 <strong>View Documents。你将在 </strong>videos**集合中看见3个文档。<br><img src="/2015/11/02/mean-3/robomongo-4.png"><br>注意到每个文档都有一个由MongoDB自动生成的ID。<br>大功告成！我们的数据库准备就绪。现在，让我们用Express创建一个API来获取这些视频文档。</p>
+<h2 id="第2步：通过Express创建1个API"><a href="#第2步：通过Express创建1个API" class="headerlink" title="第2步：通过Express创建1个API"></a>第2步：通过Express创建1个API</h2><p>在这个步骤中，你将学习到关于Node模块系统，Express路由和用Monk从MongoDB中获取数据。<br>用你最喜欢的代码编辑器在项目根目录中打开app.js。文件中第1部分包含了几个 <strong>require</strong>函数调用。 <strong>require</strong>方法是Node中内置方法之一，主要用来引用其它文件中定义的模块：</p>
+<pre><code>var express = require(&apos;express&apos;);
+var path = require(&apos;path&apos;);
+var favicon = require(&apos;serve-favicon&apos;);
+var logger = require(&apos;morgan&apos;);
+var cookieParser = require(&apos;cookie-parser&apos;);
+var bodyParser = require(&apos;body-parser&apos;);
+</code></pre><p>第2部分引入了我们的路由模块。1个路由模块定义了1个或多个关联的端点以及对应的处理器。在这个由Express Generator生成的示例应用中，我们有两个路由模块： <strong>index</strong> 和 <strong>users</strong>：</p>
+<pre><code>var routes = require(&apos;./routes/index&apos;);
+var users = require(&apos;./routes/users&apos;);
+</code></pre><p>让我们看一看其中的一个路由模块，打开 <strong>rutes&gt;index.js</strong>。你将看到以下代码：</p>
+<pre><code>var express = require(&apos;express&apos;);
+var router = express.Router();
+
+/* GET home page. */
+router.get(&apos;/&apos;, function(req, res, next) {
+ res.render(&apos;index&apos;, { title: &apos;Express&apos; });
+});
+
+module.exports = router;
+</code></pre><p>来分析一下这段代码。</p>
+<p>在第1行，我们在当前模块引用了Express。当使用 <strong>require</strong>方法时，依赖于目标模块是怎样实现的， <strong>require</strong>方法可能返回1个方法或者对象。在这个例子中，这个 <strong>express</strong>变量是1个对象。它提供了一个叫做 <strong>Router</strong>的方法，我们在第2行就调用了这个方法。用来访问Express中的路由对象。我们用1个路由来定义我们应用中的端点。我们在这些端点中接收请求。每个端点将会被关联到1个路由处理器，处理器负责处理在端点中收到的请求。</p>
+<p>现在看下一行中路由配置的示例。</p>
+<pre><code>router.get(&apos;/&apos;, function(req, res, next) {
+  res.render(&apos;index&apos;, { title: &apos;Express&apos; });
+});
+</code></pre><p>我们使用路由中定义的 <strong>get</strong>方法来定义1个路由和它的处理器。第1个参数是这个端点；在这里，’/‘代表网站的根路径或者主页。第2个参数就是路由的处理器。</p>
+<p>在Express中，所有的路由处理器都有一个同样的签名。第1个参数是请求对象，第2个参数是响应对象，第3个参数是当前链中的下一个处理器。Express使用的中间件函数采用链式调用的方式。当Express使用中间件时，有时候你可能需要在当前链中调用下一个中间件。你可以通过 <strong>next</strong> 变量实现。但是当我们在处理路由的时候，我们几乎不需要这个操作，所以这里你可以安全地删除 <strong>next</strong> 变量。</p>
+<p>现在看一下这个函数体。 <strong>res</strong> 变量代表了响应对象。这个响应对象自带了一些有用的函数。</p>
+<ul>
+<li><strong>render</strong>：用来渲染视图</li>
+<li><strong>send</strong>：用来发送文本内容到客户端</li>
+<li><strong>json</strong>：发送json对象到客户端</li>
+<li><strong>redirect</strong>：重定向客户端到另一个地址</li>
+</ul>
+<p>在这里，我们渲染index视图，这个视图在 <strong>views&gt;index.jade</strong>中已经定义了。</p>
+<p>这就是一个路由的基础结构。我们现在需要为我们的视频创建一个RESTful API。我们将在1个类似 <strong>/api/videos</strong>的端点中展示我们的视频。</p>
+<p>在 <strong>routes</strong> 目录下创建1个新的路由模块叫做 <strong>videos.js</strong> ,然后在文件输入以下代码，之后我会对这段代码进行逐行讲解。</p>
+<pre><code>var express = require(&apos;express&apos;);
+var router = express.Router();
+
+var monk = require(&apos;monk&apos;);
+var db = monk(&apos;localhost:27017/vidzy&apos;);
+
+router.get(&apos;/&apos;, function(req, res) {
+    var collection = db.get(&apos;videos&apos;);
+    collection.find({}, function(err, videos){
+        if (err) throw err;
+        res.json(videos);
+    });
+});
+
+module.exports = router;
+</code></pre><p>头两行和之前的一样，我们引入了Express然后获取路由对象。</p>
+<p>然后我们引入了Monk，一个用来持久化MongoDB数据的模块。另一个叫做 <strong> Mongoose</strong> 的模块也可以达到这个效果。但是在本教程中，我更倾向用Monk。</p>
+<p>之前曾经提过， <strong>require</strong> 方法会根据模块的实现方式来返回一个对象或者方法。当我们引入Monk的时候得到的是一个方法而不是对象。所以 <strong>monk</strong> 变量是一个我们通过调用来访问数据库的方法。</p>
+<pre><code>var db = monk(&apos;localhost:27017/vidzy&apos;);
+</code></pre><p>现在来实现我们路由处理器的逻辑。</p>
+<pre><code>function(req, res) {
+    var collection = db.get(&apos;videos&apos;);
+    collection.find({}, function(err, videos){
+        if (err) throw err;
+        res.json(videos);
+    });
+}
+</code></pre><p>首先我们调用 <strong>db</strong> 对象的 <strong>get</strong> 方法，传入集合的名称（<strong>video</strong>）。它将返回一个集合对象。这个集合对象提供了一个数字和一些方法来操作集合上的文档。</p>
+<ul>
+<li>inser</li>
+<li>find</li>
+<li>findOne</li>
+<li>update</li>
+<li>remove</li>
+</ul>
+<p>这里我们使用 <strong>find</strong> 方法来获取集合中的所有视频。这个方法的第1个参数是一个用来过滤的对象。由于我们需要查询所有视频，我们传入一个空对象。第2个参数是一个回调方法，从数据库返回结果之后调用。这个方法遵循Node回调函数的标准协议模式——“错误优先”。在这个模式中，回调函数的第1个参数是一个错误对象，第2个参数才是返回结果。当你开发更多的Node应用的时候，你将发现更多的这种回调模式。</p>
+<p>在这种回调中，我们首先检查 <strong>err</strong> 对象是否被设置。如果在查询视频文档中没有出现错误， <strong>err</strong> 的值是 <strong>null</strong>；否则它将被设置。我们抛出 <strong>err</strong> 来中断程序的执行并且告知用户。如果没有错误，就通过调用 <strong>res.json</strong> 简单地返回一个JSON对象。</p>
+<p>看最后一行</p>
+<pre><code>module.exports = router;
+</code></pre><p>这一行定义了一个对象返回值，当别的模块引用这个模块时我们将返回这个对象。在这种情况下我们返回路由对象给Express。这个模块的主要功能就是获取路由并注册一些路由配置并返回。</p>
+<p>现在还剩下一个小步骤。虽然写了一个模块来为我们的新API配置路由信息，但是我们并没有调用它。再次打开 <strong>app.js</strong> 然后靠近顶部查找以下代码：</p>
+<pre><code>var routes = require(&apos;./routes/index&apos;);
+var users = require(&apos;./routes/users&apos;);
+</code></pre><p>通过以下代码将我们的路由模块引入到应用程序模块。添加下面这行代码。</p>
+<pre><code>var videos = require(&apos;./routes/videos&apos;);
+</code></pre><p>将新模块复制给 <strong>videos</strong>变量供之后使用。将 <strong>app.js</strong> 往下滚动一点然后找到下面代码：</p>
+<pre><code>app.use(&apos;/&apos;, routes);
+app.use(&apos;/users&apos;, users);
+</code></pre><p>添加一行代码：</p>
+<pre><code>app.use(&apos;/api/videos&apos;, videos);
+</code></pre><p>这一行代码的作用就是让 <strong>videos</strong> 模块给任何以 <strong>/api/vides</strong>开头的路由使用。</p>
+<p>现在来测试一下我们的API。打开浏览器输入地址  <a href="http://localhost:3000/api/videos" target="_blank" rel="noopener">http://localhost:3000/api/videos</a>  。你将看到以下JSON对象</p>
+<img src="/2015/11/02/mean-3/json.png">
+<p>我使用了 <strong>JSONView</strong> Chrome插件来高亮显示JSON对象。</p>
+<p>接下来几步我们将使用Angular来构建前端代码展示这些视频。</p>
+<h2 id="第3步：添加Angular"><a href="#第3步：添加Angular" class="headerlink" title="第3步：添加Angular"></a>第3步：添加Angular</h2><p>在这一步中，你将学习到Angular的基础知识。如果你已经熟悉Angular，可以跳过这些描述，但是请拷贝这些代码到项目中。</p>
+<p>Angular是一个用来构建单页应用（SPA）的非常流行的前端框架。它提供了路由，依赖注入，测试和MVC的结构实现的代码解耦。如果这些听起来太极客了，也不用担心。这一章将带你了解这些特性。</p>
+<p>首先，需要添加Angular脚本到应用中。打开 <strong>views&gt;layout.jad</strong> 添加以下3个脚本文件引用在 <strong>head</strong>的末尾（一般考虑性能会放在body标签的末端）。</p>
+<pre><code>script(src=&apos;https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.js&apos;)
+script(src=&apos;https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-resource.js&apos;)
+script(src=&apos;https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-route.js&apos;)
+</code></pre><p>确保他们的缩进空格数相等，因为jad对缩进空格非常敏感。Express Generator生成Jade视图的时候将会把两个空格当做缩进。所以你需要遵循同样的缩进并且不能省略。否则将会报错。</p>
+<p>这些是什么脚本？第1个是Angular框架的主脚本，第2个是用来调用RESTful APIs，第3个是用来管理路由的。通过路由来定义应用导航对应展示的页面。</p>
+<p>下一步，在 <strong>public&gt;javascripts</strong> 路径下创建一个名为 <strong>vidzy.js</strong>的文件，在里面编写javascript代码。</p>
+<p>在Angular脚本之后，添加 <strong>vidzy.js</strong> 引用</p>
+<pre><code>script(src=&apos;/javascripts/vidzy.js&apos;)
+</code></pre><p>请再次确保缩进空格数一致。</p>
+<p>现在主要脚本已经引入，可以添加Angular到我们的应用了。添加Angular包括两步：</p>
+<ul>
+<li>第1步，在HTML元素上添加 <strong>ng-app</strong> 属性。当Angular脚本加载完时，它将在DOM中找到这个属性然后挂载应用程序。</li>
+<li>第2步，为应用创建一个Angular模块。Angular应用通常由1个或者多个模块构成。这个简单的应用，你只需要一个 <strong>app</strong> 模块。但是随着应用的扩展，为了提升代码结构和可维护性，你可能需要划分不同的功能到不同的模块。</li>
+</ul>
+<p>打开 <strong>layout.jade</strong> 添加 <strong>ng-app</strong> 到html元素。</p>
+<pre><code>doctype html
+html(ng-app=&apos;Vidzy&apos;)
+</code></pre><p>在Jade中，我们使用括号来为HTML标签添加属性。当该行被Jade模板引擎渲染时，我们将获取以下HTML元素</p>
+<pre><code>&lt;html ng-app=’Vidzy’&gt;
+</code></pre><p>我们给ng-app设置的值就是应用的名称。现在我们需要创建这个模块。</p>
+<p>打开 vidzy.js输入以下代码：</p>
+<pre><code>var app = angular.module(&apos;Vidzy&apos;, []);
+</code></pre><p><strong>Angular</strong>现在是一个全局可用的对象， <strong>module</strong> 方法可以用来定义一个新的模块或者获取已有模块的引用。第1个参数和我们之前在 <strong>ng-app</strong> 中定义的值一致。第2个参数是一个依赖数组。这里传入一个空数组来声明当前模块不依赖任何其他模块。</p>
+<p>我们做这些就是为了将Angular挂载到我们的应用上。接下来我们将重构首页，使用Angular来展示数据库中所有的视频。</p>
+<h2 id="第4步：用Angular重构首页"><a href="#第4步：用Angular重构首页" class="headerlink" title="第4步：用Angular重构首页"></a>第4步：用Angular重构首页</h2><p>Express Generator生成的默认项目使用了Jade做为视图引擎。这些Jade视图在服务端被解析和渲染成HTML然后返回给客户端。这就是很多网页框架如何工作的。但是在本应用中，我们将使用一种不同的构建风格。我们将返回JSON给客户端（Angular）来渲染视图来替代返回HTML。下面说一说这样做的原因。</p>
+<p>开始的时候，在本章关于“什么时候使用Node”中，我提到一种通用的场景：Node擅长在文档数据库上构建基于RESTful APIs的应用。通过这种架构，我们不必把时间花在数据转换上。我们存储JSON对象在Mongo中，通过RESTful API导出它们并且直接在客户端进行展示（通过Angular）。JSON就是Javascript和MongoDB的原生对像。所以用它来贯穿整个技术栈，我们就减少了匹配和转换数据的工作。通过从API返回JSON对象然后在客户端渲染视图，来提高性能和可扩展性。因为服务器的CPU将不会被浪费在为大量并发用户渲染视图上。另外，我们可以重用同样的API去构建另一个客户端，例如Iphone和Android app。</p>
+<p>在这一步中，我们将用Angular视图来取代首页上默认的Jade视图。</p>
+<p>在 <strong>public</strong> 下创建一个新的叫做 <strong>partials</strong> 的文件夹用来存储视图文件。在这个文件夹下创建一个新的文件 <strong>home.html</strong>，在文件中输入</p>
+<pre><code>&lt;h1&gt;Home Page&lt;/h1&gt;
+</code></pre><p>现在，我们需要告诉Angular当跳转到这个首页时渲染这个视图。我们通过Angular路由来实现这个功能。</p>
+<p>在 <strong>vidzy.js</strong> 中，改变 <strong>app</strong> 模块的声明如下：</p>
+<pre><code>var app = angular.module(&apos;Vidzy&apos;, [&apos;ngRoute&apos;]);
+</code></pre><p>在依赖数组中我添加了一个 <strong>ngRoute</strong> 的引用。 <strong>ngRoute</strong> 是构建Angular模块中用来配置路由的。</p>
+<p>在 <strong>app</strong> 模块声明中写下如下代码：</p>
+<pre><code>app.config([&apos;$routeProvider&apos;, function($routeProvider){
+$routeProvider
+    .when(&apos;/&apos;, {
+        templateUrl: &apos;partials/home.html&apos;
+    })
+    .otherwise({
+        redirectTo: &apos;/&apos;
+    });
+}]);
+</code></pre><p>让我来为你讲解一下。我们使用 <strong>app</strong> 模块的 <strong>config</strong> 方法来为我们的应用提供配置。这个代码将在Angular检测到 <strong>ng-app</strong> 并且视图启动的时候执行。 <strong>config</strong> 方法的参数是一个数组：</p>
+<pre><code>app.config([]);
+</code></pre><p>这个数组可以有0个或更多的依赖以及一个函数来实现配置逻辑。这里我们有一个依赖 <strong>$routeProvider</strong>，这是一个在 <strong>ngRoute</strong> 中国定义的模块。这就是我们修改app模块声明来依赖 <strong>ngRoute</strong> 的原因。配置函数接收 <strong>$routeProvider</strong> 作为一个参数</p>
+<pre><code>app.config([&apos;$routeProvider&apos;, function($routeProvider){
+}]);
+</code></pre><p>在我们的配置函数中，我们使用 <strong>$routeProvider</strong> 的 <strong>when</strong> 方法来配置路由。</p>
+<pre><code>$routeProvider
+    .when(&apos;/&apos;, {
+        templateUrl: &apos;partials/home.html&apos;
+    })
+</code></pre><p>第1个参数(‘/‘)是相对路径。第2个参数是一个对象，定义了路径对应的视图(通过 <strong>templateUrl</strong>)。我们可以多次调用 <strong>when</strong> 方法，每次定义个不同的路由。最后，我们使用 <strong>otherwise</strong> 方法来声明如果用户浏览其他URLs，将被重定向到根路径(‘/‘)。</p>
+<p>现在还差一点点。我们只需要做一些小小的改动来时使Jade视图映射到首页。打开 <strong>views&gt;index.jade</strong> 然后改变文件的内容：</p>
+<pre><code>extends layout
+
+block content
+  div(ng-view)
+</code></pre><p>我溢出了视图中之前的内容(Welcom to Express)添加了一个带有 <strong>ng-view</strong> 的 <strong>div</strong>。这个属性告诉Angular在当前dom下渲染视图。通过这个设置，用户首次进入主页时，Jade视图将会在服务端渲染并且返回给客户端。在实际项目中，站点视图将有基础的模板（）例如导航条，logo等）。它也有一个内容区（通过 <strong>ng-view</strong> 声明）由Angular来渲染视图。当用户通过应用来访问页面时，Angular将用不同的Angular视图来替换内容区域。这样避免了整个页面的刷新从而带来了更好的效果。这就是我们称这些应用为单页应用的原因：从本质上说只有一个页面被完整地从服务器下载，然后其他子页面只是简单的用来替换内容区。</p>
+<p>注意：我必须再一次强调Jade对空格符非常敏感。在同一个视图中你不能混淆空格和tab键的缩进。Express Genrator默认生成的Jade视图用两个空格键来缩进。确保添加两个空格在 <strong>div(ng-view)</strong> 前面，否则你运行时将报错。</p>
+<p>在最后一步之前让我们快速测试一下。回到你的浏览器，输入<a href="http://localhost:3000.你将看见我们通过Angular构建的新首页" target="_blank" rel="noopener">http://localhost:3000.你将看见我们通过Angular构建的新首页</a></p>
+<img src="/2015/11/02/mean-3/home.png">
+<h2 id="第5步：实现控制器"><a href="#第5步：实现控制器" class="headerlink" title="第5步：实现控制器"></a>第5步：实现控制器</h2><p>首页已经被正确地挂载了。现在需要从服务端获取视频并渲染到首页。在Angular或其他MVC中，这是控制器的主要职责。视图只负责展现响应的数据，控制器负责为视图获取数据或者处理视图中发生的事件。</p>
+<p>现在为我们的首页视图创建一个控制器。打开 <strong>vidzy.js</strong> 并且改变 <strong>app</strong> 模块的声明：</p>
+<pre><code>var app = angular.module(&apos;Vidzy&apos;, [&apos;ngResource&apos;, &apos;ngRoute&apos;]);
+</code></pre><p>现在我们依赖两个模块：ngResource，用来调用RESTful APIs和ngRoute来管理路由。</p>
+<p>接下来在文件末尾输入以下代码来创建一个控制器：</p>
+<pre><code>app.controller(&apos;HomeCtrl&apos;, [&apos;$scope&apos;, &apos;$resource&apos;,
+    function($scope, $resource){
+}]);
+</code></pre><p>这里我们使用 <strong>app</strong> 模块提供的 <strong>controller</strong> 方法来定义一个新的控制器。</p>
+<p>第1个参数是1个字符串，用来定义控制器的名称。按照管理，我们通常在Angular控制器名末尾添加 <strong>Ctrl</strong>。</p>
+<p>第2个参数是数组。这个数组可以引用0个或更多的字符串，每个代表了1个控制器的依赖。这里定义了依赖 <strong>$scope</strong> 和 <strong>resource</strong>。这些都是Angular的内部服务，所以她们都有一个前缀”$”。<strong>$scope</strong>用来传递数据给视图，<strong>$resource</strong>用来调用RESTful API。数组中最后一个对象是函数，这个函数就是控制器的主体。在这个例子中，我们的函数获取了两个参数 <strong>$scope</strong> 和 <strong>$resource</strong> 。因为我们依赖了 <strong>$scope</strong> 和 <strong>$resource</strong> 在函数声明之前。</p>
+<p>让我们实现控制器的主体部分。在控制器函数内部，输入以下代码</p>
+<pre><code>app.controller(&apos;HomeCtrl&apos;, [&apos;$scope&apos;, &apos;$resource&apos;,
+function($scope, $resource){
+    var Videos = $resource(&apos;/api/videos&apos;);
+    Videos.query(function(videos){
+        $scope.videos = videos;
+    });
+}]);
+</code></pre><p>这里我们调用 <strong>$resouce</strong> 方法通过给定的API端点（/api/videos）来获取一个资源对象。这个对象将提供一些方法来访问我们的 <strong>API</strong>。我们用 <strong>query</strong> 方法来获取所有视频。 <strong>query</strong> 方法在查询结果就绪后将得到一个回调函数。这个函数将获得我们从服务端获取的视频。最后我们将视频存储到 <strong>$scope</strong>对象中然后渲染到视图中。记住 <strong>$scope</strong> 就是视图和控制器之间的胶水。</p>
+<p>现在我们需要改变视图来渲染视图中的列表。打开 <strong>partials&gt;home.html</strong> 然后输入代码：</p>
+<pre><code>&lt;ul&gt;
+    &lt;li ng-repeat=&apos;video in videos&apos; ng-bind=&quot;video.title&quot;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p>我们用ul和li来渲染视频列表。li标签有一个Angular定义的属性叫做 <strong>ng-repeat</strong>。这些属性在Angular中叫做指令，用来为HTML元素添加一些行为。<strong>ng-repeat</strong>属性的值是一个类似js中foreach的表达式。<strong>videos</strong>变量是我们之前在 <strong>$scope</strong>中定义的属性。<strong>video in videos</strong>表示一次从数组中获取一个video。所以li元素将会被数组中的video对象重复渲染。我们用双花括号来编写表达式。这里我们简单的渲染video对象中的title属性在li标签中。</p>
+<p>最后我们需要将这个控制器注册到路由上。回到 <strong>vidzy.js</strong>，改变路由配置</p>
+<pre><code>.when(&apos;/&apos;, {
+    templateUrl: &apos;partials/home.html&apos;,
+    controller: &apos;HomeCtrl&apos;
+})
+</code></pre><p>完成了这些步骤，当用户进入网站根路径时，Angular将展示 <strong>partials/home.html</strong> 并且为它添加 <strong>HomeCtrl</strong> 控制器。</p>
+<p>回到浏览器并刷新首页。你将看到视频列表。</p>
+<img src="/2015/11/02/mean-3/list.png">
+<p>如果你是一个Angular新手并且还有些困惑，没关系，在接下来的章节中我们将继续使用更多的Angular控制器，视图和路由。</p>
+<p>总结下，本章节中，为我们的应用添加了第一个功能。我们开始用RoboMongo来连接MongoDB。我们创建了一个数据库然后填充了一些视频文档。然后我们创建了一个API用Express来导出视频列表。最后，我们添加Angular到应用中来调用API渲染视频列表。</p>
+<p>在下一节中，我们将添加另一个功能到应用中。</p>
+<blockquote>
+<p>这一部分的内容很多，翻译花费了很多时间。原文作者写教程的时候确实是很用心的，这也是我答应作者翻译这篇教程的一个原因。如果想看更多教程可以去作者的官网，如果觉得这篇教程不错，还请点个赞~3q~</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/node-js/" rel="tag"># node.js</a>
+          
+            <a href="/tags/mean/" rel="tag"># mean</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/25/10/" rel="next" title="10段代码打通js学习的任督二脉">
+                <i class="fa fa-chevron-left"></i> 10段代码打通js学习的任督二脉
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/07/nginx-solutions/" rel="prev" title="【译】你应该了解Nginx的7个原因">
+                【译】你应该了解Nginx的7个原因 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#从数据库中查询所有视频"><span class="nav-number">1.</span> <span class="nav-text">从数据库中查询所有视频</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第1步：构建数据库"><span class="nav-number">1.1.</span> <span class="nav-text">第1步：构建数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第2步：通过Express创建1个API"><span class="nav-number">1.2.</span> <span class="nav-text">第2步：通过Express创建1个API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第3步：添加Angular"><span class="nav-number">1.3.</span> <span class="nav-text">第3步：添加Angular</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第4步：用Angular重构首页"><span class="nav-number">1.4.</span> <span class="nav-text">第4步：用Angular重构首页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第5步：实现控制器"><span class="nav-number">1.5.</span> <span class="nav-text">第5步：实现控制器</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

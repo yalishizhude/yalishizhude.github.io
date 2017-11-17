@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="全栈," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="简介为什么我会选择读这本书？两个原因，一是本身对于全栈的技术很感兴趣。倒并不是认为全栈工程师懂的东西多就牛逼哄哄，而是在当前这种前后端分离的大势之下，前后端开发人员都越来越聚焦于自己的领域，而缺乏对整站或者整个系统的了解，以全栈的视野更容易了解技术的全貌。二是因为书评分还不错，作者是腾讯社交用户体验设计部高级UI工程师">
+<meta name="keywords" content="全栈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="所谓全栈——《Web全栈工程师的自我修养》读书笔记">
+<meta property="og:url" content="http://yoursite.com/2015/12/12/fullstack-self-improvement/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="简介为什么我会选择读这本书？两个原因，一是本身对于全栈的技术很感兴趣。倒并不是认为全栈工程师懂的东西多就牛逼哄哄，而是在当前这种前后端分离的大势之下，前后端开发人员都越来越聚焦于自己的领域，而缺乏对整站或者整个系统的了解，以全栈的视野更容易了解技术的全貌。二是因为书评分还不错，作者是腾讯社交用户体验设计部高级UI工程师余果。 这本书是由作者从连载专栏中整理出来的。按照作者的定义是“轻松的技术杂文集">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2015/12/12/fullstack-self-improvement/skill.png">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.189Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="所谓全栈——《Web全栈工程师的自我修养》读书笔记">
+<meta name="twitter:description" content="简介为什么我会选择读这本书？两个原因，一是本身对于全栈的技术很感兴趣。倒并不是认为全栈工程师懂的东西多就牛逼哄哄，而是在当前这种前后端分离的大势之下，前后端开发人员都越来越聚焦于自己的领域，而缺乏对整站或者整个系统的了解，以全栈的视野更容易了解技术的全貌。二是因为书评分还不错，作者是腾讯社交用户体验设计部高级UI工程师余果。 这本书是由作者从连载专栏中整理出来的。按照作者的定义是“轻松的技术杂文集">
+<meta name="twitter:image" content="http://yoursite.com/2015/12/12/fullstack-self-improvement/skill.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/12/12/fullstack-self-improvement/"/>
+
+
+
+
+
+  <title>所谓全栈——《Web全栈工程师的自我修养》读书笔记 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/12/12/fullstack-self-improvement/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">所谓全栈——《Web全栈工程师的自我修养》读书笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-12-12T21:05:41+08:00">
+                2015-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书/" itemprop="url" rel="index">
+                    <span itemprop="name">读书</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>为什么我会选择读这本书？两个原因，一是本身对于全栈的技术很感兴趣。倒并不是认为全栈工程师懂的东西多就牛逼哄哄，而是在当前这种前后端分离的大势之下，前后端开发人员都越来越聚焦于自己的领域，而缺乏对整站或者整个系统的了解，以全栈的视野更容易了解技术的全貌。二是因为书评分还不错，作者是腾讯社交用户体验设计部高级UI工程师余果。</p>
+<p>这本书是由作者从连载专栏中整理出来的。按照作者的定义是“轻松的技术杂文集”。读完两遍之后的整体感觉是：提升视野，拓展思维。</p>
+<a id="more"></a>
+<h1 id="什么是全栈工程师"><a href="#什么是全栈工程师" class="headerlink" title="什么是全栈工程师"></a>什么是全栈工程师</h1><p><em>一专多长。工程师首先有一个精专的方向，在这个方向上足够精通之后（高级工程师级别），以此为突破点去学习更多的知识，增加自己的长处。</em></p>
+<p>在技术上，我一直提倡的是十字型的成长方式，即从水平和垂直两个方向提升自己的能力。比如我擅长的是javascript，我会去学习jquery、angular等这些有用的js库，这属于垂直方向。同时我继续对node.js、mongodb这类后端技术进行学习，这属于水平方向。<br>虽然我觉得这是一个好的学习方法，但是并不能作为衡量一个全栈工程师的标准。全栈工程师应该是在前后端都有一定专业知识，能独立开发的程序员，有没有专精的方向并不重要。即使像下面的被称作“野生程序员”的开发者，能力模型每项都得60分就应该算合格。</p>
+<p>对于那些达不到一专多长，虽然知识面比较广，但是各方面都一知半解的开发者，作者给了一个特殊的称号：野生程序员。</p>
+<img src="/2015/12/12/fullstack-self-improvement/skill.png">
+<p>这个能力模型竟然把JQuery单独列出来了，AngularJS、Zepto.js、Vue.js…都表示很失望~</p>
+<p><em>老板雇佣一个员工，不是因为他能写程序，而是因为他能帮助自己赚钱。赚钱的方法有两种：减少成本，或者增加收入。程序员如果能加快内部系统的运行效率，让产品制作流程更加顺畅，就是减少成本。如果能让用户更容易一地购买产品，或者提高服务质量吸引更多用户，就能增加收入。</em></p>
+<p>嗯，这一点我觉得很重要，使用技术知其然还要知其所以然~<br>为什么要用JQuery？它的选择器很强大，操作dom方便。<br>为什么要用Angular？它的双向数据绑定不再需要选择器，对于CRUD操作很有优势。<br>为什么要用Vue.js？它实现双向数据绑定的同时又是一个轻量级的框架。<br>技术只是手段，最合适的技术即是最好的技术。不迷信于某个技术，本末倒置，而是为了解决某类问题而去选择最低成本的技术，这才是一个成熟的开发者应有的思维。</p>
+<h1 id="全栈工程师涉及的一些重要技术"><a href="#全栈工程师涉及的一些重要技术" class="headerlink" title="全栈工程师涉及的一些重要技术"></a>全栈工程师涉及的一些重要技术</h1><h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><p><em>前端需要关注</em></p>
+<ul>
+<li>发出的请求列表</li>
+<li>每个请求的开始时间</li>
+<li>每个请求从刚开始到结束花费的时间</li>
+<li>每个请求的类型</li>
+<li>每个请求的状态吗</li>
+<li>每个请求产生的流量消耗</li>
+<li>每个请求gzip压缩前的体积，以及在本地gzip解压后的体积</li>
+</ul>
+<p>这里推荐一本书《图解HTTP》，通俗易懂。</p>
+<p><em>优化策略</em></p>
+<ul>
+<li>尽量减少同一域下的HTTP请求数。域名散列等</li>
+<li>尽量减少每一个资源的体积。压缩合并等</li>
+</ul>
+<p>HTTP2.0下这种优化就变得没意义了，不过预估HTTP1.1还将用10年。</p>
+<p><em>后端需要关注</em></p>
+<ul>
+<li>提高服务器的请求处理能力。利用nginx等服务器做负载均衡等</li>
+<li>预防DDoS攻击。生成静态页，利用cdn等</li>
+</ul>
+<p><em>BigPipe是Facebook公司科学家Changhao Jiang发明的一种非阻塞式模型，这种模型能解决两个问题：</em></p>
+<ul>
+<li>HTTP3次握手消耗的时间</li>
+<li>现有阻塞模型中，服务器计算生成页面需要时间，等服务器完全生成好整个页面，才开始网络传输，网络传输也需要时间。</li>
+</ul>
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><h3 id="服务器缓存"><a href="#服务器缓存" class="headerlink" title="服务器缓存"></a>服务器缓存</h3><ul>
+<li>使用数据库缓存和缓存工具，如memcached，注意提高缓存的命中率。</li>
+<li>再加一层文件缓存。作为内存缓存的补充，查找优先级：内存缓存 ——&gt; 文件缓存 ——&gt; 数据库</li>
+<li>页面静态化</li>
+</ul>
+<h3 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h3><ul>
+<li>Expires</li>
+<li>Last-Modified</li>
+<li>Cache-Control</li>
+</ul>
+<h2 id="持续集成"><a href="#持续集成" class="headerlink" title="持续集成"></a>持续集成</h2><p><em>版本控制</em></p>
+<ul>
+<li>SVN。适合企业内部使用</li>
+<li>Git。多用于开源软件</li>
+</ul>
+<p><em>最佳实践</em></p>
+<ul>
+<li>鼓励频繁的提交</li>
+<li>确定分支流程</li>
+<li>定义主干原则，并且坚守它</li>
+<li>不要把逻辑的修改和代码格式化操作混在一起</li>
+<li>不相干的代码分开提交</li>
+<li>保持工作代码库的“干净”</li>
+</ul>
+<p><em>根据Semver的规范，版本号用小数点分割为三个数字。比如v3.2.1中3是主要版本号，2是次要版本号，1是补丁。</em></p>
+<ul>
+<li>主要版本号：有API变更导致不兼容旧版本的时候使用</li>
+<li>次要版本号：新增功能，但是向前兼容的情况下使用</li>
+<li>补丁：修复向前兼容的bug时使用</li>
+</ul>
+<h1 id="全栈工程师的成长途径"><a href="#全栈工程师的成长途径" class="headerlink" title="全栈工程师的成长途径"></a>全栈工程师的成长途径</h1><p><em>作品集的积累。程序员和设计师的作品集往往是自己的在线个人网站。对于程序员来说，成本最低的一种作品展示方式就是把自己的代码发布到GitHub上。</em></p>
+<p><em>初级前端知识体系</em></p>
+<ul>
+<li>对浏览器兼容性的了解</li>
+<li>对HTML/CSS/Javascript语法和原理的理解</li>
+<li>对编辑器和插件的熟悉程度</li>
+<li>对调试工具的了解程度</li>
+<li>对版本管理软件的熟悉和应用经验</li>
+<li>对前端库/框架的使用</li>
+<li>标准/规范<br><em>中级前端知识体系</em></li>
+<li>对代码质量、代码规范的理解</li>
+<li>对Javascript单元测试的熟悉</li>
+<li>对性能优化的应用和理解</li>
+<li>对SEO的应用和理解</li>
+<li>代码部署</li>
+<li>移动Web<br><em>高级前端知识体系</em></li>
+<li>代码架构</li>
+<li>安全</li>
+<li>对自动化测试的理解</li>
+</ul>
+<p><em>虽然VPS对于个人开发者来说比较昂贵，但我还是推荐全栈工程师买一台VPS，自己玩一玩。理由如下：</em></p>
+<ul>
+<li>对于网站的全貌有所了解</li>
+<li>服务器稳定</li>
+<li>可以部署自己的环境</li>
+<li>可以学习Linux</li>
+<li>帮助理解HTTP</li>
+</ul>
+<p><em>VPS选择</em></p>
+<ul>
+<li>内存一般是主要瓶颈，建议选择最少512MB</li>
+<li>CPU是相对没那么重要的性能指标</li>
+<li>硬盘的大小和读写速度是关键</li>
+<li>服务商的客户服务</li>
+</ul>
+<p>自己搭建网站是个很费时费力的事，途中会碰到很多问题，确实可以学到很多东西，适合有精力有兴趣的同学。</p>
+<h1 id="全栈工程师扩展技能"><a href="#全栈工程师扩展技能" class="headerlink" title="全栈工程师扩展技能"></a>全栈工程师扩展技能</h1><h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><ul>
+<li>创建型模式。用来创建对象的模式，它对实例化的过程进行了抽象。如单例模式</li>
+<li>结构型模式。主要解决类、对象、模块之间的耦合关系。如适配器模式</li>
+<li>行为型模式。用来识别对象之间的常用脚力模式并加以实现。如观察者模式</li>
+</ul>
+<h2 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h2><ul>
+<li>Don’t Repeat Yourself</li>
+<li>惯例优于设置。开发人员仅需规定应用中不符约定的部分。</li>
+<li>Keep it simple，stupid</li>
+<li>最少知道原则。减少耦合。</li>
+</ul>
+<p>推荐一本书《大话设计模式》</p>
+<h2 id="提高工作效率方式"><a href="#提高工作效率方式" class="headerlink" title="提高工作效率方式"></a>提高工作效率方式</h2><ul>
+<li>阅读英文资料。英文的技术资料更多。Google的搜索能力非常强。英语世界的语言风格比较严谨</li>
+<li>时间管理四象限。如果您平时没有做重要的事情，就会发现自己常常在做紧急的事情。</li>
+<li>消除重复工作。使用工具来无缝衔接已有流程</li>
+<li>给自己留出不被打扰的时间</li>
+<li>番茄工作法</li>
+<li>跨界思考</li>
+<li>纸上头脑风暴</li>
+<li>使用版本控制工具和构建系统</li>
+</ul>
+<p><em>拿工作时长来拼，这还是体力劳动时代打工者的心态在作祟。</em></p>
+<h2 id="架构模式"><a href="#架构模式" class="headerlink" title="架构模式"></a>架构模式</h2><ul>
+<li>MVC模式（Model-View-Controller）是最有名的一种架构模式。</li>
+</ul>
+<p>前端有一种MVVM的模式，熟悉Angular的人都知道~</p>
+<h2 id="学习设计"><a href="#学习设计" class="headerlink" title="学习设计"></a>学习设计</h2><p><em>设计的四大基本理论：</em></p>
+<ul>
+<li>亲密。关系亲密的元素要放在一起，关系疏远的元素则要分开。位置的亲密性直接表现出意义的相关性。</li>
+<li>对其。</li>
+<li>重复。视觉上使用重复的图形和元素、线条、颜色等。</li>
+<li>对比。如果两个元素不一样，就让它完全不一样，产生视觉冲击力。</li>
+</ul>
+<p><em>设计工具</em></p>
+<ul>
+<li>Axure</li>
+<li>Sketch</li>
+<li>Quartz Composer</li>
+</ul>
+<h2 id="学习管理"><a href="#学习管理" class="headerlink" title="学习管理"></a>学习管理</h2><ul>
+<li>在项目最开始做出合理的时间评估</li>
+<li>根据人员的强项来安排任务</li>
+<li>唤起团队对项目成功的渴望</li>
+<li>保障沟通。理想沟通频率每周至少两次。</li>
+</ul>
+<h1 id="阅后即焚的彩蛋"><a href="#阅后即焚的彩蛋" class="headerlink" title="阅后即焚的彩蛋"></a>阅后即焚的彩蛋</h1><p><strong>最后感谢原书作者余果。为了感谢各位读者，由我手批版（我做了点笔记的二手书）的《Web全栈工程师的自我修养》将转赠给想看此书的读者。领取方式可参看我的新浪微博：
+</strong><br><strong><a href="http://dwz.cn/2l3rYK" target="_blank" rel="noopener">http://dwz.cn/2l3rYK</a></strong></p>
+<p><em>如果觉得阅读这篇文章有收获，不妨点个赞吧^_^</em></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/全栈/" rel="tag"># 全栈</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/02/angular-scrollpin/" rel="next" title="Duang~简单实用的angular滚动列表特效(移动端)">
+                <i class="fa fa-chevron-left"></i> Duang~简单实用的angular滚动列表特效(移动端)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/13/mean-6/" rel="prev" title="【译】基于MEAN的全栈开发实例教程6（完）">
+                【译】基于MEAN的全栈开发实例教程6（完） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是全栈工程师"><span class="nav-number">2.</span> <span class="nav-text">什么是全栈工程师</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全栈工程师涉及的一些重要技术"><span class="nav-number">3.</span> <span class="nav-text">全栈工程师涉及的一些重要技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP"><span class="nav-number">3.1.</span> <span class="nav-text">HTTP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存"><span class="nav-number">3.2.</span> <span class="nav-text">缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器缓存"><span class="nav-number">3.2.1.</span> <span class="nav-text">服务器缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器缓存"><span class="nav-number">3.2.2.</span> <span class="nav-text">浏览器缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持续集成"><span class="nav-number">3.3.</span> <span class="nav-text">持续集成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全栈工程师的成长途径"><span class="nav-number">4.</span> <span class="nav-text">全栈工程师的成长途径</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全栈工程师扩展技能"><span class="nav-number">5.</span> <span class="nav-text">全栈工程师扩展技能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设计模式"><span class="nav-number">5.1.</span> <span class="nav-text">设计模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计原则"><span class="nav-number">5.2.</span> <span class="nav-text">设计原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提高工作效率方式"><span class="nav-number">5.3.</span> <span class="nav-text">提高工作效率方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架构模式"><span class="nav-number">5.4.</span> <span class="nav-text">架构模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习设计"><span class="nav-number">5.5.</span> <span class="nav-text">学习设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习管理"><span class="nav-number">5.6.</span> <span class="nav-text">学习管理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#阅后即焚的彩蛋"><span class="nav-number">6.</span> <span class="nav-text">阅后即焚的彩蛋</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

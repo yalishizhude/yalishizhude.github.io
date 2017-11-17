@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端工具,sublime," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言用过一些IDE，如eclipse、intelliJ，这些IDE是很智能，插件也不少，但个个都不是省油的灯————内存杀手。更受不了的是10G内存eclipse占了2G+之后还是卡。不再做全栈开发之后开始使用轻量级的编辑器，用过的编辑器有Emacs（ctrl到死实在用不惯）、Vim（比较好用，但是速度上以及插件方便程">
+<meta name="keywords" content="前端工具,sublime">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高端唯有定制，把sublime打造成专属的IDE">
+<meta property="og:url" content="http://yoursite.com/2015/10/20/sublime/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="前言用过一些IDE，如eclipse、intelliJ，这些IDE是很智能，插件也不少，但个个都不是省油的灯————内存杀手。更受不了的是10G内存eclipse占了2G+之后还是卡。不再做全栈开发之后开始使用轻量级的编辑器，用过的编辑器有Emacs（ctrl到死实在用不惯）、Vim（比较好用，但是速度上以及插件方便程度不如sublime）、ultraedit（据说是黑客必备编辑器，插件太少）、a">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2015/10/20/sublime/brack.png">
+<meta property="og:image" content="http://yoursite.com/2015/10/20/sublime/theme.png">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.307Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="高端唯有定制，把sublime打造成专属的IDE">
+<meta name="twitter:description" content="前言用过一些IDE，如eclipse、intelliJ，这些IDE是很智能，插件也不少，但个个都不是省油的灯————内存杀手。更受不了的是10G内存eclipse占了2G+之后还是卡。不再做全栈开发之后开始使用轻量级的编辑器，用过的编辑器有Emacs（ctrl到死实在用不惯）、Vim（比较好用，但是速度上以及插件方便程度不如sublime）、ultraedit（据说是黑客必备编辑器，插件太少）、a">
+<meta name="twitter:image" content="http://yoursite.com/2015/10/20/sublime/brack.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/10/20/sublime/"/>
+
+
+
+
+
+  <title>高端唯有定制，把sublime打造成专属的IDE | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/20/sublime/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">高端唯有定制，把sublime打造成专属的IDE</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-10-20T22:49:13+08:00">
+                2015-10-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端工具/" itemprop="url" rel="index">
+                    <span itemprop="name">前端工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>用过一些IDE，如eclipse、intelliJ，这些IDE是很智能，插件也不少，但个个都不是省油的灯————内存杀手。更受不了的是10G内存eclipse占了2G+之后还是卡。<br>不再做全栈开发之后开始使用轻量级的编辑器，用过的编辑器有Emacs（ctrl到死实在用不惯）、Vim（比较好用，但是速度上以及插件方便程度不如sublime）、ultraedit（据说是黑客必备编辑器，插件太少）、atom（github版的sublime，一直很看好，可惜速度慢我不能接受）、sublime（速度快，插件丰富，还支持vim操作）。最终选择了受众多人追捧的sublime。<br>本人平常开发主要语言是javascript（jquery、angular）、html、css（bootstrap），用到一些工具如gurnt、less、git、svn。除了命令行（其实sublime也有个terminal插件，不过窗口太丑，功能也不强大，所以不如直接<code>win+r</code>来得快），基本上都在sublime这个“IDE”上操作。主要用到了以下插件：<br><a id="more"></a></p>
+<h1 id="代码校验、提示、优化"><a href="#代码校验、提示、优化" class="headerlink" title="代码校验、提示、优化"></a>代码校验、提示、优化</h1><h2 id="Alignment"><a href="#Alignment" class="headerlink" title="Alignment"></a>Alignment</h2><p>美化对其”=”、”:”这些符号。</p>
+<h2 id="BracketHighlight"><a href="#BracketHighlight" class="headerlink" title="BracketHighlight"></a>BracketHighlight</h2><p>代码块括号高亮工具，可以自定义括号颜色。<br><img src="/2015/10/20/sublime/brack.png"></p>
+<h2 id="DocBlockr"><a href="#DocBlockr" class="headerlink" title="DocBlockr"></a>DocBlockr</h2><p>在函数上一行输入<code>/**</code>然后回车，神奇的事情发生了，jsdoc就生成了。</p>
+<h2 id="Emmet"><a href="#Emmet" class="headerlink" title="Emmet"></a>Emmet</h2><p>以前叫zencoding，快速编写html的一个插件。</p>
+<h2 id="HTML-CSS-JS-Prettify"><a href="#HTML-CSS-JS-Prettify" class="headerlink" title="HTML-CSS-JS Prettify"></a>HTML-CSS-JS Prettify</h2><p>html、css、js文件一键优化，但貌似只会优化缩进</p>
+<h2 id="AngularJS"><a href="#AngularJS" class="headerlink" title="AngularJS"></a>AngularJS</h2><p>编写Angular时给出智能提示</p>
+<h2 id="JQuery"><a href="#JQuery" class="headerlink" title="JQuery"></a>JQuery</h2><p>JQueryAPI的智能提示</p>
+<h2 id="SublimeLinter"><a href="#SublimeLinter" class="headerlink" title="SublimeLinter"></a>SublimeLinter</h2><h2 id="SublimeLinter-jshint"><a href="#SublimeLinter-jshint" class="headerlink" title="SublimeLinter-jshint"></a>SublimeLinter-jshint</h2><p>配合使用，支持js语法规则校验，每个js编写者必备。</p>
+<h1 id="文件保存预览"><a href="#文件保存预览" class="headerlink" title="文件保存预览"></a>文件保存预览</h1><h2 id="Local-History"><a href="#Local-History" class="headerlink" title="Local History"></a>Local History</h2><p>非常推荐，智能缓存编辑过的文件，有点像本地版本管理工具。</p>
+<h2 id="Markdown-Preview"><a href="#Markdown-Preview" class="headerlink" title="Markdown Preview"></a>Markdown Preview</h2><h2 id="MarkdownEditing"><a href="#MarkdownEditing" class="headerlink" title="MarkdownEditing"></a>MarkdownEditing</h2><p>写markdown的好搭档，用来显示预览md格式文件的效果。</p>
+<h2 id="Minifier"><a href="#Minifier" class="headerlink" title="Minifier"></a>Minifier</h2><p>手动版js文件压缩工具。</p>
+<h1 id="版本控制"><a href="#版本控制" class="headerlink" title="版本控制"></a>版本控制</h1><h2 id="SVN"><a href="#SVN" class="headerlink" title="SVN"></a>SVN</h2><p>插件功能很像小乌龟TortoiseSVN，在侧边栏上右键操作即可。</p>
+<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>右键可视化操作，同上。</p>
+<h1 id="sublime自身优化"><a href="#sublime自身优化" class="headerlink" title="sublime自身优化"></a>sublime自身优化</h1><h2 id="Dracula-Color-Scheme"><a href="#Dracula-Color-Scheme" class="headerlink" title="Dracula Color Scheme"></a>Dracula Color Scheme</h2><p>黑白灰，一个极简主题，适合低调的开发者。<br><img src="/2015/10/20/sublime/theme.png"></p>
+<h2 id="AdvancedNewFile"><a href="#AdvancedNewFile" class="headerlink" title="AdvancedNewFile"></a>AdvancedNewFile</h2><p>可以直接用快捷键<code>ctrl+alt+n</code>在sublime的控制台创建文件（夹）</p>
+<h1 id="自动化工具"><a href="#自动化工具" class="headerlink" title="自动化工具"></a>自动化工具</h1><h2 id="Grunt"><a href="#Grunt" class="headerlink" title="Grunt"></a>Grunt</h2><p>IDE都有一个神奇的功能，只要保存代码，就会自动编译发布，这一点可以利用Grunt的watch插件来实现。sublime的Grunt插件只是方便调用项目中已经配置的Gruntfile.js中的任务。用<code>ctrl+p</code>输入<code>grunt</code>即可使用，智能方便。</p>
+<p>目前听说的自动化工具有3种：Grunt、Fis、Gulp。<br>Grunt是比较成熟的自动化管理工具，有丰富的插件，将代码自动化分解成一个一个的任务来执行。<br>Fis百度出的自动化工具，应该比较符合国人习惯，如果偷懒可以考虑使用。<br>Gulp比较推荐，类似node.js的流处理效率较高，插件也蛮丰富，据资料显示目前人气最高的自动化工具。</p>
+<h1 id="最后补充"><a href="#最后补充" class="headerlink" title="最后补充"></a>最后补充</h1><h2 id="改为vim模式"><a href="#改为vim模式" class="headerlink" title="改为vim模式"></a>改为vim模式</h2><p>vim是一个脱离鼠标操作的古老编辑器，vim的操作方式意味着通过模式的切换来执行光标定位、移动、剪切等操作，大大提高编写速度。很高兴的是sublime可以配置成一个”伪vim”。<br>在菜单栏上依次点击<br>Preferences ——&gt; setting-user<br>添加一个属性：<br>“ignored_packages”: [“Vintage”]</p>
+<h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><p>sublime能够如此之火的原因在于插件非常丰富，在packagecontrol上查看top100的插件逐个筛查也是一种高效的查找方式。<br><a href="https://packagecontrol.io/browse/popular" target="_blank" rel="noopener">https://packagecontrol.io/browse/popular</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端工具/" rel="tag"># 前端工具</a>
+          
+            <a href="/tags/sublime/" rel="tag"># sublime</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/17/mean-2/" rel="next" title="【译】基于MEAN的全栈开发实例教程2：搭建开发环境">
+                <i class="fa fa-chevron-left"></i> 【译】基于MEAN的全栈开发实例教程2：搭建开发环境
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/21/underscore-source-4/" rel="prev" title="js高手进阶之路：underscore源码经典（完）">
+                js高手进阶之路：underscore源码经典（完） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码校验、提示、优化"><span class="nav-number">2.</span> <span class="nav-text">代码校验、提示、优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Alignment"><span class="nav-number">2.1.</span> <span class="nav-text">Alignment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BracketHighlight"><span class="nav-number">2.2.</span> <span class="nav-text">BracketHighlight</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DocBlockr"><span class="nav-number">2.3.</span> <span class="nav-text">DocBlockr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Emmet"><span class="nav-number">2.4.</span> <span class="nav-text">Emmet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML-CSS-JS-Prettify"><span class="nav-number">2.5.</span> <span class="nav-text">HTML-CSS-JS Prettify</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AngularJS"><span class="nav-number">2.6.</span> <span class="nav-text">AngularJS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JQuery"><span class="nav-number">2.7.</span> <span class="nav-text">JQuery</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SublimeLinter"><span class="nav-number">2.8.</span> <span class="nav-text">SublimeLinter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SublimeLinter-jshint"><span class="nav-number">2.9.</span> <span class="nav-text">SublimeLinter-jshint</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件保存预览"><span class="nav-number">3.</span> <span class="nav-text">文件保存预览</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Local-History"><span class="nav-number">3.1.</span> <span class="nav-text">Local History</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Markdown-Preview"><span class="nav-number">3.2.</span> <span class="nav-text">Markdown Preview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MarkdownEditing"><span class="nav-number">3.3.</span> <span class="nav-text">MarkdownEditing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Minifier"><span class="nav-number">3.4.</span> <span class="nav-text">Minifier</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#版本控制"><span class="nav-number">4.</span> <span class="nav-text">版本控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SVN"><span class="nav-number">4.1.</span> <span class="nav-text">SVN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git"><span class="nav-number">4.2.</span> <span class="nav-text">Git</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sublime自身优化"><span class="nav-number">5.</span> <span class="nav-text">sublime自身优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dracula-Color-Scheme"><span class="nav-number">5.1.</span> <span class="nav-text">Dracula Color Scheme</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AdvancedNewFile"><span class="nav-number">5.2.</span> <span class="nav-text">AdvancedNewFile</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自动化工具"><span class="nav-number">6.</span> <span class="nav-text">自动化工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Grunt"><span class="nav-number">6.1.</span> <span class="nav-text">Grunt</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后补充"><span class="nav-number">7.</span> <span class="nav-text">最后补充</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#改为vim模式"><span class="nav-number">7.1.</span> <span class="nav-text">改为vim模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更多"><span class="nav-number">7.2.</span> <span class="nav-text">更多</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

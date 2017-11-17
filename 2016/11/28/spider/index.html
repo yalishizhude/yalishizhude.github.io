@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="职业规划," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="涉及知识：数据库（mongodb）node.js建议阅读：3分钟 经常有人问：“我是该学Angular还是React？该用gulp还是webpack…”这篇文章就是要 交给大家一把钥匙，专门解答这类问题。">
+<meta name="keywords" content="职业规划">
+<meta property="og:type" content="article">
+<meta property="og:title" content="拿好这段代码，愿你求职路上不再迷茫">
+<meta property="og:url" content="http://yoursite.com/2016/11/28/spider/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="涉及知识：数据库（mongodb）node.js建议阅读：3分钟 经常有人问：“我是该学Angular还是React？该用gulp还是webpack…”这篇文章就是要 交给大家一把钥匙，专门解答这类问题。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2016/11/28/spider/result.png">
+<meta property="og:image" content="http://yoursite.com/2016/11/28/spider/search.png">
+<meta property="og:image" content="http://yoursite.com/2016/11/28/spider/detail.png">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.294Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="拿好这段代码，愿你求职路上不再迷茫">
+<meta name="twitter:description" content="涉及知识：数据库（mongodb）node.js建议阅读：3分钟 经常有人问：“我是该学Angular还是React？该用gulp还是webpack…”这篇文章就是要 交给大家一把钥匙，专门解答这类问题。">
+<meta name="twitter:image" content="http://yoursite.com/2016/11/28/spider/result.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/11/28/spider/"/>
+
+
+
+
+
+  <title>拿好这段代码，愿你求职路上不再迷茫 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/28/spider/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">拿好这段代码，愿你求职路上不再迷茫</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-28T11:39:41+08:00">
+                2016-11-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/服务端/" itemprop="url" rel="index">
+                    <span itemprop="name">服务端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>涉及知识：数据库（mongodb）node.js</em><br><em>建议阅读：3分钟</em></p>
+<p>经常有人问：“我是该学Angular还是React？该用gulp还是webpack…”<br>这篇文章就是要 <strong>交给大家一把钥匙，专门解答这类问题。</strong></p>
+<a id="more"></a>
+<h1 id="解答思路"><a href="#解答思路" class="headerlink" title="解答思路"></a>解答思路</h1><p>我一直提倡的是 <strong>学以致用，知行合一</strong>，所以当我们学习和储备技能的时候应该要和市场相结合，准确的说应该是人才市场。<br>要了解人才市场有个非常简单的方法——招聘网站。我们上招聘网站搜一搜，看看企业在招聘的时候都有哪些技能需求就一目了然了。</p>
+<p>可问题就是数据那么多，如果只抽取部分做参考不够准确，一个个去看又效率太低。</p>
+<p>我觉得身为开发人员最大的优势就是 <strong>可以用代码等技术手段定制所需的工具</strong>。所以我们只需要写一段爬虫代码，把招聘网站上的数据“同步”到数据库，然后进行统计分析，就可以进行有的放矢地学习了。先看一下统计分析结果：</p>
+<img src="/2016/11/28/spider/result.png">
+<h1 id="动手实践"><a href="#动手实践" class="headerlink" title="动手实践"></a>动手实践</h1><p>以个人比较喜欢的某招聘网站为例。</p>
+<h2 id="网页分析"><a href="#网页分析" class="headerlink" title="网页分析"></a>网页分析</h2><p>搜索“前端”,人往高处看齐，我们添加一个过滤条件“25k-50k”，看看市场对高级前端的要求。同时按下F12打开调试，发现这里发送了ajax请求（凡事有利有弊，前后端分离虽然开发效率提高了，但同时也为爬虫程序降低了难度）。</p>
+<p><em>补充一下：一般分两种情况：json数据和html页面，本文两种情况皆有涉及。</em></p>
+<img src="/2016/11/28/spider/search.png">
+<p>通过列表我们只能知道公司和职位，点击链接跳转到详情页看到我们想要的信息：岗位职责和要求。</p>
+<img src="/2016/11/28/spider/detail.png">
+<p>这里没有看到ajax请求，应该是后端利用模板直接生成的静态页面，所以需要解析html，会略微麻烦一些。</p>
+<h2 id="编写代码"><a href="#编写代码" class="headerlink" title="编写代码"></a>编写代码</h2><p>整个编码的思路变得很清晰了：</p>
+<p>1.分页查询职位列表<br>用request模块发送get请求，获取json数据，然后按照id查询html。</p>
+<p>2.按职位查询详情并入库<br>用jsdom模块对获取的html进行dom解析，这个模块很容易上手，可用jquery语法。<br>将解析的数据过滤，保留岗位职责和要求信息，利用mongoose保存至数据库。</p>
+<p>3.从数据库中查询结果<br>查询统计各技能占比。结果如开头截图所示。</p>
+<p>统计结果只代表了某招聘网站对高级前端的技能要求，仅供参考。 程序代码100多行，具体细节可戳<br><em>源码地址：<a href="https://github.com/yalishizhude/spider" target="_blank" rel="noopener">https://github.com/yalishizhude/spider</a></em></p>
+<h1 id="总结优化"><a href="#总结优化" class="headerlink" title="总结优化"></a>总结优化</h1><p><em>换个搜索关键词，换个网站都可以使用么？</em></p>
+<blockquote>
+<p>换个关键词可以，换个网站直接使用肯定不行的，<strong>首先用开发者工具找出查询数据的url，然后json数据直接处理，如果是html再解析</strong>，方法相同，只是解析的字段不同。</p>
+</blockquote>
+<p><em>明明是写个爬虫，却说是职业规划，不是标题党么？</em></p>
+<blockquote>
+<p>爬虫跟文中所提的手工统计、抽样查看方法一样，都是手段，只是更高效一些。文章的重点是利用统计分析的方法来解决“xx与yy，我该如何选择”这类问题。<strong>目标思维很重要，黑猫白猫抓到老鼠就是好猫。</strong></p>
+</blockquote>
+<p><em>我不用数据库直接在内存中分析不是更简单么？</em></p>
+<blockquote>
+<p>这样的确能减少代码量，但是每次分析都需要重新抓取数据，效率太低而且容易被反爬虫发现，所以 <strong>建议还是将查询结果统计入库</strong>。绘图，出表格…后续想怎么玩都行~</p>
+</blockquote>
+<p><em>有没有更可靠的分析方法？</em></p>
+<blockquote>
+<p>当然有。文中所提的搜索匹配的分析方式太简单了，最理想的方式应该是 <strong>自动挑选出topN的关键词然后按占比排序</strong>。咨询了一下做大数据的朋友，可以使用 <strong>word2vec</strong>，有兴趣的读者可以试试。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/职业规划/" rel="tag"># 职业规划</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/27/icon/" rel="next" title="前端处理小图标的那些解决方案（图文实操）">
+                <i class="fa fa-chevron-left"></i> 前端处理小图标的那些解决方案（图文实操）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/07/angular-doc/" rel="prev" title="你会用AngularJS，但你会写AngularJS文档么？">
+                你会用AngularJS，但你会写AngularJS文档么？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#解答思路"><span class="nav-number">1.</span> <span class="nav-text">解答思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动手实践"><span class="nav-number">2.</span> <span class="nav-text">动手实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#网页分析"><span class="nav-number">2.1.</span> <span class="nav-text">网页分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写代码"><span class="nav-number">2.2.</span> <span class="nav-text">编写代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结优化"><span class="nav-number">3.</span> <span class="nav-text">总结优化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

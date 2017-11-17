@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js,AngularJS," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Angular双向数据绑定原理探究。 文章源码引用较多，觉得难以理解可以直接跳到末尾总结处。">
+<meta name="keywords" content="js,AngularJS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为什么你的Angular双向数据绑定会失效？">
+<meta property="og:url" content="http://yoursite.com/2017/06/20/angular-databinding/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="Angular双向数据绑定原理探究。 文章源码引用较多，觉得难以理解可以直接跳到末尾总结处。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.098Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="为什么你的Angular双向数据绑定会失效？">
+<meta name="twitter:description" content="Angular双向数据绑定原理探究。 文章源码引用较多，觉得难以理解可以直接跳到末尾总结处。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/20/angular-databinding/"/>
+
+
+
+
+
+  <title>为什么你的Angular双向数据绑定会失效？ | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/20/angular-databinding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">为什么你的Angular双向数据绑定会失效？</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-20T15:56:48+08:00">
+                2017-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
+                    <span itemprop="name">AngularJS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Angular双向数据绑定原理探究。</p>
+<p><em>文章源码引用较多，觉得难以理解可以直接跳到末尾总结处。</em></p>
+<a id="more"></a>
+<p>接触过Angular的人一定会对其“双向数据绑定”的特性印象深刻，而使用过的人更会对莫名其妙出现的双向数据绑定失效的“坑”所困扰。例如下面一段代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--ctrl控制器下引入com指令--&gt;</span><br><span class="line">&lt;body ng-app=&quot;app&quot;&gt;</span><br><span class="line">    &lt;div ng-controller=&quot;ctrl&quot;&gt;</span><br><span class="line">        &lt;input id=&quot;ipt&quot; type=&quot;text&quot; ng-model=&quot;value&quot;&gt;</span><br><span class="line">        &lt;button com&gt;increase&lt;/button&gt;</span><br><span class="line">        &lt;span id=&quot;span&quot; ng-bind=&quot;value&quot;&gt;&lt;/span&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var app = angular.module(&quot;app&quot;, [])</span><br><span class="line"></span><br><span class="line">app.directive(&quot;com&quot;, function() &#123;</span><br><span class="line">    return function (scope, element) &#123;</span><br><span class="line">        element.on(&quot;click&quot;, function() &#123;</span><br><span class="line">            //修改scope.value模型的值，观察视图变化</span><br><span class="line">            scope.value=&quot;yalishizhude&quot;</span><br><span class="line">            //疑问1：执行结果怎么是 &quot;&quot; ？</span><br><span class="line">            console.log(document.getElementById(&apos;span&apos;).textContent)</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">app.controller(&quot;ctrl&quot;, function($scope) &#123;</span><br><span class="line">    var e = angular.element(document.querySelector(&apos;#ipt&apos;))</span><br><span class="line">    setTimeout(function() &#123;</span><br><span class="line">        //修改视图元素的值，观察$scope.value模型的值变化</span><br><span class="line">        e.val(&apos;100&apos;)</span><br><span class="line">        //疑问2：执行结果是 undefined ？</span><br><span class="line">        console.log($scope.value)</span><br><span class="line">    &#125;, 1000)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><em><a href="http://jsbin.com/xogosim/edit?html,js,console,output" target="_blank" rel="noopener">源码地址：http://jsbin.com/xogosim/edit?html,js,console,output</a></em></p>
+<p>如果上面代码中的两个问题你都知道答案，那么你可以跳过下面的内容，如果并不完全清楚，那么我们接着往下说~</p>
+<p>双向数据绑定，指的是视图和模型之间的映射关系。双向即 <strong>视图 ==&gt; 模型</strong> 和 <strong>模型 ==&gt; 视图</strong> 两个方向。</p>
+<p>我们以<a href="https://cdn.bootcss.com/angular.js/1.3.20/angular.js" target="_blank" rel="noopener">Angular1.3</a>为例，探究一下这个问题。</p>
+<h1 id="视图-gt-模型"><a href="#视图-gt-模型" class="headerlink" title="视图 ==&gt; 模型"></a>视图 ==&gt; 模型</h1><p>抛开Angular不说，如果我们要实现视图修改时触发模型的修改，很简单，事件（键盘事件、鼠标事件、UI事件）监听就能实现。而Angular会不会也是这么实现的？</p>
+<p>最常用的场景便是表单元素的数据绑定，当元素的值发生变化时我们要通知模型层（比如校验、联动），例如用于实现这一功能的 <code>ngModel</code> 指令。</p>
+<p>但是我们如果直接找到<code>ngModel</code>的源码，并没有找到直接的事件绑定，依赖<code>ngModelOptions</code>指令倒是有一段代码绑定了事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//第23769行 </span><br><span class="line">if (modelCtrl.$options &amp;&amp; modelCtrl.$options.updateOn) &#123;</span><br><span class="line">    element.on(modelCtrl.$options.updateOn, function(ev) &#123;</span><br><span class="line">        modelCtrl.$$debounceViewValueCommit(ev &amp;&amp; ev.type);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可是平常没使用<code>ngModelOptions</code>的时候也能同步元素的修改，难道是一开始就想错了？</p>
+<p>回忆一下Angular定义指令的时候，不光有像<code>ngModel</code>这样通过属性定义，也有直接定义成元素的，例如<code>form</code>就是一个指令。而最常用最简单的就是把<code>ngModel</code>用在<code>input</code>元素上，不，应该是<code>input</code>指令。</p>
+<p>于是找到input指令的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//20436行</span><br><span class="line">var inputDirective = [&apos;$browser&apos;, &apos;$sniffer&apos;, &apos;$filter&apos;, &apos;$parse&apos;,</span><br><span class="line">    function($browser, $sniffer, $filter, $parse) &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    restrict: &apos;E&apos;,</span><br><span class="line">    require: [&apos;?ngModel&apos;],</span><br><span class="line">    link: &#123;</span><br><span class="line">      pre: function(scope, element, attr, ctrls) &#123;</span><br><span class="line">        if (ctrls[0]) &#123;</span><br><span class="line">          (inputType[lowercase(attr.type)] || inputType.text)(scope, element, attr, ctrls[0], $sniffer,</span><br><span class="line">                                                              $browser, $filter, $parse);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>发现只要<code>nhgModel</code>指令存在的时候，它就会根据type属性执行一段函数。</p>
+<p>我们找到<code>inputType.text</code>这个函数之后，层层追寻…<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">//19928行</span><br><span class="line">  if ($sniffer.hasEvent(&apos;input&apos;)) &#123;</span><br><span class="line">    element.on(&apos;input&apos;, listener);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    var timeout;</span><br><span class="line"></span><br><span class="line">    var deferListener = function(ev, input, origValue) &#123;</span><br><span class="line">      if (!timeout) &#123;</span><br><span class="line">        timeout = $browser.defer(function() &#123;</span><br><span class="line">          timeout = null;</span><br><span class="line">          if (!input || input.value !== origValue) &#123;</span><br><span class="line">            listener(ev);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    element.on(&apos;keydown&apos;, function(event) &#123;</span><br><span class="line">      var key = event.keyCode;</span><br><span class="line"></span><br><span class="line">      // ignore</span><br><span class="line">      //    command            modifiers                   arrows</span><br><span class="line">      if (key === 91 || (15 &lt; key &amp;&amp; key &lt; 19) || (37 &lt;= key &amp;&amp; key &lt;= 40)) return;</span><br><span class="line"></span><br><span class="line">      deferListener(event, this, this.value);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    // if user modifies input value using context menu in IE, we need &quot;paste&quot; and &quot;cut&quot; events to catch it</span><br><span class="line">    if ($sniffer.hasEvent(&apos;paste&apos;)) &#123;</span><br><span class="line">      element.on(&apos;paste cut&apos;, deferListener);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // if user paste into input using mouse on older browser</span><br><span class="line">  // or form autocomplete on newer browser, we need &quot;change&quot; event to catch it</span><br><span class="line">  element.on(&apos;change&apos;, listener);</span><br></pre></td></tr></table></figure></p>
+<p>终于找到了它在绑定事件的证据，而且还很智能，根据浏览器对事件的支持情况来进行绑定。</p>
+<p>发现绑定的事件都执行了一个函数：<code>$setViewValue</code>。继续查找，发现调用<code>ngModelSet</code>函数来修改模型。</p>
+<h1 id="模型-gt-视图"><a href="#模型-gt-视图" class="headerlink" title="模型 ==&gt; 视图"></a>模型 ==&gt; 视图</h1><p>我们再次抛开Angular，回到原生实现，如果我们想要修改视图也比较简单，获取dom元素并修改对应的属性。</p>
+<p>再找一个在Angular中将模型值同步到dom上的指令<code>ngBind</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//20583行</span><br><span class="line">var ngBindDirective = [&apos;$compile&apos;, function($compile) &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    restrict: &apos;AC&apos;,</span><br><span class="line">    compile: function ngBindCompile(templateElement) &#123;</span><br><span class="line">      $compile.$$addBindingClass(templateElement);</span><br><span class="line">      return function ngBindLink(scope, element, attr) &#123;</span><br><span class="line">        $compile.$$addBindingInfo(element, attr.ngBind);</span><br><span class="line">        element = element[0];</span><br><span class="line">        scope.$watch(attr.ngBind, function ngBindWatchAction(value) &#123;</span><br><span class="line">          element.textContent = value === undefined ? &apos;&apos; : value;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>发现其在<code>scope.$watch</code>回调函数中来修改dom元素的文本内容。那我们可以大胆地推测，应该是在修改了对应的<code>$scope</code>属性值之后，触发了<code>scope.$watch</code>调用了<code>ngBindWatchAction</code>回调函数才导致页面元素文本变化的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">//14000行</span><br><span class="line">$watch: function(watchExp, listener, objectEquality) &#123;</span><br><span class="line">    var get = $parse(watchExp);</span><br><span class="line"></span><br><span class="line">    if (get.$$watchDelegate) &#123;</span><br><span class="line">      return get.$$watchDelegate(this, listener, objectEquality, get);</span><br><span class="line">    &#125;</span><br><span class="line">    var scope = this,</span><br><span class="line">        array = scope.$$watchers,</span><br><span class="line">        watcher = &#123;</span><br><span class="line">          fn: listener,</span><br><span class="line">          last: initWatchVal,</span><br><span class="line">          get: get,</span><br><span class="line">          exp: watchExp,</span><br><span class="line">          eq: !!objectEquality</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">    lastDirtyWatch = null;</span><br><span class="line"></span><br><span class="line">    if (!isFunction(listener)) &#123;</span><br><span class="line">      watcher.fn = noop;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (!array) &#123;</span><br><span class="line">      array = scope.$$watchers = [];</span><br><span class="line">    &#125;</span><br><span class="line">    // we use unshift since we use a while loop in $digest for speed.</span><br><span class="line">    // the while loop reads in reverse order.</span><br><span class="line">    array.unshift(watcher);</span><br><span class="line"></span><br><span class="line">    return function deregisterWatch() &#123;</span><br><span class="line">      arrayRemove(array, watcher);</span><br><span class="line">      lastDirtyWatch = null;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从源码中可以看到，当我们在调用<code>$watch</code>监控变量的时候，其实是创建了一个<code>watcher</code>对象，并将其放入<code>$scope.$$watchers</code>数组中。</p>
+<p>那么谁会用到这个数组，并且其中的回调函数呢？</p>
+<p>这个代码有点难找，直到找到一个叫做<code>$digest</code>的函数定义。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">//14394行</span><br><span class="line">do &#123; // &quot;traverse the scopes&quot; loop</span><br><span class="line">    if ((watchers = current.$$watchers)) &#123;</span><br><span class="line">      // process our watches</span><br><span class="line">      length = watchers.length;</span><br><span class="line">      while (length--) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">          watch = watchers[length];</span><br><span class="line">          // Most common watches are on primitives, in which case we can short</span><br><span class="line">          // circuit it with === operator, only when === fails do we use .equals</span><br><span class="line">          if (watch) &#123;</span><br><span class="line">            if ((value = watch.get(current)) !== (last = watch.last) &amp;&amp;</span><br><span class="line">                !(watch.eq</span><br><span class="line">                    ? equals(value, last)</span><br><span class="line">                    : (typeof value === &apos;number&apos; &amp;&amp; typeof last === &apos;number&apos;</span><br><span class="line">                       &amp;&amp; isNaN(value) &amp;&amp; isNaN(last)))) &#123;</span><br><span class="line">              dirty = true;</span><br><span class="line">              lastDirtyWatch = watch;</span><br><span class="line">              watch.last = watch.eq ? copy(value, null) : value;</span><br><span class="line">              watch.fn(value, ((last === initWatchVal) ? value : last), current);</span><br><span class="line">              if (ttl &lt; 5) &#123;</span><br><span class="line">                logIdx = 4 - ttl;</span><br><span class="line">                if (!watchLog[logIdx]) watchLog[logIdx] = [];</span><br><span class="line">                watchLog[logIdx].push(&#123;</span><br><span class="line">                  msg: isFunction(watch.exp) ? &apos;fn: &apos; + (watch.exp.name || watch.exp.toString()) : watch.exp,</span><br><span class="line">                  newVal: value,</span><br><span class="line">                  oldVal: last</span><br><span class="line">                &#125;);</span><br><span class="line">              &#125;</span><br><span class="line">            &#125; else if (watch === lastDirtyWatch) &#123;</span><br><span class="line">              // If the most recently dirty watcher is now clean, short circuit since the remaining watchers</span><br><span class="line">              // have already been tested.</span><br><span class="line">              dirty = false;</span><br><span class="line">              break traverseScopesLoop;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; catch (e) &#123;</span><br><span class="line">          $exceptionHandler(e);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Insanity Warning: scope depth-first traversal</span><br><span class="line">    // yes, this code is a bit crazy, but it works and we have tests to prove it!</span><br><span class="line">    // this piece should be kept in sync with the traversal in $broadcast</span><br><span class="line">    if (!(next = (current.$$childHead ||</span><br><span class="line">        (current !== target &amp;&amp; current.$$nextSibling)))) &#123;</span><br><span class="line">      while (current !== target &amp;&amp; !(next = current.$$nextSibling)) &#123;</span><br><span class="line">        current = current.$parent;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; while ((current = next));</span><br></pre></td></tr></table></figure>
+<p>简单概括一下这段代码，遍历<code>$scope.$$watchers</code>，判断如果需要检测的表达式的值（可以理解为$scope的属性）发生了修改，那么执行对应回调函数(比如ngBindg中的ngBindWatchAction)。</p>
+<p>修改$scope对应的属性，并调用<code>$scope.$digest</code>。完成这两个条件即可同步模型数据到视图，修改dom元素。换句话说，这两个条件缺一不可。而调用<code>$scope.digest</code>这一过程，我们一般叫做<strong>脏值检测</strong>。</p>
+<p>有人可能会说我调用<code>$scope.$apply</code>也可以啊~</p>
+<p>理论上来说，用<code>$scope.$digest</code>完成的手动试图同步都可以用<code>$scope.$apply</code>，但是他们之间还是有区别。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//14666行</span><br><span class="line">$apply: function(expr) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      beginPhase(&apos;$apply&apos;);</span><br><span class="line">      return this.$eval(expr);</span><br><span class="line">    &#125; catch (e) &#123;</span><br><span class="line">      $exceptionHandler(e);</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">      clearPhase();</span><br><span class="line">      try &#123;</span><br><span class="line">        $rootScope.$digest();</span><br><span class="line">      &#125; catch (e) &#123;</span><br><span class="line">        $exceptionHandler(e);</span><br><span class="line">        throw e;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>区别就在于，$apply是对<code>$rootScope</code>及子作用域做脏值检测，意味着性能消耗更大。支持回掉函数算是一个好处。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>视图 ==事件绑定==&gt; 模型</p>
+<p>模型 &lt;==脏值检测== 模型</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+            <a href="/tags/AngularJS/" rel="tag"># AngularJS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/02/vueconf/" rel="next" title="vueconf杂谈">
+                <i class="fa fa-chevron-left"></i> vueconf杂谈
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/26/angular-di/" rel="prev" title="Angular的依赖注入是怎么实现的？">
+                Angular的依赖注入是怎么实现的？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#视图-gt-模型"><span class="nav-number">1.</span> <span class="nav-text">视图 ==> 模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型-gt-视图"><span class="nav-number">2.</span> <span class="nav-text">模型 ==> 视图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

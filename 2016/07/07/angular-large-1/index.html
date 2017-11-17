@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js,AngularJS," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="没有合适的轮子，只好自己造( ╯□╰ )">
+<meta name="keywords" content="js,AngularJS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="尝试通过AngularJS模块按需加载搭建大型应用（上）">
+<meta property="og:url" content="http://yoursite.com/2016/07/07/angular-large-1/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="没有合适的轮子，只好自己造( ╯□╰ )">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2016/07/07/angular-large-1/zhihu.png">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.107Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="尝试通过AngularJS模块按需加载搭建大型应用（上）">
+<meta name="twitter:description" content="没有合适的轮子，只好自己造( ╯□╰ )">
+<meta name="twitter:image" content="http://yoursite.com/2016/07/07/angular-large-1/zhihu.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/07/angular-large-1/"/>
+
+
+
+
+
+  <title>尝试通过AngularJS模块按需加载搭建大型应用（上） | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/07/07/angular-large-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">尝试通过AngularJS模块按需加载搭建大型应用（上）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-07T23:00:44+08:00">
+                2016-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
+                    <span itemprop="name">AngularJS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>没有合适的轮子，只好自己造( ╯□╰ )</em></p>
+<a id="more"></a>
+<h1 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h1><p>模块化在当前大中型web项目开发中已经成为共识，从浏览器端AMD的requirejs到node.js遵循的commonjs规范，再到ES6开放了import关键字来管理模块都是最好的说明。其优势就是方便多人协作开发，代码可移植性可测试性高。<br>angular本身自带模块定义和依赖管理功能，这个模块管理一般是怎么使用的？<br>我们找个网站分析一波~<br>作为爱智求真的小伙伴，我们就来看看 <strong>知乎</strong> 旗下的 <strong><a href="https://zhuanlan.zhihu.com/" target="_blank" rel="noopener">知乎专栏</a></strong> 。<br>先打开调试工具，截个图慢慢看~<br><img src="/2016/07/07/angular-large-1/zhihu.png"><br>点开这个带有hash戳被压缩的js文件，可以看到如下几个模块：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(function() &#123;</span><br><span class="line">  angular.module(&quot;auth&quot;, [&quot;auth.interceptor&quot;])</span><br><span class="line">&#125;</span><br><span class="line">).call(this),</span><br><span class="line">...</span><br><span class="line">function() &#123;</span><br><span class="line"> angular.module(&quot;auth.interceptor&quot;, []).</span><br><span class="line">&#125;.call(this)</span><br><span class="line">...</span><br><span class="line">var app = angular.module(&quot;columnWebApp&quot;, [&quot;auth&quot;, &quot;blueimp.fileupload&quot;, &quot;placeholderShim&quot;, &quot;angularytics&quot;, &quot;ngAnimate&quot;, &quot;ngRoute&quot;, &quot;ngTouch&quot;, &quot;ngResource&quot;, &quot;ngSanitize&quot;])</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这里声明了3个模块：</p>
+<ul>
+<li><code>auth</code>模块依赖了<code>auth.interceptor</code>模块。</li>
+<li><code>auth.interceptor</code>模块无依赖。</li>
+<li><code>columnWebApp</code>模块是个花心大萝卜，和一堆的模块有依赖关系。</li>
+</ul>
+<hr>
+<p><em>弱弱地吐槽一波：用匿名函数做闭包来避免全局污染的是常见的传统做法，这里初步判断应该是由多个js文件合并而成，这里起码有两点是可以改进的。 一是<code>window</code>、<code>angular</code>这种全局变量完全可以传参到闭包内部便于代码压缩，例如：</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//压缩前</span><br><span class="line">(function(window, angular)&#123;</span><br><span class="line">  angular.module(&apos;auth&apos;, []);</span><br><span class="line">&#125;(window, angular));</span><br><span class="line">//压缩后可能是</span><br><span class="line">(function(window, a)&#123;</span><br><span class="line">  a.module(&apos;auth&apos;, []);</span><br><span class="line">&#125;(window, angular));</span><br></pre></td></tr></table></figure>
+<p><em>二是这种压缩打包的方式还是比较粗糙的，建议开发人员有时间还是可以将多余的模块引用去掉，变成链式调用，例如：</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 合并前</span><br><span class="line">angular.module(&apos;auth&apos;).service(&apos;xxx&apos;, function()&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;);</span><br><span class="line">angular.module(&apos;auth&apos;).controller(&apos;xxCtrl&apos;, [&apos;$scope&apos;, function($scope)&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;]);</span><br><span class="line">// 合并后</span><br><span class="line">angular.module(&apos;auth&apos;).service(&apos;xxx&apos;, function()&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;).controller(&apos;xxCtrl&apos;, [&apos;$scope&apos;, function($scope)&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;]);</span><br></pre></td></tr></table></figure>
+<p><em>另外严格模式也建议开启。</em><br><em>吐槽 end~</em></p>
+<hr>
+<p>从上面的例子可以看出，Angular项目通用的做法是：开发的时候按照业务逻辑写成不同的js文件，然后把这些js文件压缩合并成一个或多个，在用户第一次访问的时候全部返回给浏览器做预加载。</p>
+<p>这种处理方式在小型网站还好，性能要求不高的中型网站也勉强可用，但是对于对于大型网站影响，随着js文件变多用户首次访问的加载时间会跟着增加，看看那些PV上千万、上亿的网站为了首页优化各种技术层出不穷。而且这种处理方式也是很不合理的，用户可能只想看看首页或者只使用某个功能模块，为毛要把所有的代码都家再过来浪费用户时间？</p>
+<p>张鑫旭写过一篇 <a href="http://www.zhangxinxu.com/wordpress/2016/06/image-preload-based-on-user-behavior/" target="_blank" rel="noopener">《基于用户行为的图片等资源预加载》</a> 说的也是类似问题。这个解决思路很有意思，分析用户的操作行为，按需进行预加载。有兴趣大家可以看一看。<br>既然有了这个需求，我们看看目前有什么现成的解决方案~</p>
+<h1 id="按需加载"><a href="#按需加载" class="headerlink" title="按需加载"></a>按需加载</h1><p>目前angular项目普遍使用<a href="https://github.com/angular-ui/ui-router" target="_blank" rel="noopener">ui.router</a>模块已经成了不争的事实了，用它来管理每个“页面（视图）”和“页面对应的业务逻辑（控制器）”，依照大多数人的直觉思维。将按需加载理解为按页面加载，于是便出现了一些解决方案，基本思路都是一致的：</p>
+<p>在“页面（视图）跳转”的时候，按需加载业务逻辑（控制器）。而恰好ui.router模块在配置路由的时候提供了一个resovle属性，可以在页面逻辑（控制器）加载之前进行一些操作。略有不同的便是有的使用了<a href="https://github.com/ocombe/ocLazyLoad" target="_blank" rel="noopener">oclazyload</a>，这个还比较好，起码是遵循angular框架的第三方模块，有的使用了requirejs，这种感觉就像是阿玛尼西装配阿迪达斯球鞋，虽然都是“阿”字系的，但想去甚远，做angular开发的时候还是尽量不要应用不按照angular规范开发的第三方插件，毕竟angular这种强框架不像requirejs有shim，所以还是避免给自己挖坑。</p>
+<p>可这真的就是完美的解决方案吗？起码有以下几个问题：</p>
+<ol>
+<li>每次“页面跳转”都要额外请求js并加载，浪费带宽增加页面加载时间，基本抛弃了预加载。</li>
+<li>每一个路由都需要配置resolve属性，太low。</li>
+<li>模块化程度太低，不利于以后代码移植和维护。</li>
+</ol>
+<h1 id="模块按需加载"><a href="#模块按需加载" class="headerlink" title="模块按需加载"></a>模块按需加载</h1><p>将前面提到的模块化和按需加载结合起来看，比较好的解决方案应该是：按照业务功能划分模块，当用户点击某个功能模块的时候，按需加载该功能所需的文件。</p>
+<p>举个不太恰当但容易理解的例子，当用户点击百度音乐的时候，从用户行为角度分析，这个用户很有可能会进行一些相关操作：比如搜歌、听歌等等。同时很有可能用户当前并不会访问贴吧或者新闻。所以此时按需加载音乐模块的代码逻辑，对于后续的搜歌、听歌操作实现了预加载。</p>
+<p>这样的实现方式还会带来其它好处，下回详述~</p>
+<p>同时也欢迎读者提供好的想法或者其它解决方案~ (●’◡’●)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+            <a href="/tags/AngularJS/" rel="tag"># AngularJS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/30/4angular/" rel="next" title="Angular说：这个锅我不背~">
+                <i class="fa fa-chevron-left"></i> Angular说：这个锅我不背~
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/14/angular-large-2/" rel="prev" title="尝试通过AngularJS模块按需加载搭建大型应用（下）">
+                尝试通过AngularJS模块按需加载搭建大型应用（下） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模块化"><span class="nav-number">1.</span> <span class="nav-text">模块化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#按需加载"><span class="nav-number">2.</span> <span class="nav-text">按需加载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模块按需加载"><span class="nav-number">3.</span> <span class="nav-text">模块按需加载</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

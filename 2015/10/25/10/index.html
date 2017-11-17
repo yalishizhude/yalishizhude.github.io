@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言为了node.js做准备，js的基本功还是很重要的。所以正值1024程序员节的时候所以找了些题目，整理了一下知识点。这篇文章感觉代码太多，难免枯燥，所以文章最后留了个 彩蛋给读者。">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10段代码打通js学习的任督二脉">
+<meta property="og:url" content="http://yoursite.com/2015/10/25/10/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="前言为了node.js做准备，js的基本功还是很重要的。所以正值1024程序员节的时候所以找了些题目，整理了一下知识点。这篇文章感觉代码太多，难免枯燥，所以文章最后留了个 彩蛋给读者。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.095Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="10段代码打通js学习的任督二脉">
+<meta name="twitter:description" content="前言为了node.js做准备，js的基本功还是很重要的。所以正值1024程序员节的时候所以找了些题目，整理了一下知识点。这篇文章感觉代码太多，难免枯燥，所以文章最后留了个 彩蛋给读者。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/10/25/10/"/>
+
+
+
+
+
+  <title>10段代码打通js学习的任督二脉 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/25/10/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">10段代码打通js学习的任督二脉</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-10-25T21:37:39+08:00">
+                2015-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>为了node.js做准备，js的基本功还是很重要的。所以正值1024程序员节的时候所以找了些题目，整理了一下知识点。这篇文章感觉代码太多，难免枯燥，所以文章最后留了个 <strong>彩蛋</strong>给读者。<br><a id="more"></a></p>
+<hr>
+<h1 id="简单回调"><a href="#简单回调" class="headerlink" title="简单回调"></a>简单回调</h1><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>function foo(){
+    console.log(this.a);
+}
+function doFoo(fn){
+    fn();
+}
+function doFoo2(o){
+    o.foo();
+}
+var obj = {
+    a: 2,
+    foo: foo
+};
+var a = &quot;I&apos;m an a&quot;;
+doFoo(obj.foo);
+doFoo2(obj);
+</code></pre><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>在Javascript中，this指向函数 <strong>执行时的当前对象，而非声明环境有</strong>。<br>执行doFoo的时候执行环境就是doFoo函数，执行环境为全局。<br>执行doFoo2时是在对象内部调用函数，this指针指向该对象。</p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><pre><code>I&apos;m an a
+2
+</code></pre><h1 id="用apply改变函数作用域"><a href="#用apply改变函数作用域" class="headerlink" title="用apply改变函数作用域"></a>用apply改变函数作用域</h1><pre><code>function foo(somthing){
+    console.log(this.a, somthing);
+}
+function bind(fn, obj){
+    return function(){
+        return fn.apply(obj, arguments);
+    }
+}
+var obj = {
+    a:2
+}
+var bar = bind(foo, obj);
+var b = bar(3);
+console.log(b);
+</code></pre><h2 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h2><p>apply、call、bind都有个作用就是改变作用域，这里用apply将foo函数的作用域指向obj对象，同时传入参数。<br>再简单分析一下bind函数内部的嵌套，执行bind函数的时候返回的是一个匿名函数，所以执行bar(3)的时候实际上是执行的bind内部的匿名函数，返回的是之前传入的foo函数的执行结果。<br>函数没有返回值的情况下默认返回undefined。</p>
+<h2 id="结果-1"><a href="#结果-1" class="headerlink" title="结果"></a>结果</h2><pre><code>2 3
+undefined
+</code></pre><h1 id="new关键字"><a href="#new关键字" class="headerlink" title="new关键字"></a>new关键字</h1><pre><code>function foo(a,b){
+    this.val = a+b;
+}
+var bar = foo.bind(null, &apos;p1&apos;);
+var baz = new bar(&apos;p2&apos;);
+console.log(baz.val);
+</code></pre><h2 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h2><p>bind函数的第一个参数为null代表作用域不变，后面的不定参数将会和函数本身的参数按次序进行绑定，绑定之后执行函数只能从未绑定的参数开始传值。</p>
+<h2 id="结果-2"><a href="#结果-2" class="headerlink" title="结果"></a>结果</h2><pre><code>p1p2
+</code></pre><h1 id="自执行函数"><a href="#自执行函数" class="headerlink" title="自执行函数"></a>自执行函数</h1><pre><code>function foo(){
+    console.log(this.a);
+}
+var a = 2;
+var o = {a:3,foo:foo};
+var p = {a:4};
+(p.foo=o.foo)();
+</code></pre><h2 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h2><p>经常可以看到这样的代码</p>
+<pre><code>(function(){
+    //...
+})()
+</code></pre><p>这种代码通常是创建一个立即执行的函数同时避免污染全局变量。<br>很少有人去关注赋值语句执行之后会返回什么结果，其实就是返回当前值。也就是说当括号内执行完赋值之后，返回的是o对象中的foo函数。函数的执行环境中有一个a对象，嗯，就是它了~</p>
+<h2 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h2><pre><code>2
+</code></pre><h1 id="变量属性"><a href="#变量属性" class="headerlink" title="变量属性"></a>变量属性</h1><pre><code>var a = [];
+a[0] = 1;
+a[&apos;foobar&apos;] = 2;
+console.log(a.length);
+console.log(a.foobar);
+</code></pre><h2 id="分析-4"><a href="#分析-4" class="headerlink" title="分析"></a>分析</h2><p>当一个变量被声明后，扩充其属性并不会改变原数据类型。</p>
+<h2 id="结果-3"><a href="#结果-3" class="headerlink" title="结果"></a>结果</h2><pre><code>1
+2
+</code></pre><h1 id="精度问题"><a href="#精度问题" class="headerlink" title="精度问题"></a>精度问题</h1><pre><code>var a = &apos;foo&apos;;
+a[1] = &apos;O&apos;;
+console.log(0.1+0.2==0.3||a);
+</code></pre><h2 id="分析-5"><a href="#分析-5" class="headerlink" title="分析"></a>分析</h2><p>当操作小数时请小心，js的小数计算并不精确，所以上面的判断是false。<br>字符串变量是常量。</p>
+<h2 id="结果-4"><a href="#结果-4" class="headerlink" title="结果"></a>结果</h2><pre><code>foo
+</code></pre><h1 id="命名提升"><a href="#命名提升" class="headerlink" title="命名提升"></a>命名提升</h1><pre><code>foo();
+var foo = 0;
+function foo(){
+    console.log(1);
+}
+foo = function(){
+    console.log(2);
+};
+</code></pre><h2 id="分析-6"><a href="#分析-6" class="headerlink" title="分析"></a>分析</h2><p>声明的变量和命名函数都会被提升到代码的最前面，只不过声明的变量的赋值语句在代码中的位置不变。所以上面这段代码应该被理解为：</p>
+<pre><code>var foo;
+function foo(){
+    console.log(1);
+}
+foo();
+foo = 0;
+foo = function(){
+    console.log(2);
+};
+</code></pre><h2 id="结果-5"><a href="#结果-5" class="headerlink" title="结果"></a>结果</h2><pre><code>1
+</code></pre><h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><pre><code>foo();
+var foo = 0;
+function foo(){
+    console.log(1);
+}
+foo();
+foo = function(){
+    console.log(2);
+};
+foo();
+</code></pre><p>上面代码的结果：</p>
+<pre><code>1
+报错
+</code></pre><h1 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h1><pre><code>foo();
+var a = true;
+if(a){
+    function foo(){
+        console.log(&apos;a&apos;);
+    }
+} else {
+    function foo(){
+        console.log(&apos;b&apos;);
+    }
+}
+</code></pre><h2 id="分析-7"><a href="#分析-7" class="headerlink" title="分析"></a>分析</h2><p>javascript并不是以代码段为作用域，而是以函数。<br>再根据命名提升的原则，所以这段代码应该是这样的：</p>
+<pre><code>function foo(){
+    console.log(&apos;a&apos;);
+}
+function foo(){
+    console.log(&apos;b&apos;);
+}
+foo();
+var a = true;
+if(a){
+} else {
+}
+</code></pre><h2 id="结果-6"><a href="#结果-6" class="headerlink" title="结果"></a>结果</h2><pre><code>b
+</code></pre><h1 id="闭包陷阱"><a href="#闭包陷阱" class="headerlink" title="闭包陷阱"></a>闭包陷阱</h1><pre><code>for(var i=1;i&lt;=5;i++){
+    setTimeout(function(){
+        console.log(i);
+    }, i*1000);
+}
+</code></pre><h2 id="分析-8"><a href="#分析-8" class="headerlink" title="分析"></a>分析</h2><p>闭包有个重要的作用就是，在内层函数引用外层函数定义的变量时，外层函数的变量不会被会被持久化。<br>这里有个隐藏陷阱就是for循环结束之后i仍然自增了1。</p>
+<h2 id="结果-7"><a href="#结果-7" class="headerlink" title="结果"></a>结果</h2><pre><code>6
+6
+6
+6
+6
+</code></pre><h1 id="伪闭包"><a href="#伪闭包" class="headerlink" title="伪闭包"></a>伪闭包</h1><pre><code>function foo(){
+    console.log(a);
+}
+function bar () {
+    var a = 3;
+    foo();
+}
+var a = 2;
+bar();
+</code></pre><h2 id="分析-9"><a href="#分析-9" class="headerlink" title="分析"></a>分析</h2><p>闭包是函数的嵌套定义，而不是函数的嵌套调用。</p>
+<h2 id="结果-8"><a href="#结果-8" class="headerlink" title="结果"></a>结果</h2><pre><code>2
+</code></pre><h2 id="思考-1"><a href="#思考-1" class="headerlink" title="思考"></a>思考</h2><p>如何输出3？</p>
+<pre><code>function bar () {
+    function foo(){
+        console.log(a);
+    }
+    var a = 3;
+    foo();
+}
+var a = 2;
+bar();
+</code></pre><h1 id="彩蛋"><a href="#彩蛋" class="headerlink" title="彩蛋"></a>彩蛋</h1><p>光说不练假把式~<br>一周月内将下题正确答案发送至我邮箱内（邮箱地址请参考博客），将获得本年度我阅读过最优秀的关于AngularJS的电子书一本。</p>
+<pre><code>var Obj = {
+    name: &apos;zdl&apos;,
+    do: function(){
+        console.log(this.name);
+    }
+}
+</code></pre><p><strong>写个对象a继承Obj的方法（不使用new）。</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/21/underscore-source-4/" rel="next" title="js高手进阶之路：underscore源码经典（完）">
+                <i class="fa fa-chevron-left"></i> js高手进阶之路：underscore源码经典（完）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/02/mean-3/" rel="prev" title="【译】基于MEAN的全栈开发实例教程3：通过Angular展示数据">
+                【译】基于MEAN的全栈开发实例教程3：通过Angular展示数据 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单回调"><span class="nav-number">2.</span> <span class="nav-text">简单回调</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">2.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">2.2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果"><span class="nav-number">2.3.</span> <span class="nav-text">结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用apply改变函数作用域"><span class="nav-number">3.</span> <span class="nav-text">用apply改变函数作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-1"><span class="nav-number">3.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果-1"><span class="nav-number">3.2.</span> <span class="nav-text">结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#new关键字"><span class="nav-number">4.</span> <span class="nav-text">new关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-2"><span class="nav-number">4.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果-2"><span class="nav-number">4.2.</span> <span class="nav-text">结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自执行函数"><span class="nav-number">5.</span> <span class="nav-text">自执行函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-3"><span class="nav-number">5.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#答案"><span class="nav-number">5.2.</span> <span class="nav-text">答案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#变量属性"><span class="nav-number">6.</span> <span class="nav-text">变量属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-4"><span class="nav-number">6.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果-3"><span class="nav-number">6.2.</span> <span class="nav-text">结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#精度问题"><span class="nav-number">7.</span> <span class="nav-text">精度问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-5"><span class="nav-number">7.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果-4"><span class="nav-number">7.2.</span> <span class="nav-text">结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命名提升"><span class="nav-number">8.</span> <span class="nav-text">命名提升</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-6"><span class="nav-number">8.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果-5"><span class="nav-number">8.2.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思考"><span class="nav-number">8.3.</span> <span class="nav-text">思考</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作用域"><span class="nav-number">9.</span> <span class="nav-text">作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-7"><span class="nav-number">9.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果-6"><span class="nav-number">9.2.</span> <span class="nav-text">结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#闭包陷阱"><span class="nav-number">10.</span> <span class="nav-text">闭包陷阱</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-8"><span class="nav-number">10.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果-7"><span class="nav-number">10.2.</span> <span class="nav-text">结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#伪闭包"><span class="nav-number">11.</span> <span class="nav-text">伪闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-9"><span class="nav-number">11.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果-8"><span class="nav-number">11.2.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思考-1"><span class="nav-number">11.3.</span> <span class="nav-text">思考</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#彩蛋"><span class="nav-number">12.</span> <span class="nav-text">彩蛋</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>亚里士朱德的博客</title>
+    <link>http://yoursite.com/</link>
+    <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
+    
+    <description>web技术分享</description>
+    <pubDate>Fri, 17 Nov 2017 12:09:49 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>让你的JavaScript成为真正的Java Script</title>
+      <link>http://yoursite.com/2017/10/26/js2js/</link>
+      <guid>http://yoursite.com/2017/10/26/js2js/</guid>
+      <pubDate>Thu, 26 Oct 2017 00:59:12 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;JavaScript为什么叫“JavaScript”？&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2017/10/26/js2js/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>从架构到重构</title>
+      <link>http://yoursite.com/2017/09/07/architecture2restruct/</link>
+      <guid>http://yoursite.com/2017/09/07/architecture2restruct/</guid>
+      <pubDate>Thu, 07 Sep 2017 08:09:29 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;重构之后整理了一下对架构的理解，偏重但不仅限于Web前端（以下简称“前端”）。&lt;/p&gt;
+&lt;h1 id=&quot;架构师的职责&quot;&gt;&lt;a href=&quot;#架构师的职责&quot; class=&quot;headerlink&quot; title=&quot;架构师的职责&quot;&gt;&lt;/a&gt;架构师的职责&lt;/h1&gt;&lt;p&gt;不少人一提到架构师就觉得很高大上，什么是架构师？&lt;/p&gt;
+&lt;p&gt;从上千人跨国公司，到十数人的创业公司，架构师的职责各有不同。&lt;/p&gt;
+&lt;p&gt;人数众多的IT公司通常会分成架构（框架）组和业务组，架构（框架）组为业务组提供公用的框架和组件（服务），而业务组负责开发实现需求。&lt;/p&gt;
+&lt;p&gt;创业公司的分工通常没有那么细致，往往需要开发者通常既是架构师也是业务开发者（以下简称为“开发者”）。&lt;/p&gt;
+&lt;p&gt;开发者承担的责任是某个功能模块的实现，而架构师的主要责任是为项目选择合适地技术栈，为开发者搭建一个可持续开发的框架。&lt;/p&gt;
+&lt;p&gt;通常情况下，责任和权利是对等的，这也是架构师的收入和职位比开发者高的原因。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2017/09/07/architecture2restruct/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>miniprogram-form</title>
+      <link>http://yoursite.com/2017/08/21/miniprogram-form/</link>
+      <guid>http://yoursite.com/2017/08/21/miniprogram-form/</guid>
+      <pubDate>Mon, 21 Aug 2017 08:09:13 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&lt;em&gt;小程序SDK版本 1.4&lt;/em&gt;&lt;/p&gt;
+&lt;h1 id=&quot;表单校验之难&quot;&gt;&lt;a href=&quot;#表单校验之难&quot; class=&quot;headerlink&quot; title=&quot;表单校验之难&quot;&gt;&lt;/a&gt;表单校验之难&lt;/h1&gt;&lt;p&gt;如果要问微信小程序最难实现的公共业务是什么？应该是&lt;strong&gt;表单校验&lt;/strong&gt;，没有之一。原因如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;表单组件在数量上达到11个，居各类组件之首。当然幸运的是，并不是所有的都需要校验。&lt;/li&gt;
+&lt;li&gt;而这些组件操作方式多样，可分为滑动、（多行）输入、点击、点击+滑动。&lt;/li&gt;
+&lt;li&gt;即使是同一个组件，因为业务场景不同就会有不同的校验规则。&lt;/li&gt;
+&lt;li&gt;更麻烦的是，这些组件之间经常还会联动或者关联校验。&lt;br&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但是，作为一个非简单静态页面，有着较多用户交互的小程序，表单校验又是一个非常常用的功能：登录、注册、新增、编辑…&lt;/p&gt;
+&lt;p&gt;总而言之：表单组件的多样性 X 校验规则的多样性 = 复杂的公共业务&lt;/p&gt;
+&lt;p&gt;这么棘手的问题我们怎么来解决它呢？&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2017/08/21/miniprogram-form/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>w3ctech长沙站—8月前端开发专场讲稿</title>
+      <link>http://yoursite.com/2017/08/19/miniprogram-share/</link>
+      <guid>http://yoursite.com/2017/08/19/miniprogram-share/</guid>
+      <pubDate>Sat, 19 Aug 2017 15:33:58 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;今天和大家交流分享的是关于微信小程序的一些开发心得。&lt;br&gt;包括4个部分：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;个人简介。包括我所在的公司和个人的一些情况。&lt;/li&gt;
+&lt;li&gt;小程序的介绍。讲述为什么前端开发者要学习小程序开发以及官方为开发者提供了哪些有价值的资源。&lt;/li&gt;
+&lt;li&gt;小程序与WebApp对比。熟悉WebApp的开发者怎样快速掌握小程序开发，小程序和WebApp有哪些异同点。&lt;/li&gt;
+&lt;li&gt;小程序开发技巧。分享我在开发小程序时碰到的一些问题和解决方法。&lt;/li&gt;
+&lt;/ul&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2017/08/19/miniprogram-share/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>微信小程序组件化（下）</title>
+      <link>http://yoursite.com/2017/08/14/minprogram-component-2/</link>
+      <guid>http://yoursite.com/2017/08/14/minprogram-component-2/</guid>
+      <pubDate>Mon, 14 Aug 2017 06:35:21 GMT</pubDate>
+      <description>
+      
+        &lt;h2 id=&quot;代码实现&quot;&gt;&lt;a href=&quot;#代码实现&quot; class=&quot;headerlink&quot; title=&quot;代码实现&quot;&gt;&lt;/a&gt;代码实现&lt;/h2&gt;&lt;p&gt;单从组件功能而言，wepy已经满足了小程序绝大部分的组件开发需求，堪称完美。&lt;br&gt;但如果权衡整个项目：&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2017/08/14/minprogram-component-2/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>微信小程序组件化（上）</title>
+      <link>http://yoursite.com/2017/08/14/minprogram-component-1/</link>
+      <guid>http://yoursite.com/2017/08/14/minprogram-component-1/</guid>
+      <pubDate>Mon, 14 Aug 2017 06:35:17 GMT</pubDate>
+      <description>
+      
+        &lt;h1 id=&quot;小程序对组件化的“支持”情况&quot;&gt;&lt;a href=&quot;#小程序对组件化的“支持”情况&quot; class=&quot;headerlink&quot; title=&quot;小程序对组件化的“支持”情况&quot;&gt;&lt;/a&gt;小程序对组件化的“支持”情况&lt;/h1&gt;&lt;p&gt;微信小程序（以下简称“小程序”，版本）虽然默认定义了很多有用的组件，但是在开发小程序过程中，往往需要自定义业务组件。&lt;br&gt;而小程序开发者文档中却未对自定义组件给出很好的解决方案或示例。&lt;br&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2017/08/14/minprogram-component-1/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>利用Docker容器搭建高效的Node.js开发环境</title>
+      <link>http://yoursite.com/2017/08/10/docker4node/</link>
+      <guid>http://yoursite.com/2017/08/10/docker4node/</guid>
+      <pubDate>Wed, 09 Aug 2017 22:19:18 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&lt;em&gt;阅读时间：15分钟&lt;/em&gt; &lt;/p&gt;
+&lt;h1 id=&quot;使用Node-js遇到的问题&quot;&gt;&lt;a href=&quot;#使用Node-js遇到的问题&quot; class=&quot;headerlink&quot; title=&quot;使用Node.js遇到的问题&quot;&gt;&lt;/a&gt;使用Node.js遇到的问题&lt;/h1&gt;&lt;p&gt;Node.js无疑是js开发者的福音，因为它既可用于web端开发，当作构建工具，也可以用于服务端，搭建web服务器。&lt;/p&gt;
+&lt;p&gt;但使用Node.js（尤其是npm）时也会碰到一些麻烦的事情，比如：&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2017/08/10/docker4node/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>【译】REST的6个约束</title>
+      <link>http://yoursite.com/2017/07/25/rest-constraints/</link>
+      <guid>http://yoursite.com/2017/07/25/rest-constraints/</guid>
+      <pubDate>Mon, 24 Jul 2017 18:02:54 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&lt;em&gt;原文链接：&lt;a href=&quot;https://en.wikipedia.org/wiki/Representational_state_transfer#Client-server&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://en.wikipedia.org/wiki/Representational_state_transfer#Client-server&lt;/a&gt;&lt;/em&gt; &lt;/p&gt;
+&lt;p&gt;定义个一个RESTful系统的时候应该遵循6个约束。&lt;br&gt;它们限制了服务端只能遵循这些约束来处理和响应客户端请求，但是遵循这些约束服务也可以获取理想的非函数化的属性，例如性能、可伸缩、简单程度、可变能力、可见度、灵活性、可信度。&lt;br&gt;如果任何一个服务违背了其中一个原则，将不能被称作RESTful系统。&lt;br&gt;标准的REST约束如下：&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2017/07/25/rest-constraints/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>Angular的依赖注入是怎么实现的？</title>
+      <link>http://yoursite.com/2017/06/26/angular-di/</link>
+      <guid>http://yoursite.com/2017/06/26/angular-di/</guid>
+      <pubDate>Mon, 26 Jun 2017 06:01:08 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;这篇文章是探索对于Angular开发者来说既熟悉又陌生的概念：依赖注入。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2017/06/26/angular-di/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>为什么你的Angular双向数据绑定会失效？</title>
+      <link>http://yoursite.com/2017/06/20/angular-databinding/</link>
+      <guid>http://yoursite.com/2017/06/20/angular-databinding/</guid>
+      <pubDate>Tue, 20 Jun 2017 07:56:48 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;Angular双向数据绑定原理探究。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;文章源码引用较多，觉得难以理解可以直接跳到末尾总结处。&lt;/em&gt;&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2017/06/20/angular-databinding/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>vueconf杂谈</title>
+      <link>http://yoursite.com/2017/06/02/vueconf/</link>
+      <guid>http://yoursite.com/2017/06/02/vueconf/</guid>
+      <pubDate>Fri, 02 Jun 2017 06:16:39 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;首先感谢大组织w3ctech分享的vueconf相关&lt;a href=&quot;https://vue.w3ctech.com/#schedule&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;ppt和视频&lt;/a&gt;。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2017/06/02/vueconf/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>【译】高dpi图片对于不同设备的适配方案</title>
+      <link>http://yoursite.com/2017/02/16/dpi-images/</link>
+      <guid>http://yoursite.com/2017/02/16/dpi-images/</guid>
+      <pubDate>Thu, 16 Feb 2017 14:38:49 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&lt;em&gt;原文地址：&lt;a href=&quot;https://www.html5rocks.com/en/mobile/high-dpi/#toc-conclusion&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.html5rocks.com/en/mobile/high-dpi/#toc-conclusion&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;#介绍&lt;/p&gt;
+&lt;p&gt;在当今日益复杂的设备领域，屏幕的可用像素密度已经变得非常广泛。&lt;br&gt;既有非常高分辨率的显示设备，也有远远落后的设备。&lt;br&gt;应用程序开发人员需要支持一系列像素密度的显示设备，这可能是相当具有挑战性的。&lt;br&gt;在移动web端，情况变得更加复杂：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;各种各样的设备具有不同的外形尺寸。&lt;/li&gt;
+&lt;li&gt;受限的网络带宽和电池寿命。&lt;br&gt;在图片方面，Web应用程序开发人员的目标是尽可能高效地提供最佳质量的图像。&lt;br&gt;本文将介绍适用于现在和不久将来的有效技术来达到这一效果。&lt;/li&gt;
+&lt;/ul&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2017/02/16/dpi-images/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>你会用AngularJS，但你会写AngularJS文档么？</title>
+      <link>http://yoursite.com/2016/12/07/angular-doc/</link>
+      <guid>http://yoursite.com/2016/12/07/angular-doc/</guid>
+      <pubDate>Wed, 07 Dec 2016 03:12:29 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&lt;em&gt;涉及知识：gulp javascript&lt;/em&gt;&lt;br&gt;&lt;em&gt;建议阅读：4分钟&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;我们经常在写代码的时候要求写好注释，方便日后维护。但其实注释还有一个重要的用途：&lt;strong&gt;生成API文档。&lt;/strong&gt;&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2016/12/07/angular-doc/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>拿好这段代码，愿你求职路上不再迷茫</title>
+      <link>http://yoursite.com/2016/11/28/spider/</link>
+      <guid>http://yoursite.com/2016/11/28/spider/</guid>
+      <pubDate>Mon, 28 Nov 2016 03:39:41 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&lt;em&gt;涉及知识：数据库（mongodb）node.js&lt;/em&gt;&lt;br&gt;&lt;em&gt;建议阅读：3分钟&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;经常有人问：“我是该学Angular还是React？该用gulp还是webpack…”&lt;br&gt;这篇文章就是要 &lt;strong&gt;交给大家一把钥匙，专门解答这类问题。&lt;/strong&gt;&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2016/11/28/spider/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>前端处理小图标的那些解决方案（图文实操）</title>
+      <link>http://yoursite.com/2016/10/27/icon/</link>
+      <guid>http://yoursite.com/2016/10/27/icon/</guid>
+      <pubDate>Thu, 27 Oct 2016 08:25:35 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;先做一个选择题：前端开发使用构建工具的目的是什么？&lt;/p&gt;
+&lt;p&gt;A、因为现在流行node.js，都在使用构建工具&lt;/p&gt;
+&lt;p&gt;B、让前端开发变得高大上，和后端一样编译才能运行&lt;/p&gt;
+&lt;p&gt;C、让自动化工具替代重复的手工操作，比如合并代码，刷新浏览器预览效果等。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2016/10/27/icon/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>尝试通过AngularJS模块按需加载搭建大型应用（下）</title>
+      <link>http://yoursite.com/2016/07/14/angular-large-2/</link>
+      <guid>http://yoursite.com/2016/07/14/angular-large-2/</guid>
+      <pubDate>Thu, 14 Jul 2016 09:27:53 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&lt;em&gt;&lt;a href=&quot;http://yalishizhude.github.io/2016/07/07/angular-large-1/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;《尝试通过AngularJS模块按需加载搭建大型应用（上）》&lt;/a&gt; 说到目前angular应用的通用构建方式，一种是全量预加载，将所有可能用到的模块在用户首次访问时加载；第二种是按需加载业务逻辑，根据路由加载对应的controller和view，两种处理方式互换优缺点。对比后得出最理想的方式应该是“模块按需加载”，即按需预加载业务功模块代码。本文具体聊聊如何实现。&lt;/em&gt;&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2016/07/14/angular-large-2/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>尝试通过AngularJS模块按需加载搭建大型应用（上）</title>
+      <link>http://yoursite.com/2016/07/07/angular-large-1/</link>
+      <guid>http://yoursite.com/2016/07/07/angular-large-1/</guid>
+      <pubDate>Thu, 07 Jul 2016 15:00:44 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&lt;em&gt;没有合适的轮子，只好自己造( ╯□╰ )&lt;/em&gt;&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2016/07/07/angular-large-1/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>Angular说：这个锅我不背~</title>
+      <link>http://yoursite.com/2016/05/30/4angular/</link>
+      <guid>http://yoursite.com/2016/05/30/4angular/</guid>
+      <pubDate>Sun, 29 May 2016 16:59:30 GMT</pubDate>
+      <description>
+      
+        &lt;h1 id=&quot;楔子&quot;&gt;&lt;a href=&quot;#楔子&quot; class=&quot;headerlink&quot; title=&quot;楔子&quot;&gt;&lt;/a&gt;楔子&lt;/h1&gt;&lt;p&gt;最近月影大神翻译的一篇文章很火——&lt;a href=&quot;http://web.jobbole.com/86284/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;《别责怪框架：我使用 AngularJS 和 ReactJS 的经验》&lt;/a&gt;，标题看似客观，不过先扬后抑，借黑Angular之际狠赞了一下react。&lt;br&gt;看完之后也让我有感而发。写这篇文章的目的，并不是想反作者之道，褒Angular贬React，只是希望读者抛开个人情绪，对两者（或者Angular？）有一个更客观地认识。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2016/05/30/4angular/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>利用handlebars实现后端组件化</title>
+      <link>http://yoursite.com/2016/04/26/back-componentization/</link>
+      <guid>http://yoursite.com/2016/04/26/back-componentization/</guid>
+      <pubDate>Mon, 25 Apr 2016 16:19:57 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&lt;em&gt;似乎掌握了后端组件化的奥义^_^&lt;/em&gt;&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2016/04/26/back-componentization/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>图解基于node.js实现前后端分离</title>
+      <link>http://yoursite.com/2016/04/19/front-back-separation/</link>
+      <guid>http://yoursite.com/2016/04/19/front-back-separation/</guid>
+      <pubDate>Tue, 19 Apr 2016 14:02:51 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;首先庆祝 &lt;a href=&quot;http://www.w3ctech.com/event/56&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;w3ctech长沙站第12期技术分享会&lt;/a&gt; 圆满成功，感谢组织方邀请~&lt;br&gt;&lt;img src=&quot;/2016/04/19/front-back-separation/w3c.jpg&quot;&gt;&lt;/p&gt;
+&lt;p&gt;因为会上出了个意外，ppt图片全部丢失，只好对着白板跟大家交流了半个多小时。由于我做演讲不喜欢写太多的文字，没有图片的情况下讲漏了一些内容。这篇文章是我在会上分享内容对照ppt进行地整理。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2016/04/19/front-back-separation/#disqus_thread</comments>
+    </item>
+    
+  </channel>
+</rss>

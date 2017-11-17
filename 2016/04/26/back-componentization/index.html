@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="node.js," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="似乎掌握了后端组件化的奥义^_^">
+<meta name="keywords" content="node.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用handlebars实现后端组件化">
+<meta property="og:url" content="http://yoursite.com/2016/04/26/back-componentization/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="似乎掌握了后端组件化的奥义^_^">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2016/04/26/back-componentization/html.jpg">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.134Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用handlebars实现后端组件化">
+<meta name="twitter:description" content="似乎掌握了后端组件化的奥义^_^">
+<meta name="twitter:image" content="http://yoursite.com/2016/04/26/back-componentization/html.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/04/26/back-componentization/"/>
+
+
+
+
+
+  <title>利用handlebars实现后端组件化 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/26/back-componentization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">利用handlebars实现后端组件化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-26T00:19:57+08:00">
+                2016-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WEB架构/" itemprop="url" rel="index">
+                    <span itemprop="name">WEB架构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>似乎掌握了后端组件化的奥义^_^</em></p>
+<a id="more"></a>
+<blockquote>
+<p>基本说明（使用过exress和handlebars的可以略过）：express中的handlebars引擎是这么生成页面的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">/* layout.hbs</span><br><span class="line"> * 主模板，所有的的页面都将替换&quot;&#123;&#123;&#123;body&#125;&#125;&#125;&quot;，&quot;&#123;&#123;&#125;&#125;&quot;相当于占位符，由数据进行替换</span><br><span class="line"> */</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;title&gt;&#123;&#123;title&#125;&#125;&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &#123;&#123;&#123;body&#125;&#125;&#125;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br><span class="line">/* index.hbs</span><br><span class="line"> * 单个页面模板，这里以首页为例。&quot;&#123;&#123;&gt;&#125;&#125;&quot;表示引用其他模板来替换，这里引用名为&quot;partial&quot;的模板</span><br><span class="line"> */</span><br><span class="line">&lt;div&gt;index&lt;/div&gt;</span><br><span class="line">&#123;&#123;&gt;partial&#125;&#125;</span><br><span class="line"></span><br><span class="line">/* partial.hbs</span><br><span class="line"> * 一个分页文件，被其他模板引用，分页之间也可以互相引用。</span><br><span class="line"> */</span><br><span class="line">&lt;div&gt;123&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">/* index.html</span><br><span class="line"> * 当浏览器请求index.html时，经过handlebars模板引擎处理后生成的页面</span><br><span class="line"> */</span><br><span class="line"> &lt;!DOCTYPE html&gt;</span><br><span class="line"> &lt;html&gt;</span><br><span class="line">   &lt;head&gt;</span><br><span class="line">     &lt;title&gt;&lt;/title&gt;</span><br><span class="line">   &lt;/head&gt;</span><br><span class="line">   &lt;body&gt;</span><br><span class="line">     &lt;div&gt;index&lt;/div&gt;</span><br><span class="line">     &lt;div&gt;123&lt;/div&gt;</span><br><span class="line">   &lt;/body&gt;</span><br><span class="line"> &lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h1 id="实现步骤1：模板"><a href="#实现步骤1：模板" class="headerlink" title="实现步骤1：模板"></a>实现步骤1：模板</h1><p>react的火热让“组件化”的概念持续升温，不过组件化确实在开发中提供了高可复用的代码，大大减少了工作量和bug，确实值得提倡。举个例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul class=&quot;titles border&quot; id=&quot;navigator&quot;&gt;</span><br><span class="line">  &lt;li class=&quot;title&quot;&gt;标题1&lt;/li&gt;</span><br><span class="line">  &lt;li class=&quot;title&quot;&gt;标题2&lt;/li&gt;</span><br><span class="line">  &lt;li class=&quot;title&quot;&gt;标题3&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+<p>这一段html代码，会在几个页面用到，如果按照一般的做法把这段代码ctrl-c、ctrl-v到要用的页面。就会出现两个问题：1.重复代码增多（ctrl-c、ctrl-v应该是程序员的大忌），当然这不是最重要的，最重要的是第2点——维护性差。如果现在我要把“标题1”改成“标题0”，那么只能进行全量搜索然后替换，不仅操作麻烦而且容易出错。<br>如果用到了模板技术的话这个问题就很好解决，把上面那一段代码写成一个模板，在handlebars中我们成为分页，然后需要这段的代码的页面引用这个分页，如果要修改的话直接修改分页了。以handlebars为例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//navigator.hbs</span><br><span class="line">&lt;ul class=&quot;titles border&quot; id=&quot;navigator&quot;&gt;</span><br><span class="line">  &lt;li class=&quot;title&quot;&gt;标题1&lt;/li&gt;</span><br><span class="line">  &lt;li class=&quot;title&quot;&gt;标题2&lt;/li&gt;</span><br><span class="line">  &lt;li class=&quot;title&quot;&gt;标题3&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br><span class="line">//在index.hbs中引用</span><br><span class="line">&#123;&#123;&gt;navigator&#125;&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>为什么handlebars？本文所用的后端模板引擎都以handlebars为例，原因是上次听去哪儿前端团队做的关于node.js的技术分享，炫耀了一个自己基于handlebars实现的小功能：分页中引用的css文件可以全部放到head中。心中一直觊觎这个小功能，直到最近和“组件化”的概念结合在一起考虑，发现这个功能对于实现后端的组件化很有帮助。自己对handlebars也略有研究，所以试着用handlebars来实现一下“组件化”。</p>
+</blockquote>
+<h1 id="实现步骤2：打包"><a href="#实现步骤2：打包" class="headerlink" title="实现步骤2：打包"></a>实现步骤2：打包</h1><p>这样就完美了么？no~no~no~<br>上面的这一段html代码中可是有样式的，按照w3c的规范，样式应该写在css文件中，怎么实现？自然而然想到两种解决办法：</p>
+<ol>
+<li>在分页中加入link标签来引入所需的样式，想一想html代码中到处穿插link标签是什么感觉~且不说生成页面难以维护，浏览器渲染速度也会受影响。</li>
+<li>把分页所需的样式放在公共的样式文件中，这是目前我们项目的通用做法，纯粹的懒人策略，缺点很明显，很多页面引用了一些无用的样式，浪费网络带宽，尤其当项目变大时这个缺点将更加明显。<br>所以最好的解决方法是按需加载，只加载引用组件所需的样式，当然样式文件按分页拆分得这么细的话会增加请求数，影响不会太大，如果想优化的话也可以压缩合并成一个请求，这个后面再说。<br>handlerbas中常见的扩展方式就是编写helper，我们可以编写一个helper，</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//app.js</span><br><span class="line">hbs.registerHelper(&apos;css&apos;, function(str, option) &#123;</span><br><span class="line">  //在上下文中创建一个数组用来保存该页面需要用到的css文件</span><br><span class="line">  this.cssList = this.cssList || [];  </span><br><span class="line">  this.cssList.push(str);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这个helper的作用就是注册一个名为”css”的helper，帮我们保存分页中用到的css文件地址。然后我们在主模板layout的head标签部分遍历cssList数组循环加载出来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//layout.hbs</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;title&gt;&#123;&#123;title&#125;&#125;&lt;/title&gt;</span><br><span class="line"></span><br><span class="line">  &#123;&#123;#each cssList&#125;&#125;</span><br><span class="line">  &lt;link rel=&quot;stylesheet&quot; href=&quot;&#123;&#123;this&#125;&#125;&quot; media=&quot;screen&quot; title=&quot;no title&quot; charset=&quot;utf-8&quot;&gt;</span><br><span class="line">  &#123;&#123;/each&#125;&#125;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>同时原来的分页改成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//navigator.hbs</span><br><span class="line">&#123;&#123;css &apos;/stylesheets/components/navigator.css&apos;&#125;&#125;</span><br><span class="line">&lt;ul class=&quot;titles border&quot; id=&quot;navigator&quot;&gt;</span><br><span class="line">  &lt;li class=&quot;title&quot;&gt;标题1&lt;/li&gt;</span><br><span class="line">  &lt;li class=&quot;title&quot;&gt;标题2&lt;/li&gt;</span><br><span class="line">  &lt;li class=&quot;title&quot;&gt;标题3&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure></p>
+<p>上面写的只是一个简单的无逻辑的静态组件，有些组件可能会有交互效果，比如处理一些点击事件或者对外暴露可操作的接口等，那么就需要js逻辑来实现了。</p>
+<h1 id="实现步骤3：逻辑"><a href="#实现步骤3：逻辑" class="headerlink" title="实现步骤3：逻辑"></a>实现步骤3：逻辑</h1><p>其实实现原理也大同小异，也是先注册一个helper，然后在主模板layout中添加，这里我们在原来的分页中引入一个js文件。具体代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//app.js</span><br><span class="line">hbs.registerHelper(&apos;js&apos;, function(str, option) &#123;</span><br><span class="line">  this.jsList = this.jsList || [];</span><br><span class="line">  this.jsList.push(str);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//layout.hbs</span><br><span class="line">...</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &#123;&#123;&#123;body&#125;&#125;&#125;</span><br><span class="line">  &#123;&#123;#each jsList&#125;&#125;</span><br><span class="line">  &lt;script src=&quot;&#123;&#123;this&#125;&#125;&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;</span><br><span class="line">  &#123;&#123;/each&#125;&#125;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//navigator.hbs</span><br><span class="line">&#123;&#123;css &apos;/stylesheets/components/navigator.css&apos;&#125;&#125;</span><br><span class="line">&#123;&#123;js &apos;/javascripts/components/navigator.js&apos;&#125;&#125;</span><br><span class="line">&lt;ul class=&quot;titles border&quot; id=&quot;navigator&quot;&gt;</span><br><span class="line">  &lt;li class=&quot;title&quot;&gt;标题1&lt;/li&gt;</span><br><span class="line">  &lt;li class=&quot;title&quot;&gt;标题2&lt;/li&gt;</span><br><span class="line">  &lt;li class=&quot;title&quot;&gt;标题3&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+<p>现在已经实现将css、js、html封装成独立的组件了，不过这样还是有个问题。如果a组件引用了public.css和a.css文件，而b组件引用了public.css和b.css文件，那么按照上面的做法，会在head写两个同样的link标签，组件共同依赖的文件越多，重复的标签就越多。这当然不是我们所想看到的。</p>
+<h1 id="实现步骤4：依赖"><a href="#实现步骤4：依赖" class="headerlink" title="实现步骤4：依赖"></a>实现步骤4：依赖</h1><p>为了解决这个问题我们还需要去重复，对刚才的两个helper改造一下即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//app.js</span><br><span class="line">hbs.registerHelper(&apos;css&apos;, function(str, option) &#123;</span><br><span class="line">  var cssList = this.cssList || [];</span><br><span class="line">  if(cssList.indexOf(str)&lt;0) &#123;</span><br><span class="line">    cssList.push(str);</span><br><span class="line">  &#125;</span><br><span class="line">  this.cssList = cssList.concat();</span><br><span class="line">&#125;);</span><br><span class="line">hbs.registerHelper(&apos;js&apos;, function(str, option) &#123;</span><br><span class="line">  var jsList = this.jsList || [];</span><br><span class="line">  if(jsList.indexOf(str)&lt;0) &#123;</span><br><span class="line">    jsList.push(str);</span><br><span class="line">  &#125;</span><br><span class="line">  this.jsList = jsList.concat();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>最终生成的页面截图：<br><img src="/2016/04/26/back-componentization/html.jpg"></p>
+<h1 id="实现步骤5：合并"><a href="#实现步骤5：合并" class="headerlink" title="实现步骤5：合并"></a>实现步骤5：合并</h1><p>最后一步优化。为了减少请求，可以将不同组件所需的资源文件进行合并。这里推荐一个插件<a href="https://github.com/JacksonTian/loader" target="_blank" rel="noopener">loader</a>。</p>
+<p><a href="https://github.com/yalishizhude/back-componentization-example" target="_blank" rel="noopener">示例代码下载地址</a></p>
+<p><em>以上就是关于后端利用模板实现组件化的探索，实现上虽无问题，但是由于目前没有新的项目，无法在实际项目中使用，所以不知道会不会带来其它的“坑”。欢迎有兴趣的朋友使用后与我交流~</em></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/node-js/" rel="tag"># node.js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/19/front-back-separation/" rel="next" title="图解基于node.js实现前后端分离">
+                <i class="fa fa-chevron-left"></i> 图解基于node.js实现前后端分离
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/30/4angular/" rel="prev" title="Angular说：这个锅我不背~">
+                Angular说：这个锅我不背~ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实现步骤1：模板"><span class="nav-number">1.</span> <span class="nav-text">实现步骤1：模板</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现步骤2：打包"><span class="nav-number">2.</span> <span class="nav-text">实现步骤2：打包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现步骤3：逻辑"><span class="nav-number">3.</span> <span class="nav-text">实现步骤3：逻辑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现步骤4：依赖"><span class="nav-number">4.</span> <span class="nav-text">实现步骤4：依赖</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现步骤5：合并"><span class="nav-number">5.</span> <span class="nav-text">实现步骤5：合并</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="架构," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="重构之后整理了一下对架构的理解，偏重但不仅限于Web前端（以下简称“前端”）。 架构师的职责不少人一提到架构师就觉得很高大上，什么是架构师？ 从上千人跨国公司，到十数人的创业公司，架构师的职责各有不同。 人数众多的IT公司通常会分成架构（框架）组和业务组，架构（框架）组为业务组提供公用的框架和组件（服务），而业务组负责">
+<meta name="keywords" content="架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从架构到重构">
+<meta property="og:url" content="http://yoursite.com/2017/09/07/architecture2restruct/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="重构之后整理了一下对架构的理解，偏重但不仅限于Web前端（以下简称“前端”）。 架构师的职责不少人一提到架构师就觉得很高大上，什么是架构师？ 从上千人跨国公司，到十数人的创业公司，架构师的职责各有不同。 人数众多的IT公司通常会分成架构（框架）组和业务组，架构（框架）组为业务组提供公用的框架和组件（服务），而业务组负责开发实现需求。 创业公司的分工通常没有那么细致，往往需要开发者通常既是架构师也是">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2017/09/07/architecture2restruct/api.jpg">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.130Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从架构到重构">
+<meta name="twitter:description" content="重构之后整理了一下对架构的理解，偏重但不仅限于Web前端（以下简称“前端”）。 架构师的职责不少人一提到架构师就觉得很高大上，什么是架构师？ 从上千人跨国公司，到十数人的创业公司，架构师的职责各有不同。 人数众多的IT公司通常会分成架构（框架）组和业务组，架构（框架）组为业务组提供公用的框架和组件（服务），而业务组负责开发实现需求。 创业公司的分工通常没有那么细致，往往需要开发者通常既是架构师也是">
+<meta name="twitter:image" content="http://yoursite.com/2017/09/07/architecture2restruct/api.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/07/architecture2restruct/"/>
+
+
+
+
+
+  <title>从架构到重构 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/07/architecture2restruct/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">从架构到重构</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-07T16:09:29+08:00">
+                2017-09-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/架构/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>重构之后整理了一下对架构的理解，偏重但不仅限于Web前端（以下简称“前端”）。</p>
+<h1 id="架构师的职责"><a href="#架构师的职责" class="headerlink" title="架构师的职责"></a>架构师的职责</h1><p>不少人一提到架构师就觉得很高大上，什么是架构师？</p>
+<p>从上千人跨国公司，到十数人的创业公司，架构师的职责各有不同。</p>
+<p>人数众多的IT公司通常会分成架构（框架）组和业务组，架构（框架）组为业务组提供公用的框架和组件（服务），而业务组负责开发实现需求。</p>
+<p>创业公司的分工通常没有那么细致，往往需要开发者通常既是架构师也是业务开发者（以下简称为“开发者”）。</p>
+<p>开发者承担的责任是某个功能模块的实现，而架构师的主要责任是为项目选择合适地技术栈，为开发者搭建一个可持续开发的框架。</p>
+<p>通常情况下，责任和权利是对等的，这也是架构师的收入和职位比开发者高的原因。</p>
+<a id="more"></a>
+<p>如果把开发团队比作军队的话，架构师不是凌驾于开发者之上的指挥官。<br>架构师是一支辎重部队，负责提供的军械和粮草，是全军的物资保障。<br>架构师是一支侦察部队，负责了解情和战场，帮助战友顺利完成作战任务。<br>架构师是一支执法部队，负责维持秩序，使得军纪严明。</p>
+<p>概括来说架构师的职责就是服务、引导和规范。</p>
+<h2 id="服务业务"><a href="#服务业务" class="headerlink" title="服务业务"></a>服务业务</h2><p>项目结构<br>回忆一下，你在持续开发一个项目或者接手一个老项目的时候，相关地代码文件是随手可得，还是需要翻来覆去靠直觉寻找？</p>
+<p>以我们团队最近的重构的一个AngularJS(1.3)项目为例，重构之前的部分目录结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- app //源码目录</span><br><span class="line">- service //service模块目录</span><br><span class="line">- script //js文件目录</span><br><span class="line">- directive //指令目录</span><br><span class="line">- counter.js //指令</span><br><span class="line">- style //sass文件目录</span><br><span class="line">- template //指令模板目录</span><br><span class="line">- counter.scss //指令样式</span><br><span class="line">- view //视图目录</span><br><span class="line">- template //模板目录</span><br><span class="line">- counter.html //指令模板</span><br><span class="line">- test/unit //单元测试代码目录</span><br><span class="line">- service //service模块目录</span><br><span class="line">- directive //指令目录</span><br><span class="line">- couter.spec.js //指令</span><br></pre></td></tr></table></figure>
+<p>在app源码目录下，我们看到一级子目录时按照功能模块划分成不同目录，各个模块下又按照资源类型进行划分。这样的似乎既有逻辑关联，又方便了构建工具处理不同类型的文件。但随着项目增大也就会出现前面提到的问题：关联的文件位于不同深层次的目录，查找和编辑相关文件非常困难。</p>
+<p>修改一个指令（可以理解为组件）需要跨多个、多层目录，当指令增多时这个跨度变得更大，编写测试代码的时候这个问题也同样存在，所以只能借助编辑器带有ctrl+p这样快速查找文件的功能来缓解这个问题。</p>
+<p>所以针对这个问题进行了一次重构，下面是重构之后的部分代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- src //源码目录</span><br><span class="line">- service //service模块目录</span><br><span class="line">- directive //指令目录</span><br><span class="line">- counter  //指令</span><br><span class="line">- counter.html //指令模板</span><br><span class="line">- counter.js //指令逻辑</span><br><span class="line">- counter.scss //指令样式</span><br><span class="line">- counter.spec.js //指令单元测试</span><br></pre></td></tr></table></figure>
+<p>这样的目录结构更符合“组件化”的思维，同时开发起来也更顺手更方便。当开发一个指令时，可以在同一个文件夹下找到所需要的所有文件，指令开发完成时也可以方便的编写测试代码进行测试。</p>
+<p>“高内聚，低耦合”虽然是对于代码的要求，其实目录结构也是适用的。</p>
+<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><p>对于整个项目而言，技术栈包括了语言和框架，对于后端来说语言可选择的不少：Java、Python、Node.js…..每种语言的常用框架不多。前端则相反，语言没得选（不考虑js的胶水语言），只有html、css、javascript，框架选择却相对较多：AngularJS、Angular4、Vue2、React、Cycle.js……</p>
+<p>但是很多时候技术栈没有我们想象的那么重要，一方面对于很多项目的业务场景相对简单（后端多以增删改查，前端页面数量不过五十），技术栈并不会成为项目的重要制约因素。另一方面架构师、团队对框架和语言的运用能力远远大于技术本身。</p>
+<p>一个通过拷贝和粘贴写代码的开发者肯定不如懂得组件化方式写代码的开发者效率高，一个把所有脚本都打包成一个js的大中型项目肯定比不上异步加载体验好……</p>
+<p>架构师和团队对技术的精通程度，比技术对于项目的适合成都更重要。</p>
+<h2 id="API文档"><a href="#API文档" class="headerlink" title="API文档"></a>API文档</h2><p>如果你参加过多人协作开发的项目，一定碰到过重复造轮子的情况：开发者不清楚有哪些公用代码，或者不清楚公用代码提供了哪些接口，于是一个同样的逻辑，被写成了很多个版本。</p>
+<p>这是一个很尴尬的问题，或许说是一个无法完全解决的问题，但还是有方法尽量去优化它。</p>
+<p>下图是我在项目中利用编写的前端API文档，解释一下，这里的API文档不是与后端通过ajax请求交互的文档，而是前端各个模块公用代码的文档。</p>
+<img src="/2017/09/07/architecture2restruct/api.jpg">
+<p>好的文档应该有两个要求：查阅方便、更新及时。</p>
+<p>像这样的文档是html页面，所以既可以部署在服务器上，也可以本地查看，同时还按模块和功能进行了分类，也支持搜索，查阅起来并不困难。</p>
+<p>这么多内容如果要纯手写的话太费劲，而且如果和代码分布在不同目录的话维护就会变得不方便，也会出现之前在目录结构中提到的问题。所以比较好的方式是采用jsdoc这种插件，利用注释生成文档。</p>
+<p>举个例子，一个人想要锻炼身体，在离家5km一个健身房办了一张健身卡，但是没有坚持多久。虽然可能是因为意志力不够，但更有可能是因为健身房太远了。如果健身房就在小区里，下楼50米即到，不需要太多的意志力，下班的时候看到想到就很自然地顺路就走进去锻炼了。</p>
+<p>而公共代码就是例子中的健身房，架构师要负责把它们放到触手可及、轻易可得的地方。</p>
+<h1 id="引导开发"><a href="#引导开发" class="headerlink" title="引导开发"></a>引导开发</h1><h2 id="开发文档"><a href="#开发文档" class="headerlink" title="开发文档"></a>开发文档</h2><p>很多团队都会有一些“入职文档”、“开发规范文档”之类的。不管它们以什么形式出现，叫什么名字，它们的共同作用都是指导开发者如何写出更高质量的代码。</p>
+<p>它的缺陷也很明显，没法保证每个人都认真看了，看了也没法保证都记得。更重要的是，文档（比如xxx开发规范）是死的，人是活的。单纯的文档没法保证每个开发者真正按照文档所述的方式写代码。</p>
+<h2 id="培训"><a href="#培训" class="headerlink" title="培训"></a>培训</h2><p>培训相对于文档而言是更直接更生动的方式，但是对时间要求比较高，需要占用团队成员的整块时间，同时对架构师的表达能力也有一定要求。</p>
+<p>但如果能坚持做起来，效果肯定比文档好（你没法保证每个开发者都看更新的文档，总可以保证开会都来参加吧）。不过作者这一块没做好，因为时间实在太紧张~</p>
+<p>开发文档和培训对于提升团队整体实力有帮助，但是仅依靠这些往往难以达到理想效果。</p>
+<p>所以我们需要</p>
+<h1 id="规范约束"><a href="#规范约束" class="headerlink" title="规范约束"></a>规范约束</h1><h2 id="lint"><a href="#lint" class="headerlink" title="lint"></a>lint</h2><p>写得再好的开发文档都不如校验工具来得直接。</p>
+<p>前端的校验工具还算丰富，sasslint、eslint、htmlhint就是我们团队在用的校验工具。校验工具不仅可以强制开发者遵守规范，还可以提前检查出错误。</p>
+<p>虽然架构师无法保证每个开发者都认证地看了文档，但是如果不按照文档规范编写代码，就会造成校验工具报错、编译失败，从而无法继续开发。</p>
+<p>若无自律，便无自由。虽然看上去似乎苛刻，但是对于项目代码的整理质量而言是有所保障的。况且一旦熟悉这些开发文档和规范，校验规则便不是问题。</p>
+<h2 id="git-hook"><a href="#git-hook" class="headerlink" title="git hook"></a>git hook</h2><p>如果有开发者修改或删除了校验规则（配置文件），不是可以绕过这些规范么？</p>
+<p>这时候可以使用第二道保障措施：git hook。</p>
+<p>建立一个hook，如果代码校验失败，则不允许推送或者合并代码，从而无法联调测试，无法部署上线。这时候开发者只有两个选择，好好按照规范编写代码还是和项目经理沟通一下这个功能不上线了……</p>
+<p>当然hook还有很多用法，比如自动部署、发送通知等。</p>
+<h2 id="代码审（走）查"><a href="#代码审（走）查" class="headerlink" title="代码审（走）查"></a>代码审（走）查</h2><p>提到的这些都只是手段，目的还是保证项目代码质量，提高团队工作效率。</p>
+<p>对提交的代码进行审（走）查，对不符合规范的代码及时指出，主动询问开发者是不是遇到了什么困难，把好的代码分享出来。这些都是更人性化的保障措施，只是工作量会大一些~</p>
+<h1 id="重构"><a href="#重构" class="headerlink" title="重构"></a>重构</h1><h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p> 重构的动机大致可以分为两类，一类是因为当前项目逻辑不够清晰，需要进行重新整理。很常见的情况便是文件过大函数内容过多。第二类是项目不断发展变大，原有的代码组织（框架）方式已经不适合了。</p>
+<p>无论出于哪种目的，我们都需要尽力保证重构后的代码功能不发生变化或者出现新的bug。</p>
+<p>怎么保证？</p>
+<p>别告诉我你用鼠标点了几下，或者写了几条假数据进去发现ok就行了。</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>如果说校验工具是对代码风格的保障那么测试代码就是对代码逻辑的保障。甚至可以说它是进行重构的必要条件。</p>
+<p>请举出一个不写测试代码的成功的开源框架。</p>
+<p>你能保证你的项目代码质量比开源项目更高更稳定？<br>如果不能保证还有什么理由不写~<br>如果能保证写个测试代码又何妨~</p>
+<p>所有的努力都不会白费。</p>
+<p>当你坚持看文本文，开始思考、尝试文中地方法时，离心中地目标必会更进一步~</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/架构/" rel="tag"># 架构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/21/miniprogram-form/" rel="next" title="miniprogram-form">
+                <i class="fa fa-chevron-left"></i> miniprogram-form
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/26/js2js/" rel="prev" title="让你的JavaScript成为真正的Java Script">
+                让你的JavaScript成为真正的Java Script <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#架构师的职责"><span class="nav-number">1.</span> <span class="nav-text">架构师的职责</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#服务业务"><span class="nav-number">1.1.</span> <span class="nav-text">服务业务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技术栈"><span class="nav-number">1.2.</span> <span class="nav-text">技术栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API文档"><span class="nav-number">1.3.</span> <span class="nav-text">API文档</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引导开发"><span class="nav-number">2.</span> <span class="nav-text">引导开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开发文档"><span class="nav-number">2.1.</span> <span class="nav-text">开发文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#培训"><span class="nav-number">2.2.</span> <span class="nav-text">培训</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#规范约束"><span class="nav-number">3.</span> <span class="nav-text">规范约束</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#lint"><span class="nav-number">3.1.</span> <span class="nav-text">lint</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-hook"><span class="nav-number">3.2.</span> <span class="nav-text">git hook</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码审（走）查"><span class="nav-number">3.3.</span> <span class="nav-text">代码审（走）查</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重构"><span class="nav-number">4.</span> <span class="nav-text">重构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#动机"><span class="nav-number">4.1.</span> <span class="nav-text">动机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">4.2.</span> <span class="nav-text">测试</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

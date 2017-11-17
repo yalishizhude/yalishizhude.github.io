@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="impressjs," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="什么是impressjs？impressjs就是为html文件添加css3动画，变成类似ppt效果的工具，它支持图片和文字（flash动画可能支持），跨平台，用impressjs做ppt，你再也不用担心pc上有没有安装powerpoint了。重要的是它学习门槛也很低。大家只要下载项目，打开index.html修改内容即">
+<meta name="keywords" content="impressjs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="impressjs扩展：显示页数&#x2F;进度条">
+<meta property="og:url" content="http://yoursite.com/2015/07/06/apis4impressjs/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="什么是impressjs？impressjs就是为html文件添加css3动画，变成类似ppt效果的工具，它支持图片和文字（flash动画可能支持），跨平台，用impressjs做ppt，你再也不用担心pc上有没有安装powerpoint了。重要的是它学习门槛也很低。大家只要下载项目，打开index.html修改内容即可（不过作者并不提倡这样做）。大家有兴趣可以查看项目主页和demo。 gith">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2015/07/06/apis4impressjs/demo.jpg">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.126Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="impressjs扩展：显示页数&#x2F;进度条">
+<meta name="twitter:description" content="什么是impressjs？impressjs就是为html文件添加css3动画，变成类似ppt效果的工具，它支持图片和文字（flash动画可能支持），跨平台，用impressjs做ppt，你再也不用担心pc上有没有安装powerpoint了。重要的是它学习门槛也很低。大家只要下载项目，打开index.html修改内容即可（不过作者并不提倡这样做）。大家有兴趣可以查看项目主页和demo。 gith">
+<meta name="twitter:image" content="http://yoursite.com/2015/07/06/apis4impressjs/demo.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/07/06/apis4impressjs/"/>
+
+
+
+
+
+  <title>impressjs扩展：显示页数/进度条 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/07/06/apis4impressjs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">impressjs扩展：显示页数/进度条</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-07-06T21:45:41+08:00">
+                2015-07-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <img src="/2015/07/06/apis4impressjs/demo.jpg">
+<h2 id="什么是impressjs？"><a href="#什么是impressjs？" class="headerlink" title="什么是impressjs？"></a>什么是impressjs？</h2><p>impressjs就是为html文件添加css3动画，变成类似ppt效果的工具，它支持图片和文字（flash动画可能支持），跨平台，用impressjs做ppt，你再也不用担心pc上有没有安装powerpoint了。重要的是它学习门槛也很低。大家只要下载项目，打开index.html修改内容即可（不过作者并不提倡这样做）。大家有兴趣可以查看项目主页和demo。</p>
+<p><a href="https://github.com/impress/impress.js" target="_blank" rel="noopener">github主页</a></p>
+<p><a href="http://bartaz.github.io/impress.js/" target="_blank" rel="noopener">demo页面</a><br><a id="more"></a></p>
+<h2 id="impressjs-API开发"><a href="#impressjs-API开发" class="headerlink" title="impressjs API开发"></a>impressjs API开发</h2><h3 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h3><p>之前由于公司需要我做个ppt介绍一下CDN，但是身为一个前端工程师，尤其是反感word的工程师，于是找到了这款高逼格的做演示文件的利器——impressjs。加了css3特效的html当然是华丽丽的，但是用起来之后发现和通常用的ppt还是有些区别，那就是缺少了当前页数的显示，再加上灵光一闪，觉得加个进度条也不错，于是中午抽空就写了一下~</p>
+<h3 id="js代码分析"><a href="#js代码分析" class="headerlink" title="js代码分析"></a>js代码分析</h3><h4 id="添加当前页"><a href="#添加当前页" class="headerlink" title="添加当前页"></a>添加当前页</h4><p>impressjs的每一页都有一个step样式，总览页也不列外。而且每页都有一个id，如果id不存在的话则默认为’step-x’，x为序号。利用这个特性就可以实现所要的功能。</p>
+<p>新增一个header元素，通过修改元素宽度来显示当前进度。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var showProgress = function()&#123;</span><br><span class="line">    var head = &#123;&#125;;</span><br><span class="line">    if(document.getElementsByTagName(&apos;header&apos;)[0])&#123;</span><br><span class="line">        head = document.getElementByTagsName(&apos;header&apos;)[0];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        head = document.createElement(&apos;header&apos;);</span><br><span class="line">        document.body.appendChild(head);</span><br><span class="line">    &#125;</span><br><span class="line">    var percent = getCurrent()*100.00/getTotal();</span><br><span class="line">    console.log(percent);</span><br><span class="line">    head.style.width = percent + &apos;%&apos;;</span><br><span class="line">    window.addEventListener(&quot;hashchange&quot;, function () &#123;</span><br><span class="line">        var percent = getCurrent()*100.00/getTotal();</span><br><span class="line">        head.style.width = percent + &apos;%&apos;;</span><br><span class="line">    &#125;, false);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>新增一个footer元素来显示当前页和总页数，同时监听url地址来的hash值变化来修改当前页序号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var showPage = function()&#123;</span><br><span class="line">    var foot = &#123;&#125;;</span><br><span class="line">    if(document.getElementsByTagName(&apos;footer&apos;)[0])&#123;</span><br><span class="line">        foot = document.getElementByTagsName(&apos;foot&apos;)[0];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        foot = document.createElement(&apos;footer&apos;);</span><br><span class="line">        document.body.appendChild(foot);</span><br><span class="line">    &#125;</span><br><span class="line">    foot.innerText = getCurrent()&gt;0?(getCurrent()+&apos;/&apos;+getTotal()):&apos;&apos;;</span><br><span class="line">    window.addEventListener(&quot;hashchange&quot;, function () &#123;</span><br><span class="line">        foot.innerText = getCurrent()&gt;0?(getCurrent()+&apos;/&apos;+getTotal()):&apos;&apos;;</span><br><span class="line">    &#125;, false);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h4 id="暴露接口"><a href="#暴露接口" class="headerlink" title="暴露接口"></a>暴露接口</h4><p>impressjs默认开放了4个接口<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">return (roots[ &quot;impress-root-&quot; + rootId ] = &#123;</span><br><span class="line">    init: init,</span><br><span class="line">    goto: goto,</span><br><span class="line">    next: next,</span><br><span class="line">    prev: prev,</span><br><span class="line">    showPage: showPage,</span><br><span class="line">    showProgress: showProgress</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="css样式分析"><a href="#css样式分析" class="headerlink" title="css样式分析"></a>css样式分析</h3><p>底部显示页数，用固定定位<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">footer&#123;</span><br><span class="line">    position: fixed;</span><br><span class="line">    bottom: 150px;</span><br><span class="line">    height: 30px;</span><br><span class="line">    text-align: center;</span><br><span class="line">    width: 100%;</span><br><span class="line">    font-size: 25px;</span><br><span class="line">    font-weight: 900;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>顶部显示进度条，用固定定位，通过改变百分比宽度来表示进度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">header&#123;</span><br><span class="line">    position: fixed;</span><br><span class="line">    top: 0;</span><br><span class="line">    height: 10px;</span><br><span class="line">    background-color: #3879d9;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="html的调用示例"><a href="#html的调用示例" class="headerlink" title="html的调用示例"></a>html的调用示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">impress().showPage();</span><br><span class="line">impress().showProgress();</span><br></pre></td></tr></table></figure>
+<h3 id="大结局"><a href="#大结局" class="headerlink" title="大结局"></a>大结局</h3><p>预知后事如何，可以<a href="https://github.com/impress/impress.js/pull/487" target="_blank" rel="noopener">点击</a>查看我提交的版本以及作者的回复</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/impressjs/" rel="tag"># impressjs</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/05/async/" rel="next" title="node.js基础教程(9)：玩转异步">
+                <i class="fa fa-chevron-left"></i> node.js基础教程(9)：玩转异步
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/06/time-server/" rel="prev" title="node.js基础教程(10)：授时服务器">
+                node.js基础教程(10)：授时服务器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是impressjs？"><span class="nav-number">1.</span> <span class="nav-text">什么是impressjs？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#impressjs-API开发"><span class="nav-number">2.</span> <span class="nav-text">impressjs API开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#起因"><span class="nav-number">2.1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js代码分析"><span class="nav-number">2.2.</span> <span class="nav-text">js代码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加当前页"><span class="nav-number">2.2.1.</span> <span class="nav-text">添加当前页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#暴露接口"><span class="nav-number">2.2.2.</span> <span class="nav-text">暴露接口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css样式分析"><span class="nav-number">2.3.</span> <span class="nav-text">css样式分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#html的调用示例"><span class="nav-number">2.4.</span> <span class="nav-text">html的调用示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大结局"><span class="nav-number">2.5.</span> <span class="nav-text">大结局</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

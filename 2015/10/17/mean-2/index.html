@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="node.js,mean," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="原文地址 https://blog.udemy.com/node-js-tutorial感谢来自Udemy的Samantha来信分享  最近有些忙，更新可能不及时，如有兴趣希望大家去看原文网站。">
+<meta name="keywords" content="node.js,mean">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【译】基于MEAN的全栈开发实例教程2：搭建开发环境">
+<meta property="og:url" content="http://yoursite.com/2015/10/17/mean-2/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="原文地址 https://blog.udemy.com/node-js-tutorial感谢来自Udemy的Samantha来信分享  最近有些忙，更新可能不及时，如有兴趣希望大家去看原文网站。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2015/10/17/mean-2/mongod.png">
+<meta property="og:image" content="http://yoursite.com/2015/10/17/mean-2/express.png">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.211Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【译】基于MEAN的全栈开发实例教程2：搭建开发环境">
+<meta name="twitter:description" content="原文地址 https://blog.udemy.com/node-js-tutorial感谢来自Udemy的Samantha来信分享  最近有些忙，更新可能不及时，如有兴趣希望大家去看原文网站。">
+<meta name="twitter:image" content="http://yoursite.com/2015/10/17/mean-2/mongod.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/10/17/mean-2/"/>
+
+
+
+
+
+  <title>【译】基于MEAN的全栈开发实例教程2：搭建开发环境 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/17/mean-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【译】基于MEAN的全栈开发实例教程2：搭建开发环境</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-10-17T16:43:39+08:00">
+                2015-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>原文地址 <a href="https://blog.udemy.com/node-js-tutorial" target="_blank" rel="noopener">https://blog.udemy.com/node-js-tutorial</a><br>感谢来自Udemy的Samantha来信分享</p>
+</blockquote>
+<p>最近有些忙，更新可能不及时，如有兴趣希望大家去看原文网站。</p>
+<a id="more"></a>
+<h1 id="搭建开发环境"><a href="#搭建开发环境" class="headerlink" title="搭建开发环境"></a>搭建开发环境</h1><p>在我们开始之前，为了开发MEAN应用你需要提前安装一些开发工具。安装这些工具需要15-20分钟。安装完成后，你就有了一个对于MEAN应用的开发环境，并且今后不需要再次安装。<br>所以请先安装我列举的这些工具。如果你已经安装了其中某些工具的话，可以跳过相关部分。</p>
+<h2 id="安装Sublime-Text"><a href="#安装Sublime-Text" class="headerlink" title="安装Sublime Text"></a>安装Sublime Text</h2><p>Sublime Text 是一个轻量级而且功能强大的代码编辑器。你可以使用任何编辑器来构建node应用，但是如果你之前没有使用过sublime的话，我建议你尝试一下sublime。你可以在<a href="http://sublimetext.com网站上进行下载。" target="_blank" rel="noopener">http://sublimetext.com网站上进行下载。</a></p>
+<h2 id="安装Mongo"><a href="#安装Mongo" class="headerlink" title="安装Mongo"></a>安装Mongo</h2><p>登陆<a href="http://mongodb.org" target="_blank" rel="noopener">http://mongodb.org</a> 然后点击 <strong>Download MongoDB</strong>。按照官网上提供的文档进行安装。安装过程很简单，不像SQL Server那样需要半个多小时，只需要一两分钟即可。<br>安装完Mongo，你需要按照下面的操作来运行它。你需要创建一个目录用来存储Mongo的数据库文件。这个目录对于当前用于必须有写权限。然后你需要启动MongoD(Mongo Daemon)，这是一个用来处理数据请求的后台进程。<br>默认情况下，MongoD将会把数据存储在系统盘的 <strong>/data/db</strong>目录下(如果提示错误不存在，请自行创建)。在本教程中我建议你保持默认设置。如果你希望修改这个路径，请参考官网上的指令进行修改。<br>接下来让我们在默认配置下启动Mongo<br><strong>对于windows用户</strong><br>用管理员权限打开命令行窗口</p>
+<pre><code>&gt; md \data\db
+&gt; cd “C:\Program Files\MongoDB\Server\3.0\bin” (你的MongoDB安装目录)
+&gt; mongod
+</code></pre><p>注意你可以将MongoD设置为windows服务，这样的话你就不用每次从命令行来启动了。具体设置方法可以参考MongDB的官网。<br>然后你可以看到一个弹出窗口，显示 MongoD listening for network connections. Give access to MongoD.<br><strong>对于Mac用户</strong><br>打开终端</p>
+<pre><code>$ sudo mkdir -p /data/db
+$ whoami
+moshfeghhamedani
+$ sudo chown moshfeghhamedani /data/db
+$ mongod
+</code></pre><p>你将看见MongoD在命令行弹出窗口或者终端中执行正在等待连接。<br><img src="/2015/10/17/mean-2/mongod.png"><br>如果你在启动MongoD时发现了任何问题，最好查看MongoDB的官网然后进行完整安装。</p>
+<h2 id="安装Node"><a href="#安装Node" class="headerlink" title="安装Node"></a>安装Node</h2><p>登陆<a href="https://nodejs.org并且点击安装。不管是使用的是windows还是Mac，它将提供合适的装程序。" target="_blank" rel="noopener">https://nodejs.org并且点击安装。不管是使用的是windows还是Mac，它将提供合适的装程序。</a></p>
+<p>安装Node的时候会自动安装NPM（Node Package Manager）。NPM对于Node来说有点像Ruby Gems对于Ruby和NuGet对于.NET。我们通过NPM来下载和安装开源可复用的包/模块到应用中。</p>
+<h2 id="安装Express-Generator"><a href="#安装Express-Generator" class="headerlink" title="安装Express Generator"></a>安装Express Generator</h2><p>Express Generator是一个用来搭建应用的Node模块。为了安装Express Generator，我们需要打开另一个Mac的终端或者windows的命令提示窗口，<br>然后执行：</p>
+<pre><code>npm install -g express-generator
+</code></pre><p><code>-g</code>参数代表全局安装。</p>
+<h2 id="搭建一个项目"><a href="#搭建一个项目" class="headerlink" title="搭建一个项目"></a>搭建一个项目</h2><p>所有的工具都已经安装完毕。现在让我用Express Generator搭建一个框架。我们将开发一个适用于录像租赁店的叫Vidzy的应用。打开终端窗口，选择一个合适的目录来创建项目：</p>
+<pre><code>express Vidzy
+</code></pre><p>Express Generator 将在Vidzy目录下搭建一个应用。<br>现在在你喜欢的代码编辑器中打开Vidzy文件夹。如果你使用的是Sublime，你可以把这个文件夹拖入Sublime。<br>下面是目录结构</p>
+<pre><code>bin
+    www
+public
+    images
+    javascripts
+    stylesheets
+routes
+    index.js
+    users.js
+views
+    error.jade
+    index.jade
+    layout.jade
+app.js
+    package.son
+</code></pre><p><strong>public</strong> 我们将存储一些公共资源到这个目录下，例如javascript文件、样式文件、图片等。<br><strong>routes</strong> 包括一系列的javascript文件，每一个文件都为该应用的给定模块定义了一些路由以及业务逻辑。<br><strong>views</strong> 包括了应用中的视图文件。Express支持很多常见的模板引擎例如：Jade，Haml，EJS，Handlebars等。Jade是默认的模板引擎。<br><strong>app.js</strong>程序的主入口。包括一些程序配置和声明。<br><strong>package.json</strong>每个Node应用都有一个这样的文件。这个文件用来描述当前应用的信息和依赖的插件。<br>我们打开pakcage.json，可能看到如下信息：</p>
+<pre><code>{
+  &quot;name&quot;: &quot;Vidzy&quot;,
+  &quot;version&quot;: &quot;0.0.0&quot;,
+  &quot;private&quot;: true,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;node ./bin/www&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;body-parser&quot;: &quot;~1.13.2&quot;,
+    &quot;cookie-parser&quot;: &quot;~1.3.5&quot;,
+    &quot;debug&quot;: &quot;~2.2.0&quot;,
+    &quot;express&quot;: &quot;~4.13.1&quot;,
+    &quot;jade&quot;: &quot;~1.11.0&quot;,
+    &quot;morgan&quot;: &quot;~1.6.1&quot;,
+    &quot;serve-favicon&quot;: &quot;~2.3.0&quot;
+  }
+}
+</code></pre><p>在文件中，我们定义了程序的名称和版本以及依赖模块。所有这些依赖模块都是用Node编写的模块。</p>
+<h2 id="安装依赖模块"><a href="#安装依赖模块" class="headerlink" title="安装依赖模块"></a>安装依赖模块</h2><p>当你通过Express Generator生成一个应用时，这些依赖模块并没有被安装。它们只是在package.json文件中进行了配置。你需要单独安装这些依赖。<br>来安装这些依赖，首先返回到控制台并且输入命令：</p>
+<pre><code>cd Vidzy
+npm install
+</code></pre><p>安装需要花费一些时间。NPM将参照 <strong>package.json</strong> 文件中定义的依赖。然后它将从NPM仓库中下载这些依赖到一个叫做 <strong>node_modules</strong> 的目录中。让我们看看这些模块吧。<br>在 <strong>Vidzy</strong> 文件夹中，进入 <strong>node_modules/express</strong>，注意这个目录下有另一个 <strong>package.json</strong>用来定义Express.js的依赖模块。所以，这里也有另一个 <strong>node_modules</strong>目录来存储依赖模块。这就是一个Node应用的常见目录结构。每一个模块都有一个 <strong>package.json</strong>文件和一个 <strong>node_modules</strong> 文件夹。</p>
+<h2 id="安装Nodemon"><a href="#安装Nodemon" class="headerlink" title="安装Nodemon"></a>安装Nodemon</h2><p>当你启动Node应用的时候，一个用来接收请求的最基本的web服务器就在3000端口上启动了。如果你修改了代码，这些改变将不会生效直到你重启了服务器。频繁的重启服务器来使代码生效是一件蛋疼的事情。为了解决这个问题，我们使用 <strong>Nodemon</strong>，这个模块在检测到源文件修改时自动重启web服务器。<br>安装Nodemon：</p>
+<pre><code>npm install nodemon -g
+</code></pre><h2 id="安装Monk"><a href="#安装Monk" class="headerlink" title="安装Monk"></a>安装Monk</h2><p>Monk是一个用来读写MongoDB的Node模块。<br>安装monk：</p>
+<pre><code>npm install monk --save
+</code></pre><p><code>--save</code>参数告诉NPM将这个依赖加入到package.json文件中。这样做的好处就是你将代码提交到版本库，别人将代码签出，所有的依赖模块都可以从就package.json中读取出来。（也就是说我们不需要保存这些第三方模块，任何时候我们搭建项目只需要读取这个package.json文件即可安装，减少了项目的维护代码）。然后只需要简单的执行 <strong>npm install</strong>，然后自动安装这些引用模块。这就是我们搭建应用框架的时候需要做的事情。</p>
+<h2 id="运行应用"><a href="#运行应用" class="headerlink" title="运行应用"></a>运行应用</h2><p>太棒了！我们已经安装了所有需要的工具。现在是时候来运行应用了。从控制台进入Vidzy目录输入以下命令：</p>
+<pre><code>nodemon
+</code></pre><p>Nodemon将在3000端口上启动你的web服务器。你可能会看到一个弹出窗口显示Node正在侦听连接。<br>现在启动你的浏览器跳转到</p>
+<p><a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a></p>
+<p>这就是你的第一个express应用。</p>
+<img src="/2015/10/17/mean-2/express.png">
+<p>接下来的几个章节，我们将为这个录像租赁店应用开发各种功能。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/node-js/" rel="tag"># node.js</a>
+          
+            <a href="/tags/mean/" rel="tag"># mean</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/17/underscore-source-3/" rel="next" title="js高手进阶之路：underscore源码经典（三）">
+                <i class="fa fa-chevron-left"></i> js高手进阶之路：underscore源码经典（三）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/20/sublime/" rel="prev" title="高端唯有定制，把sublime打造成专属的IDE">
+                高端唯有定制，把sublime打造成专属的IDE <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建开发环境"><span class="nav-number">1.</span> <span class="nav-text">搭建开发环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Sublime-Text"><span class="nav-number">1.1.</span> <span class="nav-text">安装Sublime Text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Mongo"><span class="nav-number">1.2.</span> <span class="nav-text">安装Mongo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Node"><span class="nav-number">1.3.</span> <span class="nav-text">安装Node</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Express-Generator"><span class="nav-number">1.4.</span> <span class="nav-text">安装Express Generator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建一个项目"><span class="nav-number">1.5.</span> <span class="nav-text">搭建一个项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装依赖模块"><span class="nav-number">1.6.</span> <span class="nav-text">安装依赖模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Nodemon"><span class="nav-number">1.7.</span> <span class="nav-text">安装Nodemon</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Monk"><span class="nav-number">1.8.</span> <span class="nav-text">安装Monk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行应用"><span class="nav-number">1.9.</span> <span class="nav-text">运行应用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

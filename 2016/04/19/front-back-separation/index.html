@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="node.js,前后端分离," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="首先庆祝 w3ctech长沙站第12期技术分享会 圆满成功，感谢组织方邀请~ 因为会上出了个意外，ppt图片全部丢失，只好对着白板跟大家交流了半个多小时。由于我做演讲不喜欢写太多的文字，没有图片的情况下讲漏了一些内容。这篇文章是我在会上分享内容对照ppt进行地整理。">
+<meta name="keywords" content="node.js,前后端分离">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图解基于node.js实现前后端分离">
+<meta property="og:url" content="http://yoursite.com/2016/04/19/front-back-separation/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="首先庆祝 w3ctech长沙站第12期技术分享会 圆满成功，感谢组织方邀请~ 因为会上出了个意外，ppt图片全部丢失，只好对着白板跟大家交流了半个多小时。由于我做演讲不喜欢写太多的文字，没有图片的情况下讲漏了一些内容。这篇文章是我在会上分享内容对照ppt进行地整理。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2016/04/19/front-back-separation/w3c.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/04/19/front-back-separation/3.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/04/19/front-back-separation/4.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/04/19/front-back-separation/7.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/04/19/front-back-separation/6.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/04/19/front-back-separation/5.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/04/19/front-back-separation/9.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/04/19/front-back-separation/10.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/04/19/front-back-separation/12.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/04/19/front-back-separation/13.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/04/19/front-back-separation/14.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/04/19/front-back-separation/15.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/04/19/front-back-separation/16.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/04/19/front-back-separation/17.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/04/19/front-back-separation/19.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/04/19/front-back-separation/20.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/04/19/front-back-separation/21.jpg">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.159Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="图解基于node.js实现前后端分离">
+<meta name="twitter:description" content="首先庆祝 w3ctech长沙站第12期技术分享会 圆满成功，感谢组织方邀请~ 因为会上出了个意外，ppt图片全部丢失，只好对着白板跟大家交流了半个多小时。由于我做演讲不喜欢写太多的文字，没有图片的情况下讲漏了一些内容。这篇文章是我在会上分享内容对照ppt进行地整理。">
+<meta name="twitter:image" content="http://yoursite.com/2016/04/19/front-back-separation/w3c.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/04/19/front-back-separation/"/>
+
+
+
+
+
+  <title>图解基于node.js实现前后端分离 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/19/front-back-separation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">图解基于node.js实现前后端分离</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-19T22:02:51+08:00">
+                2016-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WEB架构/" itemprop="url" rel="index">
+                    <span itemprop="name">WEB架构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>首先庆祝 <a href="http://www.w3ctech.com/event/56" target="_blank" rel="noopener">w3ctech长沙站第12期技术分享会</a> 圆满成功，感谢组织方邀请~<br><img src="/2016/04/19/front-back-separation/w3c.jpg"></p>
+<p>因为会上出了个意外，ppt图片全部丢失，只好对着白板跟大家交流了半个多小时。由于我做演讲不喜欢写太多的文字，没有图片的情况下讲漏了一些内容。这篇文章是我在会上分享内容对照ppt进行地整理。</p>
+<a id="more"></a>
+<h1 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h1><img src="/2016/04/19/front-back-separation/3.jpg">
+<p>首先从一个重要的概念“模板”说起。<br>广义上来说，web中的模板就是填充数据后可以生成文件的页面。<br>严格意义上来说，应该是模板引擎利用特定格式的文件和所提供的数据编译生成页面。模板大致分为前端模板（如ejs）和后端模板（如freemarker）分别在浏览器端和服务器端编译。</p>
+<img src="/2016/04/19/front-back-separation/4.jpg">
+<p>由于当场有一部分同学对node.js并不是很了解，这里补充一下node.js的相关知识。官网上的给他的定义事件驱动、异步什么的就不说了。这里借用朴灵书上的一张图来解释一下node.js这个玩意的结构。如果懂java的同学可以将其理解为js版本的jvm。<br>浏览器一般包括渲染器和js脚本引擎，以chrome浏览器为例，用的webkit内核的渲染器，V8的脚本引擎，而node.js用到了v8引擎。总而言之它就是一个js的运行环境，就好比浏览器的F12调试工具，只不过node.js没有DOM和BOM。</p>
+<img src="/2016/04/19/front-back-separation/7.jpg">
+<p>这张图描述的是node.js周边的一些信息，比如npm这个出色的包管理器和cnode社区以及github，都在一定程度上促进了node.js的繁荣，提供了技术保障。</p>
+<img src="/2016/04/19/front-back-separation/6.jpg">
+<p>大公司通常都是技术的风向标，例如google的angular、facebook的react现在都很火。这里只列了3个大公司当作例子。淘宝的中途岛架构就不用说了，国内node.js的先行者朴灵就来自淘宝。去哪儿也出了个应该叫做“QTX”的技术框架。360月影带领的75团队出了个基于ES6/ES7的web服务器框架——thinkjs，当时我们技术总监很看好，但是由于鄙人没有时间学习ES6再加上插件不够丰富，所以还是选用了较为成熟的Express。</p>
+<img src="/2016/04/19/front-back-separation/5.jpg">
+<p>言归正传，这个表格列出了我所接触过的3种前后端分离的开发方式。<br>第一种是最常见的使用java之类的后端语言模板，SEO友好，缓存利用率和减轻浏览器渲染负担方面都比较好，最大的问题就是模板文件的耦合度太高，出了问题谁都不想来解决，前端人员看不到数据，后端人员不懂页面，模板文件就像是一个烫手的山芋。<br>第二种是目前我们项目移动端的实现方案，利用angular这种框架（angular的指令可以看成是前端模板）和nginx这种反向代理服务器，让前后端彻底解耦，只通过ajax交互数据。这种方案和前一种的优缺点刚好相反。前端模板的性能始终是个问题，尤其是在移动端，更尤其是在低端的移动设备上。<br>最后一种是新项目使用的用node.js做前端服务器，将前端的职责从浏览器划分到了模板这一层，解决了以上所有的问题，不过确实也有新的问题，这种问题稍后再分析。</p>
+<img src="/2016/04/19/front-back-separation/9.jpg">
+<p>当然全栈开发在小型项目中也是非常适合的。对于传统的jsp/php开发来说，全栈开发的沟通成本更低，开发人员能更容易理解整个功能模块，从而更好的还原产品的设计。尤其现在出现的以js语言为基础的全栈开发：meteor和MEAN技术，更是使得前后端开发用一种语言直接搞定，再配上Mongodb，数据从浏览器到数据库都无需转义直接使用，还不用写sql，开发成本又大大降低。</p>
+<img src="/2016/04/19/front-back-separation/10.jpg">
+<p>这次搭建node.js服务器用到的一些插件。<br>鼎鼎大名的express不用多介绍了，轻量级web服务器框架。<br>用handlebars模板引擎也属巧合，因为express4默认就是它，handlebars不愧为“弱逻辑”的模板引擎，主张的是减少模板逻辑，尽量只用变量和分页，基于它的设计理念，我只扩充了两个helper。具体文章：<a href="https://yalishizhude.github.io/2016/01/22/handlebars/" target="_blank" rel="noopener">https://yalishizhude.github.io/2016/01/22/handlebars/</a><br>superagent的使用还是因为express4，因为它的测试代码用的是supertest，supertest是基于superagent，所以用了superagent来转发和发起请求。superagent还是太弱了，长连接都无法建立，还是推荐request插件。<br>restfuleAPI就没什么好介绍了，前端服务器与浏览器，前端服务器与后端服务器都是用的这一套规范，基本上就是url指向资源，增删改查又具体的请求方法表示，状态码表示结果等~<br>gulp打包工具，webpack研究了很久，发现每增加一个页面都要修改配置文件，这个太蛋疼，遂放弃。</p>
+<h1 id="开发流程"><a href="#开发流程" class="headerlink" title="开发流程"></a>开发流程</h1><img src="/2016/04/19/front-back-separation/12.jpg">
+<p>如果这次分享主要是讲怎样将node.js做为前端服务器来实现前后端分离的话那也没什么好讲的，看看淘宝UED的文章就好了。<strong>前后端分离其实最大的问题是带来沟通成本的上升，具体来说就是接口的定义和调试。</strong>在上图的传统开发流程中，接口的定义会放在接口服务器中，然后前后端各自根据接口文档造假数据进行本地调试，之后进行联调。这个环节就是前后端开始撕逼的时候了，这个参数不对，那个返回值不对，总之很浪费时间。接下来看这个问题在我们项目中是怎么解决的~</p>
+<img src="/2016/04/19/front-back-separation/13.jpg">
+<p>前后端因为接口撕逼的问题一直存在，作为保守主义的我相信迭代开发，所以第一步做的只是增加了一个mock服务器。这个服务器的神奇之处就是根据接口文档自动生成假数据，实现了<strong>接口即API</strong>，前端同学再也不用把数据写死进行测试了。没办法，谁叫我是前端开发，首先想到自己人，嘿嘿~当然这个只在一定程度上有利于前端开发，后端的接口和文档不一致联调时也会出现问题。怎么办？</p>
+<img src="/2016/04/19/front-back-separation/14.jpg">
+<p>偶然在破浪大神的博客上看到老马的一篇专门讲前后端分离的文章，其中一个重要的概念就是契约测试也叫双边测试吧。核心概念就是为了解决远程联调的问题。对前后端的参数都进行校验，要求大家按照接口文档进行开发。受其启发，加入json-schema规则，实现了对http请求的参数校验，谁不按规矩来谁改。</p>
+<img src="/2016/04/19/front-back-separation/15.jpg">
+<p>这个redmine是我们最早的接口文档管理器，除了记录和查看功能再无其他作用。</p>
+<img src="/2016/04/19/front-back-separation/16.jpg">
+<p>swagger号称世界最流行的接口文档服务器，界面美观，插件也还比较多，可以针对后端语言直接生成测试代码。不过部署的时候始终没玩懂，而且yaml格式不如json习惯，放弃了它。</p>
+<img src="/2016/04/19/front-back-separation/17.jpg">
+<p>这就是现在我们项目上用的文档服务器和mock服务器，基于MEAN技术实现的服务器，基本功能：</p>
+<ul>
+<li>利用mockjs插件，可以动态生成随机数据</li>
+<li>基于json-schema对接口参数实行校验和接口测试，并保存测试状态和接口响应时间。</li>
+<li>简单的json编辑器</li>
+<li>带有登陆校验功能，可登陆后进行接口调试</li>
+<li>mock服务器按照api服务器来响应请求，接口更新时自动更新</li>
+</ul>
+<h1 id="一些问题"><a href="#一些问题" class="headerlink" title="一些问题"></a>一些问题</h1><img src="/2016/04/19/front-back-separation/19.jpg">
+<p>node.js是前端工程师的翅膀，而插上翅膀是变成天使还是变成恶魔？这个要看能不能解决的使用它时带来的问题了。</p>
+<ul>
+<li>首先前端的工作量毫无疑问地会增加，但沟通成本会降低。</li>
+<li>node.js单线程的服务器稳定性确实不够好，不过代码的健壮性和完善的日志可以有效的规避。</li>
+<li>回调。这个问题解决方法就太多了，node.js的q/async模块以及ES6/ES7。</li>
+<li>node.js调试。虽然我一直排斥IDE，但不得不承认webstorm在调试上确实很方便。我用的node-inspector也还凑合，界面类似chrome开发者工具，看上去挺熟悉的。</li>
+</ul>
+<img src="/2016/04/19/front-back-separation/20.jpg">
+<p>如果对于后端程序员，更加应该拥簇node.js了。接口整合的工作交给了前端服务器进行处理，同时和前端耦合度大大降低，工作量和工作效率都减少了。</p>
+<img src="/2016/04/19/front-back-separation/21.jpg">
+<p>心得体会有两点</p>
+<ul>
+<li>node.js的使用虽然有一定的学习成本，但对于前端开发人员还是很友好的。而且前端使用node.js的话，无论是技术含量还是工作量都会有所提升，从而提升了岗位的重要性。当前端开发人员能创造更多价值的时候才有资格要求更高的薪水~</li>
+<li>工作中建议少提建议多给可行性方案，同时进行技术预研而不是写个简单的helloworld。</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><strong>可能有人说你介绍的这一套东西这么复杂，用起来太麻烦了，还不如面对面沟通。</strong><br>对于这样的质疑我只能用腾讯高级UI工程师余果在《web全栈工程师的自我修养》中讲到的一个例子。有一次他电面一家小公司的前端负责人问他怎么管理代码时，对方说直接用ftp上传，同时抱怨手下人老是更新错代码，又问他为什么不用svn或git，他说还不如手动更新方便。<br>这个故事的道理就是我面对质疑的回答~</p>
+<p><a href="https://github.com/yalishizhude/front-back-separation.git" target="_blank" rel="noopener">ppt下载地址</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/node-js/" rel="tag"># node.js</a>
+          
+            <a href="/tags/前后端分离/" rel="tag"># 前后端分离</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/11/rhinoceros-function/" rel="next" title="一起来啃犀牛书：你懂LOL，也可以懂函数">
+                <i class="fa fa-chevron-left"></i> 一起来啃犀牛书：你懂LOL，也可以懂函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/26/back-componentization/" rel="prev" title="利用handlebars实现后端组件化">
+                利用handlebars实现后端组件化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本介绍"><span class="nav-number">1.</span> <span class="nav-text">基本介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发流程"><span class="nav-number">2.</span> <span class="nav-text">开发流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些问题"><span class="nav-number">3.</span> <span class="nav-text">一些问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="node.js,mean," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="原文地址 https://blog.udemy.com/node-js-tutorial感谢来自Udemy的Samantha来信分享  什么是node？Node是一个开源，跨平台的用来执行javascript的运行环境。它建立在google的v8引擎上，而v8引擎正是google chrome浏览器的执行引擎，能够快速">
+<meta name="keywords" content="node.js,mean">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【译】基于MEAN的全栈开发实例教程1：前言">
+<meta property="og:url" content="http://yoursite.com/2015/10/13/mean-1/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="原文地址 https://blog.udemy.com/node-js-tutorial感谢来自Udemy的Samantha来信分享  什么是node？Node是一个开源，跨平台的用来执行javascript的运行环境。它建立在google的v8引擎上，而v8引擎正是google chrome浏览器的执行引擎，能够快速的将javascript代码转为原生的机器码。在Node诞生之前，javasc">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2015/10/13/mean-1/job.png">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.209Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【译】基于MEAN的全栈开发实例教程1：前言">
+<meta name="twitter:description" content="原文地址 https://blog.udemy.com/node-js-tutorial感谢来自Udemy的Samantha来信分享  什么是node？Node是一个开源，跨平台的用来执行javascript的运行环境。它建立在google的v8引擎上，而v8引擎正是google chrome浏览器的执行引擎，能够快速的将javascript代码转为原生的机器码。在Node诞生之前，javasc">
+<meta name="twitter:image" content="http://yoursite.com/2015/10/13/mean-1/job.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/10/13/mean-1/"/>
+
+
+
+
+
+  <title>【译】基于MEAN的全栈开发实例教程1：前言 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/13/mean-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【译】基于MEAN的全栈开发实例教程1：前言</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-10-13T00:03:42+08:00">
+                2015-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>原文地址 <a href="https://blog.udemy.com/node-js-tutorial" target="_blank" rel="noopener">https://blog.udemy.com/node-js-tutorial</a><br>感谢来自Udemy的Samantha来信分享</p>
+</blockquote>
+<h1 id="什么是node？"><a href="#什么是node？" class="headerlink" title="什么是node？"></a>什么是node？</h1><p>Node是一个开源，跨平台的用来执行javascript的运行环境。它建立在google的v8引擎上，而v8引擎正是google chrome浏览器的执行引擎，能够快速的将javascript代码转为原生的机器码。<br>在Node诞生之前，javascript只能在浏览器执行。在2009年，Ryan Dahl使用开源的google v8 javascript引擎来构建node，使它成为一个独立于浏览器之外的javascript运行环境。这使得javascript开发者能够在服务端使用javascript来构建大部分的web apis。</p>
+<blockquote>
+<p>题外话：我觉得有两个技术的普及让web前端的有了较大的发展。一是混合应用的出现，包括移动端的混合应用如phone gap、ionic等框架和PC端的混合应用如hex、酷狗音乐等，这一技术的诞生让前端工作从简单的类似制作ppt一般地展现页面效果的工作升级成了开发应用程序的级别；二是node.js的出现，让js可以运用于服务端开发，让前端工程师能低门槛地转成js全栈，通过node.js开发后端又可以与数据库连接，让js开发人员可以参与到web的前端、后端、数据库整个系统，从而为js工程师提供了一条晋升到web架构师的有利通道，为js工程师插上了一双翅膀。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="就业市场"><a href="#就业市场" class="headerlink" title="就业市场"></a>就业市场</h1><p>近年node非常地受欢迎并且很多大公司（例如IBM，微软，雅虎，LinkedIn，PayPal），已经开始采用它了。<br>正如你在下面来自于indeed.com的就业趋势图中所见，市场对于node.js开发者的需求正在快速增长。<br><img src="/2015/10/13/mean-1/job.png"><br>虽然在数量方面，node开发者的市场需求量不如Ruby on Rails以及很多其它框架那样，但是我认为这种情况很快会改变。<br>2013年，从一些官方博客中得知，PayPal从Java转向了node.js，LinkedIn也从Rails转向了node。</p>
+<h1 id="我喜欢node的原因"><a href="#我喜欢node的原因" class="headerlink" title="我喜欢node的原因"></a>我喜欢node的原因</h1><p>我很早就采用了ASP.NET MVC框架，并且使用它进行了数年的web应用开发。关于ASP.NET MVC有一件事让我很不爽的就是，在语言的编程风格和习惯上，从服务端到客户端会有较大的转变。然而C#和javascript都是类似C语言风格的编程语言，当然用C#来编程还是和javascript有很大的不同。这就是为什么很多ASP.NETweb开发者通常只擅长两种语言中的一种而不是全部擅长，所以他们会将自己分类成“后端”或“前端”开发者。同样的情况发生在Ruby on Rails,PHP,Python 等开发者身上。<br>采用node的话，你可以在服务端和客户端同时使用javascript。这意味着更简洁和更一致的代码库以及更少的转换和映射。当然一个好的javascript开发者能同时编写服务端和客户端的代码将是也是非常牛叉的。</p>
+<h1 id="什么时候使用node"><a href="#什么时候使用node" class="headerlink" title="什么时候使用node"></a>什么时候使用node</h1><p>node不是一个银弹。它是专为I/O密集型操作和快速构建可扩展性的实时网络应用而设计的。比如说一些在线游戏，协作工具，聊天系统等。通过node，你可以用最少的系统资源来服务大量的客户端，这就是为什么它为高可扩展性而设计。<br>对于搭建在类似于MongoDB的文档数据库的API服务器，node也是一个非常不错的选择。你将文档数据以json对象的格式存储在mongo中，然后通过RESTful API的来操作它们。当从数据库读写数据时，并不需要将JSON和其它类型进行转换。在本教程中，我们将构建一个node 应用通过以上提到的这种方式。<br>根结node的结构特点，它应该避免用于CPU密集型操作。本教程中我将从实例开始介绍node而不是从架构深入讲解node以及为什么它不适用与CPU密集型应用。这些深入讲解的部分我将很快发布在Udemy上。如果你有兴趣，请提交到我的<a href="http://programmingwithmosh.com/node-js-course-coming-soon/" target="_blank" rel="noopener">邮箱</a>。</p>
+<h1 id="mean全栈开发"><a href="#mean全栈开发" class="headerlink" title="mean全栈开发"></a>mean全栈开发</h1><p>构建node应用有很多选择，但mean全栈式框架最近变得非常流行。mean代表的是：</p>
+<ul>
+<li>MongoDB：我盟用来存储数据的数据库引擎。</li>
+<li>Express.js：服务器端用来构建web应用程序的框架，类似于ASP.NET MVC或Rails。</li>
+<li>Angular：用来构建web应用的前端框架</li>
+<li>Node.js：javascript运行环境。<br>通过mean，你可以将文档数据以json对象的格式存储在mongo中，然后通过基于node和express搭建的RESTful API服务器的来操作它们。通过Angular构建客户端来操作这些API并渲染视图给用户。这意味着你在你的代码中，你将使用单一的统一的语言（javascript），结果就是让代码更加具有一致性和可维护性。另外的好处就是，你将花费更少的时间来处理JSON和其它格式之间的转换。所有这些将导致更好的性能和更高的开发效率。<br>如果你从未使用过MongoDB或者Angular，完全不用担心。在本教程中我将将会你这些技术的基础知识。<br>好了，有了足够的理论支持。是时候用mean来始构建一个应用了。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/node-js/" rel="tag"># node.js</a>
+          
+            <a href="/tags/mean/" rel="tag"># mean</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/12/underscore-source-2/" rel="next" title="js高手进阶之路：underscore源码经典（二）">
+                <i class="fa fa-chevron-left"></i> js高手进阶之路：underscore源码经典（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/17/underscore-source-3/" rel="prev" title="js高手进阶之路：underscore源码经典（三）">
+                js高手进阶之路：underscore源码经典（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是node？"><span class="nav-number">1.</span> <span class="nav-text">什么是node？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#就业市场"><span class="nav-number">2.</span> <span class="nav-text">就业市场</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#我喜欢node的原因"><span class="nav-number">3.</span> <span class="nav-text">我喜欢node的原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么时候使用node"><span class="nav-number">4.</span> <span class="nav-text">什么时候使用node</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mean全栈开发"><span class="nav-number">5.</span> <span class="nav-text">mean全栈开发</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

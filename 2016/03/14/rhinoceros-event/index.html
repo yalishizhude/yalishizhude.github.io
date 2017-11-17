@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js,读书," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="《javascript权威指南》这本书就像是js界的圣经，对于大神和新手都应该是必读书。但是这本近千页的书已经厚到让人望而生畏，要通读它不仅要时间也需要毅力。为了提升自己在js语言上的深度，所以抱着工匠精神开始研读，此文包含书中实用性较强的一些知识点和代码，算做读书笔记吧~">
+<meta name="keywords" content="js,读书">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一起来啃犀牛书：事件处理">
+<meta property="og:url" content="http://yoursite.com/2016/03/14/rhinoceros-event/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="《javascript权威指南》这本书就像是js界的圣经，对于大神和新手都应该是必读书。但是这本近千页的书已经厚到让人望而生畏，要通读它不仅要时间也需要毅力。为了提升自己在js语言上的深度，所以抱着工匠精神开始研读，此文包含书中实用性较强的一些知识点和代码，算做读书笔记吧~">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2016/03/14/rhinoceros-event/event.png">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.256Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一起来啃犀牛书：事件处理">
+<meta name="twitter:description" content="《javascript权威指南》这本书就像是js界的圣经，对于大神和新手都应该是必读书。但是这本近千页的书已经厚到让人望而生畏，要通读它不仅要时间也需要毅力。为了提升自己在js语言上的深度，所以抱着工匠精神开始研读，此文包含书中实用性较强的一些知识点和代码，算做读书笔记吧~">
+<meta name="twitter:image" content="http://yoursite.com/2016/03/14/rhinoceros-event/event.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/03/14/rhinoceros-event/"/>
+
+
+
+
+
+  <title>一起来啃犀牛书：事件处理 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/14/rhinoceros-event/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一起来啃犀牛书：事件处理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-14T02:30:07+08:00">
+                2016-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>《javascript权威指南》这本书就像是js界的圣经，对于大神和新手都应该是必读书。但是这本近千页的书已经厚到让人望而生畏，要通读它不仅要时间也需要毅力。为了提升自己在js语言上的深度，所以抱着工匠精神开始研读，此文包含书中实用性较强的一些知识点和代码，算做读书笔记吧~</p>
+</blockquote>
+<img src="/2016/03/14/rhinoceros-event/event.png">
+<a id="more"></a>
+<p>这一章参照的是W3C定义的3级DOM事件，现在更名为<a href="https://www.w3.org/TR/2015/WD-uievents-20150319/" target="_blank" rel="noopener">UI事件</a>了。</p>
+<h1 id="文档加载事件"><a href="#文档加载事件" class="headerlink" title="文档加载事件"></a>文档加载事件</h1><h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><ul>
+<li>load。直到文档和所有图片加载完毕时才发生</li>
+<li>DOMContentLoaded。当文档加载解析完毕且所有延迟脚本都执行完毕时会出发。优先使用</li>
+<li>readystatechange。HTML5标准化的事件，在load事件之前触发。</li>
+</ul>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>定义whenReady函数，类似onLoad函数。当文档就绪时，传递给whenReady的函数就会作为Document对象的方法调用。优先使用DOMContentLoaded和readystatechange事件。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">var whenReady = (function()&#123;</span><br><span class="line">  var funcs = [], //需要运行的函数</span><br><span class="line">  ready = false, //为避免重复执行</span><br><span class="line">  i = 0;</span><br><span class="line">  function handler(e) &#123;</span><br><span class="line">    if(!ready) &#123;</span><br><span class="line">      //如果发生readystatechange事件，但状态不是complete则文档未准备好</span><br><span class="line">      if(&apos;readystatechange&apos;===e.type &amp;&amp; &apos;complete&apos;!==document.readyState) &#123;</span><br><span class="line">        return ;</span><br><span class="line">      &#125;</span><br><span class="line">      for (i=0;i&lt;funcs.length; i++) &#123;</span><br><span class="line">        funcs[i].call(document);</span><br><span class="line">      &#125;</span><br><span class="line">      ready = true;</span><br><span class="line">      funcs = null;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  if(document.addEventListener) &#123;</span><br><span class="line">    document.addEventListener(&apos;DOMContentLoaded&apos;, handler);</span><br><span class="line">    document.addEventListener(&apos;readystatechange&apos;, handler);</span><br><span class="line">    window.addEventListener(&apos;load&apos;, handler);</span><br><span class="line">  &#125; else if(document.attachEvent) &#123;</span><br><span class="line">    document.attachEvent(&apos;onreadystatechange&apos;, handler);</span><br><span class="line">    window.attachEvent(&apos;load&apos;, handler);</span><br><span class="line">  &#125;</span><br><span class="line">  return function(f)&#123;</span><br><span class="line">    if (ready) f.call(document); //若准备完毕则运行</span><br><span class="line">    else funcs.push(f);  //否则加入队列</span><br><span class="line">  &#125;</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<h1 id="鼠标事件"><a href="#鼠标事件" class="headerlink" title="鼠标事件"></a>鼠标事件</h1><h2 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h2><h3 id="事件属性"><a href="#事件属性" class="headerlink" title="事件属性"></a>事件属性</h3><ul>
+<li>clientX和clientY表示鼠标坐标</li>
+<li>altKey、metaKey、ctrlKey、shiftKey</li>
+<li>HTML5中元素添加draggable属性之后就可以实现dragstart和dragend事件。</li>
+</ul>
+<h2 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h2><p>定义drag函数实现文档元素拖动操作。</p>
+<h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><p>drag函数绑定到mousedown事件，整个逻辑也是比较简单在mousedown事件开始时记录坐标点，然后在mousemove事件时改变css样式来实现dom元素移动，同时结束时注销事件。不过需要注意的就是dom元素必须是非静态定位。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">function drag()&#123;</span><br><span class="line">  //获取坐标</span><br><span class="line">  function getScrollOffsets(w) &#123;</span><br><span class="line">    var d = &#123;&#125;;</span><br><span class="line">    //使用指定窗口或者当前窗口</span><br><span class="line">    w = w || window;</span><br><span class="line">    //现代浏览器</span><br><span class="line">    if (w.pageXOffest != null) &#123;</span><br><span class="line">      return &#123;</span><br><span class="line">        x: w.pageXOffest,</span><br><span class="line">        y: w.pageYOffset</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    //标准模式下的IE</span><br><span class="line">    d = w.document;</span><br><span class="line">    if (document.compatMode === &apos;CSS1Compat&apos;) &#123;</span><br><span class="line">      return &#123;</span><br><span class="line">        x: d.documentElement.scrollLeft,</span><br><span class="line">        y: d.documentElement.scrollTop</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    //怪医模式下的浏览器</span><br><span class="line">    return &#123;</span><br><span class="line">      x: d.body.scrollLeft,</span><br><span class="line">      y: d.body.scrollTop</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  var scroll = getScrollOffsets();</span><br><span class="line">	var startX = event.clientX + scroll.x;</span><br><span class="line">	var startY = event.clientY + scroll.y;</span><br><span class="line">	var origX = elementToDrag.offsetLeft;</span><br><span class="line">	var origY = elementToDrag.offsetTop;</span><br><span class="line">	var deltaX = startX - origX;</span><br><span class="line">	var deltaY = startY - origY;</span><br><span class="line">  //注册鼠标移动和鼠标释放事件</span><br><span class="line">	if (document.addEventListener) &#123;</span><br><span class="line">		document.addEventListener(&quot;mousemove&quot;, moveHandler, true);</span><br><span class="line">		document.addEventListener(&quot;mouseup&quot;, upHandler, true)</span><br><span class="line">	&#125; else if (document.attachEvent) &#123;</span><br><span class="line">		elementToDrag.setCapture();</span><br><span class="line">		elementToDrag.attachEvent(&quot;onmousemove&quot;, moveHandler);</span><br><span class="line">		elementToDrag.attachEvent(&quot;onmouseup&quot;, upHandler);</span><br><span class="line">		elementToDrag.attachEvent(&quot;onlosecapture&quot;, upHandler)</span><br><span class="line">	&#125;</span><br><span class="line">	if (event.stopPropagation) event.stopPropagation();</span><br><span class="line">	else event.cancelBubble = true;</span><br><span class="line">	if (event.preventDefault) event.preventDefault();</span><br><span class="line">	else event.returnValue = false;</span><br><span class="line">  //移动鼠标时移动元素</span><br><span class="line">	function moveHandler(e) &#123;</span><br><span class="line">		if (!e) e = window.event;</span><br><span class="line">		var scroll = getScrollOffsets();</span><br><span class="line">		elementToDrag.style.left = (e.clientX + scroll.x - deltaX) + &quot;px&quot;;</span><br><span class="line">		elementToDrag.style.top = (e.clientY + scroll.y - deltaY) + &quot;px&quot;;</span><br><span class="line">		if (e.stopPropagation) e.stopPropagation();</span><br><span class="line">		else e.cancelBubble = true</span><br><span class="line">	&#125;</span><br><span class="line">  //拖拽结束，注销事件</span><br><span class="line">	function upHandler(e) &#123;</span><br><span class="line">		if (!e) e = window.event;</span><br><span class="line">		if (document.removeEventListener) &#123;</span><br><span class="line">			document.removeEventListener(&quot;mouseup&quot;, upHandler, true);</span><br><span class="line">			document.removeEventListener(&quot;mousemove&quot;, moveHandler, true)</span><br><span class="line">		&#125; else if (document.detachEvent) &#123;</span><br><span class="line">			elementToDrag.detachEvent(&quot;onlosecapture&quot;, upHandler);</span><br><span class="line">			elementToDrag.detachEvent(&quot;onmouseup&quot;, upHandler);</span><br><span class="line">			elementToDrag.detachEvent(&quot;onmousemove&quot;, moveHandler);</span><br><span class="line">			elementToDrag.releaseCapture()</span><br><span class="line">		&#125;</span><br><span class="line">		if (e.stopPropagation) e.stopPropagation();</span><br><span class="line">		else e.cancelBubble = true</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="文本-键盘事件"><a href="#文本-键盘事件" class="headerlink" title="文本/键盘事件"></a>文本/键盘事件</h1><h2 id="知识点-2"><a href="#知识点-2" class="headerlink" title="知识点"></a>知识点</h2><ul>
+<li>keypress。常用的高级键盘事件。</li>
+<li>textinput。时3级DOM事件规范定义的通用事件（来源包括键盘/粘贴/拖放/声音/手写）</li>
+<li>textInput。webkit浏览器支持类似textinput的事件。</li>
+</ul>
+<h2 id="例题1"><a href="#例题1" class="headerlink" title="例题1"></a>例题1</h2><p>写一个过滤键盘输入的函数,当用户输入了不允许字符时显示消息元素，否则隐藏它。</p>
+<h2 id="代码1"><a href="#代码1" class="headerlink" title="代码1"></a>代码1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">(function() &#123;</span><br><span class="line">	var inputelts = document.getElementsByTagName(&quot;input&quot;);</span><br><span class="line">	for (var i = 0; i &lt; inputelts.length; i++) &#123;</span><br><span class="line">		var elt = inputelts[i];</span><br><span class="line">		if (elt.type != &quot;text&quot; || !elt.getAttribute(&quot;data-allowed-chars&quot;)) continue;</span><br><span class="line">		if (elt.addEventListener) &#123;</span><br><span class="line">			elt.addEventListener(&quot;keypress&quot;, filter, false);</span><br><span class="line">			elt.addEventListener(&quot;textInput&quot;, filter, false);</span><br><span class="line">			elt.addEventListener(&quot;textinput&quot;, filter, false)</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			elt.attachEvent(&quot;onkeypress&quot;, filter)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	function filter(event) &#123;</span><br><span class="line">		var e = event || window.event;</span><br><span class="line">		var target = e.target || e.srcElement;</span><br><span class="line">		var text = null;</span><br><span class="line">		if (e.type === &quot;textinput&quot; || e.type === &quot;textInput&quot;) text = e.data;</span><br><span class="line">		else &#123;</span><br><span class="line">			var code = e.charCode || e.keyCode;</span><br><span class="line">			if (code &lt; 32 || e.charCode == 0 || e.ctrlKey || e.altKey) return;</span><br><span class="line">			var text = String.fromCharCode(code)</span><br><span class="line">		&#125;</span><br><span class="line">		var allowed = target.getAttribute(&quot;data-allowed-chars&quot;);</span><br><span class="line">		var messageid = target.getAttribute(&quot;data-messageid&quot;);</span><br><span class="line">		if (messageid) var messageElement = document.getElementById(messageid);</span><br><span class="line">		for (var i = 0; i &lt; text.length; i++) &#123;</span><br><span class="line">			var c = text.charAt(i);</span><br><span class="line">			if (allowed.indexOf(c) == -1) &#123;</span><br><span class="line">				if (messageElement) messageElement.style.visibility = &quot;visible&quot;;</span><br><span class="line">				if (e.preventDefault) e.preventDefault();</span><br><span class="line">				if (e.returnValue) e.returnValue = false;</span><br><span class="line">				return false</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		if (messageElement) messageElement.style.visibility = &quot;hidden&quot;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<h2 id="例题2"><a href="#例题2" class="headerlink" title="例题2"></a>例题2</h2><p>将输入的字符自动转换为大写</p>
+<h2 id="代码2"><a href="#代码2" class="headerlink" title="代码2"></a>代码2</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function forceToUpperCase(element) &#123;</span><br><span class="line">	if (typeof element === &quot;string&quot;) element = document.getElementById(element);</span><br><span class="line">	element.oninput = upcase;</span><br><span class="line">	element.onpropertychange = upcaseOnPropertyChange;</span><br><span class="line"></span><br><span class="line">	function upcase(event) &#123;</span><br><span class="line">		this.value = this.value.toUpperCase()</span><br><span class="line">	&#125;</span><br><span class="line">	function upcaseOnPropertyChange(event) &#123;</span><br><span class="line">		var e = event || window.event;</span><br><span class="line">		if (e.propertyName === &quot;value&quot;) &#123;</span><br><span class="line">			this.onpropertychange = null;</span><br><span class="line">			this.value = this.value.toUpperCase();</span><br><span class="line">			this.onpropertychange = upcaseOnPropertyChange</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h1><h2 id="事件代理"><a href="#事件代理" class="headerlink" title="事件代理"></a>事件代理</h2><p>节省内存，适用于表格/列表等重复性dom元素。基本原理就是将事件绑定到祖先元素上，然后判断事件对象target，如果为对应的子元素则执行对应的逻辑。</p>
+<h2 id="事件创建-分发"><a href="#事件创建-分发" class="headerlink" title="事件创建/分发"></a>事件创建/分发</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var event = document.createEvent(&apos;Event&apos;);</span><br><span class="line">event.initEvent(&apos;click&apos;);</span><br><span class="line">var element = document.getElementById(&apos;zdl&apos;);</span><br><span class="line">element.dispatchEvent(event);</span><br></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这本书真是内容翔实，枯燥难读。这一章的内容看了几遍才决定以百度脑图和代码实例相结合的方式算是比较合理吧~</p>
+<p>百度脑图下载地址：<a href="http://yalishizhude.github.io/subscribe/" target="_blank" rel="noopener">http://yalishizhude.github.io/subscribe/</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+            <a href="/tags/读书/" rel="tag"># 读书</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/28/angular-directive-delegate/" rel="next" title="Angular中用代理服务实现控制器与指令之间的通信">
+                <i class="fa fa-chevron-left"></i> Angular中用代理服务实现控制器与指令之间的通信
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/21/rhinoceros-bom/" rel="prev" title="一起来啃犀牛书：BOM">
+                一起来啃犀牛书：BOM <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文档加载事件"><span class="nav-number">1.</span> <span class="nav-text">文档加载事件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#知识点"><span class="nav-number">1.1.</span> <span class="nav-text">知识点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例题"><span class="nav-number">1.2.</span> <span class="nav-text">例题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">1.3.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#鼠标事件"><span class="nav-number">2.</span> <span class="nav-text">鼠标事件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#知识点-1"><span class="nav-number">2.1.</span> <span class="nav-text">知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事件属性"><span class="nav-number">2.1.1.</span> <span class="nav-text">事件属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例题-1"><span class="nav-number">2.2.</span> <span class="nav-text">例题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码-1"><span class="nav-number">2.3.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文本-键盘事件"><span class="nav-number">3.</span> <span class="nav-text">文本/键盘事件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#知识点-2"><span class="nav-number">3.1.</span> <span class="nav-text">知识点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例题1"><span class="nav-number">3.2.</span> <span class="nav-text">例题1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码1"><span class="nav-number">3.3.</span> <span class="nav-text">代码1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例题2"><span class="nav-number">3.4.</span> <span class="nav-text">例题2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码2"><span class="nav-number">3.5.</span> <span class="nav-text">代码2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事件处理"><span class="nav-number">4.</span> <span class="nav-text">事件处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#事件代理"><span class="nav-number">4.1.</span> <span class="nav-text">事件代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件创建-分发"><span class="nav-number">4.2.</span> <span class="nav-text">事件创建/分发</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

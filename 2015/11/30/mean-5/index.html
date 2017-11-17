@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="node.js,mean," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="原文地址 https://blog.udemy.com/node-js-tutorial感谢来自Udemy的Samantha来信分享  编辑一个视频在这一节中，你将看见另一个API端点，Angular视图，控制器和路由。 我们将以类似的方式从这一部分到最后一个部分。首先，我们将建立两个API端点：一个用于通过ID获取视">
+<meta name="keywords" content="node.js,mean">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【译】基于MEAN的全栈开发实例教程5：实现编辑功能">
+<meta property="og:url" content="http://yoursite.com/2015/11/30/mean-5/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="原文地址 https://blog.udemy.com/node-js-tutorial感谢来自Udemy的Samantha来信分享  编辑一个视频在这一节中，你将看见另一个API端点，Angular视图，控制器和路由。 我们将以类似的方式从这一部分到最后一个部分。首先，我们将建立两个API端点：一个用于通过ID获取视频，另一个用于更新视频。然后，我们将添加一个链接到主页中的每个视频。当用户点击">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.235Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【译】基于MEAN的全栈开发实例教程5：实现编辑功能">
+<meta name="twitter:description" content="原文地址 https://blog.udemy.com/node-js-tutorial感谢来自Udemy的Samantha来信分享  编辑一个视频在这一节中，你将看见另一个API端点，Angular视图，控制器和路由。 我们将以类似的方式从这一部分到最后一个部分。首先，我们将建立两个API端点：一个用于通过ID获取视频，另一个用于更新视频。然后，我们将添加一个链接到主页中的每个视频。当用户点击">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/11/30/mean-5/"/>
+
+
+
+
+
+  <title>【译】基于MEAN的全栈开发实例教程5：实现编辑功能 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/11/30/mean-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【译】基于MEAN的全栈开发实例教程5：实现编辑功能</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-11-30T22:43:00+08:00">
+                2015-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>原文地址 <a href="https://blog.udemy.com/node-js-tutorial" target="_blank" rel="noopener">https://blog.udemy.com/node-js-tutorial</a><br>感谢来自Udemy的Samantha来信分享</p>
+</blockquote>
+<h1 id="编辑一个视频"><a href="#编辑一个视频" class="headerlink" title="编辑一个视频"></a>编辑一个视频</h1><p>在这一节中，你将看见另一个API端点，Angular视图，控制器和路由。</p>
+<p>我们将以类似的方式从这一部分到最后一个部分。首先，我们将建立两个API端点：一个用于通过ID获取视频，另一个用于更新视频。然后，我们将添加一个链接到主页中的每个视频。当用户点击这个链接，他们将被重定向到一个由视频详情填充的表单。当他们点击保存，更改将被保存然后返回到主页。</p>
+<a id="more"></a>
+<h2 id="第1步：创建API端点"><a href="#第1步：创建API端点" class="headerlink" title="第1步：创建API端点"></a>第1步：创建API端点</h2><p>下面这一步很熟悉，创建两个新的路由：</p>
+<pre><code>GET /api/videos/{id}
+PUT /api/videos/{id}
+</code></pre><p>然后打开 <strong>routes&gt;videos.js</strong> 添加以下路由信息：</p>
+<pre><code>router.get(&apos;/:id&apos;, function(req, res) {
+    var collection = db.get(&apos;videos&apos;);
+    collection.findOne({ _id: req.params.id }, function(err, video){
+        if (err) throw err;
+        res.json(video);
+    });
+});
+</code></pre><p>注意这里有一个路由参数，在一个冒号后面声明(:id)。你可以访问这个参数值通过 <strong>req.params.id</strong>。</p>
+<p>除此之外，其余的这条路由配置是类似于你以前见过的。唯一的区别是，我们使用集合中的findOne方法来返回一个对象。对该方法的第一个参数是标准对象。因此，我们通过_id等于req.params.id来寻找一个文档。</p>
+<p>创建另一个路由：</p>
+<pre><code>router.put(&apos;/:id&apos;, function(req, res){
+    var collection = db.get(&apos;videos&apos;);
+    collection.update({
+        _id: req.params.id
+    },
+    {
+        title: req.body.title,
+        description: req.body.description
+    }, function(err, video){
+        if (err) throw err;
+        res.json(video);
+    });
+});
+</code></pre><p>注意我们通过 <strong>router.put</strong> 来定义这个路由。当这个端点上有HTTP PUT请求时这个处理器将会被调用。</p>
+<p>通过集合中的 <strong>update</strong> 方法来更新一个文档。第一个参数是一个标准对象。只更新 <strong>_id</strong> 和 <strong>req.params.id</strong><br>匹配的文档。第二个参数代表了需要更新的值。</p>
+<p>这种rest接口其实非常简单。</p>
+<h2 id="第2步：创建一个编辑页面"><a href="#第2步：创建一个编辑页面" class="headerlink" title="第2步：创建一个编辑页面"></a>第2步：创建一个编辑页面</h2><p>首先我们需要为主页上的每个视频添加一个链接。打开 <strong>partials&gt;home.html</strong> 如下改变LI标签。</p>
+<pre><code>&lt;li ng-repeat=&apos;video in videos&apos;&gt;
+    &lt;a href=&quot;/#/video/{{video._id}}&quot;&gt;
+        {{video.title}}
+    &lt;/a&gt;
+&lt;/li&gt;
+</code></pre><p>Angular绑定表达式通过视频ID来渲染动态URL。注意这个URL带有前缀<code>/#</code>来兼容老的浏览器。</p>
+<p>现在我们需要通过一个带有表单的视图来编辑一个视频。现在我们已经有了一个带有表单的视图。所以我们我考虑重用它。</p>
+<p>在 <strong>vidzy.js</strong> 中添加一个新的路由：</p>
+<pre><code>.when(&apos;/video/:id&apos;, {
+    templateUrl: &apos;partials/video-form.html&apos;
+})
+</code></pre><p>由于我们还没有创建控制器，所以在路由中还不能设置控制器。让我们来回顾一下我们的工作。</p>
+<p>回到浏览器主页然后刷新页面。每个视频现在都由一个超链接替代。点击一个视频。你将看见一个空的表单。</p>
+<p>下一步我们为表单添加行为：填充表单数据和处理点击保存按钮事件。</p>
+<h2 id="第3步：实现控制器"><a href="#第3步：实现控制器" class="headerlink" title="第3步：实现控制器"></a>第3步：实现控制器</h2><p>现在我们有了2个选择。我们可以创建一个新的控制器，如editvideoctrl，或使用现有的控制器（addvideoctrl）。你认为最好的解决办法是什么？答案是：没有最好的解决办法。需要看情况而定。如果2个案例（添加和编辑）有很多相似之处，则创建一个控制器来处理这两种情况。另一方面，如果两个场景有很大的不同，你会写很多丑陋的条件语句在一个控制器中。这种情况下，最好把它们分为2个不同的控制器。</p>
+<p>在写这一步的教程之前，我开始重复使用相同的控制器但是我对最终结果感到不满意。所以，我决定把它们拆分成2个不同的控制器。</p>
+<p>在 <strong>vidzy.js</strong>中，如下创建一个新的控制器：</p>
+<pre><code>app.controller(&apos;EditVideoCtrl&apos;, [&apos;$scope&apos;, &apos;$resource&apos;, &apos;$location&apos;, &apos;$routeParams&apos;,
+function($scope, $resource, $location, $routeParams){   
+    var Videos = $resource(&apos;/api/videos/:id&apos;, { id: &apos;@_id&apos; }, {
+        update: { method: &apos;PUT&apos; }
+    });
+    Videos.get({ id: $routeParams.id }, function(video){
+        $scope.video = video;
+    });
+    $scope.save = function(){
+        Videos.update($scope.video, function(){
+            $location.path(&apos;/&apos;);
+        });
+    };
+}]);
+</code></pre><p>让我解释一下这里发生了什么。</p>
+<p>首先，这个控制器，并不像我们的 <strong>AddVideoCtrl</strong> 有4个依赖。这里我们有一个额外的依赖： <strong>$routeParams</strong> 用来访问路由参数。这种情况下，编辑中使用的视频ID将成为路由参数。</p>
+<p>在这个控制器内，首先我们使用 <strong>$resource</strong> 服务来获取一个对象通过和API端点交互。但这一次，我们通过另一种方式来使用 <strong>$resource</strong>。</p>
+<pre><code>var Videos = $resource(&apos;/api/videos/:id&apos;, { id: &apos;@_id&apos; }, {
+     update: { method: &apos;PUT&apos; }
+});
+</code></pre><p>传输给端点的第一个参数是URL。这里我们有一个冒号声明的参数(:id)。因为我们在这一节中之前创建的端点都是带有路由参数的，所以我们使用参数化的路由。</p>
+<pre><code>GET /api/videos/:id
+PUT /api/videos/:id
+</code></pre><p>这个方法的第2个参数是1个对象，为路由参数 <strong>:id</strong> 提供默认值。</p>
+<pre><code>{ id: &apos;@_id&apos; }
+</code></pre><p>这里 ‘@_id’ 告诉Angular在请求对象中查找一个叫做 _id 的属性。所以当我们发送一个PUT请求 <strong>/api/videos/:id</strong>，Angular将使用视频对象的_id属性来设置路由中的:id参数。</p>
+<p><strong>$resource</strong> 方法第3个参数用来扩展 <strong>$resource</strong> 服务。</p>
+<pre><code>{
+update: { method: &apos;PUT&apos; }
+}
+</code></pre><p>只有Angular的开发者才知道，在某些情况下，默认你不能用$resource服务发送HTTP PUT请求，你需要扩展它通过一个使用HTTP UPT的 <strong>update</strong> 方法。</p>
+<p>下面我们通过给定的ID使用 <strong>Videos.get</strong> 来获取这个视频。</p>
+<pre><code>Videos.get({ id: $routeParams.id }, function(video){
+    $scope.video = video;
+});
+</code></pre><p>现在实现在页面加载的时候填充表单。<strong>Videos.get</strong> 方法的第一个参数为路由提供了第一个参数 <strong>:id</strong>。我们使用 <strong>$routeParams.id</strong> 来获取浏览器地址栏中的这个参数。还记得我们为编辑页面定义的路由吗？</p>
+<pre><code>.when(&apos;/video/:id&apos;, {
+    templateUrl: &apos;partials/video-form.html&apos;,
+})
+</code></pre><p>这里我们使用一个路由参数（:id）。然后我们通过 <strong>$routeParams</strong> 来访问它。</p>
+<p>在 <strong>Videos.get</strong> 的回调方法中，我们从服务端获得返回的视频然后将它存储在 <strong>$scope</strong> 中。同时通过Angular的双向数据绑定在后台运行，这个表格将会被我们的视屏对象自动填充。还记得 <strong>ng-model</strong> 吗？我们将输入域绑定到$scope对象的属性上。任何在输入域上发生的改变将会反射到$scope，反之亦然。</p>
+<p>最后在控制器中，我们定义一个 <strong>save</strong> 方法，当保存按钮被点击时调用。</p>
+<pre><code>$scope.save = function(){
+    Videos.update($scope.video, function(){
+        $location.path(&apos;/&apos;);
+    });
+}
+</code></pre><p>注意这里，我们用 <strong>Videos.update</strong> 来替代 <strong>Videos.save</strong>。这是我们早在扩展 <strong>$resource</strong> 服务的时候就定义的新方法。这里将发送一个HTTP PUT请求给我们的API端点。</p>
+<p>到这里差不多完成了。新控制器已经写好了。我们只需要添加引用到路由配置中。如下改变路由配置：</p>
+<pre><code>.when(&apos;/video/:id&apos;, {
+    templateUrl: &apos;partials/video-form.html&apos;,
+    controller: &apos;EditVideoCtrl&apos;
+})
+</code></pre><p>让我们测试这个新功能。返回到浏览器，刷新主页。选择一个视频。做一些修改，点击保存按钮。一切都应该工作。</p>
+<p>在下一节中，我们将添加一个功能，来使我们的视频租赁商店的应用程序具有完整的增删改查功能。</p>
+<p><em>如果觉得阅读这篇文章有收获，不妨点个赞吧^_^</em></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/node-js/" rel="tag"># node.js</a>
+          
+            <a href="/tags/mean/" rel="tag"># mean</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/28/try-hard/" rel="next" title="满满的正能量——《你只是看起来很努力》读书笔记">
+                <i class="fa fa-chevron-left"></i> 满满的正能量——《你只是看起来很努力》读书笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/02/angular-scrollpin/" rel="prev" title="Duang~简单实用的angular滚动列表特效(移动端)">
+                Duang~简单实用的angular滚动列表特效(移动端) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#编辑一个视频"><span class="nav-number">1.</span> <span class="nav-text">编辑一个视频</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第1步：创建API端点"><span class="nav-number">1.1.</span> <span class="nav-text">第1步：创建API端点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第2步：创建一个编辑页面"><span class="nav-number">1.2.</span> <span class="nav-text">第2步：创建一个编辑页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第3步：实现控制器"><span class="nav-number">1.3.</span> <span class="nav-text">第3步：实现控制器</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

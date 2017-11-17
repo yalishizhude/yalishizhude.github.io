@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="小程序," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="今天和大家交流分享的是关于微信小程序的一些开发心得。包括4个部分：  个人简介。包括我所在的公司和个人的一些情况。 小程序的介绍。讲述为什么前端开发者要学习小程序开发以及官方为开发者提供了哪些有价值的资源。 小程序与WebApp对比。熟悉WebApp的开发者怎样快速掌握小程序开发，小程序和WebApp有哪些异同点。 小">
+<meta name="keywords" content="小程序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="w3ctech长沙站—8月前端开发专场讲稿">
+<meta property="og:url" content="http://yoursite.com/2017/08/19/miniprogram-share/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="今天和大家交流分享的是关于微信小程序的一些开发心得。包括4个部分：  个人简介。包括我所在的公司和个人的一些情况。 小程序的介绍。讲述为什么前端开发者要学习小程序开发以及官方为开发者提供了哪些有价值的资源。 小程序与WebApp对比。熟悉WebApp的开发者怎样快速掌握小程序开发，小程序和WebApp有哪些异同点。 小程序开发技巧。分享我在开发小程序时碰到的一些问题和解决方法。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.244Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="w3ctech长沙站—8月前端开发专场讲稿">
+<meta name="twitter:description" content="今天和大家交流分享的是关于微信小程序的一些开发心得。包括4个部分：  个人简介。包括我所在的公司和个人的一些情况。 小程序的介绍。讲述为什么前端开发者要学习小程序开发以及官方为开发者提供了哪些有价值的资源。 小程序与WebApp对比。熟悉WebApp的开发者怎样快速掌握小程序开发，小程序和WebApp有哪些异同点。 小程序开发技巧。分享我在开发小程序时碰到的一些问题和解决方法。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/19/miniprogram-share/"/>
+
+
+
+
+
+  <title>w3ctech长沙站—8月前端开发专场讲稿 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/19/miniprogram-share/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">w3ctech长沙站—8月前端开发专场讲稿</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-19T23:33:58+08:00">
+                2017-08-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/小程序/" itemprop="url" rel="index">
+                    <span itemprop="name">小程序</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天和大家交流分享的是关于微信小程序的一些开发心得。<br>包括4个部分：</p>
+<ul>
+<li>个人简介。包括我所在的公司和个人的一些情况。</li>
+<li>小程序的介绍。讲述为什么前端开发者要学习小程序开发以及官方为开发者提供了哪些有价值的资源。</li>
+<li>小程序与WebApp对比。熟悉WebApp的开发者怎样快速掌握小程序开发，小程序和WebApp有哪些异同点。</li>
+<li>小程序开发技巧。分享我在开发小程序时碰到的一些问题和解决方法。</li>
+</ul>
+<a id="more"></a>
+<h1 id="个人简介"><a href="#个人简介" class="headerlink" title="个人简介"></a>个人简介</h1><p>我所在的<a href="http://tiduyun.com" target="_blank" rel="noopener">长沙梯度信息科技有限公司</a>是利用容器技术，为企业提供云服务的科技公司。<br>目前的产品有<a href="http://www.tiduyun.com/cloud.html" target="_blank" rel="noopener">智能云平台</a>、<a href="http://www.tiduyun.com/datas.html" target="_blank" rel="noopener">大数据平台</a>、<a href="http://www.tiduyun.com/monitor.html" target="_blank" rel="noopener">监控平台</a>、<a href="http://www.tiduyun.com/semantic.html" target="_blank" rel="noopener">语义分析平台</a>。<br>客户包括翼支付、广西商务厅、丝路视觉等企业单位。</p>
+<p>我目前是<a href="http://tiduyun.com" target="_blank" rel="noopener">梯度科技</a>的资深Web前端工程师，同时也是<a href="http://www.imooc.com/" target="_blank" rel="noopener">慕课网</a>的<a href="http://www.imooc.com/u/1098050" target="_blank" rel="noopener">讲师和认证作者</a>，在此之前我在<a href="https://toutiao.io/" target="_blank" rel="noopener">开发者头条</a>上也建立了自己的个人专栏，今年顺利通过了<a href="http://www.casjob.com/" target="_blank" rel="noopener">中科人才中心</a>评审组委会评审，认证为软件开发专业的工程师，最近刚加入<a href="http://www.wxapp-union.com/" target="_blank" rel="noopener">微信小程序联盟</a>，成为博主。</p>
+<p>欢迎大家关注我的个人微信订阅号“web学习社”，一起学习和交流关于web开发方面的知识和经验~</p>
+<h1 id="小程序简介"><a href="#小程序简介" class="headerlink" title="小程序简介"></a>小程序简介</h1><h2 id="前端开发者为什么要了解小程序？"><a href="#前端开发者为什么要了解小程序？" class="headerlink" title="前端开发者为什么要了解小程序？"></a>前端开发者为什么要了解小程序？</h2><h3 id="小程序发展趋势"><a href="#小程序发展趋势" class="headerlink" title="小程序发展趋势"></a>小程序发展趋势</h3><p>宏观上看，小程序2016年底推出的时候，很多人对它前景非常看好，甚至预测它会取代手机上的应用商店。</p>
+<p>但至今半年多过去了，发展状况并非如此,由于小程序本身的封闭性和去用户粘性，一些小程序甚至被放弃中止开发了,如“得到”和“今日头条”。</p>
+<p>据微信小程序数据统计平台<a href="http://www.aldwx.com/" target="_blank" rel="noopener">阿拉丁</a>报告，小程序下半年流量将呈现大幅增长。</p>
+<p>在微信不断开放小程序入口以及增加推送，和微信应用其他应用捆绑在一起，依托微信本身巨大的流量平台，从长远角度来看，我们可以期待小程序的下一轮爆发期~</p>
+<h3 id="小程序对于web开发者的意义"><a href="#小程序对于web开发者的意义" class="headerlink" title="小程序对于web开发者的意义"></a>小程序对于web开发者的意义</h3><p>再从微观上，就开发者本身的成长路线而言，Node.js不仅让前端变得工程化和自动化，同时为前端开发者提供了开发服务端的能力，让JS开发者走向全栈。</p>
+<p>但是由于浏览器本身的安全策略，web开发者接触客户端硬件的能力一直被封印着。混合应用正是解开封印的方式，桌面端早有开源的HEX项目，移动端有hybrid这样的解决方案。</p>
+<p>但是像hybrid这种混合对前端开发者来说并不友好，APP编译时间长，而且需要在不同平台发布，开发者调试可能还需要APP开发者配合进行。</p>
+<p>而小程序以微信这个跨多种设备的APP为平台，获取硬件API，可以算是最平滑最高效的成为“大前端”的方式。由此我们便可以将自己打造成“T”型人才。</p>
+<h2 id="小程序提供的资源"><a href="#小程序提供的资源" class="headerlink" title="小程序提供的资源"></a>小程序提供的资源</h2><h3 id="微信Web开发工具"><a href="#微信Web开发工具" class="headerlink" title="微信Web开发工具"></a>微信Web开发工具</h3><p>官方推出的集开发、编译、预览、调试一体的开发工具，自带一些常用的快捷键，支持ES6语法，虽然编辑代码能力较弱，但是要编译预览调试只能靠它了。</p>
+<p>调试界面外观酷似Chrome调试工具，两个页功能签略有不同，”AppData”查看页面数据，”Storage”查看存储数据。<br>自带watch功能，一旦代码发生变化则自动编译</p>
+<h3 id="小程序示例"><a href="#小程序示例" class="headerlink" title="小程序示例"></a>小程序示例</h3><p>分组件示例和API调用示例，可以去官网上下载源码，也可以直接在小程序中搜索查看。</p>
+<h3 id="设计资源"><a href="#设计资源" class="headerlink" title="设计资源"></a>设计资源</h3><p>包括psd文件和设计规范以及Sketch文件。</p>
+<h3 id="开发者社区"><a href="#开发者社区" class="headerlink" title="开发者社区"></a>开发者社区</h3><p>一个简单交流平台，支持简单的发帖回帖，一般问题交流、公告发布都在这里。</p>
+<h3 id="小程序管理平台"><a href="#小程序管理平台" class="headerlink" title="小程序管理平台"></a>小程序管理平台</h3><p>小程序的后台，提交审核、发布小程序以及编辑一些基本信息和调试信息等。</p>
+<h3 id="其他文档"><a href="#其他文档" class="headerlink" title="其他文档"></a>其他文档</h3><p>API文档、Demo等。</p>
+<h1 id="小程序与WebApp"><a href="#小程序与WebApp" class="headerlink" title="小程序与WebApp"></a>小程序与WebApp</h1><h2 id="小程序vs原生Web页面"><a href="#小程序vs原生Web页面" class="headerlink" title="小程序vs原生Web页面"></a>小程序vs原生Web页面</h2><ul>
+<li>视图。小程序采用了和HTML相似度极高的WXML文件，但它限制了a标签的使用，不允许直接跳转到外部网页，同时也不支持<code>&amp;nbsp</code>这类HTML字符串。最大的不同点就是HTML元素通过DOM操作，它只能通过单向数据绑定来操作。</li>
+<li>样式。小程序的wxss文件就是增强版的css，支持文件之间的引用和css3特性。同时由于在微信上运行，我们也不必考虑浏览器的兼容性问题了。</li>
+<li>逻辑。JS方面支持ES6，提供了一些硬件的API，去除了DOM和BOM。</li>
+<li>配置。小程序支持全局配置app.json和页面配置xxx.json，全部配置可以配置路由、tab页、窗口等，而页面配只能修改当前页面的窗口样式和标题。</li>
+</ul>
+<h2 id="小程序vsMVVM单页应用"><a href="#小程序vsMVVM单页应用" class="headerlink" title="小程序vsMVVM单页应用"></a>小程序vsMVVM单页应用</h2><ul>
+<li>模板。在小程序中，视图层和模型层的交互是单向的，模型层发生改变时，通过数据绑定来影响视图；视图层变化时，通过事件绑定来修改数据。但事件只能传递事件对象，所以要获取事件相关的数据只能通过事件对象对应元素的属性。支持简单的循环判断等语法，也支持通过include和template方式引用模板。</li>
+<li>样式。之前提到过，wxss简单的理解就是css3 + @import文件引用，而MVVM通过构建工具支持各种预编译语言。</li>
+<li>组件化。不直接支持自定义组件，第三方模块也较少。而单页应用与之则相反。</li>
+<li>路由。相对单页应用路由，小程序的则简单不少，支持路由参数但是不支持子路由。</li>
+</ul>
+<h1 id="小程序开发"><a href="#小程序开发" class="headerlink" title="小程序开发"></a>小程序开发</h1><h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">- components  //业务组件</span><br><span class="line">- images  //图片</span><br><span class="line">- pages  //页面</span><br><span class="line">- utils  //公共js</span><br><span class="line">|</span><br><span class="line">  - api.js  //微信api封装，处理兼容性问题，业务化一些函数</span><br><span class="line">  - bus.js  //公用业务</span><br><span class="line">  - config.js  //配置信息，包括开发环境识别等</span><br><span class="line">  - datetime.js  //日期处理函数</span><br><span class="line">  - dict.js  //字典数据</span><br><span class="line">  - request.js  //请求封装，包括登录校验</span><br><span class="line">  - util.js  //工具函数</span><br><span class="line">  - validate.js  //表单校验</span><br><span class="line">- app.js  //项目初始化逻辑</span><br><span class="line">- app.json  //全局配置</span><br><span class="line">- app.wxss  //全局样式</span><br><span class="line">- color.wxss  //全局颜色</span><br><span class="line">- font.wxss  //全局字体大小</span><br><span class="line">- form.wxss  //全局表单样式</span><br><span class="line">- property.wxss  //全局属性样式</span><br></pre></td></tr></table></figure>
+<h2 id="小程序后端服务器配置"><a href="#小程序后端服务器配置" class="headerlink" title="小程序后端服务器配置"></a>小程序后端服务器配置</h2><p>小程序如果和后端有交互，需要上线之前配置好服务端域名，而且必须是https协议的。</p>
+<p>在开发中我们采用nginx做了代理，同时小程序后台进行了配置，将不同版本转发到不同域名进行访问和调试。</p>
+<p>小程序开发时使用mock服务器，后端联调时直接指向后端服务器，调试完成后指向开发服务器。</p>
+<p>为了避免上线之后代码指向错误的后端路径，可以设置storage缓存来当作小程序的“环境变量”。</p>
+<h2 id="小程序API的使用"><a href="#小程序API的使用" class="headerlink" title="小程序API的使用"></a>小程序API的使用</h2><p>由于小程序在不断地迭代和更新，所以可能会出现新的API无法在老版本的微信上调用的问题，微信官方文档会及时给出提示，并且提供了相应的处理方式：</p>
+<ul>
+<li>判断API函数是否存在，不存在时做兼容处理。</li>
+<li>用canIUse函数判断API函数，返回值为false时做兼容处理。</li>
+</ul>
+<p>由于canIUse函数本身存在兼容性问题，所以第一种方式比较好。</p>
+<p>显然我们不能每次使用API函数之前都判断一次，所以项目中采取了对原生API全部封装的方式，来处理不同情况：</p>
+<ul>
+<li>对于不存在兼容性的API直接调用。</li>
+<li>对于存在兼容性的API做降级处理</li>
+<li>部分API进行业务封装</li>
+</ul>
+<h2 id="小程序公共样式编写"><a href="#小程序公共样式编写" class="headerlink" title="小程序公共样式编写"></a>小程序公共样式编写</h2><p>受张鑫旭的面向属性样式的启发，项目中对于常用的枚举属性一直采用面向属性的样式类命名。<br>如常用的<code>display:block;</code>命名成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.d-b &#123;</span><br><span class="line">    display: block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样的好处是有效的避免了这种高频样式的重复。</p>
+<p>同时对于字体和颜色也抽取成简单的样式类，方便复用，虽然颜色和样式不属于枚举值，但是一般一个小程序为了保证风格统一，不可能出现太多的颜色和字体大小（复杂的颜色应该会在图片中），所以也适合抽取成简单的样式类。</p>
+<p>表单组件比较特殊，以后有机会再详细说明。因为使用情况较多，所以也写成了全局公用样式。</p>
+<h2 id="小程序组件化"><a href="#小程序组件化" class="headerlink" title="小程序组件化"></a>小程序组件化</h2><p>组件化也是比较麻烦的一个事情，参看我个人订阅号的这两篇文章有详细说明。</p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzU3MjA3MTQ1NQ==&amp;mid=2247483655&amp;idx=1&amp;sn=81ba757c2e4911f9ca9e678cd0343956&amp;chksm=fcd7ca77cba043615b8b7874746fb7ebab2f2e124ebc63cd62191aaf620352b414c985303fde&amp;mpshare=1&amp;scene=1&amp;srcid=0819qJwjrudKImc12ifwwPOv&amp;pass_ticket=4y%2FD2dS0FR%2FBG1nSa1cqa%2Bx1GdTPBY98KgXtmuQHY2MzNbxfPDG5Fkdw7%2FPlfLow#rd" target="_blank" rel="noopener">微信小程序组件化（上）</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzU3MjA3MTQ1NQ==&amp;mid=2247483657&amp;idx=1&amp;sn=49fc0c38f8ac4047563e1c8a0dc406c2&amp;chksm=fcd7ca79cba0436fc6fef21a57f750397ca180c81ac3c874119c397f1a2f885e2b2f87f6723f&amp;mpshare=1&amp;scene=1&amp;srcid=0815jz21yEbT9aEe8ap6zPfK&amp;pass_ticket=LFSEwi0YEB+ojLX7CyIgqbvUoQaAKGbBaK0BkO+d8Gu2eCP3XCqrkjeyHfB1O1vR#rd" target="_blank" rel="noopener">微信小程序组件化（下）</a></p>
+<h2 id="小程序版本与权限"><a href="#小程序版本与权限" class="headerlink" title="小程序版本与权限"></a>小程序版本与权限</h2><p>本地开发完成，可以先生成“预览版本”，同时可以上传生成“开发版本”，开发版本可以手动设置为“体验版本”，“开发版本”可以提交进行审核，审核通过之后才可以发布成为“线上版本”。<br>其中管理员拥有最高权限可以查看所有版本，其他角色需要管理员同意。<br>开发者仅次于管理员，可以查看所有版本。<br>体验者可以查看“体验版本”和“线上版本”。<br>普通用户只可以访问“线上版本”。</p>
+<p>小程序的访问入口正在不断被开放，包括扫描生成二维码和小程序码，或者朋友转发的小程序码，以及绑定普通网址的二维码。<br>其中普通网址二维码需要网站校验通过后才可以绑定，用户可以在用户中识别二维码跳转到小程序而不是原来的网站，也就是微信做了一个域名转发的工作。</p>
+<h1 id="分享会上提出的问题"><a href="#分享会上提出的问题" class="headerlink" title="分享会上提出的问题"></a>分享会上提出的问题</h1><h2 id="安卓设备兼容性问题如何处理？"><a href="#安卓设备兼容性问题如何处理？" class="headerlink" title="安卓设备兼容性问题如何处理？"></a>安卓设备兼容性问题如何处理？</h2><p>小程序调用微信API失败时会有回调函数，在回调函数中分情况处理。</p>
+<p>如果是硬件层面的需要提交官方进行修复，如果是页面方面的可以自己做兼容处理，比如模态框之类的。</p>
+<h2 id="如何制作一个小程序编辑工具，让用户通过鼠标拖拽之类的简单方式来自定义自己的小程序？"><a href="#如何制作一个小程序编辑工具，让用户通过鼠标拖拽之类的简单方式来自定义自己的小程序？" class="headerlink" title="如何制作一个小程序编辑工具，让用户通过鼠标拖拽之类的简单方式来自定义自己的小程序？"></a>如何制作一个小程序编辑工具，让用户通过鼠标拖拽之类的简单方式来自定义自己的小程序？</h2><p>小程序本身只能在微信开发工具中进行修改，所以只能想别的方法实现。</p>
+<p>这类工具我未涉及过，不过可能一种实现方式就是，在Web页面上编写和小程序功能样式相同的组件，供用户进行编辑，编辑保存到后端。我</p>
+<p>们再利用后端的配置数据编译生成对应的小程序。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>和WebApp相比，小程序太弱了，所以给了开发者改进它的机会。</p>
+<p>和WebApp相比，小程序又太强了，基于微信这个流量入口，又拥有硬件API，和微信公众号等产品绑定…想象空间不可估量。</p>
+<p>PPT下载地址：<a href="https://github.com/yalishizhude/miniprogram-ppt" target="_blank" rel="noopener">https://github.com/yalishizhude/miniprogram-ppt</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/小程序/" rel="tag"># 小程序</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/14/minprogram-component-2/" rel="next" title="微信小程序组件化（下）">
+                <i class="fa fa-chevron-left"></i> 微信小程序组件化（下）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/21/miniprogram-form/" rel="prev" title="miniprogram-form">
+                miniprogram-form <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#个人简介"><span class="nav-number">1.</span> <span class="nav-text">个人简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小程序简介"><span class="nav-number">2.</span> <span class="nav-text">小程序简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前端开发者为什么要了解小程序？"><span class="nav-number">2.1.</span> <span class="nav-text">前端开发者为什么要了解小程序？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小程序发展趋势"><span class="nav-number">2.1.1.</span> <span class="nav-text">小程序发展趋势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小程序对于web开发者的意义"><span class="nav-number">2.1.2.</span> <span class="nav-text">小程序对于web开发者的意义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小程序提供的资源"><span class="nav-number">2.2.</span> <span class="nav-text">小程序提供的资源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#微信Web开发工具"><span class="nav-number">2.2.1.</span> <span class="nav-text">微信Web开发工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小程序示例"><span class="nav-number">2.2.2.</span> <span class="nav-text">小程序示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计资源"><span class="nav-number">2.2.3.</span> <span class="nav-text">设计资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发者社区"><span class="nav-number">2.2.4.</span> <span class="nav-text">开发者社区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小程序管理平台"><span class="nav-number">2.2.5.</span> <span class="nav-text">小程序管理平台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他文档"><span class="nav-number">2.2.6.</span> <span class="nav-text">其他文档</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小程序与WebApp"><span class="nav-number">3.</span> <span class="nav-text">小程序与WebApp</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#小程序vs原生Web页面"><span class="nav-number">3.1.</span> <span class="nav-text">小程序vs原生Web页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小程序vsMVVM单页应用"><span class="nav-number">3.2.</span> <span class="nav-text">小程序vsMVVM单页应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小程序开发"><span class="nav-number">4.</span> <span class="nav-text">小程序开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目结构"><span class="nav-number">4.1.</span> <span class="nav-text">项目结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小程序后端服务器配置"><span class="nav-number">4.2.</span> <span class="nav-text">小程序后端服务器配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小程序API的使用"><span class="nav-number">4.3.</span> <span class="nav-text">小程序API的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小程序公共样式编写"><span class="nav-number">4.4.</span> <span class="nav-text">小程序公共样式编写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小程序组件化"><span class="nav-number">4.5.</span> <span class="nav-text">小程序组件化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小程序版本与权限"><span class="nav-number">4.6.</span> <span class="nav-text">小程序版本与权限</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分享会上提出的问题"><span class="nav-number">5.</span> <span class="nav-text">分享会上提出的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安卓设备兼容性问题如何处理？"><span class="nav-number">5.1.</span> <span class="nav-text">安卓设备兼容性问题如何处理？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何制作一个小程序编辑工具，让用户通过鼠标拖拽之类的简单方式来自定义自己的小程序？"><span class="nav-number">5.2.</span> <span class="nav-text">如何制作一个小程序编辑工具，让用户通过鼠标拖拽之类的简单方式来自定义自己的小程序？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="css,DPR,图片," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="原文地址：https://www.html5rocks.com/en/mobile/high-dpi/#toc-conclusion #介绍 在当今日益复杂的设备领域，屏幕的可用像素密度已经变得非常广泛。既有非常高分辨率的显示设备，也有远远落后的设备。应用程序开发人员需要支持一系列像素密度的显示设备，这可能是相当具有挑">
+<meta name="keywords" content="css,DPR,图片">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【译】高dpi图片对于不同设备的适配方案">
+<meta property="og:url" content="http://yoursite.com/2017/02/16/dpi-images/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="原文地址：https://www.html5rocks.com/en/mobile/high-dpi/#toc-conclusion #介绍 在当今日益复杂的设备领域，屏幕的可用像素密度已经变得非常广泛。既有非常高分辨率的显示设备，也有远远落后的设备。应用程序开发人员需要支持一系列像素密度的显示设备，这可能是相当具有挑战性的。在移动web端，情况变得更加复杂：  各种各样的设备具有不同的外形尺寸。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.html5rocks.com/static/demos/high-dpi/tile1.jpg">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.156Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【译】高dpi图片对于不同设备的适配方案">
+<meta name="twitter:description" content="原文地址：https://www.html5rocks.com/en/mobile/high-dpi/#toc-conclusion #介绍 在当今日益复杂的设备领域，屏幕的可用像素密度已经变得非常广泛。既有非常高分辨率的显示设备，也有远远落后的设备。应用程序开发人员需要支持一系列像素密度的显示设备，这可能是相当具有挑战性的。在移动web端，情况变得更加复杂：  各种各样的设备具有不同的外形尺寸。">
+<meta name="twitter:image" content="https://www.html5rocks.com/static/demos/high-dpi/tile1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/02/16/dpi-images/"/>
+
+
+
+
+
+  <title>【译】高dpi图片对于不同设备的适配方案 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/16/dpi-images/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【译】高dpi图片对于不同设备的适配方案</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-16T22:38:49+08:00">
+                2017-02-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>原文地址：<a href="https://www.html5rocks.com/en/mobile/high-dpi/#toc-conclusion" target="_blank" rel="noopener">https://www.html5rocks.com/en/mobile/high-dpi/#toc-conclusion</a></em></p>
+<p>#介绍</p>
+<p>在当今日益复杂的设备领域，屏幕的可用像素密度已经变得非常广泛。<br>既有非常高分辨率的显示设备，也有远远落后的设备。<br>应用程序开发人员需要支持一系列像素密度的显示设备，这可能是相当具有挑战性的。<br>在移动web端，情况变得更加复杂：</p>
+<ul>
+<li>各种各样的设备具有不同的外形尺寸。</li>
+<li>受限的网络带宽和电池寿命。<br>在图片方面，Web应用程序开发人员的目标是尽可能高效地提供最佳质量的图像。<br>本文将介绍适用于现在和不久将来的有效技术来达到这一效果。</li>
+</ul>
+<a id="more"></a>
+<h1 id="如果可能，尽量避免使用图片"><a href="#如果可能，尽量避免使用图片" class="headerlink" title="如果可能，尽量避免使用图片"></a>如果可能，尽量避免使用图片</h1><p>打开这个蠕虫之前，请记住，Web有许多强大的技术，主要是分辨率和DPI独立。 具体来说，由于web的自动像素缩放功能（通过devicePixelRatio），文本，SVG和大多数CSS将“只工作”。</p>
+<p>也就是说，你不能总是回避使用图片。<br>例如，当你在处理一些图片资源的时候，很难用纯svg或css来处理。<br>把图片自动转为svg并无太大意义，因为只是把图片简单的放大，看起来会比较模糊。</p>
+<h1 id="高DPI图片技术概览"><a href="#高DPI图片技术概览" class="headerlink" title="高DPI图片技术概览"></a>高DPI图片技术概览</h1><p>有许多技术用于解决尽可能快地显示最佳质量图像的问题，大致分为两类：</p>
+<ul>
+<li>单张图片进行质量优化</li>
+<li>多张图片选择性展示</li>
+</ul>
+<p>单图片解决方案：对一张图片进行巧妙地处理。<br>缺点就是不可避免地牺牲在某些设备上的性能，因为即使在具有较低DPI的旧设备上也将下载高DPI的图片。<br>包含以下几种实现方式：</p>
+<ul>
+<li>高压缩的高DPI图片</li>
+<li>webp图片格式</li>
+<li><a href="http://blog.csdn.net/maikforever/article/details/11046785" target="_blank" rel="noopener">渐进式的图片格式</a></li>
+</ul>
+<p>多图片解决方案：使用多张图片，选择最优的图片进行显示。这种方式会额外增加开发人员的工作量，因为针对每个图片都要创建多个版本，并使用最优的选择策略。一些可选的方式：</p>
+<ul>
+<li>Javascript</li>
+<li>服务端转发</li>
+<li>css媒体查询</li>
+<li>利用浏览器内置特性（image-set()， sercset）</li>
+</ul>
+<h2 id="高压缩的高DPI图片"><a href="#高压缩的高DPI图片" class="headerlink" title="高压缩的高DPI图片"></a>高压缩的高DPI图片</h2><p>图片资源通常占网站下载带宽的60%，如果提供高DPI图片给所有客户端，这一占比将继续扩大。那么具体情况如何？</p>
+<p>我用了一些测试脚本来生成图像质量分别为90%，50%，20%的1x图和2x图：</p>
+<p><img src="https://www.html5rocks.com/static/demos/high-dpi/tile1.jpg" alt=""></p>
+<p>从这个小的不太科学的样本来看，似乎压缩大图像提供了一个良好的质量尺寸权衡。<br>对于我们的眼睛，高压缩比的2x图像实际上看起来比未压缩的1x图片更好。</p>
+<p>当然，向2x设备提供低质量，高压缩比的2x图片远不如提供高质量的图片，并且上述方法将导致图像质量损失。<br>如果你比较90%图像质量和20%图像质量的图片，你会感到明显的失真和颗粒感。<br>在对图片质量有较高要求的情况下（例如，照片查看器应用程序），或者对于不愿意妥协的应用程序开发人员来说，这些图片是不可接受的。</p>
+<p>上述比较使用了未压缩的JPEG图片。值得注意的是，在广泛使用的图像格式（JPEG，PNG，GIF）之间还需要进行更多的折衷和取舍，这使我们选择了另一种处理方式…</p>
+<h2 id="webp图片格式"><a href="#webp图片格式" class="headerlink" title="webp图片格式"></a>webp图片格式</h2><p>WebP是一个非常引人注目的图像格式，压缩非常好，同时保持高图像保真度。 当然它并不是所有情况下可用！</p>
+<p>一种方法是通过JavaScript检查是否支持WebP。<br>通过data-uri加载1x图像，等待加载或错误事件触发，然后验证大小是否正确。 Modernizr附带了这样的功能检测脚本，可通过Modernizr.webp获得。</p>
+<p>更好的实现方式是在css中使用image()函数。如果你有webp或者jpeg格式的图片，可以写成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#pic &#123;</span><br><span class="line">  background: image(&quot;foo.webp&quot;, &quot;foo.jpg&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方法有一些问题。<br>首先，image()没有被广泛实现。<br>第二，虽然WebP压缩打破了JPEG的压缩极限，它仍然是一个相对性的改进 - 体积减少不到30％。<br>因此，单独的WebP不足以解决高DPI问题。</p>
+<h2 id="渐进式图片格式"><a href="#渐进式图片格式" class="headerlink" title="渐进式图片格式"></a>渐进式图片格式</h2><p>渐进图像格式，如JPEG 2000，Progressive JPEG，Progressive PNG和GIF的好处就是在图片完全加载之前能看到图片。<br>这可能会产生一些额外的开销。 <a href="http://www.codinghorror.com/blog/2005/12/progressive-image-rendering.html" target="_blank" rel="noopener">Jeff Atwood</a>声称渐进式图片“增加了约20％的PNG图像的大小，和约10％的JPEG和GIF图像的大小”。<br>然而，<a href="http://www.yuiblog.com/blog/2008/12/05/imageopt-4/" target="_blank" rel="noopener">Stoyan Stefanov</a>声称，对于大文件，渐进式图片更高效（在大多数情况下）。</p>
+<p>乍一看，渐进图像看起来非常有前途，能尽可能快地提供最好的质量图片。<br>现实是，浏览器一旦知道额外的数据无法提高图片质量（所有保真度的改进是基于子像素的），可能停止继续下载和解码图片。</p>
+<p>虽然连接容易终止，但是重新启动它们通常是昂贵的。<br>对于具有许多图像的站点，最有效的方法是保持单个HTTP连接活动，尽可能长时间地重复使用它。<br>一张图片下载完毕，浏览器将关闭当前连接，然后再创建新的连接，这在弱网络环境中可能真的很慢。</p>
+<p>对此的一种解决方法是使用HTTP Range请求，它允许浏览器指定要提取的字节范围。<br>智能浏览器可以做出HEAD请求来获取标题，处理它，决定实际需要多少图片然后获取。<br>不幸的是，HTTP Rang在Web服务器中支持不足，使得这种方法不切实际。</p>
+<p>最后，这种方法的一个明显的限制是，你不能选择图像的分辨率，只能选择相同图像的不同的保真度。因此不能满足“艺术级别”的用户体验。</p>
+<h2 id="用javascript选择图片进行加载"><a href="#用javascript选择图片进行加载" class="headerlink" title="用javascript选择图片进行加载"></a>用javascript选择图片进行加载</h2><p>最明显的方法是在客户端中使用JavaScript来决定加载哪一种图片。<br>这种方法需要获取浏览器的信息来进行判断。<br>可以通过 window.devicePixelRatio 获取设备像素比率，获取屏幕宽度和高度，甚至可能通过navigator.connection或发出假请求，如foresight.js库做一些网络连接嗅探。<br>收集所有这些信息后再决定要加载哪个图片。</p>
+<p>有大约<a href="https://docs.google.com/spreadsheets/d/1eU-nRkSe4cWXPgMghms8KIvmMcmKXBU2vpf-OU4nduI/edit#gid=0" target="_blank" rel="noopener">一百万个JavaScript库</a>做上面的事情，不幸的是没有一个是特别好用的。</p>
+<p>这种方法的一个大缺点是，使用JavaScript意味着将延迟图像加载，直到前瞻解析器完成。<br>这实质上意味着在pageload事件触发之前，图片甚至不会开始下载。</p>
+<h2 id="由服务端选择图片"><a href="#由服务端选择图片" class="headerlink" title="由服务端选择图片"></a>由服务端选择图片</h2><p>可以通过为每个图片编写自定义请求处理程序来处理。<br>这样的处理程序将基于User-Agent（中继到服务器的唯一信息）检查Retina支持。<br>然后，根据服务器端逻辑决定是否要提供高DPI图片来加载适当的资产（根据一些已知的惯例命名）。</p>
+<p>不幸的是，用户代理不一定提供足够的信息来决定设备是否应该接收高质量或低质量的图像。<br>此外，与User-Agent相关的任何内容都可能成为被攻击的漏洞，应该尽量避免使用。</p>
+<h2 id="用css媒体查询"><a href="#用css媒体查询" class="headerlink" title="用css媒体查询"></a>用css媒体查询</h2><p>CSS媒体查询可以让浏览器知道你的意图并加载正确的的代码。 除了最常见的媒体查询使用 - 匹配设备大小 - 还可以匹配devicePixelRatio。 相关联的媒体查询是device-pixel-ratio，并且有min和max值可以设置。 如果要加载高DPI图片，且设备像素比率超过阈值，则可以执行以下操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#my-image &#123; background: (low.png); &#125;</span><br><span class="line"></span><br><span class="line">@media only screen and (min-device-pixel-ratio: 1.5) &#123;</span><br><span class="line">  #my-image &#123; background: (high.png); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用这种方法，可以重获前瞻性解析的好处，而JS解决方案失去了它。<br>还可以灵活地选择响应断点（例如，可以加载低，中和高DPI的图片），当某些图片请求出错的时候。</p>
+<p>不幸的是，它仍然有点笨拙，还需要编写且看起来奇怪的css。 此外，此方法仅限于CSS属性，因此无法设置<img src="">。所有的图片必须都是背景元素。</p>
+<h2 id="使用新浏览器特性"><a href="#使用新浏览器特性" class="headerlink" title="使用新浏览器特性"></a>使用新浏览器特性</h2><p>最近有很多关于web平台支持的高DPI图片问题的讨论。 苹果最近把image-set()这个CSS函数添加到了WebKit。 因此，Safari和Chrome都支持它。 由于它是一个CSS函数，image-set()没有解决<img>标签的问题。 srcset属性解决了这个问题, 下面将更深入地讨论image-set和srcset。</p>
+<h3 id="image-set"><a href="#image-set" class="headerlink" title="image-set"></a>image-set</h3><p>image-set 函数使用非常简单，在webkit下需要添加前缀：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">background-image:  -webkit-image-set(</span><br><span class="line">  url(icon1x.jpg) 1x,</span><br><span class="line">  url(icon2x.jpg) 2x</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>它将告诉浏览器有两张图片可选。一张是1x图，一张是2x图。然后浏览器会根据一系列因素来自动选择合适的图片加载。</p>
+<p>另外浏览器将会子自动缩放对应的图片大小进行加载。</p>
+<p>除了设置 1x,1.5x或Nx之外，还可以指定其它设备像素密度。</p>
+<p>这种方式比较理想，除开在那些不支持 image-set函数的浏览器上（将不显示任何图片！这太悲剧了，所以需要备用策略）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">background-image: url(icon1x.jpg);</span><br><span class="line">background-image: -webkit-image-set(</span><br><span class="line">  url(icon1x.jpg) 1x,</span><br><span class="line">  url(icon2x.jpg) 2x</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">background-image: image-set(</span><br><span class="line">  url(icon1x.jpg) 1x,</span><br><span class="line">  url(icon2x.jpg) 2x</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>支持image-set函数的浏览器将选择图片进行加载，那些不支持的将加载1x图片。<br>明显的缺陷就是在不支持image-set函数的浏览器上只会加载1x图片。</p>
+<h3 id="srcset"><a href="#srcset" class="headerlink" title="srcset"></a>srcset</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;img alt=&quot;my awesome image&quot;</span><br><span class="line">  src=&quot;banner.jpeg&quot;</span><br><span class="line">  srcset=&quot;banner-HD.jpeg 2x, banner-phone.jpeg 640w, banner-phone-HD.jpeg 640w 2x&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>如上所示，除了image-set提供的x声明之外，srcset元素还接受对应于视口大小的w和h值，试图提供最相关的版本。<br>上面将为banner-phone.jpeg提供视口宽度在640像素以下的设备，banner-phone-HD.jpeg到小屏幕高DPI设备，banner-HD.jpeg到高DPI设备，屏幕大于640px，以及banner.jpeg 到一切。</p>
+<p>因为img元素的srcset属性在大多数浏览器中没有实现，所以你可能很容易想到用带有背景的<div>替换img元素，并使用image-set函数。这种方式可以正常显示，但缺点就是，<img>标签是具有语义的，使用div降低了爬虫的可访问性。</div></p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>没有解决高DPI图片问题的银弹。</p>
+<p>最简单的解决方案是完全避免图像，选择SVG和CSS。 但是，这并不现实，特别是如果网站上有高品质的图片。</p>
+<p>JS，CSS和使用服务器端的方法都有自己的优点和缺点。 然而，最有希望的方法是利用新的浏览器功能。 虽然浏览器对image-set和srcset的支持仍然不完整。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/css/" rel="tag"># css</a>
+          
+            <a href="/tags/DPR/" rel="tag"># DPR</a>
+          
+            <a href="/tags/图片/" rel="tag"># 图片</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/07/angular-doc/" rel="next" title="你会用AngularJS，但你会写AngularJS文档么？">
+                <i class="fa fa-chevron-left"></i> 你会用AngularJS，但你会写AngularJS文档么？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/02/vueconf/" rel="prev" title="vueconf杂谈">
+                vueconf杂谈 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如果可能，尽量避免使用图片"><span class="nav-number">1.</span> <span class="nav-text">如果可能，尽量避免使用图片</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高DPI图片技术概览"><span class="nav-number">2.</span> <span class="nav-text">高DPI图片技术概览</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#高压缩的高DPI图片"><span class="nav-number">2.1.</span> <span class="nav-text">高压缩的高DPI图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webp图片格式"><span class="nav-number">2.2.</span> <span class="nav-text">webp图片格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渐进式图片格式"><span class="nav-number">2.3.</span> <span class="nav-text">渐进式图片格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用javascript选择图片进行加载"><span class="nav-number">2.4.</span> <span class="nav-text">用javascript选择图片进行加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#由服务端选择图片"><span class="nav-number">2.5.</span> <span class="nav-text">由服务端选择图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用css媒体查询"><span class="nav-number">2.6.</span> <span class="nav-text">用css媒体查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用新浏览器特性"><span class="nav-number">2.7.</span> <span class="nav-text">使用新浏览器特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#image-set"><span class="nav-number">2.7.1.</span> <span class="nav-text">image-set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#srcset"><span class="nav-number">2.7.2.</span> <span class="nav-text">srcset</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结论"><span class="nav-number">3.</span> <span class="nav-text">结论</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

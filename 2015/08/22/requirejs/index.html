@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="requirejs," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="jquery算是最先了解的一个js库，算是一种工具库，提供了很多实用的工具函数，也为其它很多插件提供了开发基础，但是用了这么久，我看不出其中有什么核心的思想性的东西。requirejs的核心思想用一个单词可以概括：AMD。它只做了一件事：模块化。而且这件事做得还挺好：通过简单的配置、调用方式，加速、优化了代码。结合我在">
+<meta name="keywords" content="requirejs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习jquery之前了解一下requirejs也无妨">
+<meta property="og:url" content="http://yoursite.com/2015/08/22/requirejs/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="jquery算是最先了解的一个js库，算是一种工具库，提供了很多实用的工具函数，也为其它很多插件提供了开发基础，但是用了这么久，我看不出其中有什么核心的思想性的东西。requirejs的核心思想用一个单词可以概括：AMD。它只做了一件事：模块化。而且这件事做得还挺好：通过简单的配置、调用方式，加速、优化了代码。结合我在项目中的一些使用经验，从以下几个方面总结了一下requirejs的特点。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.250Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习jquery之前了解一下requirejs也无妨">
+<meta name="twitter:description" content="jquery算是最先了解的一个js库，算是一种工具库，提供了很多实用的工具函数，也为其它很多插件提供了开发基础，但是用了这么久，我看不出其中有什么核心的思想性的东西。requirejs的核心思想用一个单词可以概括：AMD。它只做了一件事：模块化。而且这件事做得还挺好：通过简单的配置、调用方式，加速、优化了代码。结合我在项目中的一些使用经验，从以下几个方面总结了一下requirejs的特点。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/08/22/requirejs/"/>
+
+
+
+
+
+  <title>学习jquery之前了解一下requirejs也无妨 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/08/22/requirejs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">学习jquery之前了解一下requirejs也无妨</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-08-22T09:35:51+08:00">
+                2015-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>jquery算是最先了解的一个js库，算是一种工具库，提供了很多实用的工具函数，也为其它很多插件提供了开发基础，但是用了这么久，我看不出其中有什么核心的思想性的东西。<br>requirejs的核心思想用一个单词可以概括：AMD。它只做了一件事：模块化。而且这件事做得还挺好：通过简单的配置、调用方式，加速、优化了代码。结合我在项目中的一些使用经验，从以下几个方面总结了一下requirejs的特点。</p>
+<hr>
+<a id="more"></a>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><pre><code>&lt;script data-main=&quot;main.js&quot; src=&quot;frame/js/require.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>首先需要像这样在页面上引用requirejs。它和jquery这种类库的不同之处是，它并不是引用了之后就可以使用，它需要一个简单的配置文件来定义那些不符合requirejs格式的模块以及它们之间的依赖关系。这里main.js就是它的配置文件。打开来是这样的结构</p>
+<pre><code>requirejs.config({
+        baseUrl: &quot;frame&quot;,//模块查找的根路径
+        paths: {
+            &quot;zepto&quot;: &quot;js/zepto&quot;,
+            &quot;frozen&quot;: &quot;js/frozen&quot;,
+            &quot;underscore&quot;: &quot;js/underscore&quot;,
+            &quot;text&quot;: &quot;js/text&quot;,
+            &quot;css&quot;: &quot;js/css&quot;,
+            &quot;route&quot;: &quot;../js/route&quot;
+        },
+        shim: {
+            &quot;zepto&quot;: {
+                exports: &quot;$&quot;
+            },
+            &quot;underscore&quot;: {
+                exports: &quot;_&quot;
+            },
+            &quot;frozen&quot;: {
+                deps: [&quot;zepto&quot;]
+            }
+        }
+    });
+</code></pre><p>paths是预定义的一些模块，比如frame/js/zepto.js定义为zepto模块。<br>shim很重要，处理了导出名称和依赖关系。第1个zepto模块的全局变量名称为’$’（这个就好比JQuery.js我们叫做jquery，实际用的时候我们用$作为变量），第3个frozen模块表示当它被加载的时候，需要先加载zepto模块。</p>
+<h3 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h3><p>常用的调用方式一般是执行一个define函数</p>
+<ul>
+<li>第1个参数是依赖的模块，可以是在path定义的公用模块，也可以是自定义的代码，不过自定义的代码需要注明引用路径，例如<code>../js/util.js</code>这种</li>
+<li>第2个参数是自定义模块，传入的是一个匿名函数，函数参数顺序和模块顺序一一对应，最后return的对象或函数即为对外暴露的接口。对详细的使用方法有兴趣的可以看<a href="http://javascript.ruanyifeng.com/tool/requirejs.html" target="_blank" rel="noopener">这篇文章</a></li>
+<li>第3个是模块加载报错的处理函数（一般可以省略）。</li>
+</ul>
+<p>需要注意的是，这里的模块加载是<em>异步</em>的，也就是说同时加载zepto和route这两个模块，但是只等两个模块加载完成之后才执行后面的模块代码。想详细了解的话可以看<a href="http://www.douban.com/note/283566440/" target="_blank" rel="noopener">这篇文章</a>。<br>这种异步加载模块的方式很像我之前一篇文章<a href="http://yalishizhude.github.io/2015/08/18/js-async/#comments" target="_blank" rel="noopener">浅谈js中多并发的一些处理方法</a>提到的场景，个人比较推崇这种高效的方式，不像CMD按顺序依次加载影响性能。</p>
+<pre><code>define([&apos;zepto&apos;, &apos;route&apos;], function($, state) {
+    return {
+        init: function(){
+            $(&apos;.logo-wrap&apos;).click(function(){
+                state.go(&apos;photo&apos;);
+            });
+        }
+    };
+});
+</code></pre><h3 id="进阶or技巧"><a href="#进阶or技巧" class="headerlink" title="进阶or技巧"></a>进阶or技巧</h3><ul>
+<li>package</li>
+</ul>
+<p>包就是讲模块再次组合封装起来。目前项目中没有用到，感觉在很大型的项目才有使用必要。</p>
+<ul>
+<li>CDN</li>
+</ul>
+<p>如果我们想引用cdn上的代码，可以在配置文件中的paths属性中这么写</p>
+<pre><code>&quot;zepto&quot;: [&apos;http://apps.bdimg.com/libs/zepto/1.1.4/zepto.min&apos;,&quot;js/zepto&quot;]
+</code></pre><p>第一个值为cdn中的路径，当加载失败时从第2个本地路径加载。</p>
+<p>想知道cdn是什么有什么用，可以看我之前写的<a href="http://yalishizhude.github.io/2015/07/04/cdn/" target="_blank" rel="noopener">CDN简介</a></p>
+<ul>
+<li>插件</li>
+</ul>
+<p>如果认为requirejs只能管理js代码那就想得太简单了。<br>配上text插件即可把html文件当做模块引入。用处就是可以当做碎片页来处理，类似jquery中的load函数，不过好处就是这个html文件可以被缓存，而不是像jquery每load一次就发起一次ajax请求。<br>配上<a href="https://github.com/guybedford/require-css" target="_blank" rel="noopener">require-css插件</a>即可管理css代码。不过并不建议这样做，个人觉得还是老老实实在head中通过link标签来引入有利于页面快速加载。</p>
+<h3 id="使用意义"><a href="#使用意义" class="headerlink" title="使用意义"></a>使用意义</h3><ul>
+<li>各个功能可以协同开发</li>
+<li>公用代码形成模块后方便调用</li>
+<li>避免各个模块冲突</li>
+<li>可以良好地处理依赖关系</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/requirejs/" rel="tag"># requirejs</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/18/js-async/" rel="next" title="浅谈js中多并发的一些处理方法">
+                <i class="fa fa-chevron-left"></i> 浅谈js中多并发的一些处理方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/25/favorites/" rel="prev" title="技术文章收藏">
+                技术文章收藏 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用"><span class="nav-number">2.</span> <span class="nav-text">调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进阶or技巧"><span class="nav-number">3.</span> <span class="nav-text">进阶or技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用意义"><span class="nav-number">4.</span> <span class="nav-text">使用意义</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

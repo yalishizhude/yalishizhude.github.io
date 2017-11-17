@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="node.js,mean," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="原文地址 https://blog.udemy.com/node-js-tutorial感谢来自Udemy的Samantha来信分享  删除一个视频在本节中，你将学习如何通过Monk删除文档。你也会再一次回顾你所学到的关于Express和Angular的知识。到这一节的结尾，所有的知识点都会像拼图一样放在一起。">
+<meta name="keywords" content="node.js,mean">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【译】基于MEAN的全栈开发实例教程6（完）">
+<meta property="og:url" content="http://yoursite.com/2015/12/13/mean-6/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="原文地址 https://blog.udemy.com/node-js-tutorial感谢来自Udemy的Samantha来信分享  删除一个视频在本节中，你将学习如何通过Monk删除文档。你也会再一次回顾你所学到的关于Express和Angular的知识。到这一节的结尾，所有的知识点都会像拼图一样放在一起。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.235Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【译】基于MEAN的全栈开发实例教程6（完）">
+<meta name="twitter:description" content="原文地址 https://blog.udemy.com/node-js-tutorial感谢来自Udemy的Samantha来信分享  删除一个视频在本节中，你将学习如何通过Monk删除文档。你也会再一次回顾你所学到的关于Express和Angular的知识。到这一节的结尾，所有的知识点都会像拼图一样放在一起。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/12/13/mean-6/"/>
+
+
+
+
+
+  <title>【译】基于MEAN的全栈开发实例教程6（完） | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/12/13/mean-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【译】基于MEAN的全栈开发实例教程6（完）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-12-13T16:13:20+08:00">
+                2015-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>原文地址 <a href="https://blog.udemy.com/node-js-tutorial" target="_blank" rel="noopener">https://blog.udemy.com/node-js-tutorial</a><br>感谢来自Udemy的Samantha来信分享</p>
+</blockquote>
+<h1 id="删除一个视频"><a href="#删除一个视频" class="headerlink" title="删除一个视频"></a>删除一个视频</h1><p>在本节中，你将学习如何通过Monk删除文档。你也会再一次回顾你所学到的关于Express和Angular的知识。到这一节的结尾，所有的知识点都会像拼图一样放在一起。</p>
+<a id="more"></a>
+<p>我们将在后面几步中实现这一功能。从服务器开始，我们将建立一个用于删除视频文档的接口。然后，我们将在列表中为每个视频前面添加一个删除链接。当用户点击这个链接，他们将被重定向到一个页面，在那里他们可以看到视频的细节。我们将在该页上有一个确认删除按钮。一旦他们点击这个按钮，页面将调用API端点，跳转带回的视频列表。</p>
+<p>但在我们实现功能之前，我有一个建议。我认为你所学的到目前为止，应该能够独自实现这一功能。我想让你花10~15分钟来实现这个功能，作为一个练习，以检验你所学到的。然后，你可以回顾你的解决方案与我的对比，看看是否有任何改进的空间。在你开始之前，请注意：</p>
+<ul>
+<li>最好的方式是像我之前提到那样一步一步地完成。一旦你完成每一步，回到这里，回顾你的解决方案。</li>
+<li>如果你忘记了Express的语法或者Angular的接口，不要担心。这是学习一个新的框架时的自然现象。只需要浏览源代码，查看我们早期的类似例子就好。</li>
+<li>如果你被卡住了，谷歌一下。</li>
+</ul>
+<h2 id="第1步：构建一个API端点"><a href="#第1步：构建一个API端点" class="headerlink" title="第1步：构建一个API端点"></a>第1步：构建一个API端点</h2><p>打开 <strong>routes&gt;videos.js</strong> 然后添加一个新的路由：</p>
+<pre><code>router.delete(&apos;/:id&apos;, function(req, res){
+    var collection = db.get(&apos;videos&apos;);
+    collection.remove({ _id: req.params.id }, function(err, video){
+        if (err) throw err;
+        res.json(video);
+    });
+});
+</code></pre><p>这些代码和之前的差不多，唯一的区别是我们使用了 <strong>router.delete</strong> 来为HTTP DELETE请求注册一个路由处理器。</p>
+<p>同时注意我们这里使用了视频文档对象的 <strong>remove</strong> 方法。第1个参数你可能已经猜到了，正是一个标准对象。</p>
+<h2 id="第2步：构建删除页面"><a href="#第2步：构建删除页面" class="headerlink" title="第2步：构建删除页面"></a>第2步：构建删除页面</h2><p>回到 <strong>partials &gt; home.html</strong>，在每一个视频链接前添加一个删除链接：</p>
+<pre><code>&lt;li ng-repeat=&apos;video in videos&apos;&gt;
+    &lt;a href=&quot;/#/video/{{video._id}}&quot;&gt;
+        {{video.title}}
+    &lt;/a&gt;
+    &lt;a href=&quot;/#/video/delete/{{video._id}}&quot;&gt;
+        &lt;i class=&quot;glyphicon glyphicon-remove&quot;&gt;&lt;/i&gt;
+    &lt;/a&gt;
+&lt;/li&gt;
+</code></pre><p>在这里<i>用来渲染一个图标。glyphicon和glyphicon-remove都是Bootstrap用来绘制图标的类。Bootstrap包括几十个用来构建应用的现代图标。为了看到所有图标的列表，可以去<a href="http://getbootstrap.com/components/" target="_blank" rel="noopener">这里</a>。绘制一个图标，你需要使用两个CSS类。一是glyphicon（所有图标的基础类），另一个就是你使用的类（glyphicon-remove）。在Bootstrap文档中，你可以在每个图标下面看到这个CSS类。</i></p>
+<p>点击图标页面将跳转到 <strong>/#/video/delete/</strong>。让我们创建一个试图并为它注册一个路由。</p>
+<p>在 <strong>partials</strong> 文件夹中添加一个叫做 <strong>video-delete.html</strong> 的新文件。文件中写下如下代码：</p>
+<pre><code>&lt;h1&gt;Delete Video&lt;/h1&gt;
+&lt;p&gt;
+    Are you sure you want to delete this video?
+&lt;/p&gt;
+&lt;ul&gt;
+    &lt;li&gt;Title: {{video.title}}&lt;/li&gt;
+    &lt;li&gt;Description: {{video.description}}&lt;/li&gt;
+&lt;/ul&gt;
+&lt;input type=&quot;button&quot; value=&quot;Yes, Delete&quot; class=&quot;btn btn-danger&quot; ng-click=&quot;delete()&quot; /&gt;
+&lt;a class=&quot;btn btn-default&quot; href=&quot;/#/&quot;&gt;No, Go Back&lt;/a&gt;
+</code></pre><p>这里并没有什么特别的。用UL和LI来展示视频的不同属性。在真实的应用中，你可能需要一个更加复杂的标签来实现。</p>
+<p>这里注意一下，我为删除按钮添加了一个 <strong>btn-danger</strong> 类来让它变成红色，为返回按钮添加了 <strong>btn-default</strong> 让它变成白色。</p>
+<p>当我们完成这些步骤之后，页面看起来是这个样子的：</p>
+
+<p>接下来，我们需要为视图编写一个控制器。在控制器中，我们将调用API来获取视频的详细信息并加载到页面上。当用户点击删除按钮我们将调用API来删除这个视频。</p>
+<p>打开 <strong>Vidzy.js</strong> 并创建这个控制器：</p>
+<pre><code>app.controller(&apos;DeleteVideoCtrl&apos;, [&apos;$scope&apos;, &apos;$resource&apos;, &apos;$location&apos;, &apos;$routeParams&apos;,
+    function($scope, $resource, $location, $routeParams){
+        var Videos = $resource(&apos;/api/videos/:id&apos;);
+        Videos.get({ id: $routeParams.id }, function(video){
+            $scope.video = video;
+        })
+        $scope.delete = function(){
+            Videos.delete({ id: $routeParams.id }, function(video){
+                $location.path(&apos;/&apos;);
+            });
+        }
+    }]);
+</code></pre><p>最后我们创建一个路由来注册视图和控制器。添加路由到应用的配置中：</p>
+<pre><code>.when(&apos;/video/delete/:id&apos;, {
+    templateUrl: &apos;partials/video-delete.html&apos;,
+    controller: &apos;DeleteVideoCtrl&apos;
+})
+</code></pre><p>现在已经完成了。测试一下这个删除功能。回到浏览器并且刷新首页。点击删除图标。删除一个视频。这个视频将被删除然后调回首页。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>如果你按照教程做到这一步了，你已经证明了你对学习新事物充满热情。这非常不错~我希望你喜欢这个教程并且能学习到Node，Express，Angular和MongoDB的基础知识。</p>
+<ul>
+<li>你使用了Node，Express，Angular和MongoDB成功地建立了一个完整的CRUD应用。</li>
+<li>你使用了robomongo创建和填充数据库视频文档。</li>
+<li>你使用了Monk在Mongo中来添加、更新、删除和查询视频文档。</li>
+<li>你用Express创造了一个RESTful API：GET，POST，PUT，DELETE。</li>
+<li>你了解了Node的模块系统，并使用了require方法。</li>
+<li>你了解了Node的软件包管理器（NPM），用它来安装Node模块。</li>
+<li>你用Angular度来构建一个单页应用程序。</li>
+<li>你学到了关于Angular的依赖性管理。</li>
+<li>你使用了Angular的内置服务，如$scope、$resource、$location和$routeparams。</li>
+<li>你用Angular指令（ng-model, ng-click）将行为添加到DOM元素。</li>
+<li>你熟悉了使用Bootstrap的类来给你的表单和按钮添加漂亮、流行的外观。</li>
+</ul>
+<p>下一步是什么？Node不仅仅是你目前所学的这些，这就是为什么我计划创建一个全面的课程，来教你使用Node做许多令人惊奇的事情。我将重点教会你：</p>
+<ul>
+<li>认证和授权</li>
+<li>预防常见安全攻击</li>
+<li>数据验证</li>
+<li>缓存</li>
+<li>实时应用</li>
+<li>更多…</li>
+</ul>
+<p>如果你很喜欢我的教学风格并且想从我这里学习更多，欢迎订阅我的<a href="http://programmingwithmosh.com/node-js-course-coming-soon/" target="_blank" rel="noopener">时事通讯</a>。一旦我的课程准备好了将发送通知给你。</p>
+<h1 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h1><p>教程中提到的代码已上传到github：<br><a href="https://github.com/yalishizhude/Vidzy" target="_blank" rel="noopener">https://github.com/yalishizhude/Vidzy</a></p>
+<p><em>如果觉得阅读这篇文章有收获，不妨点个赞吧^_^</em></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/node-js/" rel="tag"># node.js</a>
+          
+            <a href="/tags/mean/" rel="tag"># mean</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/12/fullstack-self-improvement/" rel="next" title="所谓全栈——《Web全栈工程师的自我修养》读书笔记">
+                <i class="fa fa-chevron-left"></i> 所谓全栈——《Web全栈工程师的自我修养》读书笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/24/mean-train/" rel="prev" title="MEAN杂谈">
+                MEAN杂谈 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#删除一个视频"><span class="nav-number">1.</span> <span class="nav-text">删除一个视频</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第1步：构建一个API端点"><span class="nav-number">1.1.</span> <span class="nav-text">第1步：构建一个API端点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第2步：构建删除页面"><span class="nav-number">1.2.</span> <span class="nav-text">第2步：构建删除页面</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#源代码"><span class="nav-number">3.</span> <span class="nav-text">源代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

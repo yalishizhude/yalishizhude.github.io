@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="兼容性," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="场景项目需求，做一个web页面上的虚拟小键盘来输入用户身份证号码。 实现jquery + bootstrap 通过table来布局，通过行列合并的形式做出“键盘”的风格，这里使用a标签的active伪类来制作点击效果。绑定onclick事件，当按钮被点击时将值显示在input输入框中以及一些其他逻辑，如：删除、取消。整">
+<meta name="keywords" content="兼容性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="双击单击傻傻分不清——IE8下点击事件的小坑">
+<meta property="og:url" content="http://yoursite.com/2015/07/01/click-or-dbclick/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="场景项目需求，做一个web页面上的虚拟小键盘来输入用户身份证号码。 实现jquery + bootstrap 通过table来布局，通过行列合并的形式做出“键盘”的风格，这里使用a标签的active伪类来制作点击效果。绑定onclick事件，当按钮被点击时将值显示在input输入框中以及一些其他逻辑，如：删除、取消。整个逻辑还是比较简单自然。 可这时问题就来了">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2015/07/01/click-or-dbclick/keyboard.jpg">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.145Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="双击单击傻傻分不清——IE8下点击事件的小坑">
+<meta name="twitter:description" content="场景项目需求，做一个web页面上的虚拟小键盘来输入用户身份证号码。 实现jquery + bootstrap 通过table来布局，通过行列合并的形式做出“键盘”的风格，这里使用a标签的active伪类来制作点击效果。绑定onclick事件，当按钮被点击时将值显示在input输入框中以及一些其他逻辑，如：删除、取消。整个逻辑还是比较简单自然。 可这时问题就来了">
+<meta name="twitter:image" content="http://yoursite.com/2015/07/01/click-or-dbclick/keyboard.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/07/01/click-or-dbclick/"/>
+
+
+
+
+
+  <title>双击单击傻傻分不清——IE8下点击事件的小坑 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/07/01/click-or-dbclick/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">双击单击傻傻分不清——IE8下点击事件的小坑</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-07-01T12:06:21+08:00">
+                2015-07-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>项目需求，做一个web页面上的虚拟小键盘来输入用户身份证号码。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>jquery + bootstrap</p>
+<p>通过table来布局，通过行列合并的形式做出“键盘”的风格，这里使用a标签的active伪类来制作点击效果。<br>绑定onclick事件，当按钮被点击时将值显示在input输入框中以及一些其他逻辑，如：删除、取消。<br>整个逻辑还是比较简单自然。<br><strong> 可这时问题就来了 </strong><br><a id="more"></a></p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>连续点击某一个小键盘按钮的时候，有些点击并没有生效。出现点击效果时有时无的情况。</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><ol>
+<li>首先猜测可能是事件发生了阻塞。采用逐步注释代码的方法马上验证了这个猜想是错的。</li>
+<li>可能是a标签或者伪类样式有问题。使用button等其他标签样式同样不行。</li>
+<li>点击事件调用机制可能有问题。用了3种尝试方法：绑定document的click事件；html中写onclick事件；return false组织回调。统统失败。</li>
+<li>最后猜测应该是浏览器问题，果不其然，换了IE10，chrome都是正常的。</li>
+<li>仔细前后想了一下，点击事件浏览器间歇性捕获不到，这种情况很可能是被识别为其它事件捕获了，比如<strong> 双击 </strong>。绑定dblclick事件之后发现果然如此。</li>
+</ol>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>IE8以下的浏览器判断双击事件的时间比其它浏览器要长，连续点击有可能会被当做双击捕获，所以会出现间歇性失灵的情况。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="html"><a href="#html" class="headerlink" title="html"></a>html</h3><pre><code>&lt;div class=&quot;keys&quot; hidden&gt;
+  &lt;div class=&quot;alert alert-danger text-center&quot; role=&quot;alert&quot;&gt;请输入正确的身份证号码&lt;/div&gt;
+  &lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td colspan=&quot;4&quot;&gt;&lt;input type=&quot;text&quot; class=&quot;show&quot; maxlength=&quot;18&quot;&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;a class=&quot;num&quot;&gt;7&lt;/a&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;a class=&quot;num&quot;&gt;8&lt;/a&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;a class=&quot;num&quot;&gt;9&lt;/a&gt;&lt;/td&gt;
+        &lt;td rowspan=&quot;2&quot;&gt;&lt;div class=&quot;btn-cancel&quot;&gt;取&lt;br&gt;消&lt;/div&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;a class=&quot;num&quot;&gt;4&lt;/a&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;a class=&quot;num&quot;&gt;5&lt;/a&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;a class=&quot;num&quot;&gt;6&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;a class=&quot;num&quot;&gt;1&lt;/a&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;a class=&quot;num&quot;&gt;2&lt;/a&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;a class=&quot;num&quot;&gt;3&lt;/a&gt;&lt;/td&gt;
+        &lt;td rowspan=&quot;2&quot;&gt;&lt;div class=&quot;btn-ok&quot;&gt;确&lt;br&gt;认&lt;/div&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;a class=&quot;num&quot;&gt;X&lt;/a&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;a class=&quot;num&quot;&gt;0&lt;/a&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;a class=&quot;backspace&quot;&gt;&amp;larr;&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+</code></pre><h3 id="js"><a href="#js" class="headerlink" title="js"></a>js</h3><pre><code>$(&quot;#keyboard&quot;).on(&quot;click&quot;, function(){
+  if($(&apos;.keys&apos;).is(&quot;:hidden&quot;)){
+    $(&apos;.show&apos;).val(&apos;&apos;);
+    $(&apos;.keys&apos;).show();
+  }
+});
+$(&apos;.num&apos;).click(function(){
+  $(this).addClass(&apos;active&apos;);
+  setTimeout(function(){
+    $(&apos;.active&apos;).removeClass(&apos;active&apos;);
+  }, 100);
+  if($(&apos;.show&apos;).val().length&gt;=parseInt($(&apos;.show&apos;).attr(&apos;maxlength&apos;))) return;
+  var value = $(&apos;.show&apos;).val();
+  value += $(this).text();
+  $(&apos;.show&apos;).focus().val(value);
+  resetCount();
+}).dblclick(function(){
+  $(this).click();
+});
+$(&quot;.backspace&quot;).click(function(){
+  var value = $(&apos;.show&apos;).val().substring(0, $(&apos;.show&apos;).val().length-1);
+  $(&apos;.show&apos;).val(value);
+  $(this).addClass(&apos;active&apos;);
+  setTimeout(function(){
+    $(&apos;.active&apos;).removeClass(&apos;active&apos;);
+  }, 100);
+}).dblclick(function(){
+  $(this).click();
+});
+$(&quot;.btn-cancel&quot;).on(&quot;click&quot;, function(){
+  $(&apos;.show&apos;).val(&apos;&apos;);
+  $(&apos;.keys&apos;).hide();
+});
+$(&quot;.btn-ok&quot;).on(&quot;click&quot;, function(){
+  if(validate($(&apos;.show&apos;).val())) {
+    location.href=&quot;list.html?id=&quot;+$(&apos;.show&apos;).val();
+  } else {
+    $(&quot;.keys&gt;.alert&quot;).show();
+    setTimeout(function(){$(&quot;.keys&gt;.alert&quot;).hide()},3000);
+  }
+});
+</code></pre><h3 id="css"><a href="#css" class="headerlink" title="css"></a>css</h3><pre><code>.keys{
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  margin: -520px 0 0 0;
+}
+.keys&gt;table{
+  width: 500px;
+  height: 400px;
+  margin: auto;
+  background-color: #dfdfdf;
+  padding: 0;
+  border: 1px solid #000;
+}
+.keys&gt;table td{
+  width: 25%;
+  height: 20%;
+}
+.keys&gt;table .num{
+  margin: auto;
+  width: 125px;
+  height: 80px;
+  line-height: 80px;
+  background-color: #eee;
+  font-size: 30px;
+  font-weight: 900;
+  color: #000;
+  display: block;
+  border: 1px solid #ccc;
+  text-decoration: none;
+}
+.keys&gt;table a.active{
+  background-color: #666;
+}
+.keys&gt;table .backspace{
+  display: block;
+  margin: auto;
+  width: 125px;
+  height: 80px;
+  line-height: 80px;
+  background-color: #eee;
+  font-size: 30px;
+  font-weight: 900;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  color: #000;
+}
+.keys&gt;table .btn-cancel{
+  width: 125px;
+  height: 160px;
+  background-color: #eee;
+  margin: auto;
+  font-size: 35px;
+  padding-top: 25px;
+  border: 1px solid #ccc;
+}
+.keys&gt;table .btn-ok{
+  margin: auto;
+  width: 125px;
+  height: 160px;
+  background-color: #ccc;
+  font-size: 35px;
+  padding-top: 25px;
+  border: 1px solid #ccc;
+}
+.keys&gt;table .show{
+  height: 100%;
+  font-size: 40px;
+  width: 100%;
+  margin: 0;
+  border-width: 0;
+  padding: 10px 0 0 10px;
+}
+.keys&gt;.alert{
+  position: absolute;
+  margin: -60px 0 0 312px;
+  font-size: 30px;
+  height: 60px;
+  display: none;
+}
+</code></pre><h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><img src="/2015/07/01/click-or-dbclick/keyboard.jpg">
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/兼容性/" rel="tag"># 兼容性</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/06/26/http-client/" rel="next" title="node.js基础教程(7)：http客户端">
+                <i class="fa fa-chevron-left"></i> node.js基础教程(7)：http客户端
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/04/cdn/" rel="prev" title="cdn简介">
+                cdn简介 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#场景"><span class="nav-number">1.</span> <span class="nav-text">场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">3.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决"><span class="nav-number">4.</span> <span class="nav-text">解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">5.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">6.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#html"><span class="nav-number">6.1.</span> <span class="nav-text">html</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js"><span class="nav-number">6.2.</span> <span class="nav-text">js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css"><span class="nav-number">6.3.</span> <span class="nav-text">css</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">7.</span> <span class="nav-text">效果</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

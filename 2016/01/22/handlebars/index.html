@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="html," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="提示：文中 “[[” 、“]]”，在实际使用中用双花括号，中间无空格。  写这篇文章也是因为当初我为了实现一个模板分页的某个功能（这个问题以及解决方法最后说），花了不少时间将官网看了几遍，试验了很久之后依然没有成功，然后凭着一股崛起继续钻研终于解决了这个问题。此时发现handlebars的东西基本上也了解得差不多了，所">
+<meta name="keywords" content="html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="handlebars玩家指南">
+<meta property="og:url" content="http://yoursite.com/2016/01/22/handlebars/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="提示：文中 “[[” 、“]]”，在实际使用中用双花括号，中间无空格。  写这篇文章也是因为当初我为了实现一个模板分页的某个功能（这个问题以及解决方法最后说），花了不少时间将官网看了几遍，试验了很久之后依然没有成功，然后凭着一股崛起继续钻研终于解决了这个问题。此时发现handlebars的东西基本上也了解得差不多了，所以干脆抽时间写篇文章整理一下。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2016/01/22/handlebars/handlebars.png">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.193Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="handlebars玩家指南">
+<meta name="twitter:description" content="提示：文中 “[[” 、“]]”，在实际使用中用双花括号，中间无空格。  写这篇文章也是因为当初我为了实现一个模板分页的某个功能（这个问题以及解决方法最后说），花了不少时间将官网看了几遍，试验了很久之后依然没有成功，然后凭着一股崛起继续钻研终于解决了这个问题。此时发现handlebars的东西基本上也了解得差不多了，所以干脆抽时间写篇文章整理一下。">
+<meta name="twitter:image" content="http://yoursite.com/2016/01/22/handlebars/handlebars.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/01/22/handlebars/"/>
+
+
+
+
+
+  <title>handlebars玩家指南 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/01/22/handlebars/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">handlebars玩家指南</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-22T00:19:02+08:00">
+                2016-01-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/html/" itemprop="url" rel="index">
+                    <span itemprop="name">html</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <img src="/2016/01/22/handlebars/handlebars.png">
+<blockquote>
+<p>提示：文中 “[[” 、“]]”，在实际使用中用双花括号，中间无空格。</p>
+</blockquote>
+<p>写这篇文章也是因为当初我为了实现一个模板分页的某个功能（这个问题以及解决方法最后说），花了不少时间将官网看了几遍，试验了很久之后依然没有成功，然后凭着一股崛起继续钻研终于解决了这个问题。此时发现handlebars的东西基本上也了解得差不多了，所以干脆抽时间写篇文章整理一下。<br><a id="more"></a></p>
+<h1 id="为什么需要模板引擎"><a href="#为什么需要模板引擎" class="headerlink" title="为什么需要模板引擎"></a>为什么需要模板引擎</h1><p>关于前端的模板引擎，我用一个公式来解释</p>
+<pre><code>            模板引擎
+模板 + 数据 ========&gt; html页面
+</code></pre><p>模板引擎就像是html的解析生成器，将对应的模板填充完数据之后生成静态的html页面。它可以在浏览器端（比如angular中指令所用的模板）也可以在服务器端执行，不过一般用于服务器端。因为它的一个作用是抽象公共页面来重用，如果在服务端填充数据，可以减少回填数据给页面的ajax请求，从而提升浏览器端整体页面渲染速度。</p>
+<h1 id="那些年我用过的模板引擎"><a href="#那些年我用过的模板引擎" class="headerlink" title="那些年我用过的模板引擎"></a>那些年我用过的模板引擎</h1><p>接触过的模板引擎不算多，最早应该是jsp，本质上也是一种模板引擎，再到功能稍微强大的freemarker，这两种都是属于java语系的。js语系的jade和ejs我都有所接触，不过不常用，jade那种类python的语法规则以及较低的解析效率都让我不敢兴趣，Express框架也只是早起将其作为模板引擎。后来换成了强大的ejs，无论是功能还是写法上都接近jsp了。直到最新的Express4发布，默认改为了弱逻辑的比较简洁的模板引擎handlebars。</p>
+<p>我使用handlebars有以下几个原因：</p>
+<ul>
+<li>这次新项目前端框架搭建基于Express4，模板引擎只能在ejs/jade/hogan/hbs中选择一个。</li>
+<li>默认是handlebars，虽不知道原因，想必有其原因。</li>
+<li>看过“去哪儿”的前端技术分享，他们就是在handlebars上进行封装的，证明已经有人填过坑了，可以一试。</li>
+<li>开始比较看好ejs，但是官网文档被强了，相比之下handlebars的文档比较清晰，还有实例，虽然逻辑结构比较混乱，但是基本无障碍。</li>
+</ul>
+<h1 id="码解handlebars"><a href="#码解handlebars" class="headerlink" title="码解handlebars"></a>码解handlebars</h1><p>运行环境：Express4、hbs4<br>未接触Express或hbs的可以先看<a href="http://www.expressjs.com.cn/4x/api.html#res.render" target="_blank" rel="noopener">这里</a></p>
+<h2 id="初级玩家：表达式"><a href="#初级玩家：表达式" class="headerlink" title="初级玩家：表达式"></a>初级玩家：表达式</h2><p>数据：</p>
+<pre><code>{
+    title: &apos;Express&apos;,
+    obj:{
+        version: &apos;v4.3&apos;,
+        category: &apos;node&apos;,
+        &quot;date~&quot;: &apos;2016&apos;
+    }
+}
+</code></pre><p>模板：</p>
+<pre><code>&lt;p&gt;[[title]]&lt;/p&gt;
+&lt;p&gt;[[obj.version]]&lt;/p&gt;
+&lt;p&gt;[[obj/category]]&lt;/p&gt;
+&lt;p&gt;[[obj.date~]]&lt;/p&gt;
+</code></pre><p>html页面：</p>
+<pre><code>Express
+v4.3
+node
+</code></pre><p>handlebars中变量都添加双花括号来表示（类似Angular），对比ejs的”&lt;%%&gt;”来说看起来没什么区别，其实这是很人性化的，想一下你键盘上的位置，再考虑按这几个字符的难易程度你就懂了。<br>其中要访问变量的属性值时可以用类似json格式的”.”，也可以用”/“。</p>
+<p><em>其中变量名不可包含以下字符。如果包含则不被解析，如上的”[[obj.date~]]”。</em></p>
+<pre><code>空格 ! &quot; # % &amp; &apos; ( ) * + , . / ; &lt; = &gt; @ [ \ ] ^ ` { | } ~
+</code></pre><p>但可以用 <strong>“</strong> , <strong>‘</strong> , <strong>[]</strong> 来转译这些特殊字符。</p>
+<p>这一条规则意味着 <strong>“&amp;&amp;”,”||”,”!”这类逻辑判断是不能出现在表达式中的！</strong> （看着这一条是不是觉得弱爆了，要不然怎么叫若逻辑模板引擎呢~哈哈，不过当然有另外的解决办法）。</p>
+<h2 id="中级玩家：helper"><a href="#中级玩家：helper" class="headerlink" title="中级玩家：helper"></a>中级玩家：helper</h2><p>英语水平有限，实在找不到一个恰当的词来翻译它了。可以理解为它是注入到模板中的一个函数，用来接收参数并进行逻辑处理。</p>
+<h3 id="默认helper"><a href="#默认helper" class="headerlink" title="默认helper"></a>默认helper</h3><h4 id="if-else"><a href="#if-else" class="headerlink" title="if else"></a>if else</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[[#if author]]</span><br><span class="line">  &lt;h1&gt;[[firstName]] [[lastName]]&lt;/h1&gt;</span><br><span class="line">[[else]]</span><br><span class="line">  &lt;h1&gt;Unknown Author&lt;/h1&gt;</span><br><span class="line">[[/if]]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[[#if isActive]]</span><br><span class="line">  &lt;img src=&quot;star.gif&quot; alt=&quot;Active&quot;&gt;</span><br><span class="line">[[else if isInactive]]</span><br><span class="line">  &lt;img src=&quot;cry.gif&quot; alt=&quot;Inactive&quot;&gt;</span><br><span class="line">[[/if]]</span><br></pre></td></tr></table></figure>
+<p>和一般的编程语言的 <strong>if-else</strong> 代码块是差不多的，不过再次重申由于上面提到的特殊字符，所以if条件中是不能有逻辑表达式的，只能是变量或者值。</p>
+<h4 id="unless"><a href="#unless" class="headerlink" title="unless"></a>unless</h4><p>还是因为上面提到的那些字符，handlebars不支持逻辑非(“!”)，所以又有了一个与if相反的helper</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[#unless license]]</span><br><span class="line">&lt;h3 class=&quot;warning&quot;&gt;WARNING: This entry does not have a license!&lt;/h3&gt;</span><br><span class="line">[[/unless]]</span><br></pre></td></tr></table></figure>
+<p>上面这段代码就等价于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[[#if license]]</span><br><span class="line">[[else]]</span><br><span class="line">&lt;h3 class=&quot;warning&quot;&gt;WARNING: This entry does not have a license!&lt;/h3&gt;</span><br><span class="line">[[/if]]</span><br></pre></td></tr></table></figure>
+<h4 id="each"><a href="#each" class="headerlink" title="each"></a>each</h4><p>都知道each相当于for循环。不过有些地方需要注意：</p>
+<ul>
+<li>可以用相对路径的方式来获取上一层的上下文。（上下文概念跟js中的上下文差不多，比如在each passage代码块内，每一次循环上下文一次是passage[0],passage[1]…）</li>
+<li>一些默认变量，@first/@last 当该对象为数组中第一个/最后一个时返回真值。如果数组成员为值而非对象，@index表示当前索引值，可以用@key或者this获取当前值</li>
+<li>可以用 <code>as |xxx|</code>的形式给变量起别名，循环中通过别名可以引用父级变量值。当然也可以通过相对路径的方式引用父级变量。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[[#each passage]]</span><br><span class="line">    [[#each paragraphs]]</span><br><span class="line">      [[@../index]]:[[@index]]:[[this]]&lt;/p&gt;</span><br><span class="line">    [[else]]</span><br><span class="line">      &lt;p class=&quot;empty&quot;&gt;No content&lt;/p&gt;</span><br><span class="line">    [[/each]]</span><br><span class="line">[[/each]]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[[#each array as |value, key|]]</span><br><span class="line">  [[#each child as |childValue, childKey|]]</span><br><span class="line">    [[key]] - [[childKey]]. [[childValue]]</span><br><span class="line">  [[/each]]</span><br><span class="line">[[/each]]</span><br></pre></td></tr></table></figure>
+<p>同时也可以用来遍历对象，这时@key表示属性名,this表示对应的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[#each object]]</span><br><span class="line">  [[@key]]: [[this]]</span><br><span class="line">[[/each]]</span><br></pre></td></tr></table></figure>
+<h4 id="with"><a href="#with" class="headerlink" title="with"></a>with</h4><p>类似js中的with，可以配合分页使用，限定作用域。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[[#with author as |myAuthor|]]</span><br><span class="line">  &lt;h2&gt;By [[myAuthor.firstName]] [[myAuthor.lastName]]&lt;/h2&gt;</span><br><span class="line">[[else]]</span><br><span class="line">  &lt;p class=&quot;empty&quot;&gt;No content&lt;/p&gt;</span><br><span class="line">[[/with]]</span><br></pre></td></tr></table></figure>
+<h4 id="lookup"><a href="#lookup" class="headerlink" title="lookup"></a>lookup</h4><p>这个用于以下这种并列数组的情况，可以按照索引来找兄弟变量对应的值。理解起来有些困难，直接看代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    groups: [</span><br><span class="line">        &#123;id: 1, title: &quot;group1&quot;&#125;,</span><br><span class="line">        &#123;id: 2, title: &quot;group2&quot;&#125;,</span><br><span class="line">    ],</span><br><span class="line">    users: [</span><br><span class="line">        &#123;id:1, login: &quot;user1&quot;, groupId: 1&#125;,</span><br><span class="line">        &#123;id:2, login: &quot;user2&quot;, groupId: 2&#125;,</span><br><span class="line">        &#123;id:3, login: &quot;user3&quot;, groupId: 1&#125;</span><br><span class="line">    ],</span><br><span class="line">    infos: [</span><br><span class="line">        &apos;a&apos;,&apos;b&apos;,&apos;c&apos;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;table&gt;</span><br><span class="line">    [[#each users]]</span><br><span class="line">        &lt;tr data-id=&quot;[[id]]&quot;&gt;</span><br><span class="line">            &lt;td&gt;[[login]]&lt;/td&gt;</span><br><span class="line">            &lt;td data-id=&quot;[[groupId]]&quot;&gt;[[lookup ../infos @index]]&lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">    [[/each]]</span><br><span class="line">&lt;/table&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">user1   a</span><br><span class="line">user2   b</span><br><span class="line">user3   c</span><br></pre></td></tr></table></figure>
+<p>这里在users数组中按照索引值引用infos数组中对应的值，如果想引用groups中的groupId呢？很简单，用with。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;table&gt;</span><br><span class="line">    [[#each users]]</span><br><span class="line">        &lt;tr data-id=&quot;[[id]]&quot;&gt;</span><br><span class="line">            &lt;td&gt;[[login]]&lt;/td&gt;</span><br><span class="line">            &lt;td data-id=&quot;[[groupId]]&quot;&gt;[[#with (lookup ../groups @index)]][[title]][[/with]]&lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">    [[/each]]</span><br><span class="line">&lt;/table&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="自定义helper"><a href="#自定义helper" class="headerlink" title="自定义helper"></a>自定义helper</h3><p>内置的helper不够强大，所以通常需要写js代码自定义helper，先看一个简单的单行helper。</p>
+<h4 id="行级helper"><a href="#行级helper" class="headerlink" title="行级helper"></a>行级helper</h4><h5 id="传值"><a href="#传值" class="headerlink" title="传值"></a>传值</h5><p>数值、字符串、布尔值这种常规数据可以直接传入，同时也可以传递JSON对象（但只能传一个），以key=value这种形式写在后面，最后就可以通过参数的hash属性来访问了。</p>
+<p>模板</p>
+<pre><code>[[agree_button &quot;My Text&quot; class=&quot;my-class&quot; visible=true counter=4]]
+</code></pre><p>代码</p>
+<pre><code>hbs.registerHelper(&apos;agree_button&apos;, function() {
+ console.log(arguments[0]);//==&gt;&quot;My Text&quot;
+ console.log(arguments[1].hash);//==&gt;{class:&quot;my-class&quot;,visible:true,conter:4}
+}
+</code></pre><h5 id="传变量"><a href="#传变量" class="headerlink" title="传变量"></a>传变量</h5><p>传变量时可以用this指针来指代它访问属性，通过逻辑判断后可以返回一段html代码，不过太建议这样做。考虑以后的维护性，这种html代码和js代码混合起来的维护性是比较差的，如果要抽象层组件还是使用分页比较好。</p>
+<p>模板：</p>
+<pre><code>[[agree_button person]]
+</code></pre><p>注册helper：</p>
+<pre><code>hbs.registerHelper(&apos;agree_button&apos;, function(p) {
+  console.log(p===this);//==&gt; true
+  var blog = hbs.handlebars.escapeExpression(this.person.blog),
+      name = hbs.handlebars.escapeExpression(this.person.name);
+
+  return new hbs.handlebars.SafeString(
+    &quot;&lt;a href=&apos;&quot;+blog+&quot;&apos;&gt;&quot;+ name + &quot;&lt;/button&gt;&quot;
+  );
+});
+</code></pre><p>数据：</p>
+<pre><code>var context = {
+    person:{name: &quot;亚里士朱德&quot;, blog: &quot;https://yalishizhude.github.io&quot;]];
+};
+</code></pre><p>html页面：</p>
+<pre><code>&lt;a href=&quot;https://yalishizhude.github.io&quot;&gt;亚里士朱德&lt;/a&gt;
+</code></pre><p>当内容只想做字符串解析的时候可以用 <strong>escapeExpression</strong> 和 <strong>SafetString</strong> 函数。</p>
+<h4 id="块级helper"><a href="#块级helper" class="headerlink" title="块级helper"></a>块级helper</h4><p>块级helper获取参数的方式跟之前差不多，只是最后多了一个参数，这个参数有两个函数<code>fn</code>和<code>revers</code>可以和<code>else</code>搭配使用。后面将会讲解。</p>
+<p>模板：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[#list nav]]</span><br><span class="line">  &lt;a href=&quot;[[url]]&quot;&gt;[[title]]&lt;/a&gt;</span><br><span class="line">[[/list]]</span><br></pre></td></tr></table></figure>
+<p>注册helper：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Handlebars.registerHelper(&apos;list&apos;, function(context, options) &#123;</span><br><span class="line">  var ret = &quot;&lt;ul&gt;&quot;;</span><br><span class="line"></span><br><span class="line">  for(var i=0, j=context.length; i&lt;j; i++) &#123;</span><br><span class="line">    ret = ret + &quot;&lt;li&gt;&quot; + options.fn(context[i]) + &quot;&lt;/li&gt;&quot;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return ret + &quot;&lt;/ul&gt;&quot;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  nav: [</span><br><span class="line">    &#123; url: &quot;https://yalishihzude.github.io&quot;, title: &quot;blog&quot; &#125;,</span><br><span class="line">    &#123; url: &quot;https://www.github.com/yalishizhude&quot;, title: &quot;github&quot; &#125;,</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>html页面：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">    &lt;li&gt;  &lt;a href=&quot;https://yalishizhude.github.io&quot;&gt;blog&lt;/a&gt; &lt;/li&gt;</span><br><span class="line">    &lt;li&gt;  &lt;a href=&quot;https://www.github.com/yalishizhude&quot;&gt;github&lt;/a&gt; &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="自定义helper-1"><a href="#自定义helper-1" class="headerlink" title="自定义helper"></a>自定义helper</h4><p>each的index变量比较常用，但是它是从0开始的，往往不符合业务中的需求，这里写个helper来扩展一下。</p>
+<p>注册helper：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">hbs.registerHelper(&apos;eval&apos;, function(str, options)&#123;</span><br><span class="line">    var reg = /[[.*?]]/g;</span><br><span class="line">    var result = false;</span><br><span class="line">    var variables = str.match(reg);</span><br><span class="line">    var context = this;</span><br><span class="line">    //如果是each</span><br><span class="line">    if(options.data)&#123;</span><br><span class="line">      context.first = context.first||options.data.first;</span><br><span class="line">      context.last = context.last||options.data.last;</span><br><span class="line">      context.index = context.index||options.data.index;</span><br><span class="line">      context.key = context.key||options.data.key;</span><br><span class="line">    &#125;</span><br><span class="line">    _.each(variables, function(v)&#123;</span><br><span class="line">      var key = v.replace(/[[|]]/g,&quot;&quot;);</span><br><span class="line">      var value = typeof context[key]===&quot;string&quot;?(&apos;&quot;&apos;+context[key]+&apos;&quot;&apos;):context[key];</span><br><span class="line">      str = str.replace(v, value);</span><br><span class="line">    &#125;);</span><br><span class="line">    try&#123;</span><br><span class="line">      result = eval(str);</span><br><span class="line">      return new hbs.handlebars.SafeString(result);</span><br><span class="line">    &#125;catch(e)&#123;</span><br><span class="line">      return new hbs.handlebars.SafeString(&apos;&apos;);</span><br><span class="line">      console.log(str,&apos;--Handlerbars Helper &quot;eval&quot; deal with wrong expression!&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>模板：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[#each list]]</span><br><span class="line">[[eval &apos;[[index]]+1&apos;]]</span><br><span class="line">[[/each]]</span><br></pre></td></tr></table></figure>
+<p>上面说到if不支持复杂的表达式，如果是“&amp;&amp;”操作还可以用子表达式来实现，更加复杂的就不好办了，这里我写了一个helper来实现。</p>
+<p>注册helper：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">hbs.registerHelper(&apos;ex&apos;, function(str, options) &#123;</span><br><span class="line">    var reg = /[[.*?]]/g;</span><br><span class="line">    var result = false;</span><br><span class="line">    var variables = str.match(reg);</span><br><span class="line">    var context = this;</span><br><span class="line">    _.each(variables, function(v)&#123;</span><br><span class="line">      var key = v.replace(/[[|]]/g,&quot;&quot;);</span><br><span class="line">      var value = typeof context[key]===&quot;string&quot;?(&apos;&quot;&apos;+context[key]+&apos;&quot;&apos;):context[key];</span><br><span class="line">      str = str.replace(v, value);</span><br><span class="line">    &#125;);</span><br><span class="line">    try&#123;</span><br><span class="line">      result = eval(str);</span><br><span class="line">      if (result) &#123;</span><br><span class="line">        return options.fn(this);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        return options.inverse(this);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;catch(e)&#123;</span><br><span class="line">      console.log(str,&apos;--Handlerbars Helper &quot;ex&quot; deal with wrong expression!&apos;);</span><br><span class="line">      return options.inverse(this);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>模板：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[[#ex &quot;[[state]]===&apos;submiting&apos;&quot;]]</span><br><span class="line">&lt;i class=&quot;icon cross-danger&quot;&gt;1&lt;/i&gt;</span><br><span class="line">[[else]]</span><br><span class="line">&lt;i class=&quot;icon cross-success&quot;&gt;2&lt;/i&gt;</span><br><span class="line">[[/ex]]</span><br></pre></td></tr></table></figure>
+<p>先将整个逻辑表达式作为一个字符串传入，然后替换其中的变量值，最后用eval函数来解析表达式，同时增加异常处理。</p>
+<h2 id="高级玩家：partial"><a href="#高级玩家：partial" class="headerlink" title="高级玩家：partial"></a>高级玩家：partial</h2><p>比较推崇使用分页来实现组件化。分页跟helper一样需要先注册。在hbs模块中可以批量注册，比较简单。</p>
+<p><code>hbs.registerPartials(__dirname + &#39;/views/partials&#39;);</code></p>
+<h3 id="基础引用"><a href="#基础引用" class="headerlink" title="基础引用"></a>基础引用</h3><p>用“&gt;”来引用模板，这种情况一般用来处理页头页尾这种简单的分页。后面可以传入参数。<br><code>[[&gt; myPartial param]]</code></p>
+<p>当使用块级表达式时，我们通常添加“#”，而分页是“&gt;”，所以块级分页使用“#&gt;”，这里表示如果layout分页不存在则显示块内的内容My Content。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[#&gt; layout ]]</span><br><span class="line">  My Content</span><br><span class="line">[[/layout]]</span><br></pre></td></tr></table></figure></p>
+<h3 id="动态分页"><a href="#动态分页" class="headerlink" title="动态分页"></a>动态分页</h3><p>当然也可以用表达式来代替分页名称</p>
+<p><code>[[&gt; (whichPartial) ]]</code></p>
+<p>当分页中一部分代码是固定的，另一部分是变化的时候，可以在分页中添加“@partial-block”，这时当引用这个分页时，在内部编写代码将会填充到这个位置。</p>
+<p>partial.hbs：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">亚里士朱德</span><br><span class="line">[[&gt; @partial-block ]]</span><br></pre></td></tr></table></figure></p>
+<p>模板：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[#&gt;partial]]</span><br><span class="line">https:yalishizhude.github.io</span><br><span class="line">[[/partial]]</span><br></pre></td></tr></table></figure></p>
+<p>html页面：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">亚里士朱德</span><br><span class="line">https:yalishizhude.github.io</span><br></pre></td></tr></table></figure></p>
+<h3 id="内联分页"><a href="#内联分页" class="headerlink" title="内联分页"></a>内联分页</h3><p>当有多段代码需要填充到分页时,可以用如下方法。分页中内嵌分页变量，模板中通过内联分页的方式传入。</p>
+<p>模板：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[[#&gt; partial]]</span><br><span class="line">  [[#*inline &quot;nav&quot;]]</span><br><span class="line">    亚里士朱德</span><br><span class="line">  [[/inline]]</span><br><span class="line">  [[#*inline &quot;content&quot;]]</span><br><span class="line">    https://yalishizhude.github.io</span><br><span class="line">  [[/inline]]</span><br><span class="line">[[/partial]]</span><br></pre></td></tr></table></figure></p>
+<p>partial.hbs：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;nav&quot;&gt;</span><br><span class="line">  [[&gt; nav]]</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;content&quot;&gt;</span><br><span class="line">  [[&gt; content]]</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>html页面：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;nav&quot;&gt;</span><br><span class="line">    亚里士朱德</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;content&quot;&gt;</span><br><span class="line">    https://yalishizhude.github.io</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="大师级玩家：API"><a href="#大师级玩家：API" class="headerlink" title="大师级玩家：API"></a>大师级玩家：API</h2><p>本文列举的只是handlebars中最重要和常用的功能，更多细碎的功能可以去查看<br><a href="http://handlebarsjs.com/reference.html" target="_blank" rel="noopener">官方API</a>。</p>
+<h1 id="开头的问题"><a href="#开头的问题" class="headerlink" title="开头的问题"></a>开头的问题</h1><blockquote>
+<p>我想将导航条写成一个分页(partial)，导航条左边的文字标题是可以通过参数传递的，但是右边的内容可能是文字、图片其它元素，需要具体业务自定义实现。我又不想把html代码写在js中，所以希望在模板中将这段未知的模板代码填充到分页中进行展现。我在官网文档中找到了 [[&gt;@partial-block]]来实现此功能，但是本机实验一直解析报错。<br>解决过程：<br>    这个问题原因可能有两个，一是官方文档有错，二是本机环境的插件有问题（Express用hbs模块，该模块封装了handlebars引擎模块）。为了验证官方文档的正确性，我找到了一个在线handlebars解析器，输入文档中的代码时可以正确解析，那么只可能出现在hbs模块了。这时在github上找到hbs模块最新版本为4，查看本地版本为3，更新后果然可以正常解析了。</p>
+</blockquote>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>handlebars让我们看到一个好的插件应该有的特征：</p>
+<ul>
+<li>可识别性。接口简单，使用方便，容易上手。</li>
+<li>高可用性。自带常用一些功能（helper），不求多而求精。</li>
+<li>可扩展性。复杂的业务逻辑，开发人员可以自定义helper去扩展和实现。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/html/" rel="tag"># html</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/06/api-test-3/" rel="next" title="接口调试（下）——让接口服务器为前后端解耦">
+                <i class="fa fa-chevron-left"></i> 接口调试（下）——让接口服务器为前后端解耦
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/05/willpower/" rel="prev" title="《意志力-关于专注、自控与效率的心理学》读书笔记">
+                《意志力-关于专注、自控与效率的心理学》读书笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么需要模板引擎"><span class="nav-number">1.</span> <span class="nav-text">为什么需要模板引擎</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#那些年我用过的模板引擎"><span class="nav-number">2.</span> <span class="nav-text">那些年我用过的模板引擎</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#码解handlebars"><span class="nav-number">3.</span> <span class="nav-text">码解handlebars</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#初级玩家：表达式"><span class="nav-number">3.1.</span> <span class="nav-text">初级玩家：表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中级玩家：helper"><span class="nav-number">3.2.</span> <span class="nav-text">中级玩家：helper</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#默认helper"><span class="nav-number">3.2.1.</span> <span class="nav-text">默认helper</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#if-else"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">if else</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#unless"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">unless</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#each"><span class="nav-number">3.2.1.3.</span> <span class="nav-text">each</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#with"><span class="nav-number">3.2.1.4.</span> <span class="nav-text">with</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lookup"><span class="nav-number">3.2.1.5.</span> <span class="nav-text">lookup</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义helper"><span class="nav-number">3.2.2.</span> <span class="nav-text">自定义helper</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#行级helper"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">行级helper</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#传值"><span class="nav-number">3.2.2.1.1.</span> <span class="nav-text">传值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#传变量"><span class="nav-number">3.2.2.1.2.</span> <span class="nav-text">传变量</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#块级helper"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">块级helper</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义helper-1"><span class="nav-number">3.2.2.3.</span> <span class="nav-text">自定义helper</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级玩家：partial"><span class="nav-number">3.3.</span> <span class="nav-text">高级玩家：partial</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础引用"><span class="nav-number">3.3.1.</span> <span class="nav-text">基础引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态分页"><span class="nav-number">3.3.2.</span> <span class="nav-text">动态分页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内联分页"><span class="nav-number">3.3.3.</span> <span class="nav-text">内联分页</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大师级玩家：API"><span class="nav-number">3.4.</span> <span class="nav-text">大师级玩家：API</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开头的问题"><span class="nav-number">4.</span> <span class="nav-text">开头的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

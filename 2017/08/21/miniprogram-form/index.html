@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="小程序," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="小程序SDK版本 1.4 表单校验之难如果要问微信小程序最难实现的公共业务是什么？应该是表单校验，没有之一。原因如下：  表单组件在数量上达到11个，居各类组件之首。当然幸运的是，并不是所有的都需要校验。 而这些组件操作方式多样，可分为滑动、（多行）输入、点击、点击+滑动。 即使是同一个组件，因为业务场景不同就会有不同">
+<meta name="keywords" content="小程序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="miniprogram-form">
+<meta property="og:url" content="http://yoursite.com/2017/08/21/miniprogram-form/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="小程序SDK版本 1.4 表单校验之难如果要问微信小程序最难实现的公共业务是什么？应该是表单校验，没有之一。原因如下：  表单组件在数量上达到11个，居各类组件之首。当然幸运的是，并不是所有的都需要校验。 而这些组件操作方式多样，可分为滑动、（多行）输入、点击、点击+滑动。 即使是同一个组件，因为业务场景不同就会有不同的校验规则。 更麻烦的是，这些组件之间经常还会联动或者关联校验。…  但是，作为">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.243Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="miniprogram-form">
+<meta name="twitter:description" content="小程序SDK版本 1.4 表单校验之难如果要问微信小程序最难实现的公共业务是什么？应该是表单校验，没有之一。原因如下：  表单组件在数量上达到11个，居各类组件之首。当然幸运的是，并不是所有的都需要校验。 而这些组件操作方式多样，可分为滑动、（多行）输入、点击、点击+滑动。 即使是同一个组件，因为业务场景不同就会有不同的校验规则。 更麻烦的是，这些组件之间经常还会联动或者关联校验。…  但是，作为">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/21/miniprogram-form/"/>
+
+
+
+
+
+  <title>miniprogram-form | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/21/miniprogram-form/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">miniprogram-form</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-21T16:09:13+08:00">
+                2017-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/小程序/" itemprop="url" rel="index">
+                    <span itemprop="name">小程序</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>小程序SDK版本 1.4</em></p>
+<h1 id="表单校验之难"><a href="#表单校验之难" class="headerlink" title="表单校验之难"></a>表单校验之难</h1><p>如果要问微信小程序最难实现的公共业务是什么？应该是<strong>表单校验</strong>，没有之一。原因如下：</p>
+<ul>
+<li>表单组件在数量上达到11个，居各类组件之首。当然幸运的是，并不是所有的都需要校验。</li>
+<li>而这些组件操作方式多样，可分为滑动、（多行）输入、点击、点击+滑动。</li>
+<li>即使是同一个组件，因为业务场景不同就会有不同的校验规则。</li>
+<li>更麻烦的是，这些组件之间经常还会联动或者关联校验。<br>…</li>
+</ul>
+<p>但是，作为一个非简单静态页面，有着较多用户交互的小程序，表单校验又是一个非常常用的功能：登录、注册、新增、编辑…</p>
+<p>总而言之：表单组件的多样性 X 校验规则的多样性 = 复杂的公共业务</p>
+<p>这么棘手的问题我们怎么来解决它呢？</p>
+<a id="more"></a>
+<h1 id="尝试组件化"><a href="#尝试组件化" class="headerlink" title="尝试组件化"></a>尝试组件化</h1><p>如果你关注近年前端发展趋势，一定会想到“组件化”来实现：</p>
+<p>把每个表单组件的视图、样式、校验逻辑封装成单独的业务组件，然后直接调用。</p>
+<p>可事情似乎没这么简单。</p>
+<p>如果考虑把n个原生组件抽象出来，配上n个校验规则，再乘以组件之间的关系n（的全排列），复杂度至少达到n³。</p>
+<p>而且每个组件的校验失败或成功都要通知父组件，以便显示错误信息或者进行下一步操作。</p>
+<p>这样不但没有解决问题，反而使得这些公用的表单组件过于复杂，耦合混乱。</p>
+<h1 id="尝试非组件化"><a href="#尝试非组件化" class="headerlink" title="尝试非组件化"></a>尝试非组件化</h1><p>既然原先的思路行不通，再来回到出发点，看看我们最核心的需要被抽象出来的是什么。</p>
+<p>无非是两样东西：<strong>视图层的元素样式和逻辑层的校验规则。</strong></p>
+<p>上面说到封装原生表单组件会极大的增加复杂度，索性放弃它，复杂度瞬间可以下降到n²。</p>
+<p>但同时我们又要保持样式统一，也就是我们常说的风格一致。</p>
+<p>比如输入框该多高，错误提示怎么显示，字体大小颜色…之类的。</p>
+<p>这个好办，我们把样式类写入一个公共样式文件form.wxss，然后需要的时候引入，甚至可以全局引入。</p>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// form.wxss</span><br><span class="line">.form &#123;</span><br><span class="line">  display: block;</span><br><span class="line">  font-size: 28rpx;</span><br><span class="line">  position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.form-line &#123;</span><br><span class="line">  background-color: #fff;</span><br><span class="line">  border-bottom: 1px solid #e5e5e5;</span><br><span class="line">  font-size: 34rpx;</span><br><span class="line">  height: 96rpx;</span><br><span class="line">  line-height: 96rpx;</span><br><span class="line">  display: flex;</span><br><span class="line">  padding: 0 31rpx;</span><br><span class="line">&#125;</span><br><span class="line">.form-title &#123;</span><br><span class="line">  box-sizing: border-box;</span><br><span class="line">  background-color: #efefef;</span><br><span class="line">  color: #838383;</span><br><span class="line">  font-size: 28rpx;</span><br><span class="line">  padding: 31rpx;</span><br><span class="line">  min-height: 90rpx;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>我们使用的时候只需要在对应的元素上添加相应的样式即可。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// xxx.wxml</span><br><span class="line">&lt;form class=&quot;form&quot;&gt;</span><br><span class="line">  &lt;view class=&quot;form-title&quot;&gt;请输入手机号&lt;/view&gt;</span><br><span class="line">  &lt;view class=&quot;form-line&quot;&gt;</span><br><span class="line">    &lt;label class=&quot;label&quot;&gt;手机&lt;/label&gt;</span><br><span class="line">    &lt;view class=&quot;form-control&quot;&gt;</span><br><span class="line">      &lt;input class=&quot;f-1 va-m input&quot; /&gt;</span><br><span class="line">    &lt;/view&gt;</span><br><span class="line">  &lt;/view&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<p>那么接下来我们只剩下校验规则和组件关联关系之间这两个难题了。</p>
+<p><strong>校验规则理想的状态是可扩展和可配置。</strong></p>
+<p>可扩展。随着业务的增长，在不修改已有规则情况可以新增校验规则。</p>
+<p>可配置。可单独为每个表单组件配置不同的单个或多个校验规则。</p>
+<p>如何做到可定义？用统一的形式即可。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">统一的格式：</span><br><span class="line">[规则名]: &#123;</span><br><span class="line">  rule: [校验方式]</span><br><span class="line">  msg: [错误信息]</span><br><span class="line">&#125;</span><br><span class="line">*/</span><br><span class="line">const validators = &#123;</span><br><span class="line">  // 简单的校验用正则</span><br><span class="line">  required: &#123;</span><br><span class="line">    rule: /.+/,</span><br><span class="line">    msg: &apos;必填项不能为空&apos;</span><br><span class="line">  &#125;,</span><br><span class="line">  // 复杂的校验用函数</span><br><span class="line">  same: &#123;</span><br><span class="line">    rule (val=&apos;&apos;, sVal=&apos;&apos;) &#123;</span><br><span class="line">      return val===this.data[sVal]</span><br><span class="line">    &#125;,</span><br><span class="line">    msg: &apos;密码不一致&apos;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如何做到可配置？配置上支持类似数组的形式，然后用统一的函数依次读取这些校验规则，逐个校验。</p>
+<p>配置的规则肯定是在原生表单组件上，至于组件的值也只能通过事件对象获取。</p>
+<p>如果直接绑定事件进行校验会阻碍父页面获取值，所以最好由父页面绑定事件传值，并且传入事件对象和执行环境进行处理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">校验函数部分代码</span><br><span class="line">e 事件对象</span><br><span class="line">context 页面对象函数执行的上下文环境</span><br><span class="line">*/</span><br><span class="line">let validate = (e, context) =&gt; &#123;</span><br><span class="line">  // 从事件对象中获取组件的值</span><br><span class="line">  let value = (e.detail.value || &apos;&apos;).trim()</span><br><span class="line">  // 从事件中获取校验规则名称</span><br><span class="line">  let validator = e.currentTarget.dataset.validator ? e.currentTarget.dataset.validator .split(&apos;,&apos;) : []</span><br><span class="line">  // 遍历规则进行校验</span><br><span class="line">  for (let i = 0; i &lt; validator.length; i++) &#123;</span><br><span class="line">    let ruleName = validator[i].split(&apos;=&apos;)[0]</span><br><span class="line">    let ruleValue = validator[i].split(&apos;=&apos;)[1]</span><br><span class="line">    let rule = validators[ruleName].rule || /.*/</span><br><span class="line">    if (&apos;function&apos; === typeof rule) &#123;</span><br><span class="line">      rule.call(context, value, ruleValue) ? &apos;&apos; : validators[ruleName].msg</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      rule.test(value) ? &apos;&apos; : validators[ruleName].msg</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用起来也非常简单，按照固定的格式加上对应的样式，配置校验规则，然后调用校验函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 部分代码示例</span><br><span class="line">// page.wxml</span><br><span class="line">&lt;form&gt;</span><br><span class="line">  &lt;!-- 一个表单组件 --&gt;</span><br><span class="line">  &lt;view class=&quot;form-line&quot;&gt;</span><br><span class="line">    &lt;label class=&quot;label&quot;&gt;授权手机&lt;/label&gt;</span><br><span class="line">    &lt;view class=&quot;form-control&quot;&gt;</span><br><span class="line">      &lt;!-- 校验规则：必须填写，且为电话号码 --&gt;</span><br><span class="line">      &lt;input maxlength=&quot;11&quot; class=&quot;f-1 va-m input&quot; bindblur=&quot;validate&quot; type=&quot;number&quot; data-name=&quot;phone&quot; data-validator=&quot;required,phone&quot; confirm-type=&quot;next&quot; value=&quot;&#123;&#123;phone&#125;&#125;&quot; /&gt;</span><br><span class="line">      &lt;!-- 错误图标 --&gt;</span><br><span class="line">      &lt;icon wx:if=&quot;&#123;&#123;form.phone!==undefined&#125;&#125;&quot; type=&quot;&#123;&#123;form.phone?&apos;warn&apos;:&apos;success&apos;&#125;&#125;&quot; size=&quot;16&quot; /&gt;</span><br><span class="line">    &lt;/view&gt;</span><br><span class="line">  &lt;/view&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/form&gt;</span><br><span class="line"></span><br><span class="line">// page.js</span><br><span class="line">valid(e) &#123;</span><br><span class="line">  this.setData(&#123;</span><br><span class="line">    [e.currentTarget.dataset.name]: e.detail.value</span><br><span class="line">  &#125;)</span><br><span class="line">  validate(e, this)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码中省略了校验错误提示和非空校验。详细代码请查看GitHub仓库：</p>
+<p><a href="https://github.com/yalishizhude/miniprogram-seed.git" target="_blank" rel="noopener">https://github.com/yalishizhude/miniprogram-seed.git</a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>写代码最然总是要抱着最美好的想法，但同时也要做着最坏的打算。尤其是面对一些底层框架限制的时候。</p>
+<p>面对这种情况，我们要从核心需求出发，把能抽出公用的东西都出来，同时保证可配置、可扩展。</p>
+<p>好的的架构师不但喜欢未开垦的处女地，也应不惧布满杂石乱草的荒野~</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/小程序/" rel="tag"># 小程序</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/19/miniprogram-share/" rel="next" title="w3ctech长沙站—8月前端开发专场讲稿">
+                <i class="fa fa-chevron-left"></i> w3ctech长沙站—8月前端开发专场讲稿
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/07/architecture2restruct/" rel="prev" title="从架构到重构">
+                从架构到重构 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#表单校验之难"><span class="nav-number">1.</span> <span class="nav-text">表单校验之难</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#尝试组件化"><span class="nav-number">2.</span> <span class="nav-text">尝试组件化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#尝试非组件化"><span class="nav-number">3.</span> <span class="nav-text">尝试非组件化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端工具,grunt,maven,tomcat," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="那些年用过的IDE很有幸，在做前端工程师之前我是一名全栈开发人员，所以接触了目前主流的用于jsp开发的IDE：eclipse和IntelliJ。它们的优点就是集成了很多插件，所以够智能。很不幸，eclipse的流畅性极差（经常容易卡死,白瞎了我10G RAM、128G SSD + 256G HD、i3 CPU的笔记本）">
+<meta name="keywords" content="前端工具,grunt,maven,tomcat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows下搭建前端开发IDE（maven + grunt + tomcat + cmd + sublime）">
+<meta property="og:url" content="http://yoursite.com/2015/07/28/makeIDE/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="那些年用过的IDE很有幸，在做前端工程师之前我是一名全栈开发人员，所以接触了目前主流的用于jsp开发的IDE：eclipse和IntelliJ。它们的优点就是集成了很多插件，所以够智能。很不幸，eclipse的流畅性极差（经常容易卡死,白瞎了我10G RAM、128G SSD + 256G HD、i3 CPU的笔记本）以及贪得无厌的消耗内存。IntelliJ作为付费产品，其稳定性也是值得吐槽的，经">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.208Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="windows下搭建前端开发IDE（maven + grunt + tomcat + cmd + sublime）">
+<meta name="twitter:description" content="那些年用过的IDE很有幸，在做前端工程师之前我是一名全栈开发人员，所以接触了目前主流的用于jsp开发的IDE：eclipse和IntelliJ。它们的优点就是集成了很多插件，所以够智能。很不幸，eclipse的流畅性极差（经常容易卡死,白瞎了我10G RAM、128G SSD + 256G HD、i3 CPU的笔记本）以及贪得无厌的消耗内存。IntelliJ作为付费产品，其稳定性也是值得吐槽的，经">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/07/28/makeIDE/"/>
+
+
+
+
+
+  <title>windows下搭建前端开发IDE（maven + grunt + tomcat + cmd + sublime） | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/07/28/makeIDE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">windows下搭建前端开发IDE（maven + grunt + tomcat + cmd + sublime）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-07-28T23:51:51+08:00">
+                2015-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/自动化工具/" itemprop="url" rel="index">
+                    <span itemprop="name">自动化工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="那些年用过的IDE"><a href="#那些年用过的IDE" class="headerlink" title="那些年用过的IDE"></a>那些年用过的IDE</h2><p>很有幸，在做前端工程师之前我是一名全栈开发人员，所以接触了目前主流的用于jsp开发的IDE：eclipse和IntelliJ。它们的优点就是集成了很多插件，所以够智能。<br>很不幸，eclipse的流畅性极差（经常容易卡死,白瞎了我10G RAM、128G SSD + 256G HD、i3 CPU的笔记本）以及贪得无厌的消耗内存。IntelliJ作为付费产品，其稳定性也是值得吐槽的，经常出现莫名其妙的bug导致项目无法正常部署。<br>而如果需要开发后端代码，断点调试必不可少，除IDE外也无他更好工具，所以谈起IDE都是爱恨交织。<br><a id="more"></a></p>
+<h2 id="项目状况"><a href="#项目状况" class="headerlink" title="项目状况"></a>项目状况</h2><p>现在的项目用jsp开发，属于前后端“半分离”状态。<br>从技术上说，用了freemarker模板，这个东西有点像jsp页面，会用到一些java代码，却又可以写在html文件中，所以并没有真正意义上的让前后端分离。<br>从结构上说，整个产品有点像cs架构，分为client端的web项目和server端的web项目，client端负责响应浏览器请求，返回js、css、html等，server端负责与数据库、client端交互。表面上看是一种分离，实际上已是“半分离”状态，因为如果client端想单独调试基本不可能，原因很简单，freemarker填充模板数据失败报错404。个人觉得freemarker还是更加适合于jsp全栈开发，用于前后端分离太尴尬。<br>由于前段开发只需关注client端，所以开始使用Intellij的初衷是通过maven下载打包web项目，启动tomcat服务器并实时更新修改的前端文件。后来被折磨了几次，所以决定自己定制化“IDE”。</p>
+<h2 id="关于开发工具（题外话）"><a href="#关于开发工具（题外话）" class="headerlink" title="关于开发工具（题外话）"></a>关于开发工具（题外话）</h2><p>我觉得最优秀的开发工具需要满足两个特点：</p>
+<ol>
+<li>定制化<br>每个开发者根据自己的使用习惯和项目需求来选择插件并进行配置。</li>
+<li>可扩展<br>开发工具本身提供良好的接口，让各位开发者能参与开发其它插件来不断强化它。<br>令我印象最深的4款编辑器符合这两个特点：<code>emacs、vim、sublime、atom</code>。简单的说一说他们的优缺点吧。</li>
+</ol>
+<ul>
+<li>emacs：当之无愧的神之编辑器，学习曲线是最难的，只有大神才可将其用得淋漓尽致，各种ctrl、alt快捷键在windows键盘下使用相当不适应。</li>
+<li>vim：编辑器之神。最大的特点是可以脱离鼠标很舒服地编辑代码，与emacs不一样，它不是ctrl到死的方式使用快捷键，而是用esc来切换模式，配合上强大宏以及多种插件，也是相当顺手的一件工具。使用它还有一个原因：它跨平台。linux服务器自带了vi，掌握了vim，上linux服务器上查看编辑文件再也不用犯愁了。</li>
+<li>sublime：插件丰富，开发者活跃，当下流行，正在使用。</li>
+<li>atom：后起之秀，界面美观，github强推工具，基本上模仿了sublime，但是流畅性还是做得不够好，如果这方面加强我会毫不犹豫地转投github的怀抱。</li>
+</ul>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><p>在windows下想把各种工具集成起来，变成一个傻瓜智能甚至是一键启动的软件，很自然地想到了批处理脚本。所以最终各软件的调用都是依赖cmd命令来实现的。</p>
+<h3 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h3><ol>
+<li>为了实现一键启动，先清除tomcat缓存和项目代码以及maven本地缓存的jar文件。</li>
+<li>停止grunt和tomcat，防止重复启动。</li>
+<li>mvn命令编译发布项目和下载依赖。</li>
+<li>通过grunt拷贝生成的项目到tomcat的webapps目录下，这里用批处理也可以实现。</li>
+<li>启动tomcat服务器</li>
+<li>启动grunt watch，只要sublime修改完代码后，grunt即会自动拷贝到对应的web目录下。</li>
+</ol>
+<h3 id="源代码（出于保密，部分文件路径略作修改）"><a href="#源代码（出于保密，部分文件路径略作修改）" class="headerlink" title="源代码（出于保密，部分文件路径略作修改）"></a>源代码（出于保密，部分文件路径略作修改）</h3><p>批处理脚本</p>
+<pre><code>color 0B
+rem 设置tomcat安装路径
+set &quot;tomcat_path=D:\Program Files\apache-tomcat-7.0.56\&quot;
+rem 设置代码路径
+set &quot;code_path=E:\branches\hd-2.0.0\client\&quot;
+echo 停止grunt进程
+taskkill /F /IM node.exe
+echo 停止tomcat进程
+D:
+cd %tomcat_path%
+call bin\shutdown.bat
+echo 清除缓存
+rd /s/q work
+rd /s/q ap
+rd /s/q D:\datas\.m2\repository\com\hd
+echo 编译并发布代码
+E:
+cd %code_path%
+call mvn clean package
+call grunt
+echo 启动tomcat
+D:
+cd %tomcat_path%
+call bin\startup.bat
+echo 监听并发布代码
+E:
+cd %code_path%
+grunt watch
+</code></pre><p>gruntfile.js配置文件，如果大家知道<code>grunt-contrib-copy</code>中，文件名如何使用通配符，请发邮件告诉我，必谢~</p>
+<pre><code>/*global module*/
+module.exports = function (grunt) {
+  &apos;use strict&apos;;
+  grunt.initConfig({
+    copy: {
+      publish: {
+        files: [
+          { expand: true, cwd: &apos;target/client-2.0.0.v20150630&apos;, src: [&apos;**&apos;], dest: &apos;D:/Program Files/apache-tomcat-7.0.56/webapps/ap&apos;}
+        ]
+      },
+      main: {
+        files: [
+          { expand: true, cwd: &apos;src/main/webapp&apos;, src: [&apos;**&apos;], dest: &apos;D:/Program Files/apache-tomcat-7.0.56/webapps/ap&apos;},
+        ]
+      }
+    },
+    watch: {
+      view: {
+          files: [&apos;src/main/webapp/**&apos;],
+          tasks:[&apos;copy:main&apos;],
+          options: {livereload:false}
+      }
+    }
+  });
+
+  grunt.loadNpmTasks(&apos;grunt-contrib-copy&apos;);
+  grunt.loadNpmTasks(&apos;grunt-contrib-watch&apos;);
+
+  grunt.registerTask(&apos;default&apos;, [&apos;copy&apos;]);
+};
+</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实在开发中，最消耗时间的就是鼠标的点击和工具的切换。所以现在流行多显示器开发，让共工具在不同的屏幕上操作，减少了点击任务栏、最小化、最大化这种机械操作。另一方面IDE的出现、快捷键的使用减少鼠标的点击。<br>传统的IDE在开发中往往伴随这一些问题，所以了解各种工具并搭建属于自己的最适用于项目的开发环境，应当是每一位开发者追求高效开发的必经之路。这篇抛砖引玉的文章也正是出于此目的~</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端工具/" rel="tag"># 前端工具</a>
+          
+            <a href="/tags/grunt/" rel="tag"># grunt</a>
+          
+            <a href="/tags/maven/" rel="tag"># maven</a>
+          
+            <a href="/tags/tomcat/" rel="tag"># tomcat</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/25/nodejs官方权威教程learnyounode分享/" rel="next" title="nodejs官方权威教程learnyounode分享">
+                <i class="fa fa-chevron-left"></i> nodejs官方权威教程learnyounode分享
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/02/beatiful-underscore/" rel="prev" title="优雅的underscore">
+                优雅的underscore <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#那些年用过的IDE"><span class="nav-number">1.</span> <span class="nav-text">那些年用过的IDE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目状况"><span class="nav-number">2.</span> <span class="nav-text">项目状况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于开发工具（题外话）"><span class="nav-number">3.</span> <span class="nav-text">关于开发工具（题外话）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现方式"><span class="nav-number">4.</span> <span class="nav-text">实现方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本流程"><span class="nav-number">4.1.</span> <span class="nav-text">基本流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源代码（出于保密，部分文件路径略作修改）"><span class="nav-number">4.2.</span> <span class="nav-text">源代码（出于保密，部分文件路径略作修改）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

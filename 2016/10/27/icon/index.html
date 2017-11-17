@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="小图标,自动化构建," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="先做一个选择题：前端开发使用构建工具的目的是什么？ A、因为现在流行node.js，都在使用构建工具 B、让前端开发变得高大上，和后端一样编译才能运行 C、让自动化工具替代重复的手工操作，比如合并代码，刷新浏览器预览效果等。">
+<meta name="keywords" content="小图标,自动化构建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端处理小图标的那些解决方案（图文实操）">
+<meta property="og:url" content="http://yoursite.com/2016/10/27/icon/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="先做一个选择题：前端开发使用构建工具的目的是什么？ A、因为现在流行node.js，都在使用构建工具 B、让前端开发变得高大上，和后端一样编译才能运行 C、让自动化工具替代重复的手工操作，比如合并代码，刷新浏览器预览效果等。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2016/10/27/icon/summary.png">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.198Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端处理小图标的那些解决方案（图文实操）">
+<meta name="twitter:description" content="先做一个选择题：前端开发使用构建工具的目的是什么？ A、因为现在流行node.js，都在使用构建工具 B、让前端开发变得高大上，和后端一样编译才能运行 C、让自动化工具替代重复的手工操作，比如合并代码，刷新浏览器预览效果等。">
+<meta name="twitter:image" content="http://yoursite.com/2016/10/27/icon/summary.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/10/27/icon/"/>
+
+
+
+
+
+  <title>前端处理小图标的那些解决方案（图文实操） | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/27/icon/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端处理小图标的那些解决方案（图文实操）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-27T16:25:35+08:00">
+                2016-10-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>先做一个选择题：前端开发使用构建工具的目的是什么？</p>
+<p>A、因为现在流行node.js，都在使用构建工具</p>
+<p>B、让前端开发变得高大上，和后端一样编译才能运行</p>
+<p>C、让自动化工具替代重复的手工操作，比如合并代码，刷新浏览器预览效果等。</p>
+<a id="more"></a>
+<p><em>选择A、B请直接关闭此文，选择C请继续阅读。</em></p>
+<p>其实使用工具的目的就一个： <strong>自动化一些重复操作，提升工作效率</strong>。ok，明确了这一点之后再来探究有哪些方式，可以把一堆小图标合并成一个图片文件并生成相应的样式。</p>
+<p>按照生成文件和使用方式来看，可以大致分成3类处理方式：</p>
+<h1 id="png-sprite"><a href="#png-sprite" class="headerlink" title="png sprite"></a>png sprite</h1><p>合成雪碧图是历史最悠久最成熟的解决方案，把不同的png小图标拼接成一张png图片。</p>
+<h2 id="手动操作"><a href="#手动操作" class="headerlink" title="手动操作"></a>手动操作</h2><p>有的公司甚至让UI设计师来合并小图标（UI设计师成了自动化工具，囧~），这样做减少前端工作量的同时也带来一些问题。</p>
+<ul>
+<li>沟通问题。如果只想简单地修改某个图标颜色，大小，都要与设计师沟通，一来一回增加时间成本。</li>
+<li>样式问题。设计师提供的小图标不能直接用，要配合特定的样式（偏移值，大小）才行。</li>
+<li>命名问题。即使有犀利的设计师提供了css文件，样式类的命名也难以符合前端开发规范和需求（真有这样的设计师欢迎私信推荐给我(●^◡^●)）</li>
+</ul>
+<p>所以这种处理方式不推荐也不在我们的讨论范围之列。</p>
+<h2 id="自动化工具"><a href="#自动化工具" class="headerlink" title="自动化工具"></a>自动化工具</h2><p>当我们拥有了自动化工具的时候，部分问题就可以对整个流程进行优化了。</p>
+<ol>
+<li>根据psd切出小图标（前端必备，自己动手，丰衣足食），并把小图标放入源文件夹。</li>
+<li>构建工具自动生成图片和css文件，并根据小图标名生成对应的样式名。</li>
+<li>代码中引入样式和图片。</li>
+</ol>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>以 npm 的 <strong>gulp.spritesmith</strong> 模块为例实现整个流程。</p>
+<p>这是 <strong>gulpfile.js</strong> 中配置的任务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var gulp = require(&apos;gulp&apos;);</span><br><span class="line">var $ = require(&apos;gulp-load-plugins&apos;)();</span><br><span class="line"></span><br><span class="line">gulp.task(&apos;png&apos;, function () &#123;</span><br><span class="line">  gulp.src(&apos;./src/*.png&apos;)</span><br><span class="line">    .pipe($.spritesmith(&#123;</span><br><span class="line">      imgName: &apos;icon.png&apos;,  //参数，生成图片文件名</span><br><span class="line">      cssName: &apos;icon.css&apos;,  //参数，生成的样式文件名</span><br><span class="line">      cssTemplate: &apos;./src/png_template.hbs&apos;  //参数，样式文件模板的路径，默认使用的是handlerbars模板</span><br><span class="line">    &#125;))</span><br><span class="line">    .pipe(gulp.dest(&apos;dist/png&apos;));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>功能比较强大，除了css文件外还可以生成scss和less文件，同时也可以用模板文件对其进行格式化。这里我自定义了一个 <strong>png_template.hbs</strong> 文件，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 主要增加了一个通用样式，给图标赋予内联块级样式</span><br><span class="line">.icon &#123;</span><br><span class="line">  display: inline-block;</span><br><span class="line">&#125;</span><br><span class="line">&#123;&#123;#sprites&#125;&#125;</span><br><span class="line">.icon-&#123;&#123;name&#125;&#125; &#123;</span><br><span class="line">  background-image: url(&#123;&#123;&#123;escaped_image&#125;&#125;&#125;);</span><br><span class="line">  background-position: &#123;&#123;px.offset_x&#125;&#125; &#123;&#123;px.offset_y&#125;&#125;;</span><br><span class="line">  width: &#123;&#123;px.width&#125;&#125;;</span><br><span class="line">  height: &#123;&#123;px.height&#125;&#125;;</span><br><span class="line">&#125;</span><br><span class="line">&#123;&#123;/sprites&#125;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="开发流程"><a href="#开发流程" class="headerlink" title="开发流程"></a>开发流程</h3><p>配置完成之后，在源文件夹中放入两个 question.png、hook.png 两个小图标进行调试。</p>
+<p>gulp 处理后生成了两个文件：icon.css、icon.png。 打开 icon.css，可以看到根据图标名生成了两个样式类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.icon &#123;</span><br><span class="line">  display: inline-block;</span><br><span class="line">&#125;</span><br><span class="line">.icon-hook &#123;</span><br><span class="line">  background-image: url(icon.png);</span><br><span class="line">  background-position: -40px 0px;</span><br><span class="line">  width: 16px;</span><br><span class="line">  height: 16px;</span><br><span class="line">&#125;</span><br><span class="line">.icon-question &#123;</span><br><span class="line">  background-image: url(icon.png);</span><br><span class="line">  background-position: 0px 0px;</span><br><span class="line">  width: 40px;</span><br><span class="line">  height: 40px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在代码中使用起来很简单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 引用生成的css文件</span><br><span class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;./png/icon.css&quot; charset=&quot;utf-8&quot;&gt;</span><br><span class="line">...</span><br><span class="line">//直接给标签添加样式类</span><br><span class="line">&lt;i class=&quot;icon icon-hook&quot;&gt;&lt;/i&gt;</span><br><span class="line">&lt;i class=&quot;icon icon-question&quot;&gt;&lt;/i&gt;</span><br></pre></td></tr></table></figure>
+<p><em>预览效果见文末截图</em></p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>感谢技术的进步和人民生活水平的提高，这种高效的方式马上碰到一个“天敌”：<strong>高dpr的视网膜屏幕</strong>。</p>
+<p>用响应式判断dpr的话，前面所有的工作量都要倍增，同时还要加载多余的样式。而且随着屏幕更新换代，dpr增多就要多做一张图片和样式，想想都太磨人 -_-||</p>
+<p>那么是否有图片可以自适应不同dpr的屏幕？css3的曙光给我们指引了新的方向。</p>
+<h1 id="font-face"><a href="#font-face" class="headerlink" title="font-face"></a>font-face</h1><p>也称作字体图标，这种技术简单来说就是把矢量图合并生成字体文件，然后在css中引用对应的字体编码即可渲染成图片。因为字体是适应各种屏幕的，所以字体图标也继承了这个优点。</p>
+<h2 id="手动操作-1"><a href="#手动操作-1" class="headerlink" title="手动操作"></a>手动操作</h2><p>目前有不少制作字体图标的网站，比较火的有<a href="https://icomoon.io/" target="_blank" rel="noopener">icomoon</a>、<a href="http://www.iconfont.cn/" target="_blank" rel="noopener">阿里巴巴图标库</a>等。</p>
+<p>基本操作都是在线上编辑图标，然后下载一个压缩包，包含字体文件和样式。首先的问题是不同图标大小需要手动调整 font-size 属性；其次就是手工操作太频繁：上传 - 编辑 - 下载；最后就是依赖网络环境，没网络就没法编辑图标。既然如此，我们尝试使用自动化工具离线生成文件。</p>
+<h2 id="自动化工具-1"><a href="#自动化工具-1" class="headerlink" title="自动化工具"></a>自动化工具</h2><p>依然使用的是github上star数比较多的模块 <strong>gulp-iconfont</strong> ，但是要同时生成css还需另一个模块 <strong>gulp-iconfont-css</strong>。</p>
+<h3 id="配置文件-1"><a href="#配置文件-1" class="headerlink" title="配置文件"></a>配置文件</h3><p>配置 gulpfile.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var gulp = require(&apos;gulp&apos;);</span><br><span class="line">var $ = require(&apos;gulp-load-plugins&apos;)();</span><br><span class="line"></span><br><span class="line">gulp.task(&apos;iconfont&apos;, function () &#123;</span><br><span class="line">  // 先配置样式，再配置字体文件</span><br><span class="line">  return gulp.src([&apos;src/*.svg&apos;])</span><br><span class="line">    .pipe($.iconfontCss(&#123;</span><br><span class="line">      fontName: &apos;iconfont&apos;, //字体名</span><br><span class="line">      path: &apos;./src/font_template.css&apos;,  //模板文件路径</span><br><span class="line">      cssClass: &apos;iconfont&apos;  //样式类名</span><br><span class="line">    &#125;))</span><br><span class="line">    .pipe($.iconfont(&#123;</span><br><span class="line">      fontName: &apos;iconfont&apos;, //字体名</span><br><span class="line">      formats: [&apos;ttf&apos;, &apos;eot&apos;, &apos;woff&apos;, &apos;woff2&apos;, &apos;svg&apos;] //输出的字体文件格式</span><br><span class="line">    &#125;))</span><br><span class="line">    .pipe(gulp.dest(&apos;dist/font&apos;));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><em>此处省略模板文件~</em></p>
+<h3 id="开发流程-1"><a href="#开发流程-1" class="headerlink" title="开发流程"></a>开发流程</h3><p>配置完成之后，在源文件夹中放入两个 question.svg、hook.svg 两个小图标进行调试。</p>
+<p>gulp 处理后生成了6个文件： _icon.css、iconfont.eot、iconfont.svg、iconfont.ttf、iconfont.woff、iconfont.woff2。 打开 _icon.css，可以看到根据图标名生成了两个样式类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">@font-face &#123;</span><br><span class="line">	font-family: &quot;iconfont&quot;;</span><br><span class="line">	src: url(&apos;./iconfont.eot&apos;);</span><br><span class="line">	src: url(&apos;./iconfont.eot?#iefix&apos;) format(&apos;eot&apos;),</span><br><span class="line">		url(&apos;./iconfont.woff2&apos;) format(&apos;woff2&apos;),</span><br><span class="line">		url(&apos;./iconfont.woff&apos;) format(&apos;woff&apos;),</span><br><span class="line">		url(&apos;./iconfont.ttf&apos;) format(&apos;truetype&apos;),</span><br><span class="line">		url(&apos;./iconfont.svg#iconfont&apos;) format(&apos;svg&apos;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.iconfont:before &#123;</span><br><span class="line">	font-family: &quot;iconfont&quot;;</span><br><span class="line">		-webkit-font-smoothing: antialiased;</span><br><span class="line">		-moz-osx-font-smoothing: grayscale;</span><br><span class="line">	font-style: normal;</span><br><span class="line">	font-variant: normal;</span><br><span class="line">	font-weight: normal;</span><br><span class="line">	/* speak: none; only necessary if not using the private unicode range (firstGlyph option) */</span><br><span class="line">	text-decoration: none;</span><br><span class="line">	text-transform: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.iconfont-hook:before &#123;</span><br><span class="line">	content: &quot;\E001&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.iconfont-question:before &#123;</span><br><span class="line">	content: &quot;\E002&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在代码中使用起来也很简单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 引用生成的css文件</span><br><span class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;./font/_icons.css&quot; charset=&quot;utf-8&quot;&gt;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">//直接给标签添加样式类</span><br><span class="line">&lt;i class=&quot;iconfont iconfont-hook&quot;&gt;&lt;/i&gt;</span><br><span class="line">&lt;i class=&quot;iconfont iconfont-question&quot;&gt;&lt;/i&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>预览效果见文末截图</strong></p>
+<h3 id="使用问题"><a href="#使用问题" class="headerlink" title="使用问题"></a>使用问题</h3><p>和之前的介绍的工具一样，可以使用模板，也可以生成scss、less、css多种格式文件。蛋疼的问题是：<strong>生成的所有的字体图标都会取最高的那个图标的高度。也就是说一些图标需要重新设置高度！</strong> 自动化操作瞬间降级为半自动化~而且生成的图片还带锯齿（不知道是不是配置问题），所以只能算是失败的方案。</p>
+<h1 id="svg-sprite"><a href="#svg-sprite" class="headerlink" title="svg sprite"></a>svg sprite</h1><p>正当愁眉不展之时，看到张鑫旭一篇文章《<a href="http://www.zhangxinxu.com/wordpress/2014/07/introduce-svg-sprite-technology/" target="_blank" rel="noopener">未来必热：SVG Sprite技术介绍</a>》<br>（末尾的结束语将字体图标和svg sprite做了对比，有兴趣的朋友可以看一下）才让我感觉柳暗花明：<strong>原来还有更强大的svg sprite</strong>。将svg矢量图标整合成一个svg文件，使用的时候以 symbol 或 use 等标签的形式展现。</p>
+<h2 id="手动操作-2"><a href="#手动操作-2" class="headerlink" title="手动操作"></a>手动操作</h2><p>考虑这个方案之时就没打算用手动化，因为如果需要手动操作还不如使用字体图标，所以直接考虑自动化工具。</p>
+<h2 id="自动化工具-2"><a href="#自动化工具-2" class="headerlink" title="自动化工具"></a>自动化工具</h2><p>使用的是github上star数仅次于gulp-svgstrore的模块 <strong>gulp-svg-sprite</strong> 。支持scss、less、css文件格式输出。</p>
+<h3 id="配置文件-2"><a href="#配置文件-2" class="headerlink" title="配置文件"></a>配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">var gulp = require(&apos;gulp&apos;);</span><br><span class="line">var $ = require(&apos;gulp-load-plugins&apos;)();</span><br><span class="line"></span><br><span class="line">gulp.task(&apos;svg&apos;, function () &#123;</span><br><span class="line">  return gulp.src(&apos;./src/*.svg&apos;)</span><br><span class="line">  .pipe($.svgSprite(&#123;</span><br><span class="line">    mode: &#123;</span><br><span class="line">      symbol: &#123;</span><br><span class="line">        prefix: `.svg-`,</span><br><span class="line">        dimensions: &apos;%s&apos;,</span><br><span class="line">        sprite: &apos;../icon.svg&apos;,</span><br><span class="line">        symbol: true,</span><br><span class="line">        render: &#123;</span><br><span class="line">          css: &#123;</span><br><span class="line">            dest: &apos;../icon.css&apos;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;))</span><br><span class="line">  .pipe(gulp.dest(&apos;dist/svg&apos;));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="开发流程-2"><a href="#开发流程-2" class="headerlink" title="开发流程"></a>开发流程</h3><p>整个流程同上，配置完成之后，在源文件夹中放入两个 question.svg、hook.svg 两个小图标进行调试。</p>
+<p>gulp 处理后生成了2个文件： icon.svg、icon.css。 打开 icon.css，可以看到根据图标名生成了两个样式类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.svg-hook &#123;</span><br><span class="line">	width: 16px;</span><br><span class="line">	height: 16px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.svg-question &#123;</span><br><span class="line">	width: 40px;</span><br><span class="line">	height: 40px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>非常简洁有么有！！！</p>
+<p>使用起来稍稍复杂一点：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//引用样式文件</span><br><span class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;./svg/icon.css&quot; charset=&quot;utf-8&quot;&gt;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">&lt;svg class=&quot;svg-hook&quot;&gt;</span><br><span class="line">  &lt;use xlink:href=&quot;./svg/icon.svg#hook&quot;&gt;&lt;/use&gt;</span><br><span class="line">&lt;/svg&gt;</span><br><span class="line">&lt;svg class=&quot;svg-question&quot;&gt;</span><br><span class="line">  &lt;use xlink:href=&quot;./svg/icon.svg#question&quot;&gt;&lt;/use&gt;</span><br><span class="line">&lt;/svg&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>预览效果见文末截图</strong></p>
+<p>相比字体图标：</p>
+<ol>
+<li>据说SVG图标跟字体图标相比，还支持渐变，甚至彩色图标。</li>
+<li>改变大小直接调整width和height属性即可，而不是调整font-size那种“曲线救国”的方式。</li>
+<li>填充颜色也很简单，设置fill属性的值即可（前提是svg中不能使用fill，如果svg自带fill属性，设置失效）。</li>
+</ol>
+<h3 id="使用问题-1"><a href="#使用问题-1" class="headerlink" title="使用问题"></a>使用问题</h3><p>所有的IE浏览器(包括IE11)还不支持获得外链SVG文件某个元件。但是也很好解决，使用第三方js即可——<a href="https://github.com/jonathantneal/svg4everybody" target="_blank" rel="noopener">svg4everybody</a>。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>文中所示<a href="https://github.com/yalishizhude/sprite-demo" target="_blank" rel="noopener">代码地址</a>：<a href="https://github.com/yalishizhude/sprite-demo" target="_blank" rel="noopener">https://github.com/yalishizhude/sprite-demo</a></p>
+<img src="/2016/10/27/icon/summary.png">
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/小图标/" rel="tag"># 小图标</a>
+          
+            <a href="/tags/自动化构建/" rel="tag"># 自动化构建</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/14/angular-large-2/" rel="next" title="尝试通过AngularJS模块按需加载搭建大型应用（下）">
+                <i class="fa fa-chevron-left"></i> 尝试通过AngularJS模块按需加载搭建大型应用（下）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/28/spider/" rel="prev" title="拿好这段代码，愿你求职路上不再迷茫">
+                拿好这段代码，愿你求职路上不再迷茫 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#png-sprite"><span class="nav-number">1.</span> <span class="nav-text">png sprite</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#手动操作"><span class="nav-number">1.1.</span> <span class="nav-text">手动操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动化工具"><span class="nav-number">1.2.</span> <span class="nav-text">自动化工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件"><span class="nav-number">1.2.1.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发流程"><span class="nav-number">1.2.2.</span> <span class="nav-text">开发流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.2.3.</span> <span class="nav-text">问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#font-face"><span class="nav-number">2.</span> <span class="nav-text">font-face</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#手动操作-1"><span class="nav-number">2.1.</span> <span class="nav-text">手动操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动化工具-1"><span class="nav-number">2.2.</span> <span class="nav-text">自动化工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发流程-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">开发流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用问题"><span class="nav-number">2.2.3.</span> <span class="nav-text">使用问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#svg-sprite"><span class="nav-number">3.</span> <span class="nav-text">svg sprite</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#手动操作-2"><span class="nav-number">3.1.</span> <span class="nav-text">手动操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动化工具-2"><span class="nav-number">3.2.</span> <span class="nav-text">自动化工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件-2"><span class="nav-number">3.2.1.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发流程-2"><span class="nav-number">3.2.2.</span> <span class="nav-text">开发流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用问题-1"><span class="nav-number">3.2.3.</span> <span class="nav-text">使用问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
