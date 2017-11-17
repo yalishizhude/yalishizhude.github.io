@@ -434,7 +434,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/09/16/collection-js/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/09/16/collection-tool/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="亚里士朱德">
@@ -453,7 +453,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2015/09/16/collection-js/" itemprop="url">js基础知识</a></h1>
+                <a class="post-title-link" href="/2015/09/16/collection-tool/" itemprop="url">工具技巧</a></h1>
         
 
         <div class="post-meta">
@@ -488,8 +488,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
                   </a>
                 </span>
 
@@ -528,74 +528,11 @@
         
           
             <a id="more"></a>
-<h1 id="什么是原型和原型链"><a href="#什么是原型和原型链" class="headerlink" title="什么是原型和原型链"></a>什么是原型和原型链</h1><p>Javascript中，所有数据类型都有一个默认属性：<code>__proto__</code>，这个叫做原型。而该隐藏属性中又包含其它数据对象的<code>__proto__</code>，这种原型的嵌套包含就叫原型链。</p>
-<h1 id="prototype属性有什么作用"><a href="#prototype属性有什么作用" class="headerlink" title="prototype属性有什么作用"></a>prototype属性有什么作用</h1><p>本质上，js中的基本数据类型Functoin/Object/Number/Array/boolean都是函数。（用typeof 可以查看）而prototype是函数的专有属性，当该函数被实例化时，prototype属性可以被实例所继承，即</p>
-<pre><code>var fun = function(){};
-var a = new fun();
-a.__proto__ === fun.prototype; //true
-</code></pre><h1 id="改变作用域的方法"><a href="#改变作用域的方法" class="headerlink" title="改变作用域的方法"></a>改变作用域的方法</h1><ul>
-<li>apply 通过传入对象参数改变原函数作用域为参数作用域。 <code>fun.apply(obj, [a,b,c]);</code> 调用fun函数，作用域为obj，参数为a/b/c。</li>
-<li>call 同上，不过为不定参数。</li>
-<li>new 通过实例化，将构造函数this指针指向实例函数。</li>
-<li>bind 传入参数可以改变做用域甚至绑定参数</li>
-</ul>
-<h1 id="判断数据类型的方法"><a href="#判断数据类型的方法" class="headerlink" title="判断数据类型的方法"></a>判断数据类型的方法</h1><ul>
-<li>toString.call 准确判断数据类型：Array、String、Object、RegExp、Number、Undefined、Null、Date、Boolean、Function</li>
-<li>typeof 粗略判断数据类型：undefined、number、string、boolean、object、function</li>
-<li>instanceOf 判断一个函数是否为另一个函数的实例。</li>
-<li>Array.isArray ECMAScript 5 新增方法，用来判断参数是否为数组。</li>
-<li>isFinite 判断是否为Infinity和null</li>
-</ul>
-<h1 id="arguments是什么数据类型"><a href="#arguments是什么数据类型" class="headerlink" title="arguments是什么数据类型"></a>arguments是什么数据类型</h1><p>函数内部自动创建的一个类似数组的获取函数实参的隐藏对象。</p>
-<h1 id="caller和callee有什么区别"><a href="#caller和callee有什么区别" class="headerlink" title="caller和callee有什么区别"></a>caller和callee有什么区别</h1><p><code>caller</code><br>函数原型函数，返回该函数的调用函数。当该函数为顶层调用时，返回null<br><code>callee</code><br>arguments的默认属性，<code>arguments.callee</code>用来指向函数本身，常用在匿名函数和递归函数中。<code>arguments.callee.length</code>可以用获取函数形参长度。</p>
-<h1 id="和-有什么区别"><a href="#和-有什么区别" class="headerlink" title="== 和 === 有什么区别"></a>== 和 === 有什么区别</h1><ul>
-<li>‘1’ == 1 –&gt; true</li>
-<li>‘1’ === 1 –&gt; false</li>
-<li>null == undefined –&gt; true</li>
-<li>null === undefined –&gt; false</li>
-<li>NaN == NaN –&gt; false</li>
-<li>NaN === NaN –&gt; false</li>
-<li>var a = b = {}; a === b –&gt;true</li>
-<li>var a = {}; var b = {}; a === b –&gt; false<br><code>==</code> 先将两边值转换为同一类型的对象再进行 <code>===</code>比较<br><code>===</code> 只用于浅拷贝的对象进行比较，不进行对象内容进行比较。只要引用地址不一致，即使内容一致也比较不出来。可以用来比较函数、数组等复杂对象，只是实用性不大。</li>
-</ul>
-<h1 id="什么是变量提升"><a href="#什么是变量提升" class="headerlink" title="什么是变量提升"></a>什么是变量提升</h1><p>变量在一个范围内声明的时候，javascript引擎会将这个声明移到范围顶部。</p>
-<pre><code>var v=&apos;Hello World&apos;;
-(function(){
-    console.log(v);
-    var v=&apos;I love you&apos;;
-})();//undefined
-</code></pre><p>这段代码等价于</p>
-<pre><code>var v=&apos;Hello World&apos;;
-(function(){
-    var v;
-    console.log(v);
-    v=&apos;I love you&apos;;
-})();
-</code></pre><p>同样，匿名函数也受命名提升的影响</p>
-<pre><code>(function(){
-    foo();
-    function foo(){
-        console.log(&quot;我来自 foo&quot;);
-    }
-})(); //我来自 foo
+<h1 id="chrome调试工具"><a href="#chrome调试工具" class="headerlink" title="chrome调试工具"></a>chrome调试工具</h1><h2 id="ctrl-shift-f"><a href="#ctrl-shift-f" class="headerlink" title="ctrl+shift+f"></a>ctrl+shift+f</h2><p>搜索所有文件内容，速度很慢，不建议使用</p>
+<h2 id="ctrl-p-或-ctrl-o"><a href="#ctrl-p-或-ctrl-o" class="headerlink" title="ctrl+p 或 ctrl+o"></a>ctrl+p 或 ctrl+o</h2><p>按文件名全量搜索文件</p>
+<h2 id="ctrl-shift-p-或-ctrl-shift-o"><a href="#ctrl-shift-p-或-ctrl-shift-o" class="headerlink" title="ctrl+shift+p 或 ctrl+shift+o"></a>ctrl+shift+p 或 ctrl+shift+o</h2><p>在当前打开的js文件中搜索函数名称</p>
+<h2 id="ctrl-shift-o-或-ctrl-shift-o"><a href="#ctrl-shift-o-或-ctrl-shift-o" class="headerlink" title="ctrl+shift+o 或 ctrl+shift+o"></a>ctrl+shift+o 或 ctrl+shift+o</h2><p>在当前打开的css文件中按选择器搜索定义的样式</p>
 
-(function(){
-    foo();
-    var foo = function(){
-        console.log(&quot;我来自 foo&quot;);
-    }
-})();//TypeError: foo is not a function
-</code></pre><p>js中有函数作用域但是没有块级作用域。</p>
-<pre><code>var x = 1;
-console.log(x); // 1
-if (true) {
-    var x = 2;
-    console.log(x); //2
-}
-console.log(x);// 2
-</code></pre><p><a href="http://www.jb51.net/article/30719.htm" target="_blank" rel="noopener">详细介绍</a></p>
-<h1 id="获取所有dom的方法"><a href="#获取所有dom的方法" class="headerlink" title="获取所有dom的方法"></a>获取所有dom的方法</h1><pre><code>document.getElementsByTagName( &apos;*&apos; )
-</code></pre>
           
         
       
