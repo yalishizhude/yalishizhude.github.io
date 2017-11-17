@@ -8,8 +8,22 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>web技术分享</description>
-    <pubDate>Fri, 17 Nov 2017 12:09:49 GMT</pubDate>
+    <pubDate>Fri, 17 Nov 2017 13:13:33 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>编写Web组件的6个建议</title>
+      <link>http://yoursite.com/2017/11/17/web-component/</link>
+      <guid>http://yoursite.com/2017/11/17/web-component/</guid>
+      <pubDate>Fri, 17 Nov 2017 13:11:38 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;“组件化”是近几年web前端开发的趋势，关于如何设计出好的组件，本文总结了6点经验，希望对读者有所帮助。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2017/11/17/web-component/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>让你的JavaScript成为真正的Java Script</title>
@@ -312,21 +326,6 @@
       </description>
       
       <comments>http://yoursite.com/2016/04/26/back-componentization/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>图解基于node.js实现前后端分离</title>
-      <link>http://yoursite.com/2016/04/19/front-back-separation/</link>
-      <guid>http://yoursite.com/2016/04/19/front-back-separation/</guid>
-      <pubDate>Tue, 19 Apr 2016 14:02:51 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;首先庆祝 &lt;a href=&quot;http://www.w3ctech.com/event/56&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;w3ctech长沙站第12期技术分享会&lt;/a&gt; 圆满成功，感谢组织方邀请~&lt;br&gt;&lt;img src=&quot;/2016/04/19/front-back-separation/w3c.jpg&quot;&gt;&lt;/p&gt;
-&lt;p&gt;因为会上出了个意外，ppt图片全部丢失，只好对着白板跟大家交流了半个多小时。由于我做演讲不喜欢写太多的文字，没有图片的情况下讲漏了一些内容。这篇文章是我在会上分享内容对照ppt进行地整理。&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2016/04/19/front-back-separation/#disqus_thread</comments>
     </item>
     
   </channel>
