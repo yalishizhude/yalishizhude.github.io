@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="webpack," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="使用过vuejs的开发者一定对vue-cli不陌生，这个命令行工具提供了几个常用的搭建项目的模板，目前官方支持6个模板：  webpack  webpack-simple browserify browserify-simple pwa simple">
+<meta name="keywords" content="webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用vue-cli的webpack模板的一次优化">
+<meta property="og:url" content="http://yoursite.com/2017/12/05/webpack-big-file-optimize/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="使用过vuejs的开发者一定对vue-cli不陌生，这个命令行工具提供了几个常用的搭建项目的模板，目前官方支持6个模板：  webpack  webpack-simple browserify browserify-simple pwa simple">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2017/12/05/webpack-big-file-optimize/build.png">
+<meta property="og:image" content="http://yoursite.com/2017/12/05/webpack-big-file-optimize/lazyload.png">
+<meta property="og:image" content="http://yoursite.com/2017/12/05/webpack-big-file-optimize/gzip.png">
+<meta property="og:updated_time" content="2017-12-05T14:44:34.454Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用vue-cli的webpack模板的一次优化">
+<meta name="twitter:description" content="使用过vuejs的开发者一定对vue-cli不陌生，这个命令行工具提供了几个常用的搭建项目的模板，目前官方支持6个模板：  webpack  webpack-simple browserify browserify-simple pwa simple">
+<meta name="twitter:image" content="http://yoursite.com/2017/12/05/webpack-big-file-optimize/build.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/05/webpack-big-file-optimize/"/>
+
+
+
+
+
+  <title>使用vue-cli的webpack模板的一次优化 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/05/webpack-big-file-optimize/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用vue-cli的webpack模板的一次优化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-05T22:26:10+08:00">
+                2017-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>使用过vuejs的开发者一定对vue-cli不陌生，这个命令行工具提供了几个常用的搭建项目的模板，目前官方支持6个模板：</p>
+<ul>
+<li>webpack </li>
+<li>webpack-simple</li>
+<li>browserify</li>
+<li>browserify-simple</li>
+<li>pwa</li>
+<li>simple</li>
+</ul>
+<a id="more"></a>
+<p>而使用得最多也是Github上start数最多的模板则是<code>webpack</code>这个模板，它包含的内容也非常丰富：语法校验、css预处理、测试框架等，相对于其它模板而言更适合搭建大型项目。</p>
+<p>更为良心的是连npm脚本都写好了，开发的时候直接输入<code>npm run dev</code>，开发完成则输入<code>npm run build</code>生成对应的可部署文件。</p>
+<p>但是当我们真正开始用于大型项目的时候，尤其在引入一些第三方模块之后就会发现一个问题~</p>
+<p>这是我的一个项目使用默认配置编译后生成的文件目录截图。</p>
+<img src="/2017/12/05/webpack-big-file-optimize/build.png">
+<p>其中有1个vendor.xxxx.js文件显示颜色为黄色，后面给出一个[big]的警告，文件大小达到981kB！</p>
+<p>更可怕的是 app.xxx.js 和 vendor.xxx.js 在首次加载的时候浏览器都会请求，js文件下载完成之后才开始渲染页面。直接后果就是首屏加载时间大大增加，用户浏览网页时需要长时间等待，体验相当糟糕。</p>
+<h1 id="定位问题"><a href="#定位问题" class="headerlink" title="定位问题"></a>定位问题</h1><p>我们来看看这个<code>vendor.xxx.js</code>是怎么形成的。</p>
+<p>全局搜索一下”vendor”即可找到 build 目录下的 webpack.prod.conf.js 文件，看到下面几行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">new webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">  name: &apos;vendor&apos;,</span><br><span class="line">  minChunks: function (module, count) &#123;</span><br><span class="line">    // any required modules inside node_modules are extracted to vendor</span><br><span class="line">    return (</span><br><span class="line">      module.resource &amp;&amp;</span><br><span class="line">      /\.js$/.test(module.resource) &amp;&amp;</span><br><span class="line">      module.resource.indexOf(</span><br><span class="line">        path.join(__dirname, &apos;../node_modules&apos;)</span><br><span class="line">      ) === 0</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;),</span><br></pre></td></tr></table></figure>
+<p>这里用到了webpack的一个插件<code>CommonsChunkPlugin</code>来提取entry对应文件（所有编写的业务代码）中的公共代码，其中 minChunks 的配置项对应的函数为提取代码块规则，规定将node_modules中的所有依赖模块都打包到一个叫vendor的文件中。</p>
+<h1 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h1><p>最终目的是减小文件体积，途径有两个：</p>
+<ul>
+<li>减少依赖。</li>
+<li>分割文件。</li>
+</ul>
+<p>对于第一种方式通常会随着项目代码量增大而难度增大，而且除非引入了较多的不需要的垃圾模块，否则效果不会很明显。而引入不适用的模块一般在编译时校验规则无法通过就会报错，这种情况几乎不会出现。</p>
+<p>所以考虑第二种方式。我们将首屏需要的第三方模块提取出来优先加载，让页面快速渲染，其它模块延迟加载或懒加载。</p>
+<p>要做到这一点我们首先需要回归打包工具webpack，通过查看<a href="https://webpack.js.org/guides/code-splitting/" target="_blank" rel="noopener">官方文档</a>可以找到<code>code splitting</code>的描述和我们所需的场景较为匹配——<strong>它可以用来分割成更小的模块和控制资源加载的优先级，如果使用正确的话可以极大地提升加载速度。</strong></p>
+<p>同时文档上提供了3种实现方式：</p>
+<ul>
+<li>通过entry配置项手动分割。</li>
+<li>通过CommonsChunkPlugin插件提取公用代码。</li>
+<li>动态引入模块。</li>
+</ul>
+<p>第一种方式：将首页依赖的模块手动配置成entry并不会奏效，因为CommonsChunkPlugin插件仍然会将部分模块抽取出来，配置形同虚设。<br>第二种方式：这种方式尝试了很久，一直想把首页的第三方模块单独抽取出来。后来仔细思考因为main.ts文件中始终会引用首页组件，也就是说两个entry配置的文件有包含关系，注定了在抽取公共模块的时候会把这些模块一起抽取出来，所以这种方式行不通。<br>第三种方式：使用vuejs的异步组件特性，再加上webpack的import函数实现。但是使用ts转成ES5时会出现报错：不支持模块懒加载。需要引用第三方库，比如require.js或者system.js。最后代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 需要先安装system.js模块：npm i -S systemjs</span><br><span class="line">const Index = () =&gt; System.import(/*webpackChunkName: &apos;Index&apos;*/ &apos;../components/home/Index.vue&apos;)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<img src="/2017/12/05/webpack-big-file-optimize/lazyload.png">
+<h1 id="换一种思路"><a href="#换一种思路" class="headerlink" title="换一种思路"></a>换一种思路</h1><p>有没有简单粗暴的方法？有！</p>
+<p>在服务端开启gzip，可以有效地减小文件体积。具体操作需要根据不同服务器进行配置。</p>
+<p>本文使用了nginx作为Web服务器，并开启了最高压缩级别地gzip，上述vendor.xxx.js压缩后体积：</p>
+<img src="/2017/12/05/webpack-big-file-optimize/gzip.png">
+<p><code>608kB =&gt; 154kB</code></p>
+<p>体积减少了<strong>74.67%</strong>，效果相当可观。</p>
+<p>当然实际生产环境不会把压缩级别调到这么高，避免过多消耗CPU资源。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这些年Web前端的发展越来越变得工程化和专业化，从最初的使用空的种子项目来快速搭建框架，到聚集各类框架模板的脚手架平台yeoman，再到框架使用专有的命令行工具（vue-cli， angular-cli等）。</p>
+<p>不少模板、种子项目虽然都做到了“开箱即用”，但是这个“可用性”更多的是相对于开发测试而言，对于生产部署往往需要开发者花费心思去改进、优化，纯粹的“拿来主义”不可取~</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/17/web-component/" rel="next" title="编写Web组件的6个建议">
+                <i class="fa fa-chevron-left"></i> 编写Web组件的6个建议
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">87</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#定位问题"><span class="nav-number">1.</span> <span class="nav-text">定位问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决问题"><span class="nav-number">2.</span> <span class="nav-text">解决问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#换一种思路"><span class="nav-number">3.</span> <span class="nav-text">换一种思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

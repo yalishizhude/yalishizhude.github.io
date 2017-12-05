@@ -8,8 +8,30 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>web技术分享</description>
-    <pubDate>Fri, 17 Nov 2017 13:13:33 GMT</pubDate>
+    <pubDate>Tue, 05 Dec 2017 14:44:34 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>使用vue-cli的webpack模板的一次优化</title>
+      <link>http://yoursite.com/2017/12/05/webpack-big-file-optimize/</link>
+      <guid>http://yoursite.com/2017/12/05/webpack-big-file-optimize/</guid>
+      <pubDate>Tue, 05 Dec 2017 14:26:10 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;使用过vuejs的开发者一定对vue-cli不陌生，这个命令行工具提供了几个常用的搭建项目的模板，目前官方支持6个模板：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;webpack &lt;/li&gt;
+&lt;li&gt;webpack-simple&lt;/li&gt;
+&lt;li&gt;browserify&lt;/li&gt;
+&lt;li&gt;browserify-simple&lt;/li&gt;
+&lt;li&gt;pwa&lt;/li&gt;
+&lt;li&gt;simple&lt;/li&gt;
+&lt;/ul&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2017/12/05/webpack-big-file-optimize/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>编写Web组件的6个建议</title>
@@ -312,20 +334,6 @@
       </description>
       
       <comments>http://yoursite.com/2016/05/30/4angular/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>利用handlebars实现后端组件化</title>
-      <link>http://yoursite.com/2016/04/26/back-componentization/</link>
-      <guid>http://yoursite.com/2016/04/26/back-componentization/</guid>
-      <pubDate>Mon, 25 Apr 2016 16:19:57 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;&lt;em&gt;似乎掌握了后端组件化的奥义^_^&lt;/em&gt;&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2016/04/26/back-componentization/#disqus_thread</comments>
     </item>
     
   </channel>
