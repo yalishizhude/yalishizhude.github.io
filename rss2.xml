@@ -8,8 +8,39 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>web技术分享</description>
-    <pubDate>Tue, 05 Dec 2017 14:44:34 GMT</pubDate>
+    <pubDate>Sun, 17 Dec 2017 09:37:38 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>RxWX使用教程</title>
+      <link>http://yoursite.com/2017/12/16/intro2rxwx/</link>
+      <guid>http://yoursite.com/2017/12/16/intro2rxwx/</guid>
+      <pubDate>Sat, 16 Dec 2017 11:52:24 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;之前写过一个开源项目&lt;a href=&quot;https://github.com/yalishizhude/RxWX&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RxWX&lt;/a&gt;，将RxJS移植到微信小程序（以下简称”小程序“）中。&lt;/p&gt;
+&lt;p&gt;RxWX项目地址和介绍：&lt;a href=&quot;https://github.com/yalishizhude/RxWX&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/yalishizhude/RxWX&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;关于RxJS的介绍，读者可以去看&lt;a href=&quot;http://reactivex.io/rxjs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;官方说明&lt;/a&gt;或者关注公众号“Web学习社”的后续文章介绍，这篇文章主要讲解RxWX的几个使用场景。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;微信小程序SDK版本：1.7.0&lt;/em&gt;&lt;br&gt;&lt;em&gt;微信开发者工具版本：1.01&lt;/em&gt;&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2017/12/16/intro2rxwx/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>在Windows10下安装Minikube</title>
+      <link>http://yoursite.com/2017/12/15/minikube-setup/</link>
+      <guid>http://yoursite.com/2017/12/15/minikube-setup/</guid>
+      <pubDate>Fri, 15 Dec 2017 14:08:34 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;花了两天时间，终于将Minikube部署成功了，心情久久不能平静，于是写篇文章纪念一下，顺便提醒后来者，避免踩坑~&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2017/12/15/minikube-setup/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>使用vue-cli的webpack模板的一次优化</title>
@@ -82,7 +113,7 @@
     </item>
     
     <item>
-      <title>miniprogram-form</title>
+      <title>小程序表单优化</title>
       <link>http://yoursite.com/2017/08/21/miniprogram-form/</link>
       <guid>http://yoursite.com/2017/08/21/miniprogram-form/</guid>
       <pubDate>Mon, 21 Aug 2017 08:09:13 GMT</pubDate>
@@ -306,34 +337,6 @@
       </description>
       
       <comments>http://yoursite.com/2016/07/14/angular-large-2/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>尝试通过AngularJS模块按需加载搭建大型应用（上）</title>
-      <link>http://yoursite.com/2016/07/07/angular-large-1/</link>
-      <guid>http://yoursite.com/2016/07/07/angular-large-1/</guid>
-      <pubDate>Thu, 07 Jul 2016 15:00:44 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;&lt;em&gt;没有合适的轮子，只好自己造( ╯□╰ )&lt;/em&gt;&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2016/07/07/angular-large-1/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>Angular说：这个锅我不背~</title>
-      <link>http://yoursite.com/2016/05/30/4angular/</link>
-      <guid>http://yoursite.com/2016/05/30/4angular/</guid>
-      <pubDate>Sun, 29 May 2016 16:59:30 GMT</pubDate>
-      <description>
-      
-        &lt;h1 id=&quot;楔子&quot;&gt;&lt;a href=&quot;#楔子&quot; class=&quot;headerlink&quot; title=&quot;楔子&quot;&gt;&lt;/a&gt;楔子&lt;/h1&gt;&lt;p&gt;最近月影大神翻译的一篇文章很火——&lt;a href=&quot;http://web.jobbole.com/86284/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;《别责怪框架：我使用 AngularJS 和 ReactJS 的经验》&lt;/a&gt;，标题看似客观，不过先扬后抑，借黑Angular之际狠赞了一下react。&lt;br&gt;看完之后也让我有感而发。写这篇文章的目的，并不是想反作者之道，褒Angular贬React，只是希望读者抛开个人情绪，对两者（或者Angular？）有一个更客观地认识。&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2016/05/30/4angular/#disqus_thread</comments>
     </item>
     
   </channel>

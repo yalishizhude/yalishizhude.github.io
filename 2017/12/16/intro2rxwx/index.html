@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="微信小程序," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="之前写过一个开源项目RxWX，将RxJS移植到微信小程序（以下简称”小程序“）中。 RxWX项目地址和介绍：https://github.com/yalishizhude/RxWX 关于RxJS的介绍，读者可以去看官方说明或者关注公众号“Web学习社”的后续文章介绍，这篇文章主要讲解RxWX的几个使用场景。 微信小程序">
+<meta name="keywords" content="微信小程序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxWX使用教程">
+<meta property="og:url" content="http://yoursite.com/2017/12/16/intro2rxwx/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="之前写过一个开源项目RxWX，将RxJS移植到微信小程序（以下简称”小程序“）中。 RxWX项目地址和介绍：https://github.com/yalishizhude/RxWX 关于RxJS的介绍，读者可以去看官方说明或者关注公众号“Web学习社”的后续文章介绍，这篇文章主要讲解RxWX的几个使用场景。 微信小程序SDK版本：1.7.0微信开发者工具版本：1.01">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2017/12/16/intro2rxwx/app.wpy.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/12/16/intro2rxwx/index.wpy.jpg">
+<meta property="og:updated_time" content="2017-12-17T09:37:38.146Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RxWX使用教程">
+<meta name="twitter:description" content="之前写过一个开源项目RxWX，将RxJS移植到微信小程序（以下简称”小程序“）中。 RxWX项目地址和介绍：https://github.com/yalishizhude/RxWX 关于RxJS的介绍，读者可以去看官方说明或者关注公众号“Web学习社”的后续文章介绍，这篇文章主要讲解RxWX的几个使用场景。 微信小程序SDK版本：1.7.0微信开发者工具版本：1.01">
+<meta name="twitter:image" content="http://yoursite.com/2017/12/16/intro2rxwx/app.wpy.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/16/intro2rxwx/"/>
+
+
+
+
+
+  <title>RxWX使用教程 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/16/intro2rxwx/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RxWX使用教程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-16T19:52:24+08:00">
+                2017-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前写过一个开源项目<a href="https://github.com/yalishizhude/RxWX" target="_blank" rel="noopener">RxWX</a>，将RxJS移植到微信小程序（以下简称”小程序“）中。</p>
+<p>RxWX项目地址和介绍：<a href="https://github.com/yalishizhude/RxWX" target="_blank" rel="noopener">https://github.com/yalishizhude/RxWX</a></p>
+<p>关于RxJS的介绍，读者可以去看<a href="http://reactivex.io/rxjs/" target="_blank" rel="noopener">官方说明</a>或者关注公众号“Web学习社”的后续文章介绍，这篇文章主要讲解RxWX的几个使用场景。</p>
+<p><em>微信小程序SDK版本：1.7.0</em><br><em>微信开发者工具版本：1.01</em></p>
+<a id="more"></a>
+<p>演示项目下载地址：<br><a href="https://github.com/yalishizhude/RxWX/tree/master/example" target="_blank" rel="noopener">https://github.com/yalishizhude/RxWX/tree/master/example</a></p>
+<h1 id="Get-started"><a href="#Get-started" class="headerlink" title="Get started"></a>Get started</h1><p>按照RxWX说明，把Rx.js和RxWX.js文件放入到utils目录下。</p>
+<p>其中Rx.js是可运行在小程序中的Rx.js模块，RxWX.js是利用Rx.js对小程序API进行的封装，封装后API函数将返回Observable对象，属性值不变。</p>
+<p>使用时必须引入该文件，比如</p>
+<p><code>import rxwx from &#39;../../utils/RxWX.js&#39;</code></p>
+<h1 id="同步API与异步API"><a href="#同步API与异步API" class="headerlink" title="同步API与异步API"></a>同步API与异步API</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 原写法</span><br><span class="line">try &#123;</span><br><span class="line">  let result = wx.removeStorageSync(&apos;xx&apos;)</span><br><span class="line">  console.log(result) </span><br><span class="line">&#125; catch(e) &#123;</span><br><span class="line">  console.error(&apos;小程序API发现错误&apos;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 使用RxWX</span><br><span class="line">import rxwx from &apos;../../utils/RxWX.js&apos;</span><br><span class="line"></span><br><span class="line">rxwx.removeStorageSync(&apos;xx&apos;)</span><br><span class="line">  .catch((e) =&gt; console.error(&apos;RxWX发现错误&apos;))</span><br><span class="line">  .subscribe((resp) =&gt; console.log(resp))</span><br></pre></td></tr></table></figure>
+<p>看上去好像没太大区别。别着急，接着我们来继续看看异步API的调用~</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 原写法</span><br><span class="line">wx.removeStorage(&#123;</span><br><span class="line">  key: &apos;xx&apos;,</span><br><span class="line">  success: function(res) &#123;</span><br><span class="line">    console.log(res)</span><br><span class="line">  &#125;,</span><br><span class="line">  error: function(e) &#123;</span><br><span class="line">    console.error(&apos;小程序API发现错误&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">// 引用RxWX，rxwx具有wx的所有函数和值，但是调用函数返回的是Observable对象</span><br><span class="line">import rxwx from &apos;../../utils/RxWX.js&apos;</span><br><span class="line"></span><br><span class="line">rxwx.removeStorage(&#123;key: &apos;xx&apos;&#125;)</span><br><span class="line">  .catch((e) =&gt; console.error(&apos;RxWX发现错误&apos;))</span><br><span class="line">  .subscribe((resp) =&gt; console.log(resp))</span><br></pre></td></tr></table></figure>
+<p>在调用同步时RxWX没有太大优势，但在调用异步API的时候以流的方式来处理结果和异常，显然优于回调。<br>而且代码内容和同步调用方式相比并无变化（只修改了函数名和入参）。</p>
+<p>这种统一的操作方式可以让开发者更好的关注业务逻辑，而不需要去分辨API到底是异步还是同步，执行结果到底是在回调中获取还是返回值获取。</p>
+<p>这种处理方式是不是让你想起点什么？欢迎留言讨论~</p>
+<h1 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h1><p>登录后获取用户信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 调用小程序原生API</span><br><span class="line">wx.login(&#123;</span><br><span class="line">  success(res) &#123;</span><br><span class="line">    wx.getUserInfo(&#123;</span><br><span class="line">      success(res) &#123;</span><br><span class="line">        console.log(res.userInfo)</span><br><span class="line">      &#125;,</span><br><span class="line">      fail(e) &#123;</span><br><span class="line">        console.error(e)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  fail(e) &#123;</span><br><span class="line">    console.error(e)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 调用RxWX</span><br><span class="line">import rxwx from &apos;../../utils/RxWX.js&apos;</span><br><span class="line"></span><br><span class="line">rxwx.login()</span><br><span class="line">  .switchMap(() =&gt; rxwx.getUserInfo())</span><br><span class="line">  .catch(e =&gt; console.error(e))</span><br><span class="line">  .subscribe(res =&gt; console.log(res.userInfo))</span><br></pre></td></tr></table></figure>
+<p>原生写法很容易坠入回调地狱，而利用RxWx的代码直观易读。</p>
+<h1 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h1><p>同时获取用户信息和系统信息后进行操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 调用小程序API</span><br><span class="line">let getUser =  new Promise((success, fail) =&gt; &#123;</span><br><span class="line">  wx.getUserInfo(&#123;</span><br><span class="line">    success,</span><br><span class="line">    fail</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">let getSystem =  new Promise((success, fail) =&gt; &#123;</span><br><span class="line">  wx.getSystemInfo(&#123;</span><br><span class="line">    success,</span><br><span class="line">    fail</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">Promise.all([getUser, getSystem])</span><br><span class="line">.then((resp) =&gt; console.log(resp), e =&gt; console.error(e))</span><br><span class="line"></span><br><span class="line">// 调用RxWX</span><br><span class="line">import rxwx, &#123;Rx&#125; from &apos;../../utils/RxWX.js&apos;</span><br><span class="line"></span><br><span class="line">Rx.Observable.zip(rxwx.getUserInfo(), rxwx.getSystemInfo())</span><br><span class="line">  .catch(e =&gt; console.error(e))</span><br><span class="line">  .subscribe(resp =&gt; console.log(resp))</span><br></pre></td></tr></table></figure>
+<h1 id="在wepy中使用"><a href="#在wepy中使用" class="headerlink" title="在wepy中使用"></a>在wepy中使用</h1><p>应微信读者John的要求，特意补充了这一部分示例。</p>
+<p>wepy是一个比较火的小程序框架，采用预编译的方式，让开发者可以用Vuejs风格的组件化方式开发小程序，同时还支持Node.js模块。<br>官网地址：<a href="https://tencent.github.io/wepy/" target="_blank" rel="noopener">https://tencent.github.io/wepy/</a></p>
+<ol>
+<li>安装RxWX</li>
+</ol>
+<p><code>npm i -S rxjs-wx</code></p>
+<p>当然我跟推荐你使用yarn</p>
+<p><code>yarn add rxjs-wx</code></p>
+<ol>
+<li>引入模块</li>
+</ol>
+<p><code>import rxwx from &#39;rxjs-wx&#39;</code></p>
+<ol>
+<li>使用rxwx</li>
+</ol>
+<p><em>wepy版本：1.6.0</em></p>
+<p>用<code>wepy new</code>命令初始化项目之后，我们以app.wpy和index.wpy两个文件代码为例，改成用RxWX实现。</p>
+<p>首先是根组件<code>src/app.wpy</code>中的<code>getUserInfo</code>函数。</p>
+<p>默认代码用到了wepy封装的小程序API<code>getUserInfo</code>和回调函数。</p>
+<p>如果我们引入RxWX的话不再需要从wepy调用小程序API了，默认引入RxWX模块，带有小程序API，Rx属性下带有RxJS函数。</p>
+<img src="/2017/12/16/intro2rxwx/app.wpy.jpg">
+<p>然后修改<code>src/pages/index.wpy</code>中的<code>onLoad</code>函数。</p>
+<p>我们可以直接采用RxJS的流式写法并使用操作符。</p>
+<img src="/2017/12/16/intro2rxwx/index.wpy.jpg">
+<p>代码目录：<a href="https://github.com/yalishizhude/RxWX/tree/master/example4wepy" target="_blank" rel="noopener">https://github.com/yalishizhude/RxWX/tree/master/example4wepy</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/微信小程序/" rel="tag"># 微信小程序</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/15/minikube-setup/" rel="next" title="在Windows10下安装Minikube">
+                <i class="fa fa-chevron-left"></i> 在Windows10下安装Minikube
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Get-started"><span class="nav-number">1.</span> <span class="nav-text">Get started</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#同步API与异步API"><span class="nav-number">2.</span> <span class="nav-text">同步API与异步API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#嵌套"><span class="nav-number">3.</span> <span class="nav-text">嵌套</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#合并"><span class="nav-number">4.</span> <span class="nav-text">合并</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在wepy中使用"><span class="nav-number">5.</span> <span class="nav-text">在wepy中使用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

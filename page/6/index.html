@@ -284,6 +284,309 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/09/22/underscore-source/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/09/22/underscore-source/" itemprop="url">js高手进阶之路：underscore源码经典（一）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-09-22T21:51:10+08:00">
+                2015-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>underscore 源码版本 1.8.2</p>
+</blockquote>
+<h3 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h3><p>很多人向我推荐研究js，可以看看一些第三方js类库的源码，而源码之中最好解读也最简短的就是underscore，它也是我平常比较喜欢的一个库，因为它性价比高：体积小、能力强。打开一看，才1000多行，试着读了一下，确实很值得一看，所以对精彩部分做了一下整理。</p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>整个函数在一个闭包中，避免污染全局变量。通过传入this（其实就是window对象）来改变函数的作用域。和jquery的自执行函数其实是异曲同工之妙。这种传入全局变量的方式一方面有利于代码阅读，另一方面方便压缩。<br>underscore写法：</p>
+<pre><code>(function(){
+    ...
+}.call(this));
+</code></pre><p>jquery写法：</p>
+<pre><code>(function(window, undefined) {
+    ...
+})(window);
+</code></pre>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/09/22/underscore-source/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/09/16/collection-js-algorithm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/09/16/collection-js-algorithm/" itemprop="url">算法、数据结构</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-09-16T23:04:58+08:00">
+                2015-09-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h1 id="斐波那契数列"><a href="#斐波那契数列" class="headerlink" title="斐波那契数列"></a>斐波那契数列</h1><h2 id="第n个数："><a href="#第n个数：" class="headerlink" title="第n个数："></a>第n个数：</h2><pre><code>function fabonacci(n){
+    return n&gt;2?fabonacci(n-1)+fabonacci(n-2):1;
+}
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/09/16/collection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -389,6 +692,172 @@
 </li>
 <li><p><a href="/2015/09/16/collection-tool">常用工具技巧</a></p>
 </li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/09/16/collection-css/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/09/16/collection-css/" itemprop="url">css基础知识</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-09-16T23:04:58+08:00">
+                2015-09-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h1 id="浏览器兼容性问题解决方法"><a href="#浏览器兼容性问题解决方法" class="headerlink" title="浏览器兼容性问题解决方法"></a>浏览器兼容性问题解决方法</h1><p>css hack<br>样式文件</p>
+<blockquote>
+<p>通用 height: 100px;<br>IE6 ： _height: 100px;<br>IE7 ： <em>+height: 100px;<br>IE6、IE7 ： </em>height: 100px;<br>IE7、FF ： height: 100px !important;</p>
+</blockquote>
+<p>引用注释</p>
+<blockquote>
+<!--[if !IE]><!--> 除IE外都可识别 <!--<![endif]-->
+<!--[if IE]> 所有的IE可识别 <![endif]-->
+<!--[if IE 5]> 仅IE5.0与IE5.5可以识别 <![endif]-->
+<!--[if gt IE 5.0]> IE5.0以及IE5.0以上版本都可以识别 <![endif]-->
+<!--[if gte IE 6]> IE6以及IE6以上版本可识别 <![endif]-->
+<!--[if lt IE 7]> IE7以及IE7以下版本可识别 <![endif]-->
+</blockquote>
+<h1 id="css3常用属性"><a href="#css3常用属性" class="headerlink" title="css3常用属性"></a>css3常用属性</h1><h2 id="border-radius"><a href="#border-radius" class="headerlink" title="border-radius"></a>border-radius</h2><p>圆角属性</p>
+<h2 id="box-shadow"><a href="#box-shadow" class="headerlink" title="box-shadow"></a>box-shadow</h2><p>用来制作阴影、模糊效果、以及内边框</p>
+<h2 id="background-size"><a href="#background-size" class="headerlink" title="background-size"></a>background-size</h2><p>设置背景图片大小</p>
+<h2 id="transition"><a href="#transition" class="headerlink" title="transition"></a>transition</h2><p>制作简单动画，通过改变特定属性</p>
+<h2 id="transform"><a href="#transform" class="headerlink" title="transform"></a>transform</h2><p>样式变换，缩放、旋转、平移</p>
+<h1 id="清除浮动的方法"><a href="#清除浮动的方法" class="headerlink" title="清除浮动的方法"></a>清除浮动的方法</h1><h2 id="clear-both"><a href="#clear-both" class="headerlink" title="clear:both"></a>clear:both</h2><p>浮动元素后建立空元素来清除浮动。非IE浏览器常用before和after伪类来实现。</p>
+<h2 id="overflow-auto"><a href="#overflow-auto" class="headerlink" title="overflow:auto"></a>overflow:auto</h2><p>空标签元素清除浮动而不得不增加无意代码的弊端,,使用zoom:1用于兼容IE</p>
+<h1 id="隐藏标签的方法"><a href="#隐藏标签的方法" class="headerlink" title="隐藏标签的方法"></a>隐藏标签的方法</h1><ul>
+<li>display:none 完全隐藏</li>
+<li>visibility:hidden 隐藏但保留占位空间</li>
 </ul>
 
           
@@ -584,7 +1053,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/09/16/collection-js-algorithm/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/09/16/collection-html/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="亚里士朱德">
@@ -603,7 +1072,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2015/09/16/collection-js-algorithm/" itemprop="url">算法、数据结构</a></h1>
+                <a class="post-title-link" href="/2015/09/16/collection-html/" itemprop="url">html基础知识</a></h1>
         
 
         <div class="post-meta">
@@ -638,8 +1107,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
+                  <a href="/categories/html/" itemprop="url" rel="index">
+                    <span itemprop="name">html</span>
                   </a>
                 </span>
 
@@ -678,10 +1147,15 @@
         
           
             <a id="more"></a>
-<h1 id="斐波那契数列"><a href="#斐波那契数列" class="headerlink" title="斐波那契数列"></a>斐波那契数列</h1><h2 id="第n个数："><a href="#第n个数：" class="headerlink" title="第n个数："></a>第n个数：</h2><pre><code>function fabonacci(n){
-    return n&gt;2?fabonacci(n-1)+fabonacci(n-2):1;
-}
-</code></pre>
+<h1 id="doctype类型"><a href="#doctype类型" class="headerlink" title="doctype类型"></a>doctype类型</h1><h2 id="html5"><a href="#html5" class="headerlink" title="html5"></a>html5</h2><p>&lt;!DOCTYPE html&gt;<br>不使用dtd</p>
+<h2 id="HTML-4-01-Strict"><a href="#HTML-4-01-Strict" class="headerlink" title="HTML 4.01 Strict"></a>HTML 4.01 Strict</h2><p>&lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01//EN” “<a href="http://www.w3.org/TR/html4/strict.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/html4/strict.dtd&quot;&gt;</a><br>不包括展示性的和弃用的元素（比如 font）,不允许框架集（Framesets）。</p>
+<h2 id="HTML-4-01-Transitional"><a href="#HTML-4-01-Transitional" class="headerlink" title="HTML 4.01 Transitional"></a>HTML 4.01 Transitional</h2><p>&lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01 Transitional//EN”<br>“<a href="http://www.w3.org/TR/html4/loose.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/html4/loose.dtd&quot;&gt;</a><br>包括展示性的和弃用的元素（比如 font）,不允许框架集（Framesets）。</p>
+<h2 id="HTML-4-01-Frameset"><a href="#HTML-4-01-Frameset" class="headerlink" title="HTML 4.01 Frameset"></a>HTML 4.01 Frameset</h2><p>&lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01 Frameset//EN”<br>“<a href="http://www.w3.org/TR/html4/frameset.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/html4/frameset.dtd&quot;&gt;</a><br>包括展示性的和弃用的元素（比如 font），允许框架集内容。</p>
+<h2 id="XHTML-1-0-Strict"><a href="#XHTML-1-0-Strict" class="headerlink" title="XHTML 1.0 Strict"></a>XHTML 1.0 Strict</h2><p>&lt;!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.0 Strict//EN”<br>“<a href="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;</a><br>不包括展示性的和弃用的元素（比如font）。不允许框架集（Framesets）。必须以格式正确的 XML 来编写标记。</p>
+<h2 id="XHTML-1-0-Transitional"><a href="#XHTML-1-0-Transitional" class="headerlink" title="XHTML 1.0 Transitional"></a>XHTML 1.0 Transitional</h2><p>&lt;!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.0 Transitional//EN” “<br><a href="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;</a><br>包括展示性的和弃用的元素（比如font）。不允许框架集（Framesets）。必须以格式正确的 XML 来编写标记。</p>
+<h2 id="XHTML-1-0-Frameset"><a href="#XHTML-1-0-Frameset" class="headerlink" title="XHTML 1.0 Frameset"></a>XHTML 1.0 Frameset</h2><p>&lt;!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.0 Frameset//EN”<br>“<a href="http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd&quot;&gt;</a><br>包括展示性的和弃用的元素（比如font），但允许框架集内容。必须以格式正确的 XML 来编写标记。</p>
+<h2 id="XHTML-1-1"><a href="#XHTML-1-1" class="headerlink" title="XHTML 1.1"></a>XHTML 1.1</h2><p>&lt;!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.1//EN” “<a href="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;</a><br>不包括展示性的和弃用的元素（比如font）,不允许框架集（Framesets）,但允许添加模型（例如提供对东亚语系的 ruby 支持）。</p>
+
           
         
       
@@ -891,156 +1365,6 @@ console.log(x);// 2
 </code></pre><p><a href="http://www.jb51.net/article/30719.htm" target="_blank" rel="noopener">详细介绍</a></p>
 <h1 id="获取所有dom的方法"><a href="#获取所有dom的方法" class="headerlink" title="获取所有dom的方法"></a>获取所有dom的方法</h1><pre><code>document.getElementsByTagName( &apos;*&apos; )
 </code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/09/16/collection-html/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亚里士朱德">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亚里士朱德的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/09/16/collection-html/" itemprop="url">html基础知识</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-09-16T23:04:58+08:00">
-                2015-09-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/html/" itemprop="url" rel="index">
-                    <span itemprop="name">html</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a id="more"></a>
-<h1 id="doctype类型"><a href="#doctype类型" class="headerlink" title="doctype类型"></a>doctype类型</h1><h2 id="html5"><a href="#html5" class="headerlink" title="html5"></a>html5</h2><p>&lt;!DOCTYPE html&gt;<br>不使用dtd</p>
-<h2 id="HTML-4-01-Strict"><a href="#HTML-4-01-Strict" class="headerlink" title="HTML 4.01 Strict"></a>HTML 4.01 Strict</h2><p>&lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01//EN” “<a href="http://www.w3.org/TR/html4/strict.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/html4/strict.dtd&quot;&gt;</a><br>不包括展示性的和弃用的元素（比如 font）,不允许框架集（Framesets）。</p>
-<h2 id="HTML-4-01-Transitional"><a href="#HTML-4-01-Transitional" class="headerlink" title="HTML 4.01 Transitional"></a>HTML 4.01 Transitional</h2><p>&lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01 Transitional//EN”<br>“<a href="http://www.w3.org/TR/html4/loose.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/html4/loose.dtd&quot;&gt;</a><br>包括展示性的和弃用的元素（比如 font）,不允许框架集（Framesets）。</p>
-<h2 id="HTML-4-01-Frameset"><a href="#HTML-4-01-Frameset" class="headerlink" title="HTML 4.01 Frameset"></a>HTML 4.01 Frameset</h2><p>&lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01 Frameset//EN”<br>“<a href="http://www.w3.org/TR/html4/frameset.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/html4/frameset.dtd&quot;&gt;</a><br>包括展示性的和弃用的元素（比如 font），允许框架集内容。</p>
-<h2 id="XHTML-1-0-Strict"><a href="#XHTML-1-0-Strict" class="headerlink" title="XHTML 1.0 Strict"></a>XHTML 1.0 Strict</h2><p>&lt;!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.0 Strict//EN”<br>“<a href="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;</a><br>不包括展示性的和弃用的元素（比如font）。不允许框架集（Framesets）。必须以格式正确的 XML 来编写标记。</p>
-<h2 id="XHTML-1-0-Transitional"><a href="#XHTML-1-0-Transitional" class="headerlink" title="XHTML 1.0 Transitional"></a>XHTML 1.0 Transitional</h2><p>&lt;!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.0 Transitional//EN” “<br><a href="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;</a><br>包括展示性的和弃用的元素（比如font）。不允许框架集（Framesets）。必须以格式正确的 XML 来编写标记。</p>
-<h2 id="XHTML-1-0-Frameset"><a href="#XHTML-1-0-Frameset" class="headerlink" title="XHTML 1.0 Frameset"></a>XHTML 1.0 Frameset</h2><p>&lt;!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.0 Frameset//EN”<br>“<a href="http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd&quot;&gt;</a><br>包括展示性的和弃用的元素（比如font），但允许框架集内容。必须以格式正确的 XML 来编写标记。</p>
-<h2 id="XHTML-1-1"><a href="#XHTML-1-1" class="headerlink" title="XHTML 1.1"></a>XHTML 1.1</h2><p>&lt;!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.1//EN” “<a href="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;</a><br>不包括展示性的和弃用的元素（比如font）,不允许框架集（Framesets）,但允许添加模型（例如提供对东亚语系的 ruby 支持）。</p>
-
           
         
       
@@ -1522,298 +1846,6 @@ console.log(x);// 2
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/09/01/api-test-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亚里士朱德">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亚里士朱德的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/09/01/api-test-1/" itemprop="url">接口调试（上）—— 前后端分离之痛</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-09-01T23:22:34+08:00">
-                2015-09-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/WEB架构/" itemprop="url" rel="index">
-                    <span itemprop="name">WEB架构</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="楔子"><a href="#楔子" class="headerlink" title="楔子"></a>楔子</h2><p>“你把代码提交一下，我更新一下试试”<br>。。。<br>“你再更新一下，看看可以了不？什么，结果没出来？连我这边试一下”<br>。。。<br>“擦，你这个参数值大小写错了”<br>前后端联调中经常发生类似的对话。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2015/09/01/api-test-1/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/08/27/salary/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亚里士朱德">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亚里士朱德的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/08/27/salary/" itemprop="url">前端开发人员为什么应该拿高薪</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-08-27T22:24:31+08:00">
-                2015-08-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="市场需求"><a href="#市场需求" class="headerlink" title="市场需求"></a>市场需求</h2><p>决定产品价格最重要的是供求关系。技术水平重要，但绝没有市场供给关系重要。不能理解的话举个简单例子，空气重要么？重要，人没了空气活不了，但是为什么不值钱？就是因为在市场关系中是供远远大于求的。<br>现在是互联网公司的春天，很多公司如雨后春笋般发展，所以对前端开发的需求很旺盛，都是处在供小于求的情况。随便上招聘网一搜，北上广深这些一线城市不说，二线城市一个月的招聘消息都不少。更别说现在像竞鹿网这种新型招聘网站的出现，更是有利于求职者的。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2015/08/27/salary/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1868,7 +1900,7 @@ console.log(x);// 2
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">87</span>
+                  <span class="site-state-item-count">89</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1879,7 +1911,7 @@ console.log(x);// 2
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1890,7 +1922,7 @@ console.log(x);// 2
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
