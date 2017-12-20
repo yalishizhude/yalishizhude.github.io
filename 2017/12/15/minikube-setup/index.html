@@ -90,8 +90,9 @@
 <meta property="og:description" content="花了两天时间，终于将Minikube部署成功了，心情久久不能平静，于是写篇文章纪念一下，顺便提醒后来者，避免踩坑~">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2017/12/15/minikube-setup/virtual-tech.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/12/15/minikube-setup/hyper-v.jpg">
 <meta property="og:image" content="http://yoursite.com/2017/12/15/minikube-setup/kubectl.jpg">
-<meta property="og:updated_time" content="2017-12-16T10:09:13.586Z">
+<meta property="og:updated_time" content="2017-12-20T13:14:03.919Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Windows10下安装Minikube">
 <meta name="twitter:description" content="花了两天时间，终于将Minikube部署成功了，心情久久不能平静，于是写篇文章纪念一下，顺便提醒后来者，避免踩坑~">
@@ -403,7 +404,7 @@
 <p>虚拟化技术开启之后我们通过创建虚拟机来使用它。可以用第三方的VirtualBox，也可以用Windows自带的Hyper-V。</p>
 <p>为了保持系统的纯净，遵循尽量少安装软件的原则，我当然选择Hyper-V。</p>
 <p><code>win + q</code>快捷键调出Windows的搜索功能，输入<code>hyper-v</code>，点击搜索结果中的“Hyper-V 管理器”，创建虚拟网络交换机过程如下图所示。</p>
-
+<img src="/2017/12/15/minikube-setup/hyper-v.jpg">
 <p><strong>特别注意，一定要选择“外部网络”和当前使用的网卡。</strong></p>
 <p>图片中我创建的交换机名称为“k8svswitch”。</p>
 <h2 id="3-安装kubectl"><a href="#3-安装kubectl" class="headerlink" title="3.安装kubectl"></a>3.安装kubectl</h2><p>kubectl官方教程：<a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/" target="_blank" rel="noopener">https://kubernetes.io/docs/tasks/tools/install-kubectl/</a></p>
@@ -420,9 +421,9 @@
 <p>首先<code>minikube start</code>会默认使用VirtualBox，但是我们用的是Hyper-V，所以需要加参数指定：</p>
 <p><code>minikube start --vm-driver=hyperv</code></p>
 <p>还记得我们之前创建的虚拟网络交换机吗？这时候就需要用到它了。</p>
-<p><code>minikube start --vm-driver=hyperv --hyperv-virtual-switch=k8s</code></p>
+<p><code>minikube start --vm-driver=hyperv --hyperv-virtual-switch=k8svswitch</code></p>
 <p>默认不显示错误信息，为了方便排查启动中的问题，我们还是开启日志输出。</p>
-<p><code>minikube start --vm-driver=hyperv --hyperv-virtual-switch=k8s --v=3 --alsologtostderr</code></p>
+<p><code>minikube start --vm-driver=hyperv --hyperv-virtual-switch=k8svswitch --v=3 --alsologtostderr</code></p>
 <p>默认需要2048Mb内存，如果不够我们需要<code>--memory 1024</code>指定一下更小的空间，当然我的机器10Gb的内存不可能不够，这个参数省略了~</p>
 <p>如果你的网络已经翻qiang了，可以用管理员权限打开命令行，输入、回车开始启动了。</p>
 <p><strong>否则的话需要提前把需要的文件放入缓存目录。</strong></p>
