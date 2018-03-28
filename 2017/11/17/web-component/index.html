@@ -381,7 +381,7 @@
 <a id="more"></a>
 <h1 id="减少依赖"><a href="#减少依赖" class="headerlink" title="减少依赖"></a>减少依赖</h1><p>尽量不要和其它组件共享变量，保持原子性，依赖过多会影响组件的可复用性和稳定性。</p>
 <p>尤其不要从路由中取参数（导航栏等本身就依赖路由的组件除外），例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">this.type = $stats.params.type</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">this.type = $stats.params.type</div><div class="line">...</div></pre></td></tr></table></figure>
 <p>因为这样编写的组件相当于和路由绑定了，一旦路由发生变化，或者在其它页面复用时就会发生问题。</p>
 <p>正确的做法应该是声明为组件属性，值由父组件传过来。</p>
 <h1 id="避免扰乱文档流"><a href="#避免扰乱文档流" class="headerlink" title="避免扰乱文档流"></a>避免扰乱文档流</h1><p>组件外层元素尽量不要使用绝对定位、浮动这类打破静态文档流布局的样式，这些样式会使得其它组件布局发生难以预料的变化。</p>
@@ -396,11 +396,11 @@
 <p>所以比较好的方式是展现详情写成一个组件，编辑和新增写成一个组件。</p>
 <h1 id="根组件尽量简单"><a href="#根组件尽量简单" class="headerlink" title="根组件尽量简单"></a>根组件尽量简单</h1><p>单页应用通常会有一个根组件，它内置路由的容器层，其它组件都通过路由填充在里面。</p>
 <p>有的开发者可能会想到把一些公用组件放到根组件上，比如说侧边栏、菜单栏。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">App</span><br><span class="line">  |--public-component-1</span><br><span class="line">  |--public-component-2</span><br><span class="line">  |--router-view</span><br><span class="line">     |--page-1</span><br><span class="line">     |--page-2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">App</div><div class="line">  |--public-component-1</div><div class="line">  |--public-component-2</div><div class="line">  |--router-view</div><div class="line">     |--page-1</div><div class="line">     |--page-2</div></pre></td></tr></table></figure>
 <p>但是这样做可维护性是个问题，如果碰到个别页面不需要显示这些公用组件就不得不在组件内部进行单独判断，需要修改原来的逻辑。</p>
 <p>更好的方式是在根组件的路由容器层中重新创建一个路由容器层，用来放置这些公用组件。这样可以将需要使用公用组件的页面挂载在该容器层，不需要使用公用组件的页面还是可以正常挂在根组件上。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">App</span><br><span class="line">  |--router-view</span><br><span class="line">     |--page-3</span><br><span class="line">     |--main</span><br><span class="line">        |--public-component-1</span><br><span class="line">        |--public-component-2</span><br><span class="line">        |--router-view</span><br><span class="line">           |--page-1</span><br><span class="line">           |--page-2</span><br></pre></td></tr></table></figure>
-<h1 id="避免垃圾元素、变量"><a href="#避免垃圾元素、变量" class="headerlink" title="避免垃圾元素、变量"></a>避免垃圾元素、变量</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">this.id = $state.params.id</span><br><span class="line">...</span><br><span class="line">http.get(&apos;/xxx/&apos; + $state.params.id)</span><br><span class="line"></span><br><span class="line">// 建议使用之前声明的变量进行操作</span><br><span class="line"></span><br><span class="line">http.get(&apos;/xxx/&apos; + this.id)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">App</div><div class="line">  |--router-view</div><div class="line">     |--page-3</div><div class="line">     |--main</div><div class="line">        |--public-component-1</div><div class="line">        |--public-component-2</div><div class="line">        |--router-view</div><div class="line">           |--page-1</div><div class="line">           |--page-2</div></pre></td></tr></table></figure>
+<h1 id="避免垃圾元素、变量"><a href="#避免垃圾元素、变量" class="headerlink" title="避免垃圾元素、变量"></a>避免垃圾元素、变量</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">this.id = $state.params.id</div><div class="line">...</div><div class="line">http.get(&apos;/xxx/&apos; + $state.params.id)</div><div class="line"></div><div class="line">// 建议使用之前声明的变量进行操作</div><div class="line"></div><div class="line">http.get(&apos;/xxx/&apos; + this.id)</div><div class="line">...</div></pre></td></tr></table></figure>
 <h1 id="避免污染全局样式，不要使用style"><a href="#避免污染全局样式，不要使用style" class="headerlink" title="避免污染全局样式，不要使用style"></a>避免污染全局样式，不要使用style</h1><p>css没有作用域，但是可以通过选择器的方式来实现。</p>
 <p>例如vue组件就是通过随机属性。其它组件开发也可以使用简单的方式，比如组件的根元素上绑定一个唯一命名的样式，然后组件内部样式都嵌套在根组件之下。大多数情况（有一定的组件命名规范或者组件名不重复）下也可以实现作用于隔离。这样做的好处就是组件之间不会因为样式重名而相互影响。</p>
 <p>至于不要使用style属性，应该是一个比较基础而又常见的问题。因为style的权重太高，会导致组件样式无法重载修改。大大降低组件的灵活性。</p>
@@ -533,7 +533,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -544,7 +544,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -555,7 +555,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -649,7 +649,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

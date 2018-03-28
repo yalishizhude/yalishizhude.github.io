@@ -81,7 +81,7 @@
 
 
 
-<meta name="description" content="要求编写一个程序来打印出指定目录下的文件列表，并且以特定的文件名扩展名来过滤这个列表。命令行提供两个参数提，第一个是所给的文件目录路径（如：path/to/dir），第二个参数则是需要过滤出来的文件的扩展名。 举个例子：如果第二个参数是 txt，那么需要过滤出那些扩展名为 .txt的文件。 注意，第二个参数将不会带有开">
+<meta name="description" content="要求编写一个程序来打印出指定目录下的文件列表，并且以特定的文件名扩展名来过滤这个列表。命令行提供两个参数提，第一个是所给的文件目录路径（如：path/to/dir），第二个参数则是需要过滤出来的文件的扩展名。 举个例子：如果第二个参数是 txt，那么需要过滤出那些扩展名为 .txt的文件。 注意，第二个参数将不会带有开头的”.”。 需要在终端中打印出这个被过滤出来的列表，每一行一个文件。另外，必须">
 <meta name="keywords" content="node.js,learnyounode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="node.js基础教程(5)：过滤器">
@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="亚里士朱德的博客">
 <meta property="og:description" content="要求编写一个程序来打印出指定目录下的文件列表，并且以特定的文件名扩展名来过滤这个列表。命令行提供两个参数提，第一个是所给的文件目录路径（如：path/to/dir），第二个参数则是需要过滤出来的文件的扩展名。 举个例子：如果第二个参数是 txt，那么需要过滤出那些扩展名为 .txt的文件。 注意，第二个参数将不会带有开头的”.”。 需要在终端中打印出这个被过滤出来的列表，每一行一个文件。另外，必须">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-17T12:09:49.158Z">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.159Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="node.js基础教程(5)：过滤器">
 <meta name="twitter:description" content="要求编写一个程序来打印出指定目录下的文件列表，并且以特定的文件名扩展名来过滤这个列表。命令行提供两个参数提，第一个是所给的文件目录路径（如：path/to/dir），第二个参数则是需要过滤出来的文件的扩展名。 举个例子：如果第二个参数是 txt，那么需要过滤出那些扩展名为 .txt的文件。 注意，第二个参数将不会带有开头的”.”。 需要在终端中打印出这个被过滤出来的列表，每一行一个文件。另外，必须">
@@ -527,7 +527,7 @@ fs.readdir(process.argv[2], function (err, list) {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -538,7 +538,7 @@ fs.readdir(process.argv[2], function (err, list) {
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -549,7 +549,7 @@ fs.readdir(process.argv[2], function (err, list) {
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -643,7 +643,7 @@ fs.readdir(process.argv[2], function (err, list) {
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

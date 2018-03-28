@@ -81,7 +81,7 @@
 
 
 
-<meta name="description" content="要求编写一个 HTTP 服务器，每当接收到一个路径为 ‘/api/parsetime’ 的 GET 请求的时候，响应一些 JSON 数据。我们期望请求会包含一个查询参数（query string），key 是 “iso ，值是 ISO 格式的时间。 如: /api/parsetime?iso=2013-08-10T12">
+<meta name="description" content="要求编写一个 HTTP 服务器，每当接收到一个路径为 ‘/api/parsetime’ 的 GET 请求的时候，响应一些 JSON 数据。我们期望请求会包含一个查询参数（query string），key 是 “iso ，值是 ISO 格式的时间。 如: /api/parsetime?iso=2013-08-10T12:10:15.474Z 所响应的 JSON 应该只包含三个属性：’hour’，’">
 <meta name="keywords" content="node.js,learnyounode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="node.js基础教程(13)：JSON API服务器">
@@ -551,7 +551,7 @@ http.createServer(function(req,res){
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -562,7 +562,7 @@ http.createServer(function(req,res){
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -573,7 +573,7 @@ http.createServer(function(req,res){
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -667,7 +667,7 @@ http.createServer(function(req,res){
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

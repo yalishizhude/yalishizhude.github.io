@@ -90,7 +90,7 @@
 <meta property="og:description" content="没有合适的轮子，只好自己造( ╯□╰ )">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2016/07/07/angular-large-1/zhihu.png">
-<meta property="og:updated_time" content="2017-11-17T12:09:49.107Z">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.108Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="尝试通过AngularJS模块按需加载搭建大型应用（上）">
 <meta name="twitter:description" content="没有合适的轮子，只好自己造( ╯□╰ )">
@@ -379,7 +379,7 @@
         <p><em>没有合适的轮子，只好自己造( ╯□╰ )</em></p>
 <a id="more"></a>
 <h1 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h1><p>模块化在当前大中型web项目开发中已经成为共识，从浏览器端AMD的requirejs到node.js遵循的commonjs规范，再到ES6开放了import关键字来管理模块都是最好的说明。其优势就是方便多人协作开发，代码可移植性可测试性高。<br>angular本身自带模块定义和依赖管理功能，这个模块管理一般是怎么使用的？<br>我们找个网站分析一波~<br>作为爱智求真的小伙伴，我们就来看看 <strong>知乎</strong> 旗下的 <strong><a href="https://zhuanlan.zhihu.com/" target="_blank" rel="noopener">知乎专栏</a></strong> 。<br>先打开调试工具，截个图慢慢看~<br><img src="/2016/07/07/angular-large-1/zhihu.png"><br>点开这个带有hash戳被压缩的js文件，可以看到如下几个模块：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(function() &#123;</span><br><span class="line">  angular.module(&quot;auth&quot;, [&quot;auth.interceptor&quot;])</span><br><span class="line">&#125;</span><br><span class="line">).call(this),</span><br><span class="line">...</span><br><span class="line">function() &#123;</span><br><span class="line"> angular.module(&quot;auth.interceptor&quot;, []).</span><br><span class="line">&#125;.call(this)</span><br><span class="line">...</span><br><span class="line">var app = angular.module(&quot;columnWebApp&quot;, [&quot;auth&quot;, &quot;blueimp.fileupload&quot;, &quot;placeholderShim&quot;, &quot;angularytics&quot;, &quot;ngAnimate&quot;, &quot;ngRoute&quot;, &quot;ngTouch&quot;, &quot;ngResource&quot;, &quot;ngSanitize&quot;])</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">(function() &#123;</div><div class="line">  angular.module(&quot;auth&quot;, [&quot;auth.interceptor&quot;])</div><div class="line">&#125;</div><div class="line">).call(this),</div><div class="line">...</div><div class="line">function() &#123;</div><div class="line"> angular.module(&quot;auth.interceptor&quot;, []).</div><div class="line">&#125;.call(this)</div><div class="line">...</div><div class="line">var app = angular.module(&quot;columnWebApp&quot;, [&quot;auth&quot;, &quot;blueimp.fileupload&quot;, &quot;placeholderShim&quot;, &quot;angularytics&quot;, &quot;ngAnimate&quot;, &quot;ngRoute&quot;, &quot;ngTouch&quot;, &quot;ngResource&quot;, &quot;ngSanitize&quot;])</div><div class="line">...</div></pre></td></tr></table></figure>
 <p>这里声明了3个模块：</p>
 <ul>
 <li><code>auth</code>模块依赖了<code>auth.interceptor</code>模块。</li>
@@ -388,9 +388,9 @@
 </ul>
 <hr>
 <p><em>弱弱地吐槽一波：用匿名函数做闭包来避免全局污染的是常见的传统做法，这里初步判断应该是由多个js文件合并而成，这里起码有两点是可以改进的。 一是<code>window</code>、<code>angular</code>这种全局变量完全可以传参到闭包内部便于代码压缩，例如：</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//压缩前</span><br><span class="line">(function(window, angular)&#123;</span><br><span class="line">  angular.module(&apos;auth&apos;, []);</span><br><span class="line">&#125;(window, angular));</span><br><span class="line">//压缩后可能是</span><br><span class="line">(function(window, a)&#123;</span><br><span class="line">  a.module(&apos;auth&apos;, []);</span><br><span class="line">&#125;(window, angular));</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//压缩前</div><div class="line">(function(window, angular)&#123;</div><div class="line">  angular.module(&apos;auth&apos;, []);</div><div class="line">&#125;(window, angular));</div><div class="line">//压缩后可能是</div><div class="line">(function(window, a)&#123;</div><div class="line">  a.module(&apos;auth&apos;, []);</div><div class="line">&#125;(window, angular));</div></pre></td></tr></table></figure>
 <p><em>二是这种压缩打包的方式还是比较粗糙的，建议开发人员有时间还是可以将多余的模块引用去掉，变成链式调用，例如：</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 合并前</span><br><span class="line">angular.module(&apos;auth&apos;).service(&apos;xxx&apos;, function()&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;);</span><br><span class="line">angular.module(&apos;auth&apos;).controller(&apos;xxCtrl&apos;, [&apos;$scope&apos;, function($scope)&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;]);</span><br><span class="line">// 合并后</span><br><span class="line">angular.module(&apos;auth&apos;).service(&apos;xxx&apos;, function()&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;).controller(&apos;xxCtrl&apos;, [&apos;$scope&apos;, function($scope)&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;]);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// 合并前</div><div class="line">angular.module(&apos;auth&apos;).service(&apos;xxx&apos;, function()&#123;</div><div class="line">  ...</div><div class="line">&#125;);</div><div class="line">angular.module(&apos;auth&apos;).controller(&apos;xxCtrl&apos;, [&apos;$scope&apos;, function($scope)&#123;</div><div class="line">  ...</div><div class="line">&#125;]);</div><div class="line">// 合并后</div><div class="line">angular.module(&apos;auth&apos;).service(&apos;xxx&apos;, function()&#123;</div><div class="line">  ...</div><div class="line">&#125;).controller(&apos;xxCtrl&apos;, [&apos;$scope&apos;, function($scope)&#123;</div><div class="line">  ...</div><div class="line">&#125;]);</div></pre></td></tr></table></figure>
 <p><em>另外严格模式也建议开启。</em><br><em>吐槽 end~</em></p>
 <hr>
 <p>从上面的例子可以看出，Angular项目通用的做法是：开发的时候按照业务逻辑写成不同的js文件，然后把这些js文件压缩合并成一个或多个，在用户第一次访问的时候全部返回给浏览器做预加载。</p>
@@ -539,7 +539,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -550,7 +550,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -561,7 +561,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -655,7 +655,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

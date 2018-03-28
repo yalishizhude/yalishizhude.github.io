@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="亚里士朱德的博客">
 <meta property="og:description" content="需求应客户要求开发部署在自助终端机（可理解为带触摸屏的电脑）上的程序，主要实现身份证识别、订单查询和打印功能。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-17T12:09:49.311Z">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.312Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="细数在自助终端机上开发混合应用的那些坑（前端）">
 <meta name="twitter:description" content="需求应客户要求开发部署在自助终端机（可理解为带触摸屏的电脑）上的程序，主要实现身份证识别、订单查询和打印功能。">
@@ -391,7 +391,7 @@
 </em>方案：*<br>身份证校验这个功能很多帖子都讲了算法，不复杂，js代码如下：</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/* 复杂验证！ */</span><br><span class="line">var province = &apos;11;12;13;14;15;21;22;23;31;32;33;34;35;36;37;41;42;43;44;45;46;50;51;52;53;54;61;62;63;64;65;71;81;82;91;&apos;;</span><br><span class="line">var iSum = 0;</span><br><span class="line">var info = &apos;&apos;, sBirthday = &apos;&apos;;</span><br><span class="line">if (!/^\d&#123;17&#125;(\d|x)$/i.test(value))return false;</span><br><span class="line">value = value.replace(/x$/i, &quot;a&quot;);</span><br><span class="line">if (province.indexOf(value.substr(0, 2) + &apos;;&apos;) === -1)return false;//&quot;Error:非法地区&quot;;</span><br><span class="line">sBirthday = value.substr(6, 4) + &quot;/&quot; + Number(value.substr(10, 2)) + &quot;/&quot; + Number(value.substr(12, 2));</span><br><span class="line">var d = new Date(sBirthday);</span><br><span class="line">if (sBirthday !== (d.getFullYear() + &quot;/&quot; + (d.getMonth() + 1) + &quot;/&quot; + d.getDate()))return false;//&quot;Error:非法生日&quot;;</span><br><span class="line">for (var i = 17; i &gt;= 0; i--) iSum += (Math.pow(2, i) % 11) * parseInt(value.charAt(17 - i), 11);</span><br><span class="line">if (iSum % 11 !== 1)return false;//&quot;Error:非法证号&quot;;</span><br><span class="line">return true;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">/* 复杂验证！ */</div><div class="line">var province = &apos;11;12;13;14;15;21;22;23;31;32;33;34;35;36;37;41;42;43;44;45;46;50;51;52;53;54;61;62;63;64;65;71;81;82;91;&apos;;</div><div class="line">var iSum = 0;</div><div class="line">var info = &apos;&apos;, sBirthday = &apos;&apos;;</div><div class="line">if (!/^\d&#123;17&#125;(\d|x)$/i.test(value))return false;</div><div class="line">value = value.replace(/x$/i, &quot;a&quot;);</div><div class="line">if (province.indexOf(value.substr(0, 2) + &apos;;&apos;) === -1)return false;//&quot;Error:非法地区&quot;;</div><div class="line">sBirthday = value.substr(6, 4) + &quot;/&quot; + Number(value.substr(10, 2)) + &quot;/&quot; + Number(value.substr(12, 2));</div><div class="line">var d = new Date(sBirthday);</div><div class="line">if (sBirthday !== (d.getFullYear() + &quot;/&quot; + (d.getMonth() + 1) + &quot;/&quot; + d.getDate()))return false;//&quot;Error:非法生日&quot;;</div><div class="line">for (var i = 17; i &gt;= 0; i--) iSum += (Math.pow(2, i) % 11) * parseInt(value.charAt(17 - i), 11);</div><div class="line">if (iSum % 11 !== 1)return false;//&quot;Error:非法证号&quot;;</div><div class="line">return true;</div></pre></td></tr></table></figure>
 <p>触控效果比较难搞，之前考虑用a标签的active样式来做点击效果，但是由于IE8的双击判断间隔有问题，具体问题参见我的另一篇<a href="http://yalishizhude.github.io/2015/07/01/click-or-dbclick/" target="_blank" rel="noopener">博客</a>。后来用dblclick双击事件来调用click事件，pc端上没有问题，部署到终端机的时候还是显示迟钝，效果不理想。改用mousedown和mouseup效果也不好。有更好的方法请告知我~</p>
 
       
@@ -526,7 +526,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -537,7 +537,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -548,7 +548,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -642,7 +642,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端,javascript," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="同一个路由，不同的架构~">
+<meta name="keywords" content="前端,javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PC端MPA和移动端SPA的路由同构">
+<meta property="og:url" content="http://yoursite.com/2018/03/28/router4mpa-spa/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="同一个路由，不同的架构~">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/03/28/router4mpa-spa/bootstrap-pc.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/28/router4mpa-spa/bootstrap-app.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/28/router4mpa-spa/github-pc.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/28/router4mpa-spa/github-app.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/28/router4mpa-spa/eleme-pc.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/28/router4mpa-spa/taobao-pc.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/28/router4mpa-spa/lagou-pc.jpg">
+<meta property="og:updated_time" content="2018-03-28T14:48:34.226Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PC端MPA和移动端SPA的路由同构">
+<meta name="twitter:description" content="同一个路由，不同的架构~">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/28/router4mpa-spa/bootstrap-pc.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/28/router4mpa-spa/"/>
+
+
+
+
+
+  <title>PC端MPA和移动端SPA的路由同构 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/28/router4mpa-spa/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PC端MPA和移动端SPA的路由同构</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-28T14:34:00+08:00">
+                2018-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>同一个路由，不同的架构~</em></p>
+<a id="more"></a>
+<p>不少Web项目都能在端浏览器和PC端浏览器正常显示，比较简单的做法是利用响应式布局，通过媒体查询等方式来使得代码能够在PC端和移动端自适应显示。比如bootstrap官网就属于此类。</p>
+<img src="/2018/03/28/router4mpa-spa/bootstrap-pc.jpg">
+<center>Bootstrap PC端</center>
+
+<img src="/2018/03/28/router4mpa-spa/bootstrap-app.jpg">
+<center>Bootstrap 移动端</center>
+
+<p>但响应式布局只适合少数逻辑简单，页面较少的网站，对于大中型网站最优的方案还是将PC端项目和移动端项目进行分离，这样既降低了代码的耦合度，同时避免了移动端请求多余的代码。</p>
+<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>一日，突然被告知官网的一个页面无法访问，点击一试能正常访问。仔细一看消息是从微信发来的，很可能是移动端的问题。</p>
+<p>于是在浏览器中使用模拟器访问发现控制台报错，同时http请求返回404。再查看源代码，发现原来是URL地址不对，移动端并没有以html结尾的路由。</p>
+<p>但是这个URL是从哪里来的？难道是老版本的URL？</p>
+<h2 id="PC端多页应用路由"><a href="#PC端多页应用路由" class="headerlink" title="PC端多页应用路由"></a>PC端多页应用路由</h2><p>因为URL以html结尾，很自然地猜测这是PC端路由。</p>
+<p>PC端官网是传统的MPA项目，逻辑简单，时间久远。路由由Web服务器nginx来负责处理，直接通过后缀来读取对应的文件并返回。nginx配置文件类似这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">  listen 80;</div><div class="line">  server_name www.abc.com;</div><div class="line">  root /xx/yy;</div><div class="line">  index index.html;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="移动端单页应用路由"><a href="#移动端单页应用路由" class="headerlink" title="移动端单页应用路由"></a>移动端单页应用路由</h2><p>而移动端是基于vue-cli搭建的SPA项目，在vue-router中配置的HTML5模式路由，没有文件后缀。</p>
+<p>当然路由能正常运作不但需要浏览器支持HTML5，同时nginx文件也要做对应修改。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">location / &#123;</div><div class="line">  try_files $uri $uri/ /index.html;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>同时由于移动端和PC端都是用的同一个域名，所以要对浏览器进行判断，只有当设备是移动端时才返回对应页面。完整的nginx配置文件示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">  listen 80;</div><div class="line">  server_name www.abc.com;</div><div class="line">  root /xx/pc;</div><div class="line">  index index.html;</div><div class="line">  location / &#123;</div><div class="line">    try_files $uri $uri/ /index.html;</div><div class="line">    # 判断浏览器设备代码太长，此处省略</div><div class="line">    if(...) &#123;</div><div class="line">      root /xx/app;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>简而言之，默认由nginx服务器来处理路由，展示PC端页面，如果判断为移动端请求，则返回移动端首页，路由交给vue-router来进行处理。</p>
+<p>两个项目分别开发于不同时期，采用不同架构，不同的路由。</p>
+<p>虽然两个项目能稳定运行，互不干扰，但是各自的路由规则使得URL无法跨平台访问。最佳的体验应该是同一个URL在任何终端浏览器都可以正常访问。要实现这一目的，先来看看各大网站的实现方式~</p>
+<h1 id="网站案例"><a href="#网站案例" class="headerlink" title="网站案例"></a>网站案例</h1><h2 id="路由同构"><a href="#路由同构" class="headerlink" title="路由同构"></a>路由同构</h2><p>移动端和PC端同时都是多页应用，这类项目一般上线时间比较长，同时有SEO需求。例如我们最常用的<a href="https://github.com" target="_blank" rel="noopener">GitHub</a></p>
+<p>以RxWX项目为例，URL地址同为<a href="https://github.com/yalishizhude/RxWX" target="_blank" rel="noopener">https://github.com/yalishizhude/RxWX</a></p>
+<img src="/2018/03/28/router4mpa-spa/github-pc.jpg">
+<center>页面总体积为495KB</center>
+
+<img src="/2018/03/28/router4mpa-spa/github-app.jpg">
+<center>页面总体积为77.8KB</center>
+
+<p>PC端和移动端路由完全一致，但是根据浏览器所在不同终端而返回对应的页面。体验非常好，赞一个~\</p>
+<h3 id="路由重定向"><a href="#路由重定向" class="headerlink" title="路由重定向"></a>路由重定向</h3><p>另一种处理方式还是做路由隔离，但是会对于不同的设备请求转发到对应的正确路径或域名。</p>
+<p>比如很多网站的移动端域名就是在PC端域名上加前缀来做区分。<br>如果把PC端URL放入移动端浏览器打开，那么会跳转到移动端的域名。</p>
+<p>但是如果想在PC端浏览器中打开移动端链接，很多网站的转发就失效了。情况变得惨不忍睹了~</p>
+<p>比如页面出现类似“老年字体”的放大效果：<br><img src="/2018/03/28/router4mpa-spa/eleme-pc.jpg"></p>
+<p><center></center><br>比如页面样式基本正确，但是无法使用的：<br><img src="/2018/03/28/router4mpa-spa/taobao-pc.jpg"></p>
+<p><center></center><br>还有虽然页面未转发，但是页面样式和功能基本正常：<br><img src="/2018/03/28/router4mpa-spa/lagou-pc.jpg"></p>
+<p><center></center></p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>那么采用哪种方式来实现比较好呢？</p>
+<p>结合以上的案例我们可以看出，路由同构的处理方式体验上来说是比较好的，不需要等待页面跳转，也不会修改原有的URL。<br>而路由重定向的方式在各大网站上或多或少的存在问题（尚不知是技术原因还是业务上忽视了），而且路由双向的跳转规则处理起来会略微麻烦一些。所以采用路由同构的方式。那到底是改那一端的路由比较好呢？</p>
+<h2 id="调整PC端路由"><a href="#调整PC端路由" class="headerlink" title="调整PC端路由"></a>调整PC端路由</h2><p>首先考虑修改PC端路由，改为无后缀的方式，与移动端一致。可以考虑在任一处进行修改。</p>
+<ul>
+<li>nginx服务端。没有想到通用的匹配规则，只能每个页面单独配置，同时每个配置项还需要判断终端类型，可维护性差。</li>
+<li>前端页面。需要重新编写脚本进行路由判断，增加代码量。<br>所以考虑第二种方式。</li>
+</ul>
+<h2 id="调整移动端路由"><a href="#调整移动端路由" class="headerlink" title="调整移动端路由"></a>调整移动端路由</h2><p>移动端路由非常好修改，直接在vue-router的配置文件中将路由路径修改成与PC端一致即可。类似下面这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">new Router(&#123;</div><div class="line">  routes: [&#123;</div><div class="line">    path: &apos;/aa.html&apos;,</div><div class="line">    name: &apos;aa&apos;,</div><div class="line">    component: aa</div><div class="line">  &#125;, &#123;</div><div class="line">    path: &apos;/bb.html&apos;,</div><div class="line">    name: &apos;bb&apos;,</div><div class="line">    component: bb</div><div class="line">  &#125;)</div></pre></td></tr></table></figure>
+<p>其他会涉及到路由跳转的地方都可能需要修改，包括router-link组件和$router实例。之所以说“可能”是因为我们在修改路由配置时只修改了path，name并没有修改，所以如果在跳转的时候使用的是path那么必须修改，如果使用的是name则不需要。所以在写代码的时候尽量还是使用name。</p>
+<p>部署到生产环境测试，发现同一个路由已经能根据终端类型自动响应了，但是工作真的就完成了吗？</p>
+<p>如果在执行npm run dev进入开发模式时，服务端会返回404。因为vue-cli的webpack模板项目，开发时实际上是在本地启动了一个基于Express.js的web服务器，由它来负责相应浏览器请求，面对后缀为html的请求，当然会查找本地对应的文件而不是转发到index.html。所以需要对其进行修改。</p>
+<p>找到<code>build/dev-server.js</code>第55行，利用已经使用的<code>connect-history-api-fallback</code>模块，传入重载参数，将以<code>.html</code>结尾的请求都转发到根路径。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">app.use(require(&apos;connect-history-api-fallback&apos;)(&#123;</div><div class="line">  rewrites: [&#123;</div><div class="line">    form: /\.html$/,</div><div class="line">    to: &apos;/&apos;</div><div class="line">  &#125;]</div><div class="line">&#125;))</div></pre></td></tr></table></figure>
+<p>至此，开发环境的404问题解决。</p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>虽然因为公司项目源码不能开放，但是网站还是可供访问的：<a href="http://www.tiduyun.com" target="_blank" rel="noopener">梯度科技</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/23/supplement4rxwx/" rel="next" title="RxWX又添新成员">
+                <i class="fa fa-chevron-left"></i> RxWX又添新成员
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PC端多页应用路由"><span class="nav-number">1.1.</span> <span class="nav-text">PC端多页应用路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动端单页应用路由"><span class="nav-number">1.2.</span> <span class="nav-text">移动端单页应用路由</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网站案例"><span class="nav-number">2.</span> <span class="nav-text">网站案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#路由同构"><span class="nav-number">2.1.</span> <span class="nav-text">路由同构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路由重定向"><span class="nav-number">2.1.1.</span> <span class="nav-text">路由重定向</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方法"><span class="nav-number">3.</span> <span class="nav-text">解决方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#调整PC端路由"><span class="nav-number">3.1.</span> <span class="nav-text">调整PC端路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调整移动端路由"><span class="nav-number">3.2.</span> <span class="nav-text">调整移动端路由</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

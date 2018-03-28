@@ -81,7 +81,7 @@
 
 
 
-<meta name="description" content="原文地址：https://www.html5rocks.com/en/mobile/high-dpi/#toc-conclusion #介绍 在当今日益复杂的设备领域，屏幕的可用像素密度已经变得非常广泛。既有非常高分辨率的显示设备，也有远远落后的设备。应用程序开发人员需要支持一系列像素密度的显示设备，这可能是相当具有挑">
+<meta name="description" content="原文地址：https://www.html5rocks.com/en/mobile/high-dpi/#toc-conclusion #介绍 在当今日益复杂的设备领域，屏幕的可用像素密度已经变得非常广泛。既有非常高分辨率的显示设备，也有远远落后的设备。应用程序开发人员需要支持一系列像素密度的显示设备，这可能是相当具有挑战性的。在移动web端，情况变得更加复杂：  各种各样的设备具有不同的外形尺寸。">
 <meta name="keywords" content="css,DPR,图片">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【译】高dpi图片对于不同设备的适配方案">
@@ -90,7 +90,7 @@
 <meta property="og:description" content="原文地址：https://www.html5rocks.com/en/mobile/high-dpi/#toc-conclusion #介绍 在当今日益复杂的设备领域，屏幕的可用像素密度已经变得非常广泛。既有非常高分辨率的显示设备，也有远远落后的设备。应用程序开发人员需要支持一系列像素密度的显示设备，这可能是相当具有挑战性的。在移动web端，情况变得更加复杂：  各种各样的设备具有不同的外形尺寸。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://www.html5rocks.com/static/demos/high-dpi/tile1.jpg">
-<meta property="og:updated_time" content="2017-11-17T12:09:49.156Z">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.157Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【译】高dpi图片对于不同设备的适配方案">
 <meta name="twitter:description" content="原文地址：https://www.html5rocks.com/en/mobile/high-dpi/#toc-conclusion #介绍 在当今日益复杂的设备领域，屏幕的可用像素密度已经变得非常广泛。既有非常高分辨率的显示设备，也有远远落后的设备。应用程序开发人员需要支持一系列像素密度的显示设备，这可能是相当具有挑战性的。在移动web端，情况变得更加复杂：  各种各样的设备具有不同的外形尺寸。">
@@ -413,7 +413,7 @@
 <h2 id="webp图片格式"><a href="#webp图片格式" class="headerlink" title="webp图片格式"></a>webp图片格式</h2><p>WebP是一个非常引人注目的图像格式，压缩非常好，同时保持高图像保真度。 当然它并不是所有情况下可用！</p>
 <p>一种方法是通过JavaScript检查是否支持WebP。<br>通过data-uri加载1x图像，等待加载或错误事件触发，然后验证大小是否正确。 Modernizr附带了这样的功能检测脚本，可通过Modernizr.webp获得。</p>
 <p>更好的实现方式是在css中使用image()函数。如果你有webp或者jpeg格式的图片，可以写成：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#pic &#123;</span><br><span class="line">  background: image(&quot;foo.webp&quot;, &quot;foo.jpg&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#pic &#123;</div><div class="line">  background: image(&quot;foo.webp&quot;, &quot;foo.jpg&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这种方法有一些问题。<br>首先，image()没有被广泛实现。<br>第二，虽然WebP压缩打破了JPEG的压缩极限，它仍然是一个相对性的改进 - 体积减少不到30％。<br>因此，单独的WebP不足以解决高DPI问题。</p>
 <h2 id="渐进式图片格式"><a href="#渐进式图片格式" class="headerlink" title="渐进式图片格式"></a>渐进式图片格式</h2><p>渐进图像格式，如JPEG 2000，Progressive JPEG，Progressive PNG和GIF的好处就是在图片完全加载之前能看到图片。<br>这可能会产生一些额外的开销。 <a href="http://www.codinghorror.com/blog/2005/12/progressive-image-rendering.html" target="_blank" rel="noopener">Jeff Atwood</a>声称渐进式图片“增加了约20％的PNG图像的大小，和约10％的JPEG和GIF图像的大小”。<br>然而，<a href="http://www.yuiblog.com/blog/2008/12/05/imageopt-4/" target="_blank" rel="noopener">Stoyan Stefanov</a>声称，对于大文件，渐进式图片更高效（在大多数情况下）。</p>
 <p>乍一看，渐进图像看起来非常有前途，能尽可能快地提供最好的质量图片。<br>现实是，浏览器一旦知道额外的数据无法提高图片质量（所有保真度的改进是基于子像素的），可能停止继续下载和解码图片。</p>
@@ -426,19 +426,19 @@
 <h2 id="由服务端选择图片"><a href="#由服务端选择图片" class="headerlink" title="由服务端选择图片"></a>由服务端选择图片</h2><p>可以通过为每个图片编写自定义请求处理程序来处理。<br>这样的处理程序将基于User-Agent（中继到服务器的唯一信息）检查Retina支持。<br>然后，根据服务器端逻辑决定是否要提供高DPI图片来加载适当的资产（根据一些已知的惯例命名）。</p>
 <p>不幸的是，用户代理不一定提供足够的信息来决定设备是否应该接收高质量或低质量的图像。<br>此外，与User-Agent相关的任何内容都可能成为被攻击的漏洞，应该尽量避免使用。</p>
 <h2 id="用css媒体查询"><a href="#用css媒体查询" class="headerlink" title="用css媒体查询"></a>用css媒体查询</h2><p>CSS媒体查询可以让浏览器知道你的意图并加载正确的的代码。 除了最常见的媒体查询使用 - 匹配设备大小 - 还可以匹配devicePixelRatio。 相关联的媒体查询是device-pixel-ratio，并且有min和max值可以设置。 如果要加载高DPI图片，且设备像素比率超过阈值，则可以执行以下操作：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#my-image &#123; background: (low.png); &#125;</span><br><span class="line"></span><br><span class="line">@media only screen and (min-device-pixel-ratio: 1.5) &#123;</span><br><span class="line">  #my-image &#123; background: (high.png); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#my-image &#123; background: (low.png); &#125;</div><div class="line"></div><div class="line">@media only screen and (min-device-pixel-ratio: 1.5) &#123;</div><div class="line">  #my-image &#123; background: (high.png); &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>使用这种方法，可以重获前瞻性解析的好处，而JS解决方案失去了它。<br>还可以灵活地选择响应断点（例如，可以加载低，中和高DPI的图片），当某些图片请求出错的时候。</p>
 <p>不幸的是，它仍然有点笨拙，还需要编写且看起来奇怪的css。 此外，此方法仅限于CSS属性，因此无法设置<img src="">。所有的图片必须都是背景元素。</p>
 <h2 id="使用新浏览器特性"><a href="#使用新浏览器特性" class="headerlink" title="使用新浏览器特性"></a>使用新浏览器特性</h2><p>最近有很多关于web平台支持的高DPI图片问题的讨论。 苹果最近把image-set()这个CSS函数添加到了WebKit。 因此，Safari和Chrome都支持它。 由于它是一个CSS函数，image-set()没有解决<img>标签的问题。 srcset属性解决了这个问题, 下面将更深入地讨论image-set和srcset。</p>
 <h3 id="image-set"><a href="#image-set" class="headerlink" title="image-set"></a>image-set</h3><p>image-set 函数使用非常简单，在webkit下需要添加前缀：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">background-image:  -webkit-image-set(</span><br><span class="line">  url(icon1x.jpg) 1x,</span><br><span class="line">  url(icon2x.jpg) 2x</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">background-image:  -webkit-image-set(</div><div class="line">  url(icon1x.jpg) 1x,</div><div class="line">  url(icon2x.jpg) 2x</div><div class="line">);</div></pre></td></tr></table></figure>
 <p>它将告诉浏览器有两张图片可选。一张是1x图，一张是2x图。然后浏览器会根据一系列因素来自动选择合适的图片加载。</p>
 <p>另外浏览器将会子自动缩放对应的图片大小进行加载。</p>
 <p>除了设置 1x,1.5x或Nx之外，还可以指定其它设备像素密度。</p>
 <p>这种方式比较理想，除开在那些不支持 image-set函数的浏览器上（将不显示任何图片！这太悲剧了，所以需要备用策略）。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">background-image: url(icon1x.jpg);</span><br><span class="line">background-image: -webkit-image-set(</span><br><span class="line">  url(icon1x.jpg) 1x,</span><br><span class="line">  url(icon2x.jpg) 2x</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">background-image: image-set(</span><br><span class="line">  url(icon1x.jpg) 1x,</span><br><span class="line">  url(icon2x.jpg) 2x</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">background-image: url(icon1x.jpg);</div><div class="line">background-image: -webkit-image-set(</div><div class="line">  url(icon1x.jpg) 1x,</div><div class="line">  url(icon2x.jpg) 2x</div><div class="line">);</div><div class="line"></div><div class="line">background-image: image-set(</div><div class="line">  url(icon1x.jpg) 1x,</div><div class="line">  url(icon2x.jpg) 2x</div><div class="line">);</div></pre></td></tr></table></figure>
 <p>支持image-set函数的浏览器将选择图片进行加载，那些不支持的将加载1x图片。<br>明显的缺陷就是在不支持image-set函数的浏览器上只会加载1x图片。</p>
-<h3 id="srcset"><a href="#srcset" class="headerlink" title="srcset"></a>srcset</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;img alt=&quot;my awesome image&quot;</span><br><span class="line">  src=&quot;banner.jpeg&quot;</span><br><span class="line">  srcset=&quot;banner-HD.jpeg 2x, banner-phone.jpeg 640w, banner-phone-HD.jpeg 640w 2x&quot;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="srcset"><a href="#srcset" class="headerlink" title="srcset"></a>srcset</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;img alt=&quot;my awesome image&quot;</div><div class="line">  src=&quot;banner.jpeg&quot;</div><div class="line">  srcset=&quot;banner-HD.jpeg 2x, banner-phone.jpeg 640w, banner-phone-HD.jpeg 640w 2x&quot;&gt;</div></pre></td></tr></table></figure>
 <p>如上所示，除了image-set提供的x声明之外，srcset元素还接受对应于视口大小的w和h值，试图提供最相关的版本。<br>上面将为banner-phone.jpeg提供视口宽度在640像素以下的设备，banner-phone-HD.jpeg到小屏幕高DPI设备，banner-HD.jpeg到高DPI设备，屏幕大于640px，以及banner.jpeg 到一切。</p>
 <p>因为img元素的srcset属性在大多数浏览器中没有实现，所以你可能很容易想到用带有背景的<div>替换img元素，并使用image-set函数。这种方式可以正常显示，但缺点就是，<img>标签是具有语义的，使用div降低了爬虫的可访问性。</div></p>
 <h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>没有解决高DPI图片问题的银弹。</p>
@@ -577,7 +577,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -588,7 +588,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -599,7 +599,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -693,7 +693,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

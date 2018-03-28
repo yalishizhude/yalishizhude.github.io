@@ -91,7 +91,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2016/12/07/angular-doc/translate.png">
 <meta property="og:image" content="http://yoursite.com/2016/12/07/angular-doc/screen.png">
-<meta property="og:updated_time" content="2017-11-17T12:09:49.101Z">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.102Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="你会用AngularJS，但你会写AngularJS文档么？">
 <meta name="twitter:description" content="涉及知识：gulp javascript建议阅读：4分钟 我们经常在写代码的时候要求写好注释，方便日后维护。但其实注释还有一个重要的用途：生成API文档。">
@@ -385,20 +385,20 @@
 <img src="/2016/12/07/angular-doc/translate.png">
 <p>而现实却是一片空白。。。冏~</p>
 <p>研究后终于找到了生成基于AngularJS框架代码API文档的正确方式~</p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><h2 id="挑选工具"><a href="#挑选工具" class="headerlink" title="挑选工具"></a>挑选工具</h2><p>专为AngularJS项目量身打造的插件ngdocs，这里我以gulp为例，选择的是<a href="https://github.com/nikhilmodak/gulp-ngdocs" target="_blank" rel="noopener">gulp-ngdocs</a>。整个任务流程<br><strong>监听源码（可选） =&gt; 生成文档、刷新浏览器（可选） =&gt; 启动服务器（可选）</strong><br>这里贴一下核心任务 <strong>生成文档</strong> 的部分代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">gulp.task(&apos;doc:generate&apos;, function (cb) &#123;</span><br><span class="line">  //生成章节</span><br><span class="line">  return $.ngdocs.sections(&#123;</span><br><span class="line">    api: &#123;</span><br><span class="line">      glob: [&apos;src/**/*.js&apos;], //源码目录</span><br><span class="line">      api: true,</span><br><span class="line">      title: &apos;API文档&apos; //章节标题</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  .pipe($.ngdocs.process(&#123;</span><br><span class="line">    image: &apos;&apos;,</span><br><span class="line">    title: &apos;前端框架&apos; //标题</span><br><span class="line">  &#125;))</span><br><span class="line">  .pipe(gulp.dest(&apos;./docs&apos;)); //生成路径</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><h2 id="挑选工具"><a href="#挑选工具" class="headerlink" title="挑选工具"></a>挑选工具</h2><p>专为AngularJS项目量身打造的插件ngdocs，这里我以gulp为例，选择的是<a href="https://github.com/nikhilmodak/gulp-ngdocs" target="_blank" rel="noopener">gulp-ngdocs</a>。整个任务流程<br><strong>监听源码（可选） =&gt; 生成文档、刷新浏览器（可选） =&gt; 启动服务器（可选）</strong><br>这里贴一下核心任务 <strong>生成文档</strong> 的部分代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;doc:generate&apos;, function (cb) &#123;</div><div class="line">  //生成章节</div><div class="line">  return $.ngdocs.sections(&#123;</div><div class="line">    api: &#123;</div><div class="line">      glob: [&apos;src/**/*.js&apos;], //源码目录</div><div class="line">      api: true,</div><div class="line">      title: &apos;API文档&apos; //章节标题</div><div class="line">    &#125;</div><div class="line">  &#125;)</div><div class="line">  .pipe($.ngdocs.process(&#123;</div><div class="line">    image: &apos;&apos;,</div><div class="line">    title: &apos;前端框架&apos; //标题</div><div class="line">  &#125;))</div><div class="line">  .pipe(gulp.dest(&apos;./docs&apos;)); //生成路径</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
 <p>具体源码请戳<a href="https://github.com/yalishizhude/ngdocs-demo/blob/master/gulpfile.js" target="_blank" rel="noopener">gulpfile.js</a></p>
 <h2 id="注释写法"><a href="#注释写法" class="headerlink" title="注释写法"></a>注释写法</h2><p><strong>ngdocs</strong> 其实是对 <strong>jsdoc</strong> 的扩展，关于写法部分详细说明可以查看AngularJS的官方文档——<a href="https://github.com/angular/angular.js/wiki/Writing-AngularJS-Documentation" target="_blank" rel="noopener">《Writing AngularJS Documentation》</a>。<br>重要的内容摘抄并翻译如下：</p>
 <ul>
 <li>@ngdocs 规定注释文档的类型。常用类型：service、function、directive、filter。</li>
 <li><p>@name 文档名称。不同类型的名称写法不一样。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">以模块名为&quot;module&quot;为例</span><br><span class="line">指令：@name module.directive:指令名称</span><br><span class="line">服务：@name module.服务名</span><br><span class="line">服务属性：@name module.服务名#函数名</span><br><span class="line">过滤器：@name module.filter:过滤器名</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">以模块名为&quot;module&quot;为例</div><div class="line">指令：@name module.directive:指令名称</div><div class="line">服务：@name module.服务名</div><div class="line">服务属性：@name module.服务名#函数名</div><div class="line">过滤器：@name module.filter:过滤器名</div></pre></td></tr></table></figure>
 </li>
 <li><p>@restrict 可填值”AEMC”，对应指令的restrict属性值。</p>
 </li>
 <li>@scope 如果有此声明，表明该指令有独立作用域。</li>
 <li>@description API描述信息，支持markdown语法哦~</li>
 <li><p>@requires 声明依赖信息，有多个依赖时：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@requires $q</span><br><span class="line">@requires $timeout</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@requires $q</div><div class="line">@requires $timeout</div><div class="line">...</div></pre></td></tr></table></figure>
 </li>
 <li><p>@param 声明参数信息。函数用得比较多，指令也可以使用~<br><code>@param {类型} 名称 说明</code></p>
 </li>
@@ -539,7 +539,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -550,7 +550,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -561,7 +561,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -655,7 +655,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

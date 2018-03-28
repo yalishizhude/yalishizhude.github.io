@@ -81,7 +81,7 @@
 
 
 
-<meta name="description" content="《javascript权威指南》这本书就像是js界的圣经，对于大神和新手都应该是必读书。但是这本近千页的书已经厚到让人望而生畏，要通读它不仅要时间也需要毅力。为了提升自己在js语言上的深度，所以抱着工匠精神开始研读，此文包含书中实用性较强的一些知识点和代码，算做读书笔记吧~   BOM全称为Browser Object">
+<meta name="description" content="《javascript权威指南》这本书就像是js界的圣经，对于大神和新手都应该是必读书。但是这本近千页的书已经厚到让人望而生畏，要通读它不仅要时间也需要毅力。为了提升自己在js语言上的深度，所以抱着工匠精神开始研读，此文包含书中实用性较强的一些知识点和代码，算做读书笔记吧~   BOM全称为Browser Object Model浏览器对象模型，也就是浏览器端的window对象及其默认属性和函数">
 <meta name="keywords" content="js,读书">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一起来啃犀牛书：BOM">
@@ -390,14 +390,14 @@
 <li>clearTimeout<br>这里要注意的是setInterval/setTimeout第一个参数可为函数或字符串，传入字符串时相当于调用eval来执行。同时调用指定函数时都是可以传入参数的。而setTimeout第二个参数如果传入0，那么传入的函数不会立即执行，而是等到前面处于等待状态的时间处理程序全部执行完成后。</li>
 </ul>
 <h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>定义一个定时器函数invoke，可定时执行或延迟执行指定函数。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function invoke(f, start, interval, end) &#123;</span><br><span class="line">    if (!start) start = 0;          </span><br><span class="line">    if (arguments.length &lt;= 2)      // 延迟执行</span><br><span class="line">        setTimeout(f, start);       </span><br><span class="line">    else &#123;                          // 延迟一段时间后重复执行</span><br><span class="line">        setTimeout(repeat, start);  </span><br><span class="line">        function repeat() &#123;         </span><br><span class="line">            var h = setInterval(f, interval);</span><br><span class="line">            // 在end毫秒时停止重复</span><br><span class="line">            if (end) setTimeout(function() &#123; clearInterval(h); &#125;, end);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function invoke(f, start, interval, end) &#123;</div><div class="line">    if (!start) start = 0;          </div><div class="line">    if (arguments.length &lt;= 2)      // 延迟执行</div><div class="line">        setTimeout(f, start);       </div><div class="line">    else &#123;                          // 延迟一段时间后重复执行</div><div class="line">        setTimeout(repeat, start);  </div><div class="line">        function repeat() &#123;         </div><div class="line">            var h = setInterval(f, interval);</div><div class="line">            // 在end毫秒时停止重复</div><div class="line">            if (end) setTimeout(function() &#123; clearInterval(h); &#125;, end);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h1 id="浏览器定位和导航"><a href="#浏览器定位和导航" class="headerlink" title="浏览器定位和导航"></a>浏览器定位和导航</h1><h2 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h2><ul>
 <li>hash属性。一般用来滚动到定位元素，移动端多用于SAP，通过它在浏览器端实现路由逻辑的加载。</li>
 <li>search属性。URL中的参数，常用于跨页面传参和向服务端传参。</li>
 <li>跳转属性/函数。<code>location.href = url;</code>相当于<code>location.assign(url);</code>这两种方法跳转都会留下历史纪录，而<code>location.replace(url)</code>则不会。</li>
 </ul>
 <h2 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h2><p>提取URL的搜索字符串中的参数。</p>
-<h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function urlArgs() &#123;</span><br><span class="line">    var args = &#123;&#125;;                             </span><br><span class="line">    var query = location.search.substring(1);  // 过滤掉&apos;?&apos;</span><br><span class="line">    var pairs = query.split(&quot;&amp;&quot;);              </span><br><span class="line">    for(var i = 0; i &lt; pairs.length; i++) &#123;    </span><br><span class="line">        var pos = pairs[i].indexOf(&apos;=&apos;);       </span><br><span class="line">        if (pos == -1) continue;               </span><br><span class="line">        var name = pairs[i].substring(0,pos);  </span><br><span class="line">        var value = pairs[i].substring(pos+1);</span><br><span class="line">        value = decodeURIComponent(value);     </span><br><span class="line">        args[name] = value;                    </span><br><span class="line">    &#125;</span><br><span class="line">    return args;                              </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">function urlArgs() &#123;</div><div class="line">    var args = &#123;&#125;;                             </div><div class="line">    var query = location.search.substring(1);  // 过滤掉&apos;?&apos;</div><div class="line">    var pairs = query.split(&quot;&amp;&quot;);              </div><div class="line">    for(var i = 0; i &lt; pairs.length; i++) &#123;    </div><div class="line">        var pos = pairs[i].indexOf(&apos;=&apos;);       </div><div class="line">        if (pos == -1) continue;               </div><div class="line">        var name = pairs[i].substring(0,pos);  </div><div class="line">        var value = pairs[i].substring(pos+1);</div><div class="line">        value = decodeURIComponent(value);     </div><div class="line">        args[name] = value;                    </div><div class="line">    &#125;</div><div class="line">    return args;                              </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这个函数很常用~</p>
 <h1 id="history"><a href="#history" class="headerlink" title="history"></a>history</h1><h2 id="知识点-2"><a href="#知识点-2" class="headerlink" title="知识点"></a>知识点</h2><p>主要掌握3个函数：</p>
 <ul>
@@ -413,7 +413,7 @@
 <li>userAgent。包含appVersion所有信息和其他细节信息，格式不定，比较常用。适用于解决特定浏览器下的bug。</li>
 </ul>
 <h2 id="例题-2"><a href="#例题-2" class="headerlink" title="例题"></a>例题</h2><p>使用userAgent来识别浏览器。</p>
-<h2 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//&quot;webkit&quot;: Safari或Chrome版本号</span><br><span class="line">//&quot;opera&quot;: 版本号就是软件的版本号</span><br><span class="line">//&quot;mozilla&quot;： 版本号是Gecko</span><br><span class="line">//&quot;msie&quot; 版本号就是软件版本</span><br><span class="line">var browser = (function() &#123;</span><br><span class="line">     var s = navigator.userAgent.toLowerCase();</span><br><span class="line">     var match = /(webkit)[ \/]([\w.]+)/.exec(s) ||</span><br><span class="line">	 /(opera)(?:.*version)?[ \/]([\w.]+)/.exec(s) ||</span><br><span class="line">	 /(msie) ([\w.]+)/.exec(s) ||</span><br><span class="line">	 !/compatible/.test(s) &amp;&amp; /(mozilla)(?:.*? rv:([\w.]+))?/.exec(s) ||</span><br><span class="line">	 [];</span><br><span class="line">     return &#123; name: match[1] || &quot;&quot;, version: match[2] || &quot;0&quot; &#125;;</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<h2 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//&quot;webkit&quot;: Safari或Chrome版本号</div><div class="line">//&quot;opera&quot;: 版本号就是软件的版本号</div><div class="line">//&quot;mozilla&quot;： 版本号是Gecko</div><div class="line">//&quot;msie&quot; 版本号就是软件版本</div><div class="line">var browser = (function() &#123;</div><div class="line">     var s = navigator.userAgent.toLowerCase();</div><div class="line">     var match = /(webkit)[ \/]([\w.]+)/.exec(s) ||</div><div class="line">	 /(opera)(?:.*version)?[ \/]([\w.]+)/.exec(s) ||</div><div class="line">	 /(msie) ([\w.]+)/.exec(s) ||</div><div class="line">	 !/compatible/.test(s) &amp;&amp; /(mozilla)(?:.*? rv:([\w.]+))?/.exec(s) ||</div><div class="line">	 [];</div><div class="line">     return &#123; name: match[1] || &quot;&quot;, version: match[2] || &quot;0&quot; &#125;;</div><div class="line">&#125;());</div></pre></td></tr></table></figure>
 <p>这里用了jquery1.4的代码。</p>
 <h1 id="对话框"><a href="#对话框" class="headerlink" title="对话框"></a>对话框</h1><h2 id="知识点-4"><a href="#知识点-4" class="headerlink" title="知识点"></a>知识点</h2><ul>
 <li>confirm/prompt/alert。会产生阻塞的原生弹出框。</li>
@@ -561,7 +561,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -572,7 +572,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -583,7 +583,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -677,7 +677,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

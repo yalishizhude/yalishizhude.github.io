@@ -81,7 +81,7 @@
 
 
 
-<meta name="description" content="underscore 源码版本 1.8.2  起因很多人向我推荐研究js，可以看看一些第三方js类库的源码，而源码之中最好解读也最简短的就是underscore，它也是我平常比较喜欢的一个库，因为它性价比高：体积小、能力强。打开一看，才1000多行，试着读了一下，确实很值得一看，所以对精彩部分做了一下整理。 闭包整个函">
+<meta name="description" content="underscore 源码版本 1.8.2  起因很多人向我推荐研究js，可以看看一些第三方js类库的源码，而源码之中最好解读也最简短的就是underscore，它也是我平常比较喜欢的一个库，因为它性价比高：体积小、能力强。打开一看，才1000多行，试着读了一下，确实很值得一看，所以对精彩部分做了一下整理。 闭包整个函数在一个闭包中，避免污染全局变量。通过传入this（其实就是window对象）">
 <meta name="keywords" content="js,underscore">
 <meta property="og:type" content="article">
 <meta property="og:title" content="js高手进阶之路：underscore源码经典（一）">
@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="亚里士朱德的博客">
 <meta property="og:description" content="underscore 源码版本 1.8.2  起因很多人向我推荐研究js，可以看看一些第三方js类库的源码，而源码之中最好解读也最简短的就是underscore，它也是我平常比较喜欢的一个库，因为它性价比高：体积小、能力强。打开一看，才1000多行，试着读了一下，确实很值得一看，所以对精彩部分做了一下整理。 闭包整个函数在一个闭包中，避免污染全局变量。通过传入this（其实就是window对象）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-17T12:09:49.318Z">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.319Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js高手进阶之路：underscore源码经典（一）">
 <meta name="twitter:description" content="underscore 源码版本 1.8.2  起因很多人向我推荐研究js，可以看看一些第三方js类库的源码，而源码之中最好解读也最简短的就是underscore，它也是我平常比较喜欢的一个库，因为它性价比高：体积小、能力强。打开一看，才1000多行，试着读了一下，确实很值得一看，所以对精彩部分做了一下整理。 闭包整个函数在一个闭包中，避免污染全局变量。通过传入this（其实就是window对象）">
@@ -519,8 +519,8 @@ bStack.pop();
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/16/collection-html/" rel="next" title="html基础知识">
-                <i class="fa fa-chevron-left"></i> html基础知识
+              <a href="/2015/09/16/collection-js-algorithm/" rel="next" title="算法、数据结构">
+                <i class="fa fa-chevron-left"></i> 算法、数据结构
               </a>
             
           </div>
@@ -610,7 +610,7 @@ bStack.pop();
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -621,7 +621,7 @@ bStack.pop();
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -632,7 +632,7 @@ bStack.pop();
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -726,7 +726,7 @@ bStack.pop();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

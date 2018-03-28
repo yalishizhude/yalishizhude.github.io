@@ -81,7 +81,7 @@
 
 
 
-<meta name="description" content="重构之后整理了一下对架构的理解，偏重但不仅限于Web前端（以下简称“前端”）。 架构师的职责不少人一提到架构师就觉得很高大上，什么是架构师？ 从上千人跨国公司，到十数人的创业公司，架构师的职责各有不同。 人数众多的IT公司通常会分成架构（框架）组和业务组，架构（框架）组为业务组提供公用的框架和组件（服务），而业务组负责">
+<meta name="description" content="重构之后整理了一下对架构的理解，偏重但不仅限于Web前端（以下简称“前端”）。 架构师的职责不少人一提到架构师就觉得很高大上，什么是架构师？ 从上千人跨国公司，到十数人的创业公司，架构师的职责各有不同。 人数众多的IT公司通常会分成架构（框架）组和业务组，架构（框架）组为业务组提供公用的框架和组件（服务），而业务组负责开发实现需求。 创业公司的分工通常没有那么细致，往往需要开发者通常既是架构师也是">
 <meta name="keywords" content="架构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从架构到重构">
@@ -90,7 +90,7 @@
 <meta property="og:description" content="重构之后整理了一下对架构的理解，偏重但不仅限于Web前端（以下简称“前端”）。 架构师的职责不少人一提到架构师就觉得很高大上，什么是架构师？ 从上千人跨国公司，到十数人的创业公司，架构师的职责各有不同。 人数众多的IT公司通常会分成架构（框架）组和业务组，架构（框架）组为业务组提供公用的框架和组件（服务），而业务组负责开发实现需求。 创业公司的分工通常没有那么细致，往往需要开发者通常既是架构师也是">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2017/09/07/architecture2restruct/api.jpg">
-<meta property="og:updated_time" content="2017-11-17T12:09:49.130Z">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.131Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从架构到重构">
 <meta name="twitter:description" content="重构之后整理了一下对架构的理解，偏重但不仅限于Web前端（以下简称“前端”）。 架构师的职责不少人一提到架构师就觉得很高大上，什么是架构师？ 从上千人跨国公司，到十数人的创业公司，架构师的职责各有不同。 人数众多的IT公司通常会分成架构（框架）组和业务组，架构（框架）组为业务组提供公用的框架和组件（服务），而业务组负责开发实现需求。 创业公司的分工通常没有那么细致，往往需要开发者通常既是架构师也是">
@@ -388,11 +388,11 @@
 <p>概括来说架构师的职责就是服务、引导和规范。</p>
 <h2 id="服务业务"><a href="#服务业务" class="headerlink" title="服务业务"></a>服务业务</h2><p>项目结构<br>回忆一下，你在持续开发一个项目或者接手一个老项目的时候，相关地代码文件是随手可得，还是需要翻来覆去靠直觉寻找？</p>
 <p>以我们团队最近的重构的一个AngularJS(1.3)项目为例，重构之前的部分目录结构</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- app //源码目录</span><br><span class="line">- service //service模块目录</span><br><span class="line">- script //js文件目录</span><br><span class="line">- directive //指令目录</span><br><span class="line">- counter.js //指令</span><br><span class="line">- style //sass文件目录</span><br><span class="line">- template //指令模板目录</span><br><span class="line">- counter.scss //指令样式</span><br><span class="line">- view //视图目录</span><br><span class="line">- template //模板目录</span><br><span class="line">- counter.html //指令模板</span><br><span class="line">- test/unit //单元测试代码目录</span><br><span class="line">- service //service模块目录</span><br><span class="line">- directive //指令目录</span><br><span class="line">- couter.spec.js //指令</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">- app //源码目录</div><div class="line">- service //service模块目录</div><div class="line">- script //js文件目录</div><div class="line">- directive //指令目录</div><div class="line">- counter.js //指令</div><div class="line">- style //sass文件目录</div><div class="line">- template //指令模板目录</div><div class="line">- counter.scss //指令样式</div><div class="line">- view //视图目录</div><div class="line">- template //模板目录</div><div class="line">- counter.html //指令模板</div><div class="line">- test/unit //单元测试代码目录</div><div class="line">- service //service模块目录</div><div class="line">- directive //指令目录</div><div class="line">- couter.spec.js //指令</div></pre></td></tr></table></figure>
 <p>在app源码目录下，我们看到一级子目录时按照功能模块划分成不同目录，各个模块下又按照资源类型进行划分。这样的似乎既有逻辑关联，又方便了构建工具处理不同类型的文件。但随着项目增大也就会出现前面提到的问题：关联的文件位于不同深层次的目录，查找和编辑相关文件非常困难。</p>
 <p>修改一个指令（可以理解为组件）需要跨多个、多层目录，当指令增多时这个跨度变得更大，编写测试代码的时候这个问题也同样存在，所以只能借助编辑器带有ctrl+p这样快速查找文件的功能来缓解这个问题。</p>
 <p>所以针对这个问题进行了一次重构，下面是重构之后的部分代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- src //源码目录</span><br><span class="line">- service //service模块目录</span><br><span class="line">- directive //指令目录</span><br><span class="line">- counter  //指令</span><br><span class="line">- counter.html //指令模板</span><br><span class="line">- counter.js //指令逻辑</span><br><span class="line">- counter.scss //指令样式</span><br><span class="line">- counter.spec.js //指令单元测试</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- src //源码目录</div><div class="line">- service //service模块目录</div><div class="line">- directive //指令目录</div><div class="line">- counter  //指令</div><div class="line">- counter.html //指令模板</div><div class="line">- counter.js //指令逻辑</div><div class="line">- counter.scss //指令样式</div><div class="line">- counter.spec.js //指令单元测试</div></pre></td></tr></table></figure>
 <p>这样的目录结构更符合“组件化”的思维，同时开发起来也更顺手更方便。当开发一个指令时，可以在同一个文件夹下找到所需要的所有文件，指令开发完成时也可以方便的编写测试代码进行测试。</p>
 <p>“高内聚，低耦合”虽然是对于代码的要求，其实目录结构也是适用的。</p>
 <h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><p>对于整个项目而言，技术栈包括了语言和框架，对于后端来说语言可选择的不少：Java、Python、Node.js…..每种语言的常用框架不多。前端则相反，语言没得选（不考虑js的胶水语言），只有html、css、javascript，框架选择却相对较多：AngularJS、Angular4、Vue2、React、Cycle.js……</p>
@@ -562,7 +562,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -573,7 +573,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -584,7 +584,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -678,7 +678,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

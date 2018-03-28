@@ -81,7 +81,7 @@
 
 
 
-<meta name="description" content="今天和大家交流分享的是关于微信小程序的一些开发心得。包括4个部分：  个人简介。包括我所在的公司和个人的一些情况。 小程序的介绍。讲述为什么前端开发者要学习小程序开发以及官方为开发者提供了哪些有价值的资源。 小程序与WebApp对比。熟悉WebApp的开发者怎样快速掌握小程序开发，小程序和WebApp有哪些异同点。 小">
+<meta name="description" content="今天和大家交流分享的是关于微信小程序的一些开发心得。包括4个部分：  个人简介。包括我所在的公司和个人的一些情况。 小程序的介绍。讲述为什么前端开发者要学习小程序开发以及官方为开发者提供了哪些有价值的资源。 小程序与WebApp对比。熟悉WebApp的开发者怎样快速掌握小程序开发，小程序和WebApp有哪些异同点。 小程序开发技巧。分享我在开发小程序时碰到的一些问题和解决方法。">
 <meta name="keywords" content="小程序">
 <meta property="og:type" content="article">
 <meta property="og:title" content="w3ctech长沙站—8月前端开发专场讲稿">
@@ -412,7 +412,7 @@
 <li>组件化。不直接支持自定义组件，第三方模块也较少。而单页应用与之则相反。</li>
 <li>路由。相对单页应用路由，小程序的则简单不少，支持路由参数但是不支持子路由。</li>
 </ul>
-<h1 id="小程序开发"><a href="#小程序开发" class="headerlink" title="小程序开发"></a>小程序开发</h1><h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">- components  //业务组件</span><br><span class="line">- images  //图片</span><br><span class="line">- pages  //页面</span><br><span class="line">- utils  //公共js</span><br><span class="line">|</span><br><span class="line">  - api.js  //微信api封装，处理兼容性问题，业务化一些函数</span><br><span class="line">  - bus.js  //公用业务</span><br><span class="line">  - config.js  //配置信息，包括开发环境识别等</span><br><span class="line">  - datetime.js  //日期处理函数</span><br><span class="line">  - dict.js  //字典数据</span><br><span class="line">  - request.js  //请求封装，包括登录校验</span><br><span class="line">  - util.js  //工具函数</span><br><span class="line">  - validate.js  //表单校验</span><br><span class="line">- app.js  //项目初始化逻辑</span><br><span class="line">- app.json  //全局配置</span><br><span class="line">- app.wxss  //全局样式</span><br><span class="line">- color.wxss  //全局颜色</span><br><span class="line">- font.wxss  //全局字体大小</span><br><span class="line">- form.wxss  //全局表单样式</span><br><span class="line">- property.wxss  //全局属性样式</span><br></pre></td></tr></table></figure>
+<h1 id="小程序开发"><a href="#小程序开发" class="headerlink" title="小程序开发"></a>小程序开发</h1><h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">- components  //业务组件</div><div class="line">- images  //图片</div><div class="line">- pages  //页面</div><div class="line">- utils  //公共js</div><div class="line">|</div><div class="line">  - api.js  //微信api封装，处理兼容性问题，业务化一些函数</div><div class="line">  - bus.js  //公用业务</div><div class="line">  - config.js  //配置信息，包括开发环境识别等</div><div class="line">  - datetime.js  //日期处理函数</div><div class="line">  - dict.js  //字典数据</div><div class="line">  - request.js  //请求封装，包括登录校验</div><div class="line">  - util.js  //工具函数</div><div class="line">  - validate.js  //表单校验</div><div class="line">- app.js  //项目初始化逻辑</div><div class="line">- app.json  //全局配置</div><div class="line">- app.wxss  //全局样式</div><div class="line">- color.wxss  //全局颜色</div><div class="line">- font.wxss  //全局字体大小</div><div class="line">- form.wxss  //全局表单样式</div><div class="line">- property.wxss  //全局属性样式</div></pre></td></tr></table></figure>
 <h2 id="小程序后端服务器配置"><a href="#小程序后端服务器配置" class="headerlink" title="小程序后端服务器配置"></a>小程序后端服务器配置</h2><p>小程序如果和后端有交互，需要上线之前配置好服务端域名，而且必须是https协议的。</p>
 <p>在开发中我们采用nginx做了代理，同时小程序后台进行了配置，将不同版本转发到不同域名进行访问和调试。</p>
 <p>小程序开发时使用mock服务器，后端联调时直接指向后端服务器，调试完成后指向开发服务器。</p>
@@ -429,7 +429,7 @@
 <li>对于存在兼容性的API做降级处理</li>
 <li>部分API进行业务封装</li>
 </ul>
-<h2 id="小程序公共样式编写"><a href="#小程序公共样式编写" class="headerlink" title="小程序公共样式编写"></a>小程序公共样式编写</h2><p>受张鑫旭的面向属性样式的启发，项目中对于常用的枚举属性一直采用面向属性的样式类命名。<br>如常用的<code>display:block;</code>命名成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.d-b &#123;</span><br><span class="line">    display: block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="小程序公共样式编写"><a href="#小程序公共样式编写" class="headerlink" title="小程序公共样式编写"></a>小程序公共样式编写</h2><p>受张鑫旭的面向属性样式的启发，项目中对于常用的枚举属性一直采用面向属性的样式类命名。<br>如常用的<code>display:block;</code>命名成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.d-b &#123;</div><div class="line">    display: block;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>这样的好处是有效的避免了这种高频样式的重复。</p>
 <p>同时对于字体和颜色也抽取成简单的样式类，方便复用，虽然颜色和样式不属于枚举值，但是一般一个小程序为了保证风格统一，不可能出现太多的颜色和字体大小（复杂的颜色应该会在图片中），所以也适合抽取成简单的样式类。</p>
 <p>表单组件比较特殊，以后有机会再详细说明。因为使用情况较多，所以也写成了全局公用样式。</p>
@@ -575,7 +575,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -586,7 +586,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -597,7 +597,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -691,7 +691,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

@@ -8,8 +8,51 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>web技术分享</description>
-    <pubDate>Sun, 17 Dec 2017 12:52:49 GMT</pubDate>
+    <pubDate>Wed, 28 Mar 2018 14:48:34 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>PC端MPA和移动端SPA的路由同构</title>
+      <link>http://yoursite.com/2018/03/28/router4mpa-spa/</link>
+      <guid>http://yoursite.com/2018/03/28/router4mpa-spa/</guid>
+      <pubDate>Wed, 28 Mar 2018 06:34:00 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&lt;em&gt;同一个路由，不同的架构~&lt;/em&gt;&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2018/03/28/router4mpa-spa/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>RxWX又添新成员</title>
+      <link>http://yoursite.com/2018/03/23/supplement4rxwx/</link>
+      <guid>http://yoursite.com/2018/03/23/supplement4rxwx/</guid>
+      <pubDate>Fri, 23 Mar 2018 07:03:54 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&lt;em&gt;RxWX简介：&lt;a href=&quot;https://github.com/yalishizhude/RxWX&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RxWX&lt;/a&gt;是可以让你写出更高效更优雅微信小程序的开源项目，它主要完成了两项工作：将RxJS移植到小程序端和将wx原生API转化成Observable对象。&lt;/em&gt;&lt;br&gt;&lt;em&gt;项目地址：&lt;a href=&quot;https://github.com/yalishizhude/RxWX&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/yalishizhude/RxWX&lt;/a&gt;&lt;/em&gt;&lt;br&gt;&lt;em&gt;npm模块名：rxjs-wx&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;感谢开发者的支持和关注，使得RxWX项目不断迭代和进步，新版本得RxWX根据小程序新的API和issue中大家提出的问题，进行了一些优化和修复。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2018/03/23/supplement4rxwx/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>是时候给你的GitHub账号做个总结了</title>
+      <link>http://yoursite.com/2017/12/23/github-summary/</link>
+      <guid>http://yoursite.com/2017/12/23/github-summary/</guid>
+      <pubDate>Sat, 23 Dec 2017 06:53:57 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;时间飞逝，2017年转眼就要过去了，又到了写总结的时候了。怎么给自己为开源项目写的代码做个总结？&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2017/12/23/github-summary/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>RxWX使用教程</title>
@@ -291,52 +334,6 @@
       </description>
       
       <comments>http://yoursite.com/2016/12/07/angular-doc/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>拿好这段代码，愿你求职路上不再迷茫</title>
-      <link>http://yoursite.com/2016/11/28/spider/</link>
-      <guid>http://yoursite.com/2016/11/28/spider/</guid>
-      <pubDate>Mon, 28 Nov 2016 03:39:41 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;&lt;em&gt;涉及知识：数据库（mongodb）node.js&lt;/em&gt;&lt;br&gt;&lt;em&gt;建议阅读：3分钟&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;经常有人问：“我是该学Angular还是React？该用gulp还是webpack…”&lt;br&gt;这篇文章就是要 &lt;strong&gt;交给大家一把钥匙，专门解答这类问题。&lt;/strong&gt;&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2016/11/28/spider/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>前端处理小图标的那些解决方案（图文实操）</title>
-      <link>http://yoursite.com/2016/10/27/icon/</link>
-      <guid>http://yoursite.com/2016/10/27/icon/</guid>
-      <pubDate>Thu, 27 Oct 2016 08:25:35 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;先做一个选择题：前端开发使用构建工具的目的是什么？&lt;/p&gt;
-&lt;p&gt;A、因为现在流行node.js，都在使用构建工具&lt;/p&gt;
-&lt;p&gt;B、让前端开发变得高大上，和后端一样编译才能运行&lt;/p&gt;
-&lt;p&gt;C、让自动化工具替代重复的手工操作，比如合并代码，刷新浏览器预览效果等。&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2016/10/27/icon/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>尝试通过AngularJS模块按需加载搭建大型应用（下）</title>
-      <link>http://yoursite.com/2016/07/14/angular-large-2/</link>
-      <guid>http://yoursite.com/2016/07/14/angular-large-2/</guid>
-      <pubDate>Thu, 14 Jul 2016 09:27:53 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;&lt;em&gt;&lt;a href=&quot;http://yalishizhude.github.io/2016/07/07/angular-large-1/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;《尝试通过AngularJS模块按需加载搭建大型应用（上）》&lt;/a&gt; 说到目前angular应用的通用构建方式，一种是全量预加载，将所有可能用到的模块在用户首次访问时加载；第二种是按需加载业务逻辑，根据路由加载对应的controller和view，两种处理方式互换优缺点。对比后得出最理想的方式应该是“模块按需加载”，即按需预加载业务功模块代码。本文具体聊聊如何实现。&lt;/em&gt;&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2016/07/14/angular-large-2/#disqus_thread</comments>
     </item>
     
   </channel>

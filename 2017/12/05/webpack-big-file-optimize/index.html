@@ -397,7 +397,7 @@
 <p>更可怕的是 app.xxx.js 和 vendor.xxx.js 在首次加载的时候浏览器都会请求，js文件下载完成之后才开始渲染页面。直接后果就是首屏加载时间大大增加，用户浏览网页时需要长时间等待，体验相当糟糕。</p>
 <h1 id="定位问题"><a href="#定位问题" class="headerlink" title="定位问题"></a>定位问题</h1><p>我们来看看这个<code>vendor.xxx.js</code>是怎么形成的。</p>
 <p>全局搜索一下”vendor”即可找到 build 目录下的 webpack.prod.conf.js 文件，看到下面几行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">new webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">  name: &apos;vendor&apos;,</span><br><span class="line">  minChunks: function (module, count) &#123;</span><br><span class="line">    // any required modules inside node_modules are extracted to vendor</span><br><span class="line">    return (</span><br><span class="line">      module.resource &amp;&amp;</span><br><span class="line">      /\.js$/.test(module.resource) &amp;&amp;</span><br><span class="line">      module.resource.indexOf(</span><br><span class="line">        path.join(__dirname, &apos;../node_modules&apos;)</span><br><span class="line">      ) === 0</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;),</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">new webpack.optimize.CommonsChunkPlugin(&#123;</div><div class="line">  name: &apos;vendor&apos;,</div><div class="line">  minChunks: function (module, count) &#123;</div><div class="line">    // any required modules inside node_modules are extracted to vendor</div><div class="line">    return (</div><div class="line">      module.resource &amp;&amp;</div><div class="line">      /\.js$/.test(module.resource) &amp;&amp;</div><div class="line">      module.resource.indexOf(</div><div class="line">        path.join(__dirname, &apos;../node_modules&apos;)</div><div class="line">      ) === 0</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;),</div></pre></td></tr></table></figure>
 <p>这里用到了webpack的一个插件<code>CommonsChunkPlugin</code>来提取entry对应文件（所有编写的业务代码）中的公共代码，其中 minChunks 的配置项对应的函数为提取代码块规则，规定将node_modules中的所有依赖模块都打包到一个叫vendor的文件中。</p>
 <h1 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h1><p>最终目的是减小文件体积，途径有两个：</p>
 <ul>
@@ -414,7 +414,7 @@
 <li>动态引入模块。</li>
 </ul>
 <p>第一种方式：将首页依赖的模块手动配置成entry并不会奏效，因为CommonsChunkPlugin插件仍然会将部分模块抽取出来，配置形同虚设。<br>第二种方式：这种方式尝试了很久，一直想把首页的第三方模块单独抽取出来。后来仔细思考因为main.ts文件中始终会引用首页组件，也就是说两个entry配置的文件有包含关系，注定了在抽取公共模块的时候会把这些模块一起抽取出来，所以这种方式行不通。<br>第三种方式：使用vuejs的异步组件特性，再加上webpack的import函数实现。但是使用ts转成ES5时会出现报错：不支持模块懒加载。需要引用第三方库，比如require.js或者system.js。最后代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 需要先安装system.js模块：npm i -S systemjs</span><br><span class="line">const Index = () =&gt; System.import(/*webpackChunkName: &apos;Index&apos;*/ &apos;../components/home/Index.vue&apos;)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">// 需要先安装system.js模块：npm i -S systemjs</div><div class="line">const Index = () =&gt; System.import(/*webpackChunkName: &apos;Index&apos;*/ &apos;../components/home/Index.vue&apos;)</div><div class="line">...</div></pre></td></tr></table></figure>
 <img src="/2017/12/05/webpack-big-file-optimize/lazyload.png">
 <h1 id="换一种思路"><a href="#换一种思路" class="headerlink" title="换一种思路"></a>换一种思路</h1><p>有没有简单粗暴的方法？有！</p>
 <p>在服务端开启gzip，可以有效地减小文件体积。具体操作需要根据不同服务器进行配置。</p>
@@ -554,7 +554,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -565,7 +565,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -576,7 +576,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -670,7 +670,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

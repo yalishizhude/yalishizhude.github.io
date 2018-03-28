@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="亚里士朱德的博客">
 <meta property="og:description" content="阅读时间：15分钟  使用Node.js遇到的问题Node.js无疑是js开发者的福音，因为它既可用于web端开发，当作构建工具，也可以用于服务端，搭建web服务器。 但使用Node.js（尤其是npm）时也会碰到一些麻烦的事情，比如：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-17T12:09:49.155Z">
+<meta property="og:updated_time" content="2017-11-17T12:09:49.156Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用Docker容器搭建高效的Node.js开发环境">
 <meta name="twitter:description" content="阅读时间：15分钟  使用Node.js遇到的问题Node.js无疑是js开发者的福音，因为它既可用于web端开发，当作构建工具，也可以用于服务端，搭建web服务器。 但使用Node.js（尤其是npm）时也会碰到一些麻烦的事情，比如：">
@@ -428,7 +428,7 @@
 <p><a href="https://github.com/nodejs/docker-node/blob/master/docs/BestPractices.md" target="_blank" rel="noopener">《Docker and Node.js Best Practices》</a></p>
 <p>下面就来详细介绍具体操作</p>
 <h1 id="用Docker搭建Node-js开发环境实例"><a href="#用Docker搭建Node-js开发环境实例" class="headerlink" title="用Docker搭建Node.js开发环境实例"></a>用Docker搭建Node.js开发环境实例</h1><p>虽然Node.js在前后端开发使用场景作用差别很大，前端通常用来运行构建工具，如gulp、webpack等，后端则可以直接执行js代码启动服务器。<br>不过目录结构大体相同，所以可以放在一起讨论。下面是个简单的项目结构示例，代表了项目种的几类文件和目录。<br>我们现在有个Node.js项目，在 C:\Repo\project 路径中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">|</span><br><span class="line"> - src //源文件目录</span><br><span class="line"> - node_modules // node模块</span><br><span class="line"> - package.json // node模块管理工具</span><br><span class="line"> - dist // 被压缩、合并、编译生成的目标代码目录</span><br><span class="line"> ...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">|</div><div class="line"> - src //源文件目录</div><div class="line"> - node_modules // node模块</div><div class="line"> - package.json // node模块管理工具</div><div class="line"> - dist // 被压缩、合并、编译生成的目标代码目录</div><div class="line"> ...</div></pre></td></tr></table></figure>
 <p>在这个项目结构中，<code>src</code>、<code>package.json</code>是开发中可能需要修改的目录和文件，<code>node_modules</code>是需要被缓存的目录，<code>dist</code>是需要用来部署、执行的目录。</p>
 <p>用Docker容器管理项目在此便会出现分歧。</p>
 <p>一部分开发者可能会如前面提到的文章一样，通过编写Dockerfile来构建镜像，将node_modules放入镜像中，然后挂载源码路径，这样以后搭建开发环境可以直接通过镜像创建容器来实现，不过实现的问题是：</p>
@@ -460,9 +460,9 @@
 <p>显示underscore目录，表示模块共享成功。</p>
 <h1 id="最大问题——自动编译-刷新"><a href="#最大问题——自动编译-刷新" class="headerlink" title="最大问题——自动编译/刷新"></a>最大问题——自动编译/刷新</h1><p>利用Docker容器搭建开发环境可能碰到最麻烦的问题便是无法实现自动刷新、编译，尤其是对于系统环境为Windows的用户，由于NFS存储卷底层的事件消息与Docker容器通信有些问题，导致Node.js模块的监听文件变化的功能失效。（据部分开发者反映Mac系统下可能也会出现这种问题）<br>所以主流常用的Node.js模块都会支持设置参数来开启以轮询模式，检测文件修。</p>
 <p>其中包括前端目前常用的构建工具gulp就支持开启<a href="https://github.com/shama/gaze#properties" target="_blank" rel="noopener">poll模式</a>。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gulp.watch(&apos;xxx&apos;, &#123;</span><br><span class="line">  mode: &apos;poll&apos;, // 开启轮询模式</span><br><span class="line">  interval: 500 // 轮询间隔</span><br><span class="line">&#125;, function() &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">gulp.watch(&apos;xxx&apos;, &#123;</div><div class="line">  mode: &apos;poll&apos;, // 开启轮询模式</div><div class="line">  interval: 500 // 轮询间隔</div><div class="line">&#125;, function() &#123;</div><div class="line">  ...</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <p>前端模块构建工具webpack也是提供了<a href="https://webpack.js.org/configuration/watch/#watchoptions-poll" target="_blank" rel="noopener">poll</a>选项。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">watchOptions: &#123;</span><br><span class="line">  poll: 1000 // 开启轮询模式并设置轮询间隔</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">watchOptions: &#123;</div><div class="line">  poll: 1000 // 开启轮询模式并设置轮询间隔</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>虽然Node.js作为服务端不需要构建工具，但是在实际开发中，我们希望修改代码的时候服务器能自动重启，所以会使用nodemon这样的模块来帮我们运行代码。而nodemon本身也支持“<a href="https://github.com/remy/nodemon#application-isnt-restarting" target="_blank" rel="noopener">-L</a>”参数来进行轮询检查代码。例如：</p>
 <p><code>nodemon -L app.js</code></p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>对于其他语言环境的开发者，相信对Docker容器的卷共享、网络通信等基本概念有所熟悉之后，结合实际开发情况，参照本文所述思路，应该也可以搭建理想的开发环境。</p>
@@ -595,7 +595,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -606,7 +606,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -617,7 +617,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -711,7 +711,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
