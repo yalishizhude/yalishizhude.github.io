@@ -8,8 +8,23 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>web技术分享</description>
-    <pubDate>Wed, 28 Mar 2018 14:48:34 GMT</pubDate>
+    <pubDate>Sun, 13 May 2018 13:37:25 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>CKA认证考试心得</title>
+      <link>http://yoursite.com/2018/05/13/cka/</link>
+      <guid>http://yoursite.com/2018/05/13/cka/</guid>
+      <pubDate>Sun, 13 May 2018 12:13:41 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;上周四通过了一次国外的考试，关于考试内容和形式应该大部分读者都没有遇到过，所以写这篇文章和大家分享一下。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;如果你对考试内容或者Kubernetes不感兴趣可以直接阅读考试总结部分。&lt;/em&gt;&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2018/05/13/cka/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>PC端MPA和移动端SPA的路由同构</title>
@@ -319,21 +334,6 @@
       </description>
       
       <comments>http://yoursite.com/2017/02/16/dpi-images/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>你会用AngularJS，但你会写AngularJS文档么？</title>
-      <link>http://yoursite.com/2016/12/07/angular-doc/</link>
-      <guid>http://yoursite.com/2016/12/07/angular-doc/</guid>
-      <pubDate>Wed, 07 Dec 2016 03:12:29 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;&lt;em&gt;涉及知识：gulp javascript&lt;/em&gt;&lt;br&gt;&lt;em&gt;建议阅读：4分钟&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;我们经常在写代码的时候要求写好注释，方便日后维护。但其实注释还有一个重要的用途：&lt;strong&gt;生成API文档。&lt;/strong&gt;&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2016/12/07/angular-doc/#disqus_thread</comments>
     </item>
     
   </channel>

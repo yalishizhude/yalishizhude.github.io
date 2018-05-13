@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="k8s," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="上周四通过了一次国外的考试，关于考试内容和形式应该大部分读者都没有遇到过，所以写这篇文章和大家分享一下。 如果你对考试内容或者Kubernetes不感兴趣可以直接阅读考试总结部分。">
+<meta name="keywords" content="k8s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CKA认证考试心得">
+<meta property="og:url" content="http://yoursite.com/2015/07/04/cka/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="上周四通过了一次国外的考试，关于考试内容和形式应该大部分读者都没有遇到过，所以写这篇文章和大家分享一下。 如果你对考试内容或者Kubernetes不感兴趣可以直接阅读考试总结部分。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-13T13:34:05.305Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CKA认证考试心得">
+<meta name="twitter:description" content="上周四通过了一次国外的考试，关于考试内容和形式应该大部分读者都没有遇到过，所以写这篇文章和大家分享一下。 如果你对考试内容或者Kubernetes不感兴趣可以直接阅读考试总结部分。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/07/04/cka/"/>
+
+
+
+
+
+  <title>CKA认证考试心得 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/07/04/cka/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CKA认证考试心得</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-07-04T20:13:41+08:00">
+                2015-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IT技术/" itemprop="url" rel="index">
+                    <span itemprop="name">IT技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>上周四通过了一次国外的考试，关于考试内容和形式应该大部分读者都没有遇到过，所以写这篇文章和大家分享一下。</p>
+<p><em>如果你对考试内容或者Kubernetes不感兴趣可以直接阅读考试总结部分。</em></p>
+<a id="more"></a>
+<h1 id="关于考试"><a href="#关于考试" class="headerlink" title="关于考试"></a>关于考试</h1><h2 id="考试内容"><a href="#考试内容" class="headerlink" title="考试内容"></a>考试内容</h2><h3 id="CKA"><a href="#CKA" class="headerlink" title="CKA"></a>CKA</h3><p>什么是CKA？</p>
+<p>CKA全称为（Certificated Kubernetes Administrator）即为官方认证的Kubernetes管理员。</p>
+<p>这类认证其实已有不少，比如Oracle的OCP/OCM认证，Java的OCPJ认证（什么？国家软考？不好意思，国内反正招聘要求的加分项上没有提到过，国际上肯定是不认的），而这项认证是关于Kubernetes技术的。</p>
+<p>认证机构为Linux Foundation组织旗下的Cloud Native Computing Foundatin组织。本来Kubernetes是最伟大的IT公司Google的“亲儿子”（内部项目），后来开源出来，又后来为了其茁壮成长，“过继”给了CNCF，所以CNCF就成了认证机构。</p>
+<h3 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h3><p>Kubernetes是一个用来自动管理容器（Docker、rkt）应用的开源工具，功能非常强大，但是感念也比较多。</p>
+<p>由于这个单词太长了，大家习惯性取首字母“k”和尾字母“s”，中间还有8个字母怎么办？用数字代替，所以也叫k8s。</p>
+<p>开发人员听着可能有些陌生，但是对于运维人员应该会有所了解。</p>
+<p>如果公司服务器达到多台，运行的应用程序达到数十个数百个的时候，单靠手工基本无法维护，那么最好的方式是将应用放到一个一个的容器中，同时将多台服务器组成集群，利用Kubernetes进行统一地自动化地管理硬件和容器资源。</p>
+<p>关于k8s的更生动形象的介绍可以看这篇文章<a href="http://www.yunweipai.com/archives/8056.html" target="_blank" rel="noopener">《你闺女也能看懂的插画版Kubernetes指南》</a></p>
+<h2 id="考试形式"><a href="#考试形式" class="headerlink" title="考试形式"></a>考试形式</h2><h3 id="考试难or易？"><a href="#考试难or易？" class="headerlink" title="考试难or易？"></a>考试难or易？</h3><p>考试采用开卷形式，似乎很容易，答案都可以自由搜索。</p>
+<p>但实际上这个开卷考试并不是完全的开卷，因为只允查阅官方文档，要是使用Google等其它任何工具都算作弊了。</p>
+<p>至于想在官方文档中轻松找到答案？下面这张图是k8s核心概念的官方文档，感受一下内容的丰富程度便可知其内容查找难度。</p>
+
+<p>题目总共只有24道，似乎很少。</p>
+<p>但都是实际操作题，没有我们平常考试非常熟悉的选择填空题，这种感觉就像是数学卷子发下来，上面全是应用题。</p>
+<p>考题都是中文的，虽然支持中文翻译，但是最好不要使用，一方面是翻译太烂了，另一方面是翻译要等待页面重新渲染，浪费时间。</p>
+<p>所以提高英语的读写能力是很重要的，要不然不仅很多国外文章看不懂，连国际化的考试参加都有困难。</p>
+<p>这次考试中个别题目就因为理解错误所以耽误了一些时间。</p>
+<h3 id="时间长or短？"><a href="#时间长or短？" class="headerlink" title="时间长or短？"></a>时间长or短？</h3><p>考试时间为3个小时，中途可以申请休息，但时间不会暂停。</p>
+<p>至于休息能不能离场上厕所我没尝试过，反正全程无尿点，时间太紧张</p>
+<h3 id="想作弊？"><a href="#想作弊？" class="headerlink" title="想作弊？"></a>想作弊？</h3><p>线上考试不是很容易作弊吗？</p>
+<p>首先每次考试都是一对一的远程监考，通过前置摄像头来监控参考者的行为，考试过程中嘴唇的口型变化都是不允许的。</p>
+<p>考试前也要求用摄像头环视四周，清除桌面所有与考试无关的物品，并且附近不允许有人存在，中途不允许有人进入。</p>
+<p>还通过桌面共享的方式监控参考者的操作和查看后台进程。</p>
+<p>基本上是你能想到的考官都想到了。</p>
+<h2 id="考试通过率"><a href="#考试通过率" class="headerlink" title="考试通过率"></a>考试通过率</h2><p>满分100分，可惜并不是60分及格。</p>
+<p>按照邮件上的说法应该是74分算过，只有过了才会颁发证书。</p>
+<h2 id="考试含金量"><a href="#考试含金量" class="headerlink" title="考试含金量"></a>考试含金量</h2><p>给出两个侧面指标作为参考。</p>
+<h3 id="费用"><a href="#费用" class="headerlink" title="费用"></a>费用</h3><p>300美元，像考驾照一样有一次重考机会。国外考试费用都不便宜，毕竟美元和人民币汇率摆在那里~</p>
+<h3 id="培训"><a href="#培训" class="headerlink" title="培训"></a>培训</h3><p>官方提供两个培训教程。</p>
+<ul>
+<li>入门级，免费，4-5周，每周2-3小时。</li>
+<li>进阶级，$299，没有注明时长。</li>
+</ul>
+<p>国内的培训价格高很多，k8s中文网某3天培训班，费用已经高达一万多人民币，官网价格的10倍。</p>
+<h1 id="关于心得"><a href="#关于心得" class="headerlink" title="关于心得"></a>关于心得</h1><h2 id="视野与英语"><a href="#视野与英语" class="headerlink" title="视野与英语"></a>视野与英语</h2><p>虽然我们是人口大国，华人也遍布世界各地，但遗憾的是，英语仍是世界的通用语言。</p>
+<p>从技术上来说，SPA框架React、Angular、Vue都是用的英文官方文档（虽然Vue有中文，但也是先写的英文文档然后翻译成中文），耳熟能详的开源项目，包括开发语言，哪个官方文档用的不是英语？虽然也有翻译成中文的，但英语仍是主流。</p>
+<p>从职业规划来说，很可能因为英语不好就进不了外企，或者在外企就难以晋升，或者无法与国外的顶尖交流（看不懂优秀的文章，无法使用stackoverflow这类专业的工具寻找答案），无法参加一些国际化考试等。和同等能力的其它开发者相比就会少很多机会。</p>
+<p>英语像是一块垫脚石，它不能帮你走得更快，但踩在上面能站得更高，看得更远。</p>
+<h2 id="主动寻找高效工具"><a href="#主动寻找高效工具" class="headerlink" title="主动寻找高效工具"></a>主动寻找高效工具</h2><p>之前学习k8s速度很慢是因为每次在编写配置文件上花费了很多时间，后来经过同事点拨发现原来用命令行更快，学习效率大幅提升。</p>
+<p>如果你工作中总在做一些低效、重复或者错误率极高的事情，那么你急需思考方法、寻找工具或请教高手来改变这一状况。</p>
+<h2 id="多练习"><a href="#多练习" class="headerlink" title="多练习"></a>多练习</h2><p>这次考试题目虽然都已经掌握，但是由于平常使用较少，熟练程度不够，导致没能在规定的时间内完成所有题目。所以还是那句老话：熟能生巧。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/k8s/" rel="tag"># k8s</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/01/click-or-dbclick/" rel="next" title="双击单击傻傻分不清——IE8下点击事件的小坑">
+                <i class="fa fa-chevron-left"></i> 双击单击傻傻分不清——IE8下点击事件的小坑
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/04/cdn/" rel="prev" title="cdn简介">
+                cdn简介 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关于考试"><span class="nav-number">1.</span> <span class="nav-text">关于考试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#考试内容"><span class="nav-number">1.1.</span> <span class="nav-text">考试内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CKA"><span class="nav-number">1.1.1.</span> <span class="nav-text">CKA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kubernetes"><span class="nav-number">1.1.2.</span> <span class="nav-text">Kubernetes</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#考试形式"><span class="nav-number">1.2.</span> <span class="nav-text">考试形式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#考试难or易？"><span class="nav-number">1.2.1.</span> <span class="nav-text">考试难or易？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间长or短？"><span class="nav-number">1.2.2.</span> <span class="nav-text">时间长or短？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#想作弊？"><span class="nav-number">1.2.3.</span> <span class="nav-text">想作弊？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#考试通过率"><span class="nav-number">1.3.</span> <span class="nav-text">考试通过率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#考试含金量"><span class="nav-number">1.4.</span> <span class="nav-text">考试含金量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#费用"><span class="nav-number">1.4.1.</span> <span class="nav-text">费用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#培训"><span class="nav-number">1.4.2.</span> <span class="nav-text">培训</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于心得"><span class="nav-number">2.</span> <span class="nav-text">关于心得</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#视野与英语"><span class="nav-number">2.1.</span> <span class="nav-text">视野与英语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主动寻找高效工具"><span class="nav-number">2.2.</span> <span class="nav-text">主动寻找高效工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多练习"><span class="nav-number">2.3.</span> <span class="nav-text">多练习</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

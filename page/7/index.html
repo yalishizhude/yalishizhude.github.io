@@ -284,6 +284,215 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/09/16/collection-js/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/09/16/collection-js/" itemprop="url">js基础知识</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-09-16T23:04:58+08:00">
+                2015-09-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h1 id="什么是原型和原型链"><a href="#什么是原型和原型链" class="headerlink" title="什么是原型和原型链"></a>什么是原型和原型链</h1><p>Javascript中，所有数据类型都有一个默认属性：<code>__proto__</code>，这个叫做原型。而该隐藏属性中又包含其它数据对象的<code>__proto__</code>，这种原型的嵌套包含就叫原型链。</p>
+<h1 id="prototype属性有什么作用"><a href="#prototype属性有什么作用" class="headerlink" title="prototype属性有什么作用"></a>prototype属性有什么作用</h1><p>本质上，js中的基本数据类型Functoin/Object/Number/Array/boolean都是函数。（用typeof 可以查看）而prototype是函数的专有属性，当该函数被实例化时，prototype属性可以被实例所继承，即</p>
+<pre><code>var fun = function(){};
+var a = new fun();
+a.__proto__ === fun.prototype; //true
+</code></pre><h1 id="改变作用域的方法"><a href="#改变作用域的方法" class="headerlink" title="改变作用域的方法"></a>改变作用域的方法</h1><ul>
+<li>apply 通过传入对象参数改变原函数作用域为参数作用域。 <code>fun.apply(obj, [a,b,c]);</code> 调用fun函数，作用域为obj，参数为a/b/c。</li>
+<li>call 同上，不过为不定参数。</li>
+<li>new 通过实例化，将构造函数this指针指向实例函数。</li>
+<li>bind 传入参数可以改变做用域甚至绑定参数</li>
+</ul>
+<h1 id="判断数据类型的方法"><a href="#判断数据类型的方法" class="headerlink" title="判断数据类型的方法"></a>判断数据类型的方法</h1><ul>
+<li>toString.call 准确判断数据类型：Array、String、Object、RegExp、Number、Undefined、Null、Date、Boolean、Function</li>
+<li>typeof 粗略判断数据类型：undefined、number、string、boolean、object、function</li>
+<li>instanceOf 判断一个函数是否为另一个函数的实例。</li>
+<li>Array.isArray ECMAScript 5 新增方法，用来判断参数是否为数组。</li>
+<li>isFinite 判断是否为Infinity和null</li>
+</ul>
+<h1 id="arguments是什么数据类型"><a href="#arguments是什么数据类型" class="headerlink" title="arguments是什么数据类型"></a>arguments是什么数据类型</h1><p>函数内部自动创建的一个类似数组的获取函数实参的隐藏对象。</p>
+<h1 id="caller和callee有什么区别"><a href="#caller和callee有什么区别" class="headerlink" title="caller和callee有什么区别"></a>caller和callee有什么区别</h1><p><code>caller</code><br>函数原型函数，返回该函数的调用函数。当该函数为顶层调用时，返回null<br><code>callee</code><br>arguments的默认属性，<code>arguments.callee</code>用来指向函数本身，常用在匿名函数和递归函数中。<code>arguments.callee.length</code>可以用获取函数形参长度。</p>
+<h1 id="和-有什么区别"><a href="#和-有什么区别" class="headerlink" title="== 和 === 有什么区别"></a>== 和 === 有什么区别</h1><ul>
+<li>‘1’ == 1 –&gt; true</li>
+<li>‘1’ === 1 –&gt; false</li>
+<li>null == undefined –&gt; true</li>
+<li>null === undefined –&gt; false</li>
+<li>NaN == NaN –&gt; false</li>
+<li>NaN === NaN –&gt; false</li>
+<li>var a = b = {}; a === b –&gt;true</li>
+<li>var a = {}; var b = {}; a === b –&gt; false<br><code>==</code> 先将两边值转换为同一类型的对象再进行 <code>===</code>比较<br><code>===</code> 只用于浅拷贝的对象进行比较，不进行对象内容进行比较。只要引用地址不一致，即使内容一致也比较不出来。可以用来比较函数、数组等复杂对象，只是实用性不大。</li>
+</ul>
+<h1 id="什么是变量提升"><a href="#什么是变量提升" class="headerlink" title="什么是变量提升"></a>什么是变量提升</h1><p>变量在一个范围内声明的时候，javascript引擎会将这个声明移到范围顶部。</p>
+<pre><code>var v=&apos;Hello World&apos;;
+(function(){
+    console.log(v);
+    var v=&apos;I love you&apos;;
+})();//undefined
+</code></pre><p>这段代码等价于</p>
+<pre><code>var v=&apos;Hello World&apos;;
+(function(){
+    var v;
+    console.log(v);
+    v=&apos;I love you&apos;;
+})();
+</code></pre><p>同样，匿名函数也受命名提升的影响</p>
+<pre><code>(function(){
+    foo();
+    function foo(){
+        console.log(&quot;我来自 foo&quot;);
+    }
+})(); //我来自 foo
+
+(function(){
+    foo();
+    var foo = function(){
+        console.log(&quot;我来自 foo&quot;);
+    }
+})();//TypeError: foo is not a function
+</code></pre><p>js中有函数作用域但是没有块级作用域。</p>
+<pre><code>var x = 1;
+console.log(x); // 1
+if (true) {
+    var x = 2;
+    console.log(x); //2
+}
+console.log(x);// 2
+</code></pre><p><a href="http://www.jb51.net/article/30719.htm" target="_blank" rel="noopener">详细介绍</a></p>
+<h1 id="获取所有dom的方法"><a href="#获取所有dom的方法" class="headerlink" title="获取所有dom的方法"></a>获取所有dom的方法</h1><pre><code>document.getElementsByTagName( &apos;*&apos; )
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/09/16/git/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1601,159 +1810,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/08/02/beatiful-underscore/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亚里士朱德">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亚里士朱德的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/08/02/beatiful-underscore/" itemprop="url">优雅的underscore</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-08-02T22:56:05+08:00">
-                2015-08-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><em>Less write,less bug.</em></p>
-<p><em>Don’t repeat it.</em></p>
-<p>这是我写代码奉行的原则，而underscore.js很好地体现了上面两句话的精髓。</p>
-<p>之前学习angular的时候了解到了同类型的类库有backbone，然后一看backbone的介绍顿时莫名其妙了：轻度依赖jquery，重度依赖underscore。jquery不是最流行的js类库么？竟然重度依赖个没听说过的underscore，打开underscore官网，介绍别具一格：</p>
-<blockquote>
-<p>他解决了这个问题：“如果我面对一个空白的 HTML 页面，并希望立即开始工作，我需要什么？” 他弥补了 jQuery 没有实现的功能，同时又是 Backbone 必不可少的部分。</p>
-</blockquote>
-<p>“弥补了”、“必不可少”这牛皮吹得有点过了吧，于是了解使用了一下，发现确实是个好工具，于是把常用的几个函数做了一下整理。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2015/08/02/beatiful-underscore/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1808,7 +1864,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1830,7 +1886,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
