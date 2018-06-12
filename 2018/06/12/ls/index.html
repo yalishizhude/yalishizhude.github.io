@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="最近项目上要在浏览器端实现一个类似 Linux 下 ls 命令的显示效果。虽然实现过程没花多长时间，但是觉得这个效果还挺赞的，所以分享一下。">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态分栏布局实现">
+<meta property="og:url" content="http://yoursite.com/2018/06/12/ls/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="最近项目上要在浏览器端实现一个类似 Linux 下 ls 命令的显示效果。虽然实现过程没花多长时间，但是觉得这个效果还挺赞的，所以分享一下。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/06/12/ls/col-1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/12/ls/col-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/12/ls/col-3.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/12/ls/col-4.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/12/ls/demo.gif">
+<meta property="og:updated_time" content="2018-06-12T14:16:32.313Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="动态分栏布局实现">
+<meta name="twitter:description" content="最近项目上要在浏览器端实现一个类似 Linux 下 ls 命令的显示效果。虽然实现过程没花多长时间，但是觉得这个效果还挺赞的，所以分享一下。">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/12/ls/col-1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/12/ls/"/>
+
+
+
+
+
+  <title>动态分栏布局实现 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/12/ls/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">动态分栏布局实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-12T20:28:28+08:00">
+                2018-06-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近项目上要在浏览器端实现一个类似 Linux 下 <code>ls</code> 命令的显示效果。虽然实现过程没花多长时间，但是觉得这个效果还挺赞的，所以分享一下。</p>
+<a id="more"></a>
+<h1 id="神奇的ls命令"><a href="#神奇的ls命令" class="headerlink" title="神奇的ls命令"></a>神奇的ls命令</h1><p>ls命令对于前端同学可能比较陌生，简单来说就是Linux终端中的一个常用功能，用来显示某个目录下的文件（夹）列表。不过这它的功能不是本文讨论的重点。重点是它神奇的显示效果，比如下面这样：</p>
+<img src="/2018/06/12/ls/col-1.jpg">
+<p>看似并无神奇之处，就是文件（夹）名称逐行显示而已，别急，再来看下面两张截图：</p>
+<img src="/2018/06/12/ls/col-2.jpg">
+<img src="/2018/06/12/ls/col-3.jpg">
+<p>不知道你现在有没有发现布局发生了变化：由最初的1列变成了多列！<br>你很容易想到列数量会随着窗口的宽度而改变，这种猜测是对的，但并不全面，因为决定其显示排列的还有文件（夹）名本身的长度。比如我再指定目录执行一条 <code>ls</code> 命令进行对比：</p>
+<img src="/2018/06/12/ls/col-4.jpg">
+<p>两条命令执行时窗口宽度是一样的，但是在长文件（夹）名的情况下是3列，而短文件（夹）下是4列。</p>
+<p>ok~了解完<code>ls</code>命令的显示特点之后问题来了，我们该怎么实现呢？</p>
+<h1 id="实现难点与解决方案"><a href="#实现难点与解决方案" class="headerlink" title="实现难点与解决方案"></a>实现难点与解决方案</h1><p><em>更多文章请关注公众号“Web学习社”。</em></p>
+<p>这种列数发生变化的情况在网站页面中并不少见，你可能第一个就会想到媒体查询或者Bootstrap。但很遗憾事情并没有这么简单。媒体查询和Bootstrap都是针对不同屏幕宽度进行的自适应，而并不会根据内容自动调整，无法满足我们的要求。</p>
+<p>似乎浮动可以根据内容大小来进行自动排列，但和我们的需求相比也有一个很大的差别。那就是<strong><code>ls</code>命令在调整好合适的列数之后，每列文件（夹）名都是等宽左对齐的。</strong>而使用浮动后的效果是每行长的名称排列少，短的名称排列多，造成列数不统一，参差不齐。</p>
+<p>到此看似毫无头绪，不过可以参考“把大象放进冰箱里”分几步的例子，分步骤来解决这个问题。这个问题我们其实可以分两步进行分析：</p>
+<ol>
+<li>显示的列数需要根据窗口大小和名称长度两者共同决定，按照已知的使用css的方式无法解决。那么我们只能用最笨的方式进行动态计算。</li>
+<li>列数确定以后要确保每列等宽等间距，且左对齐，这个比较容易实现，可以设置等宽等间距。</li>
+</ol>
+<p>按照这个思路我们来实现第1步，那就是怎么计算出合适的列数。看看列数是由哪些因素决定的：</p>
+<ul>
+<li>窗口的宽度。</li>
+<li>名称的长度。</li>
+<li>名称之间的横向间距。</li>
+</ul>
+<p>窗口的宽度可以通过dom获取或者样式设定，名称宽度可以通过fontSize进行计算，一般一个中文字符宽度为一个fontSize值，而英文数字则为一半，这里我们为了方便计算，只考虑英文和数字的情况。横向间距则可以由样式设定。那么可以得出计算公式：</p>
+<p><code>窗口宽度 &gt;= 列数 * (名称长度 * fontSize/2 + 间距)</code></p>
+<p>这个不等式并不准确，因为当列数等于1的时候是最有可能满足这个不等式的，但显然不是我们想要的结果，所以还要加上另一个不等式：</p>
+<p><code>窗口宽度 &lt; (列数 + 1) * (名称长度 * fontSize/2 + 间距)</code></p>
+<p>满足这两个条件的列数才是我们的最优解。不等式右边的表达式实际上就是行宽，更准确的说是每一行的行宽。当然这个表达式其实也不严谨，更严谨的是下面这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">窗口宽度 &gt;= (名称长度1 * fontSize/2 + 间距) + ... + (名称长度n * fontSize/2 + 间距)</div><div class="line">窗口宽度 &lt; (名称长度1 * fontSize/2 + 间距) + ... + (名称长度n+1 * fontSize/2 + 间距)</div></pre></td></tr></table></figure>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">/ **</div><div class="line">  * 根据列数和名称长度进行分列，以二维数组的方式返回结果，如果超出宽度则返回空数组</div><div class="line">  * list &#123;Array&#125; 待分列的名称数组</div><div class="line">  * colnum &#123;Number&#125; 列数</div><div class="line">  * size &#123;Number&#125; 字体大小</div><div class="line">  * width &#123;Number&#125; 用父容器的宽度替代前面所说的窗口宽度</div><div class="line">  * spaceWidth &#123;Number&#125; 间距</div><div class="line">  */</div><div class="line">var subfield = function(list, colnum, size, width, spaceWidth) &#123;</div><div class="line">  // 使用lodash的chunk函数将数组按照列数分割成二维数组</div><div class="line">  var result = _.chunk(list, Math.min(colnum, list.length))</div><div class="line">  var rowWidth = 0</div><div class="line">  // 逐列计算宽度</div><div class="line">  for(var col=0;col&lt;result[0].length;col++) &#123;</div><div class="line">    colWidth = 0</div><div class="line">    for(var row=0; row&lt;result.length; row++)&#123;</div><div class="line">      var item = result[row][col] || &apos;&apos;</div><div class="line">      // 每列宽度取决于最长的名称宽度</div><div class="line">      colWidth = Math.max(colWidth, item.length * size / 2 + spaceWidth)</div><div class="line">    &#125;</div><div class="line">    rowWidth += colWidth</div><div class="line">  &#125;</div><div class="line">  return rowWidth &lt; width ? result : []</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>有了上面的不等式，那么现在我们就可以开始逐行计算了，不过我们从分几列开始算起？如果从分1列的方式算起，那么大多数情况下前面的分列方式都不是最优解，所以我们考虑直接从最优解算起，找到最长的名称和最短的名称并假设它们在一列，如果不满足则减少一列。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">// 先取最理想的列数</div><div class="line">var colnum = Math.max(1, Math.floor((containerWidth - maxFile.length * fontSize / 2 - spaceWidth) / (spaceWidth + fontSize / 2 * minFile.length)))</div><div class="line">var result = []</div><div class="line">// 按照递减方式直到找到最优解</div><div class="line">while (colnum &gt; 0 &amp;&amp; result.length===0) &#123;</div><div class="line">  if (colnum === 1) &#123;</div><div class="line">    result = []</div><div class="line">    for(var i=files.length;i&gt;0;i--) &#123;</div><div class="line">      result.push([files.shift()])</div><div class="line">    &#125;</div><div class="line">  &#125; else &#123;</div><div class="line">    result = subfield(files, colnum, fontSize, containerWidth, spaceWidth)</div><div class="line">  &#125;</div><div class="line">  colnum--</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>至此，我们就完成了第1步。第2步这种布局方式其实很常见，其实就是古老的table布局，那么我们渲染到页面的时候直接使用table来实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var render = function(list) &#123;</div><div class="line">  var str = &apos;&apos;</div><div class="line">  list.forEach(function(row) &#123;</div><div class="line">    str += &apos;&lt;tr&gt;&lt;td&gt;&apos;+ row.join(&apos;&lt;/td&gt;&lt;td&gt;&apos;) + &apos;&lt;/td&gt;&lt;/tr&gt;&apos;</div><div class="line">  &#125;)</div><div class="line">  document.querySelector(&apos;.ls table&apos;).innerHTML = str</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>具体代码</strong>:</p>
+<p><a href="http://jsbin.com/zipabig/1/edit?html,css,js,output" target="_blank" rel="noopener">http://jsbin.com/zipabig/1/edit?html,css,js,output</a></p>
+<img src="/2018/06/12/ls/demo.gif">
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/13/cka/" rel="next" title="CKA认证考试心得">
+                <i class="fa fa-chevron-left"></i> CKA认证考试心得
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">94</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
+                    
+                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
+                    
+                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#神奇的ls命令"><span class="nav-number">1.</span> <span class="nav-text">神奇的ls命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现难点与解决方案"><span class="nav-number">2.</span> <span class="nav-text">实现难点与解决方案</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+  <div class="powered-by">footer.powered</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

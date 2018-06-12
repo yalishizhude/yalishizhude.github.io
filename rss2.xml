@@ -8,8 +8,22 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>web技术分享</description>
-    <pubDate>Sun, 13 May 2018 13:37:25 GMT</pubDate>
+    <pubDate>Tue, 12 Jun 2018 14:16:32 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>动态分栏布局实现</title>
+      <link>http://yoursite.com/2018/06/12/ls/</link>
+      <guid>http://yoursite.com/2018/06/12/ls/</guid>
+      <pubDate>Tue, 12 Jun 2018 12:28:28 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;最近项目上要在浏览器端实现一个类似 Linux 下 &lt;code&gt;ls&lt;/code&gt; 命令的显示效果。虽然实现过程没花多长时间，但是觉得这个效果还挺赞的，所以分享一下。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yoursite.com/2018/06/12/ls/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>CKA认证考试心得</title>
@@ -314,26 +328,6 @@
       </description>
       
       <comments>http://yoursite.com/2017/06/02/vueconf/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>【译】高dpi图片对于不同设备的适配方案</title>
-      <link>http://yoursite.com/2017/02/16/dpi-images/</link>
-      <guid>http://yoursite.com/2017/02/16/dpi-images/</guid>
-      <pubDate>Thu, 16 Feb 2017 14:38:49 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;&lt;em&gt;原文地址：&lt;a href=&quot;https://www.html5rocks.com/en/mobile/high-dpi/#toc-conclusion&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.html5rocks.com/en/mobile/high-dpi/#toc-conclusion&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;#介绍&lt;/p&gt;
-&lt;p&gt;在当今日益复杂的设备领域，屏幕的可用像素密度已经变得非常广泛。&lt;br&gt;既有非常高分辨率的显示设备，也有远远落后的设备。&lt;br&gt;应用程序开发人员需要支持一系列像素密度的显示设备，这可能是相当具有挑战性的。&lt;br&gt;在移动web端，情况变得更加复杂：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;各种各样的设备具有不同的外形尺寸。&lt;/li&gt;
-&lt;li&gt;受限的网络带宽和电池寿命。&lt;br&gt;在图片方面，Web应用程序开发人员的目标是尽可能高效地提供最佳质量的图像。&lt;br&gt;本文将介绍适用于现在和不久将来的有效技术来达到这一效果。&lt;/li&gt;
-&lt;/ul&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2017/02/16/dpi-images/#disqus_thread</comments>
     </item>
     
   </channel>
