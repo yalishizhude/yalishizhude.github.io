@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端,RxJS,JavaScript," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="web学习社" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="RxJS是微软公司推出的响应式编程的JavaScript库。对于它的学习，最开始我的理解是把它当成是 能优雅地解决异步问题的lodash。随着学习的深入，发现它采用了订阅者模式，其中也带有纯函数的思想。直到在使用了RxJS 6之后才了解其少有人意识到的另一面——流。">
+<meta name="keywords" content="前端,RxJS,JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxJS进阶——关于流的理解和应用">
+<meta property="og:url" content="http://yalishizhude.com/2018/09/30/rxjs-stream/index.html">
+<meta property="og:site_name" content="web学习社">
+<meta property="og:description" content="RxJS是微软公司推出的响应式编程的JavaScript库。对于它的学习，最开始我的理解是把它当成是 能优雅地解决异步问题的lodash。随着学习的深入，发现它采用了订阅者模式，其中也带有纯函数的思想。直到在使用了RxJS 6之后才了解其少有人意识到的另一面——流。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-18T15:48:00.469Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RxJS进阶——关于流的理解和应用">
+<meta name="twitter:description" content="RxJS是微软公司推出的响应式编程的JavaScript库。对于它的学习，最开始我的理解是把它当成是 能优雅地解决异步问题的lodash。随着学习的深入，发现它采用了订阅者模式，其中也带有纯函数的思想。直到在使用了RxJS 6之后才了解其少有人意识到的另一面——流。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yalishizhude.com/2018/09/30/rxjs-stream/"/>
+
+
+
+
+
+  <title>RxJS进阶——关于流的理解和应用 | web学习社</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">web学习社</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2018/09/30/rxjs-stream/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="web学习社">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RxJS进阶——关于流的理解和应用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-30T12:22:48+08:00">
+                2018-09-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>RxJS是微软公司推出的响应式编程的JavaScript库。<br>对于它的学习，最开始我的理解是把它当成是 <strong>能优雅地解决异步问题的lodash</strong>。<br>随着学习的深入，发现它采用了订阅者模式，其中也带有纯函数的思想。<br>直到在使用了RxJS 6之后才了解其少有人意识到的另一面——流。</p>
+<a id="more"></a>
+<p>什么是流？这里我们不用专业术语来解释，用生活中大家熟悉的的例子来类比，比如“河流”。</p>
+<p>河流有什么特点？<br>至少有两个特点：</p>
+<p><strong>有朝向。</strong><br>水往低处流，河流虽然可能会蜿蜒盘旋，但是朝向是固定的，比如我国的长江和黄河就都是由西往东流。<br>在RxJS中数据的流向也是固定的，就是从发送者到订阅者。基本都如下面这种形式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">from(Promise.resolve(1)) // 流的源头</div><div class="line">......</div><div class="line">.subscribe(x =&gt; console.log(x)); // 流的终点</div></pre></td></tr></table></figure>
+<p><strong>有分支。</strong></p>
+<p>大的河流一般有干流和支流，大大小小的支流汇入干流。</p>
+<p>RxJS中的数据则可以通过操作符将数据流进行聚合或拆分。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// 流的聚合</div><div class="line">mergeMap(from(Promise.resolve(1)), from(Promise.resolve(2)))</div><div class="line">......</div><div class="line">.subscribe(x =&gt; console.log(x))</div><div class="line"></div><div class="line">// 流的拆分</div><div class="line">const obs$ = from(Promise.resolve(1)</div><div class="line">obs$.subscribe(x =&gt; console.log(x))</div><div class="line">obs$.subscribe(x =&gt; &#123;</div><div class="line">  // do sth</div><div class="line">&#125;)/</div></pre></td></tr></table></figure>
+<p>RxJS 6 相对于 RxJS 5（这里指5.5以下的版本，因为pipe函数在RxJS 5.5中作为新特性已被引入。） 来说不仅修改了一部分操作符的名称，同时做了一个较大的改动，引入了管道（pipe）。这个改动到底有多大？</p>
+<p>首先是写法上的变化。<br>RxJS 5的这种操作符的调用方式有没有一种似曾相识的感觉？<br>是的，它看上去很像JQuery那种意大利面条式的链式调用<br>而RxJS 6和Gulp的写法有些像，想想Gulp是什么？基于流的构建工具！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// RxJS 5 伪代码</div><div class="line">myObservable</div><div class="line">  .map(data =&gt; data * 2)</div><div class="line">  .switchMap(...)</div><div class="line">  .throttle(...))</div><div class="line">  .subscribe(...);</div><div class="line"></div><div class="line">// RxJS 6 伪代码</div><div class="line">myObservable</div><div class="line">  .pipe(map(data =&gt; data * 2), switchMap(...), throttle(...))</div><div class="line">  .subscribe(...);</div></pre></td></tr></table></figure>
+<p>这种写法上的变化就带来了用法上的变化，以前的固定“河流”可以通过“管道”（pipe）来控制形成灵活的“水流”。</p>
+<p>下面举个例子来更加形象地阐述加入管道之后流的灵活性。</p>
+<p>现在有一个这样的业务场景：<br><em>点击按钮之后发送一个请求，让服务端开始执行任务，然后轮询发送请求查询任务执行状态，根据不同状态进行不同操作。有3种状态”controlling”——继续轮询, “stop”——停止轮询，”finish”——停止轮询，并进行后续操作。</em></p>
+<p>不考虑判断条件，伪代码是下面这样子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// 开始任务</div><div class="line">start$().pipe(</div><div class="line">  switchMap(() =&gt; interval(1000)), // 开始轮询</div><div class="line">  switchMap(() =&gt; getStatus$()), // 查询状态</div><div class="line">  )</div><div class="line">.subscribe(x =&gt; &#123;</div><div class="line">  // 后续操作</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>这段代码有一个问题没有解决，根据状态进行相应操作。<br>先来看看这3种状态对应的操作。</p>
+<ul>
+<li>controlling。继续轮询很好处理，不进行任何操作即可。</li>
+<li>stop。停止轮询的操作符有3个：<code>take</code>，需要固定次数，这个次数没法预先确定。<code>takeUntil</code>，需要创建一个额外的subject来进行停止，应该可以实现，不过代码量比较大。<code>takeWhile</code>，只需简单的逻辑判断即可，比较合适。</li>
+<li>finish。问题来了，<strong>如过我们在管道操作符中判断状态的并停止流的话，那么订阅者将无法收到消息，意味着后续操作无法执行。</strong></li>
+</ul>
+<p>解决方法就是把后续操作放到管道中。代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">// 开始任务</div><div class="line">start$().pipe(</div><div class="line">  switchMap(() =&gt; interval(1000)), // 开始轮询</div><div class="line">  switchMap(() =&gt; getStatus$()), // 查询状态</div><div class="line">  filter(x =&gt; x===&apos;stop&apos; || x===&apos;finish&apos;) // &apos;controlling&apos;状态下继续轮询，其它状态进行对应操作</div><div class="line">  takeWhile(x =&gt; x!==&apos;stop&apos;) // 当为&apos;stop&apos;时结束轮询</div><div class="line">  tap(() =&gt; &#123;</div><div class="line">    // 后续操作</div><div class="line">  &#125;)</div><div class="line">  takeWhile(() =&gt; false) // 操作完成结束轮询</div><div class="line">  )</div><div class="line">.subscribe();</div></pre></td></tr></table></figure></p>
+<p>现在需求变化了，在另一段代码中，我们也要通过查询状态并根据状态进行，但是不再需要开始任务和轮询了。<br>那么上面的代码查询和操作部分可以利用pipe方法抽取出来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">const handle = pipe(</div><div class="line">  switchMap(() =&gt; getStatus$()), // 查询状态</div><div class="line">  filter(x =&gt; x===&apos;stop&apos; || x===&apos;finish&apos;) // &apos;controlling&apos;状态下继续轮询，其它状态进行对应操作</div><div class="line">  takeWhile(x =&gt; x!==&apos;stop&apos;) // 当为&apos;stop&apos;时结束轮询</div><div class="line">  tap(() =&gt; &#123;</div><div class="line">    // 后续操作</div><div class="line">  &#125;)</div><div class="line">  takeWhile(() =&gt; false) // 操作完成结束轮询</div><div class="line">)</div><div class="line">start$().pipe(</div><div class="line">  switchMap(() =&gt; interval(1000)), // 开始轮询</div><div class="line">  handle</div><div class="line">).subscribe();</div><div class="line">// 直接复用查询状态代码和后续操作部分代码</div><div class="line">other.pipe(</div><div class="line">  handle</div><div class="line">).subscribe()</div></pre></td></tr></table></figure>
+<p>总结一下。RxJS比较完整的理解应该是基于流的订阅者模式，而流的灵活性体现在可拆分和聚合，有了pipe管道的加入，流的可复用性增强，因此更容易对代码逻辑进行抽象。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+            <a href="/tags/RxJS/" rel="tag"># RxJS</a>
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/26/writing-schema/" rel="next" title="用7段代码来理解常用的写作模式">
+                <i class="fa fa-chevron-left"></i> 用7段代码来理解常用的写作模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/29/container-task/" rel="prev" title="利用Docker容器实现代理转发和数据备份">
+                利用Docker容器实现代理转发和数据备份 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

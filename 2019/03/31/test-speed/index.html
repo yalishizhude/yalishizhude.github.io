@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Docker,服务端,网络,Node.js,iperf3," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="web学习社" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="量变引起质变。">
+<meta name="keywords" content="Docker,服务端,网络,Node.js,iperf3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多个跨云服务器之间满带宽测速的一种实现方案">
+<meta property="og:url" content="http://yalishizhude.com/2019/03/31/test-speed/index.html">
+<meta property="og:site_name" content="web学习社">
+<meta property="og:description" content="量变引起质变。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yalishizhude.com/2019/03/31/test-speed/tcp-udp-server-client.jpg">
+<meta property="og:image" content="http://yalishizhude.com/2019/03/31/test-speed/master-slave.jpg">
+<meta property="og:image" content="http://yalishizhude.com/2019/03/31/test-speed/interval-web.jpg">
+<meta property="og:image" content="http://yalishizhude.com/2019/03/31/test-speed/structure.jpg">
+<meta property="og:updated_time" content="2019-05-18T06:38:27.922Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多个跨云服务器之间满带宽测速的一种实现方案">
+<meta name="twitter:description" content="量变引起质变。">
+<meta name="twitter:image" content="http://yalishizhude.com/2019/03/31/test-speed/tcp-udp-server-client.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yalishizhude.com/2019/03/31/test-speed/"/>
+
+
+
+
+
+  <title>多个跨云服务器之间满带宽测速的一种实现方案 | web学习社</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">web学习社</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2019/03/31/test-speed/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="web学习社">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">多个跨云服务器之间满带宽测速的一种实现方案</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T23:01:25+08:00">
+                2019-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/服务端/" itemprop="url" rel="index">
+                    <span itemprop="name">服务端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>量变引起质变。</em></p>
+<a id="more"></a>
+<h1 id="项目需求"><a href="#项目需求" class="headerlink" title="项目需求"></a>项目需求</h1><p>由于我们现在开发的云平台项目是一个跨云调度的重型计算平台，所以会用到不同的云服务厂商的计算实例服务器，比如阿里云的ECS、亚马逊的EC2或者谷歌云的compute engine等，同时也会在这些计算实例之间进行数据传输。<br>这些服务器之间的传输速度通常是不同的，即使是同一个云服务厂商内的不同区域服务器之间传输数据，带宽也会有所不同。<br>所以需要对这些服务器之间的带宽速度进行测量，以供调度进程分配任务和传输数据。<br>总结起来这个功能实现起来有3个要求：</p>
+<ol>
+<li>对不同区域内的云服务器的TCP/UDP传输速度进行检测。</li>
+<li>必须是满带宽的测速，也就是说两台服务器在测速的时候不能有其它网络程序运行。</li>
+<li>多台服务器之间需要高效地建立两两连接。</li>
+</ol>
+<p>针对这3个问题，我实行了以下解决方案。</p>
+<h1 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h1><p>一种简单的设想就是启动测速所需的客户端和服务端，让这些程序之间互相争抢进行测速。</p>
+<img src="/2019/03/31/test-speed/tcp-udp-server-client.jpg">
+<p>但是这种方式在进程的管理上很容易出现问题，因为每个进程既要操作自己的状态还需要操作其它进程的状态，同时一下子起4个进程也比较浪费，因为事实上每次测速只会有一个进程工作。<br>所以更好的方式是用主从结构，由一个主进程来启停负责测速的客户/服务端子进程。</p>
+<img src="/2019/03/31/test-speed/master-slave.jpg">
+<p>这样不但能有效地避免资源的浪费和争抢，同时主进程中也可以集成很多逻辑功能，比如对外提供 REST API，记录日志、备份测试结果等。</p>
+<p>当然为了方便部署和程序控制，所有的进程都是部署在 Docker 容器中。</p>
+<p>由于主进程需要访问宿主机的 Docker 服务，所以需要开启 Docker 的 remote API 服务，对容器提供REST API进行操作。</p>
+<h1 id="功能实现"><a href="#功能实现" class="headerlink" title="功能实现"></a>功能实现</h1><h2 id="基本测速"><a href="#基本测速" class="headerlink" title="基本测速"></a>基本测速</h2><h3 id="TCP与UDP"><a href="#TCP与UDP" class="headerlink" title="TCP与UDP"></a>TCP与UDP</h3><p>网络协议是一层一层封装起来的，而TCP和UDP属于同一层的两种协议。<br>其中TCP协议在前后端开发中非常常用，因为REST API请求依赖的HTTP(S)协议就是TCP的上层协议，而UDP协议在视频、游戏、下载等业务中使用也非常多。<br>它们有一些共同点：请求的发起方称为客户端，请求的接收方称为服务端，服务端和客户端可以双向通信。<br>而它们的侧重点有所区别。TCP更注重稳定，客户端和服务端之间需要建立连接之后才能互相发送数据。<br>UDP则更注重速度，客户端不需要和服务端建立连接即可直接发送数据，但是如果发送速度太快或者网络不稳定可能会造成丢包，导致对方接收的数据部分丢失。</p>
+<h3 id="测速工具"><a href="#测速工具" class="headerlink" title="测速工具"></a>测速工具</h3><p>常用的命令行测速工具有iperf和speedtest，相较之下选择了功能更强大的iperf。<br>iperf是一个比较理想的测速工具，支持TCP、UDP协议，还可以通过参数来制定传输数据大小、传输次数或者传输时间，以及输出结果的格式。<br>但是由于前面UDP协议的特性，测速会略微麻烦一些，需要找到合适的带宽。<br>比如按照1Gbps的速度发送数据，丢包率是70%和按照10Mbps的速度发送数据，丢包率是0，那么对数据完整性有要求的话肯定更偏向于后者。<br>当然实际情况并不是对于丢包率为0就是最好的，而是在可容忍的范围内采用最大速度传输（数据丢了还可以重传不是~）。<br>这就意味着需要根据实际网络状况不断调整和尝试。<br>而iperf并没有这么智能，所以UDP这一块采用团队内部开发的一款UDP传输工具，来找到理想的传输速度。</p>
+<h2 id="满带宽"><a href="#满带宽" class="headerlink" title="满带宽"></a>满带宽</h2><p>要保证满带宽只需要保证测速时没有其它程序占用带宽即可。<br>由于我们可以启动一台独立的抢占式服务器来运行测速程序，所以其它非测速程序的进程不太可能占用带宽，而容易争抢带宽的是用来测速的子程序。<br>所以需要让子程序之间是互斥运行，甚至是互斥存在的。<br>采用状态管理基本上就可以实现，主程序在每次有进程启动的时候将状态置为”connecting”，测速完成后置为”waiting”，只有在”waiting”状态下才可以启动新的子程序进行测速。<br>但是这只是从代码逻辑层面控制，对于稳定健壮的程序而言，最好还有其它的硬性控制方式。<br>这时候使用容器的话就可以轻松办到。<br>凡是需要进行测速的进程都在容器中启动，同时容器的名称都统一，那么一旦程序出现bug，同时启动多个子程序时，Docke r服务则会报错，告知容器名称冲突，从而创建失败。<br>当然这种方式也有一定的风险，比如上一个进程测速过程中出现问题没有按时退出，那么则无法进行新的测速，所以需要需要设定一个超时时间，超过一段时间后主动停止当前测速子程序。<br>同时如果主程序意外退出，导致停止失败的话，也要进行处理：在每次启动主程序的时候进行检查，及时销毁未停止的子程序。</p>
+<h2 id="多节点"><a href="#多节点" class="headerlink" title="多节点"></a>多节点</h2><p>多节点算是非常棘手的问题。试想如果在一段时间内同时在多个云服务器上启动多个测速程序，如何保证他们有序的进行测速呢？<br>要解决这个问题，先思考一个简单些的问题：<br>在一段时间内，如何决定哪些云服务器启动服务端子程序哪些云服务器启动客户端子程序呢？<br>如果按照“主-从”模式的话需要建立一个中心节点来进行控制，但是这样的缺点很多，最重要的一个缺点是如果某个节点与中心节点无法通信那么就无法获得与其它节点通信的机会，及时它和其它节点之间网络畅通。<br>同时中心节点和其它节点之间也存在多节点通信的问题。<br>总而言之这种方式下通信的成本太高，服务端与客户端传输数据需要的中间环节太多，很容易出现问题。<br>所以简单的方式是让云服务器之间互相发起测速请求并响应。<br>这样的话，主程序的逻辑要分为两个模块，一个模块用来响应请求、、分配端口、启动服务端容器。<br>另一个用来轮询带测速队列并发起请求、启动客户端容器建立连接。</p>
+<p>工作流程大致如下：</p>
+<img src="/2019/03/31/test-speed/interval-web.jpg">
+<p>这种处理方式还有一种极端情况，就是两个云服务器之间互相请求进行测试，如果双方请求到达时间一致，那么就会同时给对方分配端口，然后同时受到对方分配的端口之后发现服务端已启动于是放弃连接。<br>于是出现了类似进程“死锁”的状态。<br>对于这种情况的处理方式是使用时间戳来记录请求发起的时刻，双方通过时间戳的先后来决定是否启动客户端或服务端。<br>即使更极端的情况出现——双方时间戳相同。那么通过超时回收或者发消息释放端口来建立下一次连接。</p>
+<h2 id="弱网络下的处理"><a href="#弱网络下的处理" class="headerlink" title="弱网络下的处理"></a>弱网络下的处理</h2><p>弱网络指的是网络不稳定或者带宽较小的情况。<br>这种情况的处理方式原则上就是重测，但是关于重测有几个需要注意的地方：</p>
+<ol>
+<li>对于带宽较小的情况需要考虑减小传输数据的体积以保证在制定的超时时间内完成测速。</li>
+<li>对于测速失败的情况进行判断并重测，同时限定重测次数，避免无限重测。</li>
+<li>重测时可以让客户端与服务端进行互换测试，通过限定一方发起重测可实现。</li>
+</ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总体结构图如下：</p>
+<img src="/2019/03/31/test-speed/structure.jpg">
+<p>很多时候实现一个功能并不困难，但是要把功能实现好却是一件不简单的事。<br>虽然理论上实现起来只是简单的调用测速工具就可以得到结果，但在实际场景下可用性会变得很低。<br>比如没有对弱网络的重测机制，那么偶然的网络抖动就会影响到测速结果。<br>如果没有考虑到多节点争抢连接的问题，那么实际运行在多个云服务器上可能会造成程序错误或测速结果不准确的问题。<br>要怎么样把功能实现好呢？<br>至少有两个考虑方向：</p>
+<ul>
+<li>倍数思维。比如当前框架支持10个页面没问题，那么如果100个、1000个会不会有性能问题？</li>
+<li>极限思维。就是一些极端情况下的处理机制，比如在本文中对超时的处理，对容器互斥的处理等。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Docker/" rel="tag"># Docker</a>
+          
+            <a href="/tags/服务端/" rel="tag"># 服务端</a>
+          
+            <a href="/tags/网络/" rel="tag"># 网络</a>
+          
+            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
+          
+            <a href="/tags/iperf3/" rel="tag"># iperf3</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/21/data-bingding/" rel="next" title="无依赖开发之封装DOM">
+                <i class="fa fa-chevron-left"></i> 无依赖开发之封装DOM
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/30/docker-api-loophole/" rel="prev" title="道路千万条，安全第一条——一次服务器被入侵的处理经过">
+                道路千万条，安全第一条——一次服务器被入侵的处理经过 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#项目需求"><span class="nav-number">1.</span> <span class="nav-text">项目需求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本结构"><span class="nav-number">2.</span> <span class="nav-text">基本结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#功能实现"><span class="nav-number">3.</span> <span class="nav-text">功能实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本测速"><span class="nav-number">3.1.</span> <span class="nav-text">基本测速</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP与UDP"><span class="nav-number">3.1.1.</span> <span class="nav-text">TCP与UDP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测速工具"><span class="nav-number">3.1.2.</span> <span class="nav-text">测速工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#满带宽"><span class="nav-number">3.2.</span> <span class="nav-text">满带宽</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多节点"><span class="nav-number">3.3.</span> <span class="nav-text">多节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#弱网络下的处理"><span class="nav-number">3.4.</span> <span class="nav-text">弱网络下的处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

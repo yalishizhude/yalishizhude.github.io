@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Docker,网络安全," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="web学习社" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="容器为何自动停止？ 服务器为何操作卡顿？ 进程的神秘连接到底指向何处？">
+<meta name="keywords" content="Docker,网络安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="道路千万条，安全第一条——一次服务器被入侵的处理经过">
+<meta property="og:url" content="http://yalishizhude.com/2019/04/30/docker-api-loophole/index.html">
+<meta property="og:site_name" content="web学习社">
+<meta property="og:description" content="容器为何自动停止？ 服务器为何操作卡顿？ 进程的神秘连接到底指向何处？">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yalishizhude.com/2019/04/30/docker-api-loophole/top.jpg">
+<meta property="og:image" content="http://yalishizhude.com/2019/04/30/docker-api-loophole/netstat.jpg">
+<meta property="og:image" content="http://yalishizhude.com/2019/04/30/docker-api-loophole/ip.jpg">
+<meta property="og:image" content="http://yalishizhude.com/2019/04/30/docker-api-loophole/threat.jpg">
+<meta property="og:image" content="http://yalishizhude.com/2019/04/30/docker-api-loophole/history.jpg">
+<meta property="og:image" content="http://yalishizhude.com/2019/04/30/docker-api-loophole/entrypoint.jpg">
+<meta property="og:image" content="http://yalishizhude.com/2019/04/30/docker-api-loophole/mac.jpg">
+<meta property="og:updated_time" content="2019-05-25T06:21:25.953Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="道路千万条，安全第一条——一次服务器被入侵的处理经过">
+<meta name="twitter:description" content="容器为何自动停止？ 服务器为何操作卡顿？ 进程的神秘连接到底指向何处？">
+<meta name="twitter:image" content="http://yalishizhude.com/2019/04/30/docker-api-loophole/top.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yalishizhude.com/2019/04/30/docker-api-loophole/"/>
+
+
+
+
+
+  <title>道路千万条，安全第一条——一次服务器被入侵的处理经过 | web学习社</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">web学习社</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2019/04/30/docker-api-loophole/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="web学习社">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">道路千万条，安全第一条——一次服务器被入侵的处理经过</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-30T01:09:03+08:00">
+                2019-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络安全/" itemprop="url" rel="index">
+                    <span itemprop="name">网络安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>容器为何自动停止？</em></p>
+<p><em>服务器为何操作卡顿？</em></p>
+<p><em>进程的神秘连接到底指向何处？</em></p>
+<a id="more"></a>
+<h1 id="发现——自动停止的容器"><a href="#发现——自动停止的容器" class="headerlink" title="发现——自动停止的容器"></a>发现——自动停止的容器</h1><p>某日发现部署在服务器上的一个容器被停掉了，开始以为是同事误操作停止或删除了。</p>
+<p>但登录服务器重新启动容器的时候发现一个奇怪的现象：<strong>容器启动后几秒钟便会自动停止。</strong></p>
+<p>一般来说这种情况可能是容器本身有问题。</p>
+<p>但是查看容器日志并未得到任何错误信息，而且该容器镜像已在其它服务器稳定部署运行，应该不会有bug。</p>
+<p>所以猜测是系统资源不足，例如磁盘、内存、CPU。</p>
+<p>查看磁盘剩余量还比较多，但是在用<code>top</code>命令查看CPU和内存的时候发现了异常：<strong>某个进程CPU使用率达到了99%。</strong></p>
+<img src="/2019/04/30/docker-api-loophole/top.jpg">
+<p>当然这种情况对于我们公司的服务器来说也不是什么特别惊奇的事，因为我们通常会在服务器上执行一些计算任务，占用大量CPU也是很正常的事情。</p>
+<p>但由于这台服务器除了我几乎没有其他同事使用，而且进程命令行看不到，所以引起了我的怀疑。</p>
+<h1 id="验证——异常不止一处"><a href="#验证——异常不止一处" class="headerlink" title="验证——异常不止一处"></a>验证——异常不止一处</h1><h2 id="挖矿进程身份确认"><a href="#挖矿进程身份确认" class="headerlink" title="挖矿进程身份确认"></a>挖矿进程身份确认</h2><p>如此高的CPU使用率，让我想到的是最近流行的挖矿病毒。</p>
+<p>通过<code>netstat -anp</code>命令查看该进程是否建立了外部网络连接。</p>
+<img src="/2019/04/30/docker-api-loophole/netstat.jpg">
+<p>果然建立一个连接，指向 5.196.26.96 这个IP地址。在 <a href="https://www.ipip.net/ip.html" target="_blank" rel="noopener">https://www.ipip.net/ip.html</a> 查询一下该IP地址，指向国外某地。</p>
+<p>进一步验证了我的猜测。<strong>因为国内的服务器有严格的备案管理机制，所以很多攻击者都会将服务器部署到国外。</strong></p>
+<img src="/2019/04/30/docker-api-loophole/ip.jpg">
+<p>为了进一步确认，再次到威胁情报平台进行查询 <a href="https://x.threatbook.cn/ip/5.196.26.96" target="_blank" rel="noopener">https://x.threatbook.cn/ip/5.196.26.96</a> 。</p>
+<img src="/2019/04/30/docker-api-loophole/threat.jpg">
+<p>平台也给出了威胁警告，可以大胆的推定这就是一个挖矿进程。</p>
+<p>当然如果想进一步确认，可以提取执行文件的md5值到相关网站进行辨认。</p>
+<p>挖矿程序从哪里来？</p>
+<p>挖矿程序一般都是由木马下载脚本然后执行，所以用<code>history</code>命令检查一下下载行为。</p>
+<img src="/2019/04/30/docker-api-loophole/history.jpg">
+<p>没有找到可疑的下载，很可能黑客清除了操作记录或者是通过别的途径下载。</p>
+<p>为了进一步排除可能有其它病毒程序作为守护进程定时启动或者开机启动挖矿进程，检查一下crontab配置信息。</p>
+<p>也未找到新添加的可疑文件，所以黑客应该并没有设置定时任务。</p>
+<p>同时也未找到可疑的开机启动项配置。</p>
+<h2 id="可疑的镜像与容器"><a href="#可疑的镜像与容器" class="headerlink" title="可疑的镜像与容器"></a>可疑的镜像与容器</h2><p>到了这一步，线索中断。只能换个角度思考了~</p>
+<p>据管理员说平时这台服务器很少使用，而且使用的是强密码，密码泄露的可能性很小。</p>
+<p>再结合我部署的容器停止时间进行分析，应该是在我部署完成后几小时内服务器被入侵的。</p>
+<p>所以怀疑很可能和我的操作有关系。</p>
+<p>在使用docker命令进行查找的时候又发现了新的情况。</p>
+
+<p>一些容器使用了未知镜像(heybb/theimg2)或者使用了非官方的镜像(zoolu/ubuntu)。</p>
+<p>上docker hub上搜索这些镜像，都找不到Dockerfile，也无readme之类的说明。而且上传时间都很新，但是下载量增长却很快。</p>
+<p>这就奇怪了，这种既无说明，命名也十分怪异的镜像竟然会被多次下载，所以可以推断就是黑客上传的携带木马的镜像。</p>
+<p>再利用<code>docker inspect</code>命令查看这些容器，发现该容器并没有通过挂载目录的方式写入系统文件，而是会执行一个 mac.sh 的脚本文件。</p>
+<img src="/2019/04/30/docker-api-loophole/entrypoint.jpg">
+<p>用<code>cat</code>命令查看该文件，只有一行命令</p>
+<img src="/2019/04/30/docker-api-loophole/mac.jpg">
+<p>显然这是在挖门罗币。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>现在发现<strong>不止一个黑客入侵了服务器</strong>，有的黑客部署了挖矿容器，有的黑客部署了挖矿进程并删除了记录。</p>
+<h1 id="处理——清除进程，关闭漏洞"><a href="#处理——清除进程，关闭漏洞" class="headerlink" title="处理——清除进程，关闭漏洞"></a>处理——清除进程，关闭漏洞</h1><p>首要任务当然是清除挖矿进程和容器，以及对应的执行文件和镜像。</p>
+<p>当然这只是治标不治本的方法。</p>
+<p>要从根本上解决问题需要进行溯源分析，避免服务器再次被入侵。</p>
+<p>结合以上线索以及个人经验分析，很可能利用Docker的漏洞进行入侵的。</p>
+<p>我在部署容器的时候启动 Docker remote API 服务，很可能这个服务暴露到了公网上，立即在浏览器中输入服务器IP地址和对应端口，果然可以访问！</p>
+<p>原来服务器运营商并没有提供默认的防火墙服务，机器上的端口是直接暴露在公网上的。</p>
+<p>黑客入侵的途径也基本上可以猜测了，通过 Docker remote API 服务器操作容器，将带有挖矿进程的容器部署到服务器上。</p>
+<p>或者将挖矿程序通过目录挂载的方式拷贝到服务器上，以某种方式触发并执行。</p>
+<p>要修复这个漏洞也很简单，停止对外暴露服务。</p>
+<h1 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h1><p>网络安全其实是一个很重要的课题，但是开发人员很多时候都缺乏对其足够重视。</p>
+<p>针对这次事件，总结了几个经验：</p>
+<h2 id="除了一些-web-服务（http-https），不要使用默认端口。"><a href="#除了一些-web-服务（http-https），不要使用默认端口。" class="headerlink" title="除了一些 web 服务（http/https），不要使用默认端口。"></a>除了一些 web 服务（http/https），不要使用默认端口。</h2><p>黑客的入侵操作一般都是自动化的、批量的。</p>
+<p>操作是使用端口扫描工具，对特定的默认端口扫描。</p>
+<p>比如本例中肯定是扫描到本服务器的 2375 端口（2375是Docker remote API的默认端口）之后进行攻击的。</p>
+<p>这个原理其实有点像打电话诈骗，用一些很低级的骗术把容易受骗的人群筛选出来。</p>
+<p>所以我们平常在编写程序时尽量避免使用默认端口。</p>
+<h2 id="不要通过绑定-0-0-0-0-的方式暴露本不需要对外提供访问的服务。"><a href="#不要通过绑定-0-0-0-0-的方式暴露本不需要对外提供访问的服务。" class="headerlink" title="不要通过绑定 0.0.0.0 的方式暴露本不需要对外提供访问的服务。"></a>不要通过绑定 0.0.0.0 的方式暴露本不需要对外提供访问的服务。</h2><p>之前在启动 Docker remote API 服务时监听 0.0.0.0 IP，是因为看到很多网上教程都是如此配置，但其实存在了很大的安全隐患。（<strong>把事情做好</strong>和<strong>把事情做完</strong>区别真的很大！）</p>
+<p>其实该服务在使用中并不需要提供给外网，实际上只要监听子网IP就够了。比如 127.0.0.1、 172.17.0.1。</p>
+<h2 id="尽可能多的考虑非正常情况"><a href="#尽可能多的考虑非正常情况" class="headerlink" title="尽可能多的考虑非正常情况"></a>尽可能多的考虑非正常情况</h2><p>在开发的时候我们除了考虑程序正常的输入输出之外，还需要假设一些特殊的情况来进行测试。</p>
+<p>下面是开发者和黑客的思维方式区别：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">开发者：A -&gt; 程序 -&gt; B</div><div class="line"></div><div class="line">黑客：S -&gt; 程序 -&gt; ?</div></pre></td></tr></table></figure>
+<p>开发者考虑的是保证输入A，就可以得到B。黑客很多时候会输入开发者未考虑的S，从而发现bug或漏洞。</p>
+<h2 id="使用防火墙限制端口访问。"><a href="#使用防火墙限制端口访问。" class="headerlink" title="使用防火墙限制端口访问。"></a>使用防火墙限制端口访问。</h2><p>网络服务，防火墙很重要。</p>
+<p>这次的入侵和<strong>云服务器厂商都会自带防火墙</strong>的思维定势有关系。</p>
+<h2 id="通过证书验证访问者的身份。"><a href="#通过证书验证访问者的身份。" class="headerlink" title="通过证书验证访问者的身份。"></a>通过证书验证访问者的身份。</h2><p>对于需要提供对外访问的服务，使用身份验证也是一种有效避免攻击的手段。</p>
+<p>例如Docker就支持TLS证书来验证服务端和客户端的身份。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>排查入侵木马的过程很像扮演一个侦探，通过犯罪现场的蛛丝马迹找到凶手以及行凶手法。</p>
+<p>还好当初在发现问题的时候并没有马上采取重装系统这种简单粗暴的方式解决问题，不然漏洞依旧存在，服务器依然会被攻击。</p>
+<p>关于更多更权威网络安全的知识可以参考<a href="https://www.owasp.org/index.php/Top_10-2017_Top_10" target="_blank" rel="noopener">《OWASP TOP10 2017》</a>，里面有最常见的10类漏洞以及防御措施。</p>
+<p>像本文中的Docker远程未授权漏洞以及类似的redis未授权漏洞都属于 OWASP TOP 10 中的漏洞。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Docker/" rel="tag"># Docker</a>
+          
+            <a href="/tags/网络安全/" rel="tag"># 网络安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/31/test-speed/" rel="next" title="多个跨云服务器之间满带宽测速的一种实现方案">
+                <i class="fa fa-chevron-left"></i> 多个跨云服务器之间满带宽测速的一种实现方案
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/21/mxgraph-knowledge-point/" rel="prev" title="mxGraph使用经验总结">
+                mxGraph使用经验总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#发现——自动停止的容器"><span class="nav-number">1.</span> <span class="nav-text">发现——自动停止的容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#验证——异常不止一处"><span class="nav-number">2.</span> <span class="nav-text">验证——异常不止一处</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#挖矿进程身份确认"><span class="nav-number">2.1.</span> <span class="nav-text">挖矿进程身份确认</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可疑的镜像与容器"><span class="nav-number">2.2.</span> <span class="nav-text">可疑的镜像与容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">2.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#处理——清除进程，关闭漏洞"><span class="nav-number">3.</span> <span class="nav-text">处理——清除进程，关闭漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#建议"><span class="nav-number">4.</span> <span class="nav-text">建议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#除了一些-web-服务（http-https），不要使用默认端口。"><span class="nav-number">4.1.</span> <span class="nav-text">除了一些 web 服务（http/https），不要使用默认端口。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不要通过绑定-0-0-0-0-的方式暴露本不需要对外提供访问的服务。"><span class="nav-number">4.2.</span> <span class="nav-text">不要通过绑定 0.0.0.0 的方式暴露本不需要对外提供访问的服务。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#尽可能多的考虑非正常情况"><span class="nav-number">4.3.</span> <span class="nav-text">尽可能多的考虑非正常情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用防火墙限制端口访问。"><span class="nav-number">4.4.</span> <span class="nav-text">使用防火墙限制端口访问。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过证书验证访问者的身份。"><span class="nav-number">4.5.</span> <span class="nav-text">通过证书验证访问者的身份。</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mxGraph," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="web学习社" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="mxGraph是一个支持多种语言（Java、JavaScript、PHP、.NET）的画图框架，所绘制的图形可以在主流浏览器以及原生应用上使用。mxGraph官方资料全英文，网上有几篇mxGraph的教程，对于“入门”和“使用”讲解得比较详细。所以这篇文章不是介绍如何画一个图形，写一个hello world，而是重点介绍学习mxGraph时觉得比较重要的、难以理解的或者容易被忽略的知识点。需要读者">
+<meta name="keywords" content="mxGraph">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mxGraph使用经验总结">
+<meta property="og:url" content="http://yalishizhude.com/2019/05/21/mxgraph-knowledge-point/index.html">
+<meta property="og:site_name" content="web学习社">
+<meta property="og:description" content="mxGraph是一个支持多种语言（Java、JavaScript、PHP、.NET）的画图框架，所绘制的图形可以在主流浏览器以及原生应用上使用。mxGraph官方资料全英文，网上有几篇mxGraph的教程，对于“入门”和“使用”讲解得比较详细。所以这篇文章不是介绍如何画一个图形，写一个hello world，而是重点介绍学习mxGraph时觉得比较重要的、难以理解的或者容易被忽略的知识点。需要读者">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yalishizhude.com/2019/05/21/mxgraph-knowledge-point/vis.png">
+<meta property="og:image" content="http://yalishizhude.com/2019/05/21/mxgraph-knowledge-point/interaction.png">
+<meta property="og:image" content="http://yalishizhude.com/2019/05/21/mxgraph-knowledge-point/layout.png">
+<meta property="og:updated_time" content="2019-05-25T06:20:53.257Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mxGraph使用经验总结">
+<meta name="twitter:description" content="mxGraph是一个支持多种语言（Java、JavaScript、PHP、.NET）的画图框架，所绘制的图形可以在主流浏览器以及原生应用上使用。mxGraph官方资料全英文，网上有几篇mxGraph的教程，对于“入门”和“使用”讲解得比较详细。所以这篇文章不是介绍如何画一个图形，写一个hello world，而是重点介绍学习mxGraph时觉得比较重要的、难以理解的或者容易被忽略的知识点。需要读者">
+<meta name="twitter:image" content="http://yalishizhude.com/2019/05/21/mxgraph-knowledge-point/vis.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yalishizhude.com/2019/05/21/mxgraph-knowledge-point/"/>
+
+
+
+
+
+  <title>mxGraph使用经验总结 | web学习社</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">web学习社</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2019/05/21/mxgraph-knowledge-point/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="web学习社">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mxGraph使用经验总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-21T01:52:06+08:00">
+                2019-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>mxGraph是一个支持多种语言（Java、JavaScript、PHP、.NET）的画图框架，所绘制的图形可以在主流浏览器以及原生应用上使用。<br>mxGraph官方资料全英文，网上有几篇mxGraph的教程，对于“入门”和“使用”讲解得比较详细。<br>所以这篇文章不是介绍如何画一个图形，写一个hello world，而是重点介绍学习mxGraph时觉得比较重要的、难以理解的或者容易被忽略的知识点。<br>需要读者对mxGraph的文档有一定的了解或者使用mxGraph。</p>
+<a id="more"></a>
+<h1 id="mxGraph的使用场景"><a href="#mxGraph的使用场景" class="headerlink" title="mxGraph的使用场景"></a>mxGraph的使用场景</h1><p>mxGraph的使用场景有4个：图形可视化、图形交互、图形布局、图形分析。</p>
+<h2 id="图形可视化"><a href="#图形可视化" class="headerlink" title="图形可视化"></a>图形可视化</h2><p>图形可视化是mxGraph的主打功能，这个很好理解，就是把一些抽象的概念用图形来表示，比如常见的流程图、思维导图、实体关系图等。<br><strong>需要注意的是mxGraph所绘制的图主要是由“点”（也包括矩形、圆形这类基本形状）和“边”组成的</strong>，如果要用mxGraph来画蒙娜丽莎那就肯定是不合适的。<br>下图是官方提供的一张样图。<br>作者猜测实现方式是用世界地图作为背景图片，然后在此之上绘制点和线。<br>为了验证猜测，访问了官方示例提供的<a href="http://www.world-maps.co.uk" target="_blank" rel="noopener">网站</a>,发现是一张jpg图片，而且没有连线。<br>可能是后端生成导出的位图，或者源图片已经被网站替换了。</p>
+<img src="/2019/05/21/mxgraph-knowledge-point/vis.png">
+<h2 id="图形交互"><a href="#图形交互" class="headerlink" title="图形交互"></a>图形交互</h2><p>mxGraph除了绘制图形之外还提供了丰富的编辑功能，比如拖拽、选择、复制、调整大小等。<br>mxGraph甚至还专门提供了一个API类用来支持在线编辑器。<br>关于这一块我没有使用~</p>
+<img src="/2019/05/21/mxgraph-knowledge-point/interaction.png">
+<h2 id="图形布局"><a href="#图形布局" class="headerlink" title="图形布局"></a>图形布局</h2><p>非常重要的一个功能，能自动排列图形元素。<br>mxGraph提供了多种布局方式，比如树形布局、栈式布局、圆形布局。<br>这一块后面重点介绍。</p>
+<img src="/2019/05/21/mxgraph-knowledge-point/layout.png">
+<h2 id="图形分析"><a href="#图形分析" class="headerlink" title="图形分析"></a>图形分析</h2><p>支持图相关的算法分析，比如找出图中两个节点的最短路径。<br>关于这一块我没有使用~<br>不过我没有找到相关API，估计需要开发者自己实现相关算法。</p>
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>学习新技术或框架的时候首先需要弄清楚它是什么，能做什么。<br>如果和要实现的功能匹配再继续学习研究。</p>
+<h1 id="mxGraph的绘图方式"><a href="#mxGraph的绘图方式" class="headerlink" title="mxGraph的绘图方式"></a>mxGraph的绘图方式</h1><p>前端绘制图形有3种方式：</p>
+<ol>
+<li>HTML + CSS。</li>
+<li>canvas。</li>
+<li>svg。</li>
+</ol>
+<h2 id="HTML-CSS"><a href="#HTML-CSS" class="headerlink" title="HTML+ CSS"></a>HTML+ CSS</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>前端工程师最熟悉最常用的方式，开发起来非常简单。</li>
+<li>借助CSS3可以实现炫酷的动画效果。</li>
+</ul>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>非常依赖浏览器环境，如果要迁移到原生应用上或者客户端就会比较麻烦。</li>
+<li>HTML、CSS没有合适的模块机制，所以图形的复用也不方便。</li>
+</ul>
+<h2 id="canvas"><a href="#canvas" class="headerlink" title="canvas"></a>canvas</h2><p>canvas使用也比较广泛，比如百度的著名开源项目echarts就是通过canvas来绘制各种图形。</p>
+<h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>强大的API，可以实现复杂的图形和效果。</li>
+<li>渲染速度快，可以利用显卡加速。</li>
+</ul>
+<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>也非常依赖浏览器环境，而且低版本的浏览器不支持。</li>
+<li>代码逻辑比较复杂。</li>
+<li>不方便保存和导出。</li>
+</ul>
+<h2 id="svg"><a href="#svg" class="headerlink" title="svg"></a>svg</h2><h3 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>宽泛的运行环境。浏览器、绘图工具、编辑器里都可以正常显示。</li>
+<li>良好的可编辑性。svg可以在前端通过JavaScript修改，也可以通过后端语言修改，还可以让设计师通过软件修改。</li>
+<li>使用简单。svg是xml的语法，没有复杂的逻辑，全都是配置出来</li>
+<li>矢量图。相对于位图，无分辨率要求，缩放清晰。</li>
+</ul>
+<h3 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>复杂图形渲染速度较慢。</li>
+</ul>
+<h2 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h2><p>mxGraph默认绘制的是svg图形（看API文档和源码发现也支持canvas），所以支持后端语言进行预渲染，同时也支持保存和导出，转化为位图也非常方便。<br>理解了这一点，对我们了解mxGraph的功能特性，以及修改源代码都会有帮助。</p>
+<h1 id="mxGraph的核心概念cell"><a href="#mxGraph的核心概念cell" class="headerlink" title="mxGraph的核心概念cell"></a>mxGraph的核心概念cell</h1><p>cell这个概念可以理解成为双向数据绑定中的数据模型，我们需要修改图形的时候，应该通过mxGraph提供的API来修改mxCell实例的属性，然后mxGraph的绘图函数来根据数据模型来修改视图。<br>mxGraph的其他很多概念都是以cell作为基础的：样式、布局、内容文本、事件、位置……</p>
+<h2 id="误区"><a href="#误区" class="headerlink" title="误区"></a>误区</h2><ol>
+<li>前面提到mxGraph的图形分为两类：vertex（点）和edge（边），但实际上它们都属于mxCell类的实例，只是一些属性值不同而已。</li>
+<li>官方文档提供的<code>beginUpdate</code>和<code>endUpdate</code>函数，写法上和数据库的事务提交很像，也有文章说是进行批量处理，实际上只是为了避免多次触发而合并了change事件而已，如果不使用这两个函数不会对绘图结果产生什么影响。至于回滚什么的那是想多了。</li>
+</ol>
+<h1 id="mxGraph的布局算法"><a href="#mxGraph的布局算法" class="headerlink" title="mxGraph的布局算法"></a>mxGraph的布局算法</h1><p>不少开发者看到“算法”这个词就会犯怵，觉得很复杂、难以理解。<br>但其实mxGraph的布局算法并没有那么难以理解。</p>
+<ul>
+<li>所有的布局算法类都是“继承”自基类mxGraphLayout，自定义了一些属性，同时实现API函数execute，mxGraph在绘制图形的时候会调用这个函数。</li>
+<li>布局算法只涉及到vertex（点）的操作，当vertex（点）被调整之后，mxGraph会自动调整它们之间edge（边）的关系，或是显示隐藏或是弯曲。</li>
+<li>如果需要绘制大量的图形容易造成性能问题，不应该在算法中实现这。而可以借助mxGraph提供的几种默认方式实现：1.折叠/展开；2. 钻取/弹出；3.分层过滤显示</li>
+</ul>
+<h1 id="mxGraph的定制化"><a href="#mxGraph的定制化" class="headerlink" title="mxGraph的定制化"></a>mxGraph的定制化</h1><p>很多时候我们还需要对mxGraph绘制的图形进行定制化开发，主要为下面几点。</p>
+<h2 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h2><p>mxGraph对样式的支持是非常不完善的。</p>
+<ul>
+<li>首先不支持使用css，。这样也就意味着无法使用样式继承，样式类这些特性了。</li>
+<li>修改的时候需要通过API函数，传入JSON对象。</li>
+<li>mxGraph内部操作样式的时候并没有使用defs标签来声明样式类，而是直接修改标签的style、fill这些属性。这样会导致很多重复样式代码，同时不方便样式覆盖。</li>
+</ul>
+<p>例如下面的代码是用来实现一个高亮样式的，如果支持CSS样式类，我们只需要写个高亮样式，增删类名即可。<br>但是mxgraph就比较麻烦，要写成对象，同时在取消高亮时要手动清除对应属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">var common_highlight = &#123;&#125;</div><div class="line">common_highlight[mxConstants.STYLE_FONTSTYLE] = mxConstants.FONT_BOLD</div><div class="line">var vertex_highlight = Object.assign(&#123;&#125;, common_highlight)</div><div class="line">vertex_highlight[mxConstants.STYLE_FILLCOLOR] = &apos;#00ffff&apos;</div><div class="line">var edge_highlight = Object.assign(&#123;&#125;, common_highlight)</div><div class="line">edge_highlight[mxConstants.STYLE_STROKECOLOR] = &apos;#00ffff&apos;</div><div class="line">if (hover) &#123;</div><div class="line">  if (!state.styleList) &#123;</div><div class="line">    if (state.cell.edge) &#123;</div><div class="line">      state.styleList = new mxStylesheetList(Object.assign(&#123;&#125;, graph.getStylesheet().styles.defaultEdge, state.style));</div><div class="line">    &#125; else if (state.cell.vertex) &#123;</div><div class="line">      state.styleList = new mxStylesheetList(Object.assign(&#123;&#125;, graph.getStylesheet().styles.defaultVertex,</div><div class="line">        state.style));</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  if (state.cell.vertex &amp;&amp; state.cell.value) &#123;</div><div class="line">    state.styleList.add(&apos;highlight&apos;, vertex_highlight);</div><div class="line">  &#125;</div><div class="line">  if (state.cell.edge) &#123;</div><div class="line">    state.styleList.add(&apos;highlight&apos;, edge_highlight);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125; else &#123;</div><div class="line">  state.styleList.remove(&apos;highlight&apos;);</div><div class="line">&#125;</div><div class="line">state.style = state.styleList.get();</div><div class="line">state.shape.apply(state);</div><div class="line">state.shape.redraw();</div><div class="line">if (state.text != null) &#123;</div><div class="line">  state.text.apply(state);</div><div class="line">  state.text.redraw();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="HTML元素"><a href="#HTML元素" class="headerlink" title="HTML元素"></a>HTML元素</h2><p>mxGraph一个强大之处是支持在svg中插入HTML元素，官方给出的examples中有个htmllabel.html实现了类似功能。<br>概括地说两步实现：</p>
+<ol>
+<li>在创建点的时候插入一个 UserObject 对象声明，表明此处可以插入DOM元素。</li>
+<li>重载 convertValueToString 函数，返回DOM元素。</li>
+</ol>
+<p>相关代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var obj = doc.createElement(&apos;UserObject&apos;);</div><div class="line">obj.setAttribute(&apos;label&apos;, &apos;FASTQ files&apos;);</div><div class="line">var v1 = graph.insertVertex(col[0], null, obj, 0, 0, width, height)</div><div class="line">...</div><div class="line">graph.convertValueToString = function (cell) &#123;</div><div class="line">  let div = document.createElement(&apos;div&apos;)</div><div class="line">  ...</div><div class="line">  return div;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="边"><a href="#边" class="headerlink" title="边"></a>边</h2><p>mxGraph的边都是自动绘制的，API支持对边的样式修改，比如箭头、粗细等。<br>边绘制成折线的时候为两种形式，默认是通过贝塞尔曲线绘制成带圆角的折线，另一种是直角折线。<br>mxGraph内部并没有对这些边进行优化，如果布局不合理，交叉、穿过点的情况就会发生。<br>在开发中我对边的绘制方式进行了小小的修改，统一改为直接使用三次贝塞尔曲线连接，具体代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">// shap/mxShap.js</div><div class="line">mxShape.prototype.addPoints = function(c, pts, rounded, arcSize, close, exclude, initialMove)</div><div class="line">&#123;</div><div class="line">	if (pts != null &amp;&amp; pts.length &gt; 0)</div><div class="line">	&#123;</div><div class="line">		initialMove = (initialMove != null) ? initialMove : true;</div><div class="line">		var pe = pts[pts.length - 1];</div><div class="line">		</div><div class="line">		// Adds virtual waypoint in the center between start and end point</div><div class="line">		if (close &amp;&amp; rounded)</div><div class="line">		&#123;</div><div class="line">			pts = pts.slice();</div><div class="line">			var p0 = pts[0];</div><div class="line">			var wp = new mxPoint(pe.x + (p0.x - pe.x) / 2, pe.y + (p0.y - pe.y) / 2);</div><div class="line">			pts.splice(0, 0, wp);</div><div class="line">		&#125;</div><div class="line">	</div><div class="line">		var pt = pts[0];</div><div class="line">		var i = 1;</div><div class="line">	</div><div class="line">		// Draws the line segments</div><div class="line">		if (initialMove)</div><div class="line">		&#123;</div><div class="line">			c.moveTo(pt.x, pt.y);</div><div class="line">		&#125;</div><div class="line">		else</div><div class="line">		&#123;</div><div class="line">			c.lineTo(pt.x, pt.y);</div><div class="line">    &#125;</div><div class="line">    const midX = pt.x / 2 + pe.x / 2</div><div class="line">    // 调用内置函数绘制三次贝塞尔曲线</div><div class="line">    c.curveTo(midX, pt.y, midX, pe.y, pe.x, pe.y)</div><div class="line">    // 忽略后面绘制折线的代码</div><div class="line">    return;</div><div class="line">    //...</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>参考：</p>
+<ul>
+<li><a href="https://jgraph.github.io/mxgraph/docs/tutorial.html" target="_blank" rel="noopener">《mxGraph Tutorial》</a></li>
+<li><a href="https://jgraph.github.io/mxgraph/docs/manual.html#1.2" target="_blank" rel="noopener">《mxGraph User Manual – JavaScript Client》</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mxGraph/" rel="tag"># mxGraph</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/30/docker-api-loophole/" rel="next" title="道路千万条，安全第一条——一次服务器被入侵的处理经过">
+                <i class="fa fa-chevron-left"></i> 道路千万条，安全第一条——一次服务器被入侵的处理经过
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mxGraph的使用场景"><span class="nav-number">1.</span> <span class="nav-text">mxGraph的使用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图形可视化"><span class="nav-number">1.1.</span> <span class="nav-text">图形可视化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图形交互"><span class="nav-number">1.2.</span> <span class="nav-text">图形交互</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图形布局"><span class="nav-number">1.3.</span> <span class="nav-text">图形布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图形分析"><span class="nav-number">1.4.</span> <span class="nav-text">图形分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">1.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mxGraph的绘图方式"><span class="nav-number">2.</span> <span class="nav-text">mxGraph的绘图方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML-CSS"><span class="nav-number">2.1.</span> <span class="nav-text">HTML+ CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">2.1.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">2.1.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#canvas"><span class="nav-number">2.2.</span> <span class="nav-text">canvas</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#svg"><span class="nav-number">2.3.</span> <span class="nav-text">svg</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-2"><span class="nav-number">2.3.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结-1"><span class="nav-number">2.4.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mxGraph的核心概念cell"><span class="nav-number">3.</span> <span class="nav-text">mxGraph的核心概念cell</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#误区"><span class="nav-number">3.1.</span> <span class="nav-text">误区</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mxGraph的布局算法"><span class="nav-number">4.</span> <span class="nav-text">mxGraph的布局算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mxGraph的定制化"><span class="nav-number">5.</span> <span class="nav-text">mxGraph的定制化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#样式"><span class="nav-number">5.1.</span> <span class="nav-text">样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML元素"><span class="nav-number">5.2.</span> <span class="nav-text">HTML元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边"><span class="nav-number">5.3.</span> <span class="nav-text">边</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

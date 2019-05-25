@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js,web," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="web学习社" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="首先感谢React、Vue、Angular、Cycle、JQuery 等这些第三方js为开发带来的便利。  以下将Vue、React这类常用的框架（库）统称为“第三方js”。">
+<meta name="keywords" content="js,web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="抛开 Vue、React、JQuery 这类第三方js，我们该怎么写代码？">
+<meta property="og:url" content="http://yalishizhude.com/2018/11/14/web-components/index.html">
+<meta property="og:site_name" content="web学习社">
+<meta property="og:description" content="首先感谢React、Vue、Angular、Cycle、JQuery 等这些第三方js为开发带来的便利。  以下将Vue、React这类常用的框架（库）统称为“第三方js”。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yalishizhude.com/2018/11/14/web-components/node_modules.png">
+<meta property="og:image" content="http://yalishizhude.com/2018/11/14/web-components/shadowdom.png">
+<meta property="og:updated_time" content="2018-11-18T15:48:00.473Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="抛开 Vue、React、JQuery 这类第三方js，我们该怎么写代码？">
+<meta name="twitter:description" content="首先感谢React、Vue、Angular、Cycle、JQuery 等这些第三方js为开发带来的便利。  以下将Vue、React这类常用的框架（库）统称为“第三方js”。">
+<meta name="twitter:image" content="http://yalishizhude.com/2018/11/14/web-components/node_modules.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yalishizhude.com/2018/11/14/web-components/"/>
+
+
+
+
+
+  <title>抛开 Vue、React、JQuery 这类第三方js，我们该怎么写代码？ | web学习社</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">web学习社</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2018/11/14/web-components/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="web学习社">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">抛开 Vue、React、JQuery 这类第三方js，我们该怎么写代码？</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T21:06:41+08:00">
+                2018-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>首先感谢React、Vue、Angular、Cycle、JQuery 等这些第三方js为开发带来的便利。</em></p>
+<blockquote>
+<p>以下将Vue、React这类常用的框架（库）统称为“第三方js”。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="第三方js的现状"><a href="#第三方js的现状" class="headerlink" title="第三方js的现状"></a>第三方js的现状</h1><p>无论是新入行的小白还是有经验的开发者，前端圈里的人一定听过这类第三方js的大名。<br>一方面是因为它们实在太火了：</p>
+<ul>
+<li>各种文章对框架进行对比、源码解析以。</li>
+<li>GitHub 上 star 数量高速增长。</li>
+<li>各种针对框架的培训课程层出不穷。</li>
+<li>……</li>
+</ul>
+<p>另一方面是因为用它们开发非常方便：</p>
+<ul>
+<li>利用脚手架工具几行命令就可以快速搭建项目。</li>
+<li>减少大量的重复代码，结构更加清晰，可读性强。</li>
+<li>有丰富的UI库和插件库。</li>
+<li>……</li>
+</ul>
+<p>但是一则 GitHub 放弃使用 JQuery 的消息让我开始思考：</p>
+<p><strong>第三方js除了带来便利之外还有哪些副作用？</strong><br><strong>抛弃第三方js我们还能写出高效的代码吗？</strong></p>
+<h1 id="第三方js的副作用"><a href="#第三方js的副作用" class="headerlink" title="第三方js的副作用"></a>第三方js的副作用</h1><h2 id="雪球滚起来"><a href="#雪球滚起来" class="headerlink" title="雪球滚起来"></a>雪球滚起来</h2><p>如果现在让你开发一个项目，你会怎么做？<br>假设你熟悉的是React，那么用可以用<code>create-react-app</code>快速搭建一个项目。</p>
+<ul>
+<li>很好，react、react-dom、react-router-dom 已经写入了package.json，不过事情还没完。</li>
+<li>http请求怎么处理呢？引入axios吧。</li>
+<li>日期怎么处理？引入 moment 或 day 吧。</li>
+<li>……</li>
+</ul>
+<p>要知道，这种“拿来主义”是会“上瘾”的，所以第三方依赖就像一个滚动的雪球，随着开发不断增加，最后所占体积越来越大。<br>如果用 <code>webpack-bundle-analyzer</code> 工具来分析项目的话，会发现项目代码大部分体积都在<code>node_modules</code>目录中，也就意味着都是第三方js，典型的二八定律（80%的源代码只占了编译后体积的20%）。</p>
+<p>类似下面这张图：</p>
+<img src="/2018/11/14/web-components/node_modules.png">
+<p>于是不得不开始优化，比如治标不治本的<code>code split</code>（代码体积并没有减小，只是拆分了），比如万试万难灵的<code>tree shaking</code>（你确定shaking之后的代码都只有你真正依赖的代码？），优化效果有限不说，更糟糕的是依赖的捆绑。<br>比如<code>ant-design</code>的模块的日期组件依赖了<code>moment</code>，那我们在使用它的时候<code>moment</code>就被引入了。<br>而且我即使发现体积更小的<code>dayjs</code>可以基本取代<code>moment</code>的功能，也不敢引入，因为替换它日期组件会出问题，同时引入又增加了项目体积。</p>
+<p>有些第三方js被合称之为“全家桶”，这种叫法让我想起了现在PC端的一些工具软件，本来你只想装一个电脑管家，结果它不断弹窗提示你电脑不安全，建议你安装一个杀毒软件，又提示你软件很久没更新，提示你安装某某软件管家…..<br>本来只想装一个，结果装了全家。</p>
+<h2 id="工具驯化"><a href="#工具驯化" class="headerlink" title="工具驯化"></a>工具驯化</h2><p>如果你注意观察，在这些第三方js的使用者中，会看到这样一些现象：</p>
+<ul>
+<li>排他。一些使用 MV* 框架的开发者很喜欢站队进行讨论，比如喜欢用 VueJS 的开发者很可能会吐槽 ReactJS，喜欢 Angular 的开发者会喷 VueJS。</li>
+<li>浮躁。一些经验并不丰富的开发者会觉得：使用JavaScript操作DOM多么低效，直接来个第三方js双向数据绑定好了。自己写XMLHTTPRequest发送请求多么麻烦，来第三方js直接调用好了。</li>
+<li>局限。一些面试者以为自己熟悉某种第三方js之后就觉得自己技术不错（甚至很多时候这种“熟悉”还要打上引号），大有掌握了某种第三方js就掌握了前端之意。</li>
+</ul>
+<p>这些第三方js本来是为了提升开发效率的工具，却不知不觉地把开发者驯化了，让其产生了依赖。<br>如果每次让你开发新项目，你不得不依赖第三方js提供的脚手架来搭建项目，然后才能开始写代码。<br>那么很可能你已经形成工具思维，就像手里拿着锤子，是什么都是钉子，你处理问答的方式，看问题的角度很可能会受此局限。<br>同时也意味着你正在离底层原生编码越来越远，越不熟悉原生API，你就越只能依赖第三方js，如此循环往复。</p>
+<p><strong>怎么打破这种状况？</strong><br>先推荐张鑫旭的一篇文章<a href="https://www.zhangxinxu.com/life/2018/08/%E4%B8%8D%E7%A0%B4%E4%B8%8D%E7%AB%8B-%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" target="_blank" rel="noopener">《不破不立的哲学与个人成长》</a>，当然就是放弃它们。<br>这里需要注意的是，我所说的放弃并不是所有项目都自己写框架，这样在效率上而言是做不到的。<br>更推荐的而是在一些时间相对充裕、影响（规模）不大的项目中进行尝试。<br>比如开发某个公司内部使用的小工具，或者页面数量不多的时间不紧张（看个人开发速度）的小项目。</p>
+<p>用原生API进行开发的时候我们可以参考下面两条建议。</p>
+<h2 id="理解精髓"><a href="#理解精髓" class="headerlink" title="理解精髓"></a>理解精髓</h2><p>虽然我们不使用任何第三方js，但是其原理及实现我们是可以学习，比如你知道实现数据绑定的方式有脏值检测、以及<code>Object.defineProperty</code>，那么你在写代码的时候就可以使用它们，你会发现懂这些原理和真正使用起来还有不小的距离。<br>换个角度而言，这也可以进一步加深我们对第三方js的理解。</p>
+<p>当然我们的目的并不是为了再造一个山寨版的js，而是适当地结合、删减和优化已有的技术和思想，为业务定制最合适的代码。</p>
+<p>文中提到的第三方js受欢迎很重要的一个原因是因为对DOM操作进行了优化甚至是隐藏。<br>JQuery号称是DOM操作的利器，将DOM封装成JQ对象并扩展了API，而MV<em>框架取代JQuery的原因是因为在DOM操作这条路上做得更绝，直接屏蔽了底层操作，将数据映射到模板上。<br>如果这些MV</em>的思考方式还只是停留在DOM的层次上的话估计也无法发展到今天的规模。<br>因为屏蔽DOM只是简化了代码而已，要搭建大型项目还要考虑代码组织的问题，就是抽象和复用。<br>这些第三方js选择的方式就是“组件化”，把HTML、js和CSS封装在一个具有独立作用域的组件中，形成可复用的代码单元。</p>
+<p>下面我们通过不引入任何第三方js的情况下来进行实现。</p>
+<h1 id="无依赖实践"><a href="#无依赖实践" class="headerlink" title="无依赖实践"></a>无依赖实践</h1><h2 id="web-components"><a href="#web-components" class="headerlink" title="web components"></a>web components</h2><p>先来考虑组件化。<br>其实浏览器原生就支持组件化（web components），它由3个关键技术组成，我们先来快速了解一下。</p>
+<h3 id="Custom-elements（自定义元素）"><a href="#Custom-elements（自定义元素）" class="headerlink" title="Custom elements（自定义元素）"></a>Custom elements（自定义元素）</h3><p>一组js API，允许自定义元素及其行为，然后可以在您的用户界面中按照需要使用它们。<br>简单示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// 定义组件类</div><div class="line">class LoginForm extends HTMLElement &#123;</div><div class="line">  constructor() &#123;</div><div class="line">    super();</div><div class="line">    ...</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">// 注册组件</div><div class="line">customElements.define(&apos;login-form&apos;, LoginForm);</div><div class="line">&lt;!-- 使用组件 --&gt;</div><div class="line">&lt;login-form&gt;&lt;/login-form&gt;</div></pre></td></tr></table></figure>
+<h3 id="Shadow-DOM（影子DOM）"><a href="#Shadow-DOM（影子DOM）" class="headerlink" title="Shadow DOM（影子DOM）"></a>Shadow DOM（影子DOM）</h3><p>一组js API，创建一颗可见的DOM树，这棵树会附着到某个DOM元素上。<br>这棵树的根节点称之为shadow root，只有通过shadow root 才可以访问内部的shadow dom，并且外部的css样式也不会影响到shadow dom上。<br>相当于创建了一个独立的作用域。</p>
+<p>常见的shadow root可以通过浏览器的调试工具进行查看：</p>
+<img src="/2018/11/14/web-components/shadowdom.png">
+<p>简单示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// &apos;open&apos; 表示该shadow dom可以通过js 的函数进行访问</div><div class="line">const shadow = dom.attachShadow(&#123;mode: &apos;open&apos;&#125;)</div><div class="line">// 操作shadow dom</div><div class="line">shadow.appendChild(h1);</div></pre></td></tr></table></figure>
+<h3 id="HTML-templates（HTML模板）"><a href="#HTML-templates（HTML模板）" class="headerlink" title="HTML templates（HTML模板）"></a>HTML templates（HTML模板）</h3><p>HTML模板技术包含两个标签：<code>&lt;template&gt;</code>和 <code>&lt;slot&gt;</code>。<br>当需要在页面上重复使用同一个 DOM结构时，可以用 template 标签来包裹它们，然后进行复用。<br>slot标签让模板更加灵活，使得用户可以自定义模板中的某些内容。<br>简单示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;!-- template的定义 --&gt;</div><div class="line">&lt;template id=&quot;my-paragraph&quot;&gt;</div><div class="line">  &lt;p&gt;&lt;slot&gt;My paragraph&lt;/slot&gt;&lt;/p&gt;</div><div class="line">&lt;/template&gt;</div><div class="line">// template的使用</div><div class="line">let template = document.getElementById(&apos;my-paragraph&apos;);</div><div class="line">let templateContent = template.content;</div><div class="line">document.body.appendChild(templateContent);</div><div class="line"></div><div class="line">&lt;!-- 使用slot --&gt;</div><div class="line">&lt;my-paragraph&gt;</div><div class="line">  &lt;span slot=&quot;my-text&quot;&gt;Let&apos;s have some different text!&lt;/span&gt;</div><div class="line">&lt;/my-paragraph&gt;</div><div class="line">&lt;!-- 渲染结果 --&gt;</div><div class="line">&lt;p&gt;</div><div class="line">  &lt;span slot=&quot;my-text&quot;&gt;Let&apos;s have some different text!&lt;/span&gt;</div><div class="line">&lt;/p&gt;</div></pre></td></tr></table></figure>
+<p>MDN上还提供了一些简单的<a href="https://github.com/mdn/web-components-examples" target="_blank" rel="noopener">例子</a>。这里来一个完整的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">const str = `</div><div class="line">  &lt;style&gt;</div><div class="line">    p &#123;</div><div class="line">      color: white;</div><div class="line">      background-color: #666;</div><div class="line">      padding: 5px;</div><div class="line">    &#125;</div><div class="line">  &lt;/style&gt;</div><div class="line">  &lt;p&gt;&lt;slot name=&quot;my-text&quot;&gt;My default text&lt;/slot&gt;&lt;/p&gt;</div><div class="line">`</div><div class="line">class MyParagraph extends HTMLElement &#123;</div><div class="line">  constructor() &#123;</div><div class="line">    super();</div><div class="line">    const template = document.createElement(&apos;template&apos;);</div><div class="line">    template.innerHTML = str;</div><div class="line">    const templateContent = template.content;</div><div class="line">    this.attachShadow(&#123;mode: &apos;open&apos;&#125;).appendChild(</div><div class="line">      templateContent.cloneNode(true)</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">customElements.define(&apos;my-paragraph&apos;, MyParagraph);</div></pre></td></tr></table></figure>
+<h3 id="完整的组件"><a href="#完整的组件" class="headerlink" title="完整的组件"></a>完整的组件</h3><p>不过这样的组件功能还太弱了，因为很多时候组件之间是需要有交互的，比如父组件向子组件传递参数，子组件调用父组件回调函数。<br>因为它是HTML标签，所以很自然地想到通过属性来传递。而恰好组件也有生命周期函数来监听属性的变化，看似完美！<br>不过问题又来了，首先是性能问题，这样会增加对dom的读写操作。其次是数据类型问题，HTML标签上只能传递字符串这类简单的数据，而对于对象、数组、函数等这类复杂的数据就无能为力了。<br>你很可能想到对它们进行序列化和反序列化来实现，一来是弄得页面很不美观（想象一个长度为100的数组参数被序列化后的样子）。二来是操作复杂，不停地序列化和反序列化既容易出错也增加性能消耗。三来是一些数据无法被序列化，比如正则表达式、日期对象等。<br>好在我们可以通过选择器获取DOM实例来传递参数。但是这样的话就不可避免地操作DOM，这可不是个好的处理方式。<br>另一方面，就组件内部而言，如果我们需要动态地将一些数据显示到页面上也需要操作DOM。</p>
+<h4 id="组件内部视图与数据地通信"><a href="#组件内部视图与数据地通信" class="headerlink" title="组件内部视图与数据地通信"></a>组件内部视图与数据地通信</h4><p>将数据映射到视图我们可以采用数据绑定的形式来实现，而视图的变化影响到数据可以采用事件的绑定的形式。</p>
+<h5 id="数据绑定"><a href="#数据绑定" class="headerlink" title="数据绑定"></a>数据绑定</h5><p>怎么杨将视图和数据建立绑定关系，通常的做法是通过特定的模板语法来实现，比如说使用指令。<br>例如用<code>x-bind</code>指令来将数据体虫到视图的文本内容中。<br>脏值检测的机制在性能上有损耗我们不考虑，那么剩下的就是利用<code>Object.defineProperty</code>这种监听属性值变化的方式来实现。<br>同时需要注意的是，一个数据可以对应多个视图，所以不能直接监听，而是要建立一个队列来处理。<br>整理一下实现思路：</p>
+<ol>
+<li>通过选择器找出带有<code>x-bind</code>属性的元素，以及该属性的值，比如 <code>&lt;div x-bind=&quot;text&quot;&gt;&lt;/div&gt;</code> 的属性值是<code>text</code>。</li>
+<li>建立一个监听队列<code>dispatcher</code>保存属性值以及对应元素的处理函数。比如上面的元素监听的是<code>text</code>属性，处理函数是<code>this.textContent = value</code>;</li>
+<li>建立一个数据模型<code>state</code>，编写对应属性的set函数，当值发生变化时执行<code>dispatcher</code>中的函数。</li>
+</ol>
+<p>示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">// 指令选择器以及对应处理函数</div><div class="line">const map = &#123;</div><div class="line">  &apos;x-bind&apos;(value) &#123;</div><div class="line">    this.textContent = undefined === value ? &apos;&apos; : value;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">// 建立监听队列，监听数据对象属性值得变动，然后遍历执行函数</div><div class="line">for (const p in map) &#123;</div><div class="line">  forEach(this.qsa(`[$&#123;p&#125;]`), dom =&gt; &#123;</div><div class="line">    const property = attr(dom, p).split(&apos;.&apos;).shift();</div><div class="line">    this.dispatcher[property] = this.dispatcher[property] || [];</div><div class="line">    const fn = map[p].bind(dom);</div><div class="line">    fn(this.state[property]);</div><div class="line">    this.dispatcher[property].push(fn);</div><div class="line">  &#125;);</div><div class="line">&#125;</div><div class="line">for (const property in this.dispatcher) &#123;</div><div class="line">  defineProperty(property);</div><div class="line">&#125;</div><div class="line">// 监听数据对象属性</div><div class="line">const defineProperty = p =&gt; &#123;</div><div class="line">  const prefix = &apos;_s_&apos;;</div><div class="line">  Object.defineProperty(this.state, p, &#123;</div><div class="line">    get: () =&gt; &#123;</div><div class="line">      return this[prefix + p];</div><div class="line">    &#125;,</div><div class="line">    set: value =&gt; &#123;</div><div class="line">      if(this[prefix + p] !== value) &#123;</div><div class="line">        this.dispatcher[p].forEach(fun =&gt; fun(value, this[prefix + p]));</div><div class="line">        this[prefix + p] = value;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>这里不是操作了DOM了吗？<br>没关系，我们可以把DOM操作放入基类中，那么对于业务组件就不再需要接触DOM了。</p>
+<p>小结：<br>这里使用VueJS同样的数据绑定方式，但是由于数据对象属性只能有一个 set 函数，所以建立了一个监听队列来进行处理不同元素的数据绑定，这种队列遍历的方式和AngularJS脏值检测的机制有些类似，但是触发机制不同、数组长度更小。</p>
+<h5 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h5><p>事件的绑定思路比数据绑定更简单，直接在DOM元素上进行监听即可。<br>我们以<code>click</code>事件为例进行绑定，创建一个事件绑定的指令，比如<code>x-click</code>。<br>实现思路：</p>
+<ol>
+<li>利用DOM选择器找到带有<code>x-click</code>属性的元素。</li>
+<li>读取<code>x-click</code>属性值，这时候我们需要对属性值进行一下判断，因为属性值有可能是函数名比如<code>x-click=fn</code>，有可能是函数调用<code>x-click=fn(a, true)</code>。</li>
+<li>对于基础数据类型进行判断，比如布尔值、字符串，并加入到调用参数列表中。</li>
+<li>为DOM元素添加事件监听，当事件触发时调用对应函数，传入参数。</li>
+</ol>
+<p>示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">const map = [&apos;x-click&apos;];</div><div class="line">map.forEach(event =&gt; &#123;</div><div class="line">  forEach(this.qsa(`[$&#123;event&#125;]`), dom =&gt; &#123;</div><div class="line">    // 获取属性值</div><div class="line">    const property = attr(dom, event);</div><div class="line">    // 获取函数名</div><div class="line">    const fnName = property.split(&apos;(&apos;)[0];</div><div class="line">    // 获取函数参数</div><div class="line">    const params = property.indexOf(&apos;(&apos;) &gt; 0 ? property.replace(/.*\((.*)\)/, &apos;$1&apos;).split(&apos;,&apos;) : [];</div><div class="line">    let args = [];</div><div class="line">    // 解析函数参数</div><div class="line">    params.forEach(param =&gt; &#123;</div><div class="line">      const p = param.trim();</div><div class="line">      const str = p.replace(/^&apos;(.*)&apos;$/, &apos;$1&apos;).replace(/^&quot;(.*)&quot;$/, &apos;$1&apos;);</div><div class="line">      if (str !== p) &#123; // string</div><div class="line">        args.push(str);</div><div class="line">      &#125; else if (p === &apos;true&apos; || p === &apos;false&apos;) &#123; // boolean</div><div class="line">        args.push(p === &apos;true&apos;);</div><div class="line">      &#125; else if (!isNaN(p)) &#123;</div><div class="line">        args.push(p * 1);</div><div class="line">      &#125; else &#123;</div><div class="line">        args.push(this.state[p]);</div><div class="line">      &#125;</div><div class="line">    &#125;);</div><div class="line">    // 监听事件</div><div class="line">    on(event.replace(&apos;x-&apos;, &apos;&apos;), dom, e =&gt; &#123;</div><div class="line">      // 调用函数并传入参数</div><div class="line">      this[fnName](...params, e);</div><div class="line">    &#125;);</div><div class="line">  &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>对于表单控件的双向数据绑定也很容易，即在建立数据绑定修改value，然后建立事件绑定监听input事件即可。</p>
+<h4 id="组件与组件之间的通信"><a href="#组件与组件之间的通信" class="headerlink" title="组件与组件之间的通信"></a>组件与组件之间的通信</h4><p>解决完组件内部的视图与数据的映射问题我们来着手解决组件之间的通信问题。<br>组件需要提供一个属性对象来接收参数，我们设定为<code>props</code>。</p>
+<h5 id="父-gt-子，数据传递"><a href="#父-gt-子，数据传递" class="headerlink" title="父=&gt;子，数据传递"></a>父=&gt;子，数据传递</h5><p>父组件要将值传入子组件的<code>props</code>属性，需要获取子组件的实例，然后修改<code>props</code>属性。<br>这样的话就不可避免的操作DOM，那么我们考虑将DOM操作法放在基类中进行。<br><strong>那么问题来了，怎么找到哪些标签是子组件，子组件有哪些属性是需要绑定的？</strong><br>可以通过命名规范和选择其来获取吗？比如组件名称都以<code>cmp-</code>开头，选择器支不支持暂且不说，这种要求既约束编码命名，同时有没有规范保证。<br>简单地说就是没有静态检测机制，如果有开发者写的组件不是以<code>cmp-</code>开头，运行时发现数据传递失败检查起来会比较麻烦。<br>所以可以在另一个地方对组件名称进行采集，那就是注册组件函数。<br>我们通过<code>customElements.define</code>函数来注册组件，一种方式是直接对该函数进行重载，在注册组件的时候记录组件名称，但是实现有些难度，而且对原生API函数修改难以保证不会对其它代码产生影响。<br>所以折中的方式是对齐封装，然后利用封装的函数进行组件注册。<br>这样我们就可以记录所有注册的组件名了，然后创建实例来获取对应<code>props</code>我们就解决了上面提出的问题。<br>同时在<code>props</code>对象的属性上编写<code>set</code>函数进行监听。<br>到了这一步还只完成了一半，因为我们还没有把数据传递给子组件。<br>我们不要操作DOM的话那就只能利用已有的数据绑定机制了，将需要传递的属性绑定到数据对象上。<br>梳理一下思路：</p>
+<ol>
+<li>编写子组件的时候建立<code>props</code>对象，并声明需要被传参的属性， 比如<code>this.props = {id: &#39;&#39;}</code>。</li>
+<li>编写子组件的时候不通过原生<code>customElements.define</code>，而是使用封装过的函数，比如<code>defineComponent</code>来注册，这样可以记录组件名和对应的<code>props</code>属性。</li>
+<li>父组件在使用子组件的时候进行遍历，找出子组件和对应的<code>props</code>对象。</li>
+<li>将子组件<code>props</code>对象的属性绑定到父组件的数据对象<code>state</code>属性上，这样当父组件<code>state</code>属性值发生变化时，会自动修改子组件<code>props</code>属性值。</li>
+</ol>
+<p>示例代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">const components = &#123;&#125;;</div><div class="line">/**</div><div class="line"> * 注册组件函数</div><div class="line"> * @param &#123;string&#125; 组件（标签）名</div><div class="line"> * @param &#123;class&#125; 组件实现类</div><div class="line"> */</div><div class="line">export const defineComponent = (name, componentClass) =&gt; &#123;</div><div class="line">  // 注册组件</div><div class="line">  customElements.define(name, componentClass);</div><div class="line">  // 创建组件实例</div><div class="line">  const cmp = document.createElement(name);</div><div class="line">  // 存储组件名以及对应的props属性</div><div class="line">  components[name] = Object.getOwnPropertyNames(cmp.props) || [];</div><div class="line">&#125;;</div><div class="line">// 注册子组件</div><div class="line">class ChildComponent extends Component &#123;</div><div class="line">  constructor() &#123;</div><div class="line">    // 通过基类来创建模板</div><div class="line">    // 通过基类来监听props</div><div class="line">    super(template, &#123;</div><div class="line">      id: value =&gt; &#123;</div><div class="line">        // ...</div><div class="line">      &#125;</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">defineComponent(&apos;child-component&apos;, ChildComponent);</div><div class="line"></div><div class="line">&lt;!-- 使用子组件 --&gt;</div><div class="line">&lt;child-component id=&quot;myId&quot;&gt;&lt;/child-component&gt;</div><div class="line"></div><div class="line">// 注册父组件</div><div class="line">class ParentComponent extends Component &#123;</div><div class="line">  constructor() &#123;</div><div class="line">    super(template);</div><div class="line">    this.state.myId = &apos;xxx&apos;;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面的代码中有很多地方可以继续优化，具体查看文末示例代码。</p>
+<h5 id="子-gt-父，回调函数"><a href="#子-gt-父，回调函数" class="headerlink" title="子=&gt;父，回调函数"></a>子=&gt;父，回调函数</h5><p>子组件的参数要传回给父组件，可以采用回调函数的形式。<br>比较麻烦的时候调用函数时需要用到父组件的作用域。<br>可以将父组件的函数进行作用域绑定然后传入子组件<code>props</code>对象属性，这样子组件就可以正常调用和传参了。<br>因为回调函数操作方式和参数不一样，参数是被动接收，回调函数是主动调用，所以需要在声明时进行标注，比如参考AngularJS指令的scope对象属性的声明方式，用“&amp;”符号来表示回调函数。<br>理清一下思路：</p>
+<ol>
+<li>子组件类中声明props的属性为回调函数，如 <code>this.props = {onClick:&#39;&amp;&#39;}</code>。</li>
+<li>父组件初始化时，在模板上传递对应属性， 如<code>&lt;child-compoennt on-click=&quot;click&quot;&gt;&lt;/child-component&gt;</code>。</li>
+<li>根据子组件属性值找到对应的父组件函数，然后将父组件函数绑定作用域并传入。如<code>childComponent.props.onClick = this.click.bind(this)</code>。</li>
+<li>子组件中调用父组件函数， 如<code>this.props.onClick(...)</code>。</li>
+</ol>
+<p>示例代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">// 注册子组件</div><div class="line">class ChildComponent extends Component &#123;</div><div class="line">  constructor() &#123;</div><div class="line">    // 通过基类来声明回调函数属性</div><div class="line">    super(template, &#123;</div><div class="line">      onClick: &apos;&amp;&apos;</div><div class="line">    &#125;);</div><div class="line">    ...</div><div class="line">    this.props.onClick(...);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">defineComponent(&apos;child-component&apos;, ChildComponent);</div><div class="line"></div><div class="line">&lt;!-- 父组件中使用子组件 --&gt;</div><div class="line">&lt;child-component on-click=&quot;click&quot;&gt;&lt;/child-component&gt;</div><div class="line"></div><div class="line">// 注册父组件</div><div class="line">class ParentComponent extends Component &#123;</div><div class="line">  constructor() &#123;</div><div class="line">    super(template);</div><div class="line">  &#125;</div><div class="line">  // 事件传递放在基类中操作</div><div class="line">  click(data) &#123;</div><div class="line">    ...</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="穿越组件层级的通信"><a href="#穿越组件层级的通信" class="headerlink" title="穿越组件层级的通信"></a>穿越组件层级的通信</h4><p>有些组件需要子孙组件进行通信，层层传递会编写很多额外的代码，所以我们可以通过总线模式来进行操作。<br>即建立一个全局模块，数据发送者发送消息和数据，数据接收者进行监听。</p>
+<p>示例代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">// bus.js</div><div class="line">// 监听队列</div><div class="line">const dispatcher = &#123;&#125;;</div><div class="line">/** </div><div class="line"> * 接收消息</div><div class="line"> * name </div><div class="line"> */</div><div class="line">export const on = (name, cb) =&gt; &#123;</div><div class="line">  dispatcher[name] = dispatcher[name] || [];</div><div class="line">  const key = Math.random().toString(26).substring(2, 10);</div><div class="line">  // 将监听函数放入队列并生成唯一key</div><div class="line">  dispatcher[name].push(&#123;</div><div class="line">    key,</div><div class="line">    fn: cb</div><div class="line">  &#125;);</div><div class="line">  return key;</div><div class="line">&#125;;</div><div class="line">// 发送消息</div><div class="line">export const emit = function(name, data) &#123;</div><div class="line">  const dispatchers = dispatcher[name] || [];</div><div class="line">  // 轮询监听队列并调用函数</div><div class="line">  dispatchers.forEach(dp =&gt; &#123;</div><div class="line">    dp.fn(data, this);</div><div class="line">  &#125;);</div><div class="line">&#125;;</div><div class="line">// 取消监听</div><div class="line">export const un = (name, key) =&gt; &#123;</div><div class="line">  const list = dispatcher[name] || [];</div><div class="line">  const index = list.findIndex(item =&gt; item.key === key);</div><div class="line">  // 从监听队列中删除监听函数</div><div class="line">  if(index &gt; -1) &#123;</div><div class="line">    list.splice(index, 1);</div><div class="line">    return true;</div><div class="line">  &#125; else &#123;</div><div class="line">    return false;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">// ancestor.js</div><div class="line">import &#123;on&#125; from &apos;./bus.js&apos;;</div><div class="line"></div><div class="line">class AncestorComponent extends Component &#123;</div><div class="line">  constructor() &#123;</div><div class="line">    super();</div><div class="line">    on(&apos;finish&apos;, data =&gt; &#123;</div><div class="line">      //...</div><div class="line">    &#125;)    </div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// child.js</div><div class="line">class ChildComponent extends Component &#123;</div><div class="line">  constructor() &#123;</div><div class="line">    super();</div><div class="line">    emit(&apos;finish&apos;, data);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>关于基类的详细代码可以参考文末的仓库地址，目前项目遵循的是按需添加原则，只实现了一些基础的操作，并没有把所有可能用到的指令写完。<br>所以还不足以称之为“框架”，只是给大家提供实现思路以及编写原生代码的信心。</p>
+<p>具体示例：<a href="https://github.com/yalishizhude/web-component" target="_blank" rel="noopener">https://github.com/yalishizhude/web-component</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+            <a href="/tags/web/" rel="tag"># web</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/29/container-task/" rel="next" title="利用Docker容器实现代理转发和数据备份">
+                <i class="fa fa-chevron-left"></i> 利用Docker容器实现代理转发和数据备份
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/21/data-bingding/" rel="prev" title="无依赖开发之封装DOM">
+                无依赖开发之封装DOM <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第三方js的现状"><span class="nav-number">1.</span> <span class="nav-text">第三方js的现状</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第三方js的副作用"><span class="nav-number">2.</span> <span class="nav-text">第三方js的副作用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#雪球滚起来"><span class="nav-number">2.1.</span> <span class="nav-text">雪球滚起来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工具驯化"><span class="nav-number">2.2.</span> <span class="nav-text">工具驯化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解精髓"><span class="nav-number">2.3.</span> <span class="nav-text">理解精髓</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#无依赖实践"><span class="nav-number">3.</span> <span class="nav-text">无依赖实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#web-components"><span class="nav-number">3.1.</span> <span class="nav-text">web components</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Custom-elements（自定义元素）"><span class="nav-number">3.1.1.</span> <span class="nav-text">Custom elements（自定义元素）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shadow-DOM（影子DOM）"><span class="nav-number">3.1.2.</span> <span class="nav-text">Shadow DOM（影子DOM）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-templates（HTML模板）"><span class="nav-number">3.1.3.</span> <span class="nav-text">HTML templates（HTML模板）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完整的组件"><span class="nav-number">3.1.4.</span> <span class="nav-text">完整的组件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#组件内部视图与数据地通信"><span class="nav-number">3.1.4.1.</span> <span class="nav-text">组件内部视图与数据地通信</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据绑定"><span class="nav-number">3.1.4.1.1.</span> <span class="nav-text">数据绑定</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#事件绑定"><span class="nav-number">3.1.4.1.2.</span> <span class="nav-text">事件绑定</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组件与组件之间的通信"><span class="nav-number">3.1.4.2.</span> <span class="nav-text">组件与组件之间的通信</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#父-gt-子，数据传递"><span class="nav-number">3.1.4.2.1.</span> <span class="nav-text">父=&gt;子，数据传递</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#子-gt-父，回调函数"><span class="nav-number">3.1.4.2.2.</span> <span class="nav-text">子=&gt;父，回调函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#穿越组件层级的通信"><span class="nav-number">3.1.4.3.</span> <span class="nav-text">穿越组件层级的通信</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+  <link rel="alternate" href="/rss2.xml" title="web学习社" type="application/atom+xml" />
 
 
 
@@ -83,13 +83,13 @@
 
 <meta name="description" content="web技术分享">
 <meta property="og:type" content="website">
-<meta property="og:title" content="亚里士朱德的博客">
-<meta property="og:url" content="http://yoursite.com/page/3/index.html">
-<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:title" content="web学习社">
+<meta property="og:url" content="http://yalishizhude.com/page/3/index.html">
+<meta property="og:site_name" content="web学习社">
 <meta property="og:description" content="web技术分享">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="亚里士朱德的博客">
+<meta name="twitter:title" content="web学习社">
 <meta name="twitter:description" content="web技术分享">
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/page/3/"/>
+  <link rel="canonical" href="http://yalishizhude.com/page/3/"/>
 
 
 
 
 
-  <title>亚里士朱德的博客</title>
+  <title>web学习社</title>
   
 
 
@@ -167,7 +167,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">亚里士朱德的博客</span>
+        <span class="site-title">web学习社</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -284,7 +284,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/16/dpi-images/">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2017/09/07/architecture2restruct/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="亚里士朱德">
@@ -293,7 +293,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亚里士朱德的博客">
+      <meta itemprop="name" content="web学习社">
     </span>
 
     
@@ -303,7 +303,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/02/16/dpi-images/" itemprop="url">【译】高dpi图片对于不同设备的适配方案</a></h1>
+                <a class="post-title-link" href="/2017/09/07/architecture2restruct/" itemprop="url">从架构到重构</a></h1>
         
 
         <div class="post-meta">
@@ -315,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-16T22:38:49+08:00">
-                2017-02-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-07T16:09:29+08:00">
+                2017-09-07
               </time>
             
 
@@ -338,8 +338,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
+                  <a href="/categories/架构/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
                   </a>
                 </span>
 
@@ -376,16 +376,324 @@
 
       
         
-          <p><em>原文地址：<a href="https://www.html5rocks.com/en/mobile/high-dpi/#toc-conclusion" target="_blank" rel="noopener">https://www.html5rocks.com/en/mobile/high-dpi/#toc-conclusion</a></em></p>
-<p>#介绍</p>
-<p>在当今日益复杂的设备领域，屏幕的可用像素密度已经变得非常广泛。<br>既有非常高分辨率的显示设备，也有远远落后的设备。<br>应用程序开发人员需要支持一系列像素密度的显示设备，这可能是相当具有挑战性的。<br>在移动web端，情况变得更加复杂：</p>
+          <p>重构之后整理了一下对架构的理解，偏重但不仅限于Web前端（以下简称“前端”）。</p>
+<h1 id="架构师的职责"><a href="#架构师的职责" class="headerlink" title="架构师的职责"></a>架构师的职责</h1><p>不少人一提到架构师就觉得很高大上，什么是架构师？</p>
+<p>从上千人跨国公司，到十数人的创业公司，架构师的职责各有不同。</p>
+<p>人数众多的IT公司通常会分成架构（框架）组和业务组，架构（框架）组为业务组提供公用的框架和组件（服务），而业务组负责开发实现需求。</p>
+<p>创业公司的分工通常没有那么细致，往往需要开发者通常既是架构师也是业务开发者（以下简称为“开发者”）。</p>
+<p>开发者承担的责任是某个功能模块的实现，而架构师的主要责任是为项目选择合适地技术栈，为开发者搭建一个可持续开发的框架。</p>
+<p>通常情况下，责任和权利是对等的，这也是架构师的收入和职位比开发者高的原因。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/07/architecture2restruct/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2017/08/21/miniprogram-form/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="web学习社">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/21/miniprogram-form/" itemprop="url">小程序表单优化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-21T16:09:13+08:00">
+                2017-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/小程序/" itemprop="url" rel="index">
+                    <span itemprop="name">小程序</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><em>小程序SDK版本 1.4</em></p>
+<h1 id="表单校验之难"><a href="#表单校验之难" class="headerlink" title="表单校验之难"></a>表单校验之难</h1><p>如果要问微信小程序最难实现的公共业务是什么？应该是<strong>表单校验</strong>，没有之一。原因如下：</p>
 <ul>
-<li>各种各样的设备具有不同的外形尺寸。</li>
-<li>受限的网络带宽和电池寿命。<br>在图片方面，Web应用程序开发人员的目标是尽可能高效地提供最佳质量的图像。<br>本文将介绍适用于现在和不久将来的有效技术来达到这一效果。</li>
+<li>表单组件在数量上达到11个，居各类组件之首。当然幸运的是，并不是所有的都需要校验。</li>
+<li>而这些组件操作方式多样，可分为滑动、（多行）输入、点击、点击+滑动。</li>
+<li>即使是同一个组件，因为业务场景不同就会有不同的校验规则。</li>
+<li>更麻烦的是，这些组件之间经常还会联动或者关联校验。<br>…</li>
+</ul>
+<p>但是，作为一个非简单静态页面，有着较多用户交互的小程序，表单校验又是一个非常常用的功能：登录、注册、新增、编辑…</p>
+<p>总而言之：表单组件的多样性 X 校验规则的多样性 = 复杂的公共业务</p>
+<p>这么棘手的问题我们怎么来解决它呢？</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/21/miniprogram-form/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2017/08/19/miniprogram-share/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="web学习社">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/19/miniprogram-share/" itemprop="url">w3ctech长沙站—8月前端开发专场讲稿</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-19T23:33:58+08:00">
+                2017-08-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/小程序/" itemprop="url" rel="index">
+                    <span itemprop="name">小程序</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>今天和大家交流分享的是关于微信小程序的一些开发心得。<br>包括4个部分：</p>
+<ul>
+<li>个人简介。包括我所在的公司和个人的一些情况。</li>
+<li>小程序的介绍。讲述为什么前端开发者要学习小程序开发以及官方为开发者提供了哪些有价值的资源。</li>
+<li>小程序与WebApp对比。熟悉WebApp的开发者怎样快速掌握小程序开发，小程序和WebApp有哪些异同点。</li>
+<li>小程序开发技巧。分享我在开发小程序时碰到的一些问题和解决方法。</li>
 </ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/02/16/dpi-images/#more" rel="contents">
+            <a class="btn" href="/2017/08/19/miniprogram-share/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -436,7 +744,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/07/angular-doc/">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2017/08/14/minprogram-component-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="亚里士朱德">
@@ -445,7 +753,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亚里士朱德的博客">
+      <meta itemprop="name" content="web学习社">
     </span>
 
     
@@ -455,7 +763,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/12/07/angular-doc/" itemprop="url">你会用AngularJS，但你会写AngularJS文档么？</a></h1>
+                <a class="post-title-link" href="/2017/08/14/minprogram-component-2/" itemprop="url">微信小程序组件化（下）</a></h1>
         
 
         <div class="post-meta">
@@ -467,8 +775,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-07T11:12:29+08:00">
-                2016-12-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-14T14:35:21+08:00">
+                2017-08-14
               </time>
             
 
@@ -490,8 +798,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/WEB架构/" itemprop="url" rel="index">
-                    <span itemprop="name">WEB架构</span>
+                  <a href="/categories/小程序/" itemprop="url" rel="index">
+                    <span itemprop="name">小程序</span>
                   </a>
                 </span>
 
@@ -528,11 +836,10 @@
 
       
         
-          <p><em>涉及知识：gulp javascript</em><br><em>建议阅读：4分钟</em></p>
-<p>我们经常在写代码的时候要求写好注释，方便日后维护。但其实注释还有一个重要的用途：<strong>生成API文档。</strong></p>
+          <h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>单从组件功能而言，wepy已经满足了小程序绝大部分的组件开发需求，堪称完美。<br>但如果权衡整个项目：</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/12/07/angular-doc/#more" rel="contents">
+            <a class="btn" href="/2017/08/14/minprogram-component-2/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -583,7 +890,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/28/spider/">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2017/08/14/minprogram-component-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="亚里士朱德">
@@ -592,7 +899,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亚里士朱德的博客">
+      <meta itemprop="name" content="web学习社">
     </span>
 
     
@@ -602,7 +909,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/11/28/spider/" itemprop="url">拿好这段代码，愿你求职路上不再迷茫</a></h1>
+                <a class="post-title-link" href="/2017/08/14/minprogram-component-1/" itemprop="url">微信小程序组件化（上）</a></h1>
         
 
         <div class="post-meta">
@@ -614,8 +921,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-28T11:39:41+08:00">
-                2016-11-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-14T14:35:17+08:00">
+                2017-08-14
               </time>
             
 
@@ -637,8 +944,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/服务端/" itemprop="url" rel="index">
-                    <span itemprop="name">服务端</span>
+                  <a href="/categories/小程序/" itemprop="url" rel="index">
+                    <span itemprop="name">小程序</span>
                   </a>
                 </span>
 
@@ -675,11 +982,10 @@
 
       
         
-          <p><em>涉及知识：数据库（mongodb）node.js</em><br><em>建议阅读：3分钟</em></p>
-<p>经常有人问：“我是该学Angular还是React？该用gulp还是webpack…”<br>这篇文章就是要 <strong>交给大家一把钥匙，专门解答这类问题。</strong></p>
+          <h1 id="小程序对组件化的“支持”情况"><a href="#小程序对组件化的“支持”情况" class="headerlink" title="小程序对组件化的“支持”情况"></a>小程序对组件化的“支持”情况</h1><p>微信小程序（以下简称“小程序”，版本）虽然默认定义了很多有用的组件，但是在开发小程序过程中，往往需要自定义业务组件。<br>而小程序开发者文档中却未对自定义组件给出很好的解决方案或示例。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/11/28/spider/#more" rel="contents">
+            <a class="btn" href="/2017/08/14/minprogram-component-1/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -730,7 +1036,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/27/icon/">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2017/08/10/docker4node/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="亚里士朱德">
@@ -739,7 +1045,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亚里士朱德的博客">
+      <meta itemprop="name" content="web学习社">
     </span>
 
     
@@ -749,7 +1055,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/10/27/icon/" itemprop="url">前端处理小图标的那些解决方案（图文实操）</a></h1>
+                <a class="post-title-link" href="/2017/08/10/docker4node/" itemprop="url">利用Docker容器搭建高效的Node.js开发环境</a></h1>
         
 
         <div class="post-meta">
@@ -761,8 +1067,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-27T16:25:35+08:00">
-                2016-10-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-10T06:19:18+08:00">
+                2017-08-10
               </time>
             
 
@@ -784,8 +1090,30 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/Node-js/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -822,13 +1150,12 @@
 
       
         
-          <p>先做一个选择题：前端开发使用构建工具的目的是什么？</p>
-<p>A、因为现在流行node.js，都在使用构建工具</p>
-<p>B、让前端开发变得高大上，和后端一样编译才能运行</p>
-<p>C、让自动化工具替代重复的手工操作，比如合并代码，刷新浏览器预览效果等。</p>
+          <p><em>阅读时间：15分钟</em> </p>
+<h1 id="使用Node-js遇到的问题"><a href="#使用Node-js遇到的问题" class="headerlink" title="使用Node.js遇到的问题"></a>使用Node.js遇到的问题</h1><p>Node.js无疑是js开发者的福音，因为它既可用于web端开发，当作构建工具，也可以用于服务端，搭建web服务器。</p>
+<p>但使用Node.js（尤其是npm）时也会碰到一些麻烦的事情，比如：</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/10/27/icon/#more" rel="contents">
+            <a class="btn" href="/2017/08/10/docker4node/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -879,7 +1206,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/07/14/angular-large-2/">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2017/07/25/rest-constraints/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="亚里士朱德">
@@ -888,7 +1215,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亚里士朱德的博客">
+      <meta itemprop="name" content="web学习社">
     </span>
 
     
@@ -898,7 +1225,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/07/14/angular-large-2/" itemprop="url">尝试通过AngularJS模块按需加载搭建大型应用（下）</a></h1>
+                <a class="post-title-link" href="/2017/07/25/rest-constraints/" itemprop="url">【译】REST的6个约束</a></h1>
         
 
         <div class="post-meta">
@@ -910,8 +1237,301 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-14T17:27:53+08:00">
-                2016-07-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-25T02:02:54+08:00">
+                2017-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/api/" itemprop="url" rel="index">
+                    <span itemprop="name">api</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><em>原文链接：<a href="https://en.wikipedia.org/wiki/Representational_state_transfer#Client-server" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Representational_state_transfer#Client-server</a></em> </p>
+<p>定义个一个RESTful系统的时候应该遵循6个约束。<br>它们限制了服务端只能遵循这些约束来处理和响应客户端请求，但是遵循这些约束服务也可以获取理想的非函数化的属性，例如性能、可伸缩、简单程度、可变能力、可见度、灵活性、可信度。<br>如果任何一个服务违背了其中一个原则，将不能被称作RESTful系统。<br>标准的REST约束如下：</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/25/rest-constraints/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2017/06/26/angular-di/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="web学习社">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/26/angular-di/" itemprop="url">Angular的依赖注入是怎么实现的？</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-26T14:01:08+08:00">
+                2017-06-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/angular/" itemprop="url" rel="index">
+                    <span itemprop="name">angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>这篇文章是探索对于Angular开发者来说既熟悉又陌生的概念：依赖注入。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/26/angular-di/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2017/06/20/angular-databinding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="web学习社">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/20/angular-databinding/" itemprop="url">为什么你的Angular双向数据绑定会失效？</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-20T15:56:48+08:00">
+                2017-06-20
               </time>
             
 
@@ -971,10 +1591,11 @@
 
       
         
-          <p><em><a href="http://yalishizhude.github.io/2016/07/07/angular-large-1/" target="_blank" rel="noopener">《尝试通过AngularJS模块按需加载搭建大型应用（上）》</a> 说到目前angular应用的通用构建方式，一种是全量预加载，将所有可能用到的模块在用户首次访问时加载；第二种是按需加载业务逻辑，根据路由加载对应的controller和view，两种处理方式互换优缺点。对比后得出最理想的方式应该是“模块按需加载”，即按需预加载业务功模块代码。本文具体聊聊如何实现。</em></p>
+          <p>Angular双向数据绑定原理探究。</p>
+<p><em>文章源码引用较多，觉得难以理解可以直接跳到末尾总结处。</em></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/07/14/angular-large-2/#more" rel="contents">
+            <a class="btn" href="/2017/06/20/angular-databinding/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1025,7 +1646,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/07/07/angular-large-1/">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2017/06/02/vueconf/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="亚里士朱德">
@@ -1034,7 +1655,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亚里士朱德的博客">
+      <meta itemprop="name" content="web学习社">
     </span>
 
     
@@ -1044,7 +1665,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/07/07/angular-large-1/" itemprop="url">尝试通过AngularJS模块按需加载搭建大型应用（上）</a></h1>
+                <a class="post-title-link" href="/2017/06/02/vueconf/" itemprop="url">vueconf杂谈</a></h1>
         
 
         <div class="post-meta">
@@ -1056,593 +1677,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-07T23:00:44+08:00">
-                2016-07-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
-                    <span itemprop="name">AngularJS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><em>没有合适的轮子，只好自己造( ╯□╰ )</em></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/07/07/angular-large-1/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/30/4angular/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亚里士朱德">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亚里士朱德的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/05/30/4angular/" itemprop="url">Angular说：这个锅我不背~</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-30T00:59:30+08:00">
-                2016-05-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
-                    <span itemprop="name">AngularJS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="楔子"><a href="#楔子" class="headerlink" title="楔子"></a>楔子</h1><p>最近月影大神翻译的一篇文章很火——<a href="http://web.jobbole.com/86284/" target="_blank" rel="noopener">《别责怪框架：我使用 AngularJS 和 ReactJS 的经验》</a>，标题看似客观，不过先扬后抑，借黑Angular之际狠赞了一下react。<br>看完之后也让我有感而发。写这篇文章的目的，并不是想反作者之道，褒Angular贬React，只是希望读者抛开个人情绪，对两者（或者Angular？）有一个更客观地认识。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/05/30/4angular/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/26/back-componentization/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亚里士朱德">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亚里士朱德的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/04/26/back-componentization/" itemprop="url">利用handlebars实现后端组件化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-26T00:19:57+08:00">
-                2016-04-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/WEB架构/" itemprop="url" rel="index">
-                    <span itemprop="name">WEB架构</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><em>似乎掌握了后端组件化的奥义^_^</em></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/04/26/back-componentization/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/19/front-back-separation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亚里士朱德">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亚里士朱德的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/04/19/front-back-separation/" itemprop="url">图解基于node.js实现前后端分离</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-19T22:02:51+08:00">
-                2016-04-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/WEB架构/" itemprop="url" rel="index">
-                    <span itemprop="name">WEB架构</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>首先庆祝 <a href="http://www.w3ctech.com/event/56" target="_blank" rel="noopener">w3ctech长沙站第12期技术分享会</a> 圆满成功，感谢组织方邀请~<br><img src="/2016/04/19/front-back-separation/w3c.jpg"></p>
-<p>因为会上出了个意外，ppt图片全部丢失，只好对着白板跟大家交流了半个多小时。由于我做演讲不喜欢写太多的文字，没有图片的情况下讲漏了一些内容。这篇文章是我在会上分享内容对照ppt进行地整理。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/04/19/front-back-separation/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/11/rhinoceros-function/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亚里士朱德">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亚里士朱德的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/04/11/rhinoceros-function/" itemprop="url">一起来啃犀牛书：你懂LOL，也可以懂函数</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-11T01:53:36+08:00">
-                2016-04-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-02T14:16:39+08:00">
+                2017-06-02
               </time>
             
 
@@ -1702,13 +1738,10 @@
 
       
         
-          <blockquote>
-<p>《javascript权威指南》这本书就像是js界的圣经，对于大神和新手都应该是必读书。但是这本近千页的书已经厚到让人望而生畏，要通读它不仅要时间也需要毅力。为了提升自己在js语言上的深度，所以抱着工匠精神开始研读，此文包含书中实用性较强的一些知识点和代码，算做读书笔记吧~</p>
-</blockquote>
-<img src="/2016/04/11/rhinoceros-function/fun.png">
+          <p>首先感谢大组织w3ctech分享的vueconf相关<a href="https://vue.w3ctech.com/#schedule" target="_blank" rel="noopener">ppt和视频</a>。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/04/11/rhinoceros-function/#more" rel="contents">
+            <a class="btn" href="/2017/06/02/vueconf/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1750,7 +1783,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1800,7 +1833,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">94</span>
+                  <span class="site-state-item-count">104</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1811,7 +1844,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1822,7 +1855,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1840,38 +1873,6 @@
           
 
           <div class="links-of-author motion-element">
-            
-              
-                <span class="links-of-author-item">
-                  <a href="https://github.com/yalishizhude" target="_blank" title="GitHub">
-                    
-                      <i class="fa fa-fw fa-github"></i>GitHub</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="mailto:yalishizhude@163.com" target="_blank" title="E-Mail">
-                    
-                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="http://toutiao.io/subjects/11510" target="_blank" title="开发者头条">
-                    
-                      <i class="fa fa-fw fa-globe"></i>开发者头条</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="http://www.imooc.com/myclub/article/uid/1098050" target="_blank" title="慕课网">
-                    
-                      <i class="fa fa-fw fa-globe"></i>慕课网</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="http://weibo.com/arisjutle" target="_blank" title="微博">
-                    
-                      <i class="fa fa-fw fa-globe"></i>微博</a>
-                </span>
-              
             
           </div>
 
@@ -1900,7 +1901,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1908,19 +1909,7 @@
 
   
 </div>
-
-
-  <div class="powered-by">footer.powered</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info" style="display:none">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
-
-
+<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>
 
 
         

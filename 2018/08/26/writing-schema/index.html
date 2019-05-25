@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="写作," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="web学习社" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="对于开发者来说，“设计模式”这个概念肯定不陌生，它是经过分类的、代码设计经验的总结，能将编写代码进行工程化，从而提升开发效率。简而言之，它就是“代码模板”。 设计模式 + 代码逻辑 =&amp;gt; 清晰高效的程序 “写作模式”这个叫法也借鉴于此，是我针对一些热门技术文章的写作方式进行的总结，能帮我们快速地构思出结构清晰的文章。下面通过7篇热门技术文章来总结7种写作模式。">
+<meta name="keywords" content="写作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用7段代码来理解常用的写作模式">
+<meta property="og:url" content="http://yalishizhude.com/2018/08/26/writing-schema/index.html">
+<meta property="og:site_name" content="web学习社">
+<meta property="og:description" content="对于开发者来说，“设计模式”这个概念肯定不陌生，它是经过分类的、代码设计经验的总结，能将编写代码进行工程化，从而提升开发效率。简而言之，它就是“代码模板”。 设计模式 + 代码逻辑 =&amp;gt; 清晰高效的程序 “写作模式”这个叫法也借鉴于此，是我针对一些热门技术文章的写作方式进行的总结，能帮我们快速地构思出结构清晰的文章。下面通过7篇热门技术文章来总结7种写作模式。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-18T15:48:00.498Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用7段代码来理解常用的写作模式">
+<meta name="twitter:description" content="对于开发者来说，“设计模式”这个概念肯定不陌生，它是经过分类的、代码设计经验的总结，能将编写代码进行工程化，从而提升开发效率。简而言之，它就是“代码模板”。 设计模式 + 代码逻辑 =&amp;gt; 清晰高效的程序 “写作模式”这个叫法也借鉴于此，是我针对一些热门技术文章的写作方式进行的总结，能帮我们快速地构思出结构清晰的文章。下面通过7篇热门技术文章来总结7种写作模式。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yalishizhude.com/2018/08/26/writing-schema/"/>
+
+
+
+
+
+  <title>用7段代码来理解常用的写作模式 | web学习社</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">web学习社</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2018/08/26/writing-schema/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="web学习社">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">用7段代码来理解常用的写作模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-26T07:02:53+08:00">
+                2018-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/职场/" itemprop="url" rel="index">
+                    <span itemprop="name">职场</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>对于开发者来说，“设计模式”这个概念肯定不陌生，它是经过分类的、代码设计经验的总结，能将编写代码进行工程化，从而提升开发效率。<br>简而言之，它就是“代码模板”。</p>
+<p><code>设计模式 + 代码逻辑 =&gt; 清晰高效的程序</code></p>
+<p>“写作模式”这个叫法也借鉴于此，是我针对一些热门技术文章的写作方式进行的总结，能帮我们快速地构思出结构清晰的文章。<br>下面通过7篇热门技术文章来总结7种写作模式。</p>
+<a id="more"></a>
+<h1 id="清单式"><a href="#清单式" class="headerlink" title="清单式"></a>清单式</h1><h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><p><a href="https://blog.fundebug.com/2018/07/02/11-js-utility-you-should-know-in-2018/" target="_blank" rel="noopener">《2018年你需要知道的11个JavaScript库》</a>大纲：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">1. Lodash &amp; Underscore</div><div class="line">2. Ramda</div><div class="line">3. MathJS</div><div class="line">4. Moment &amp; date-fns</div><div class="line">5. Sugar</div><div class="line">6. Lazy</div><div class="line">7. CollectJS</div><div class="line">8. ChanceJS</div><div class="line">9. ChartJS</div><div class="line">10. Polished</div><div class="line">11. Mout</div><div class="line">12. Voca</div><div class="line">13. Licia</div></pre></td></tr></table></figure>
+<p>这里列举了13个GitHub上star数量较多的js库，各个库之间是并列的，相互之间并没有直接联系，即使调换说明顺序也不会对文章造成影响。</p>
+<h2 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>这种模式结构非常简单，我们可以直接用数组的形式来描述它：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">  sectionA,</div><div class="line">  sectionB,</div><div class="line">  ...</div><div class="line">  sectionX,</div><div class="line">]</div></pre></td></tr></table></figure>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p><strong>把同一类（一般是并列关系）的知识/技能点汇聚起来，分条进行阐述。适用于有一定关联关系，但逻辑性不强的碎片化的知识点。</strong></p>
+<h1 id="对比式"><a href="#对比式" class="headerlink" title="对比式"></a>对比式</h1><h2 id="举例-1"><a href="#举例-1" class="headerlink" title="举例"></a>举例</h2><p><a href="https://mp.weixin.qq.com/s/v-Q5aOnYVj7l-kMQopkPLA" target="_blank" rel="noopener">《为什么Goroutine能有上百万个，Java线程却只能有上千个？》</a>大纲：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">到底什么是线程？</div><div class="line"></div><div class="line">JVM线程使用固定大小的栈</div><div class="line">Go线程使用动态大小的栈</div><div class="line"></div><div class="line">JVM线程上下文切换成本高</div><div class="line">Go线程切换成本低</div><div class="line"></div><div class="line">结论</div></pre></td></tr></table></figure></p>
+<p>作者用JVM来指代Java语言，针对线程占用内存空间以及CPU的使用率两个方面，对JVM和Go进行了对比。</p>
+<h2 id="模式-1"><a href="#模式-1" class="headerlink" title="模式"></a>模式</h2><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><p>这种模式可以理解为“清单式”的2.0版本，所以我们用对象数组来描述它：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">  // 文章主体</div><div class="line">  &#123;</div><div class="line">    featureA: xxx,</div><div class="line">    featureB: xxxx,</div><div class="line">w</div><div class="line">...</div><div class="line">  &#125;, </div><div class="line">  // 参照对象1</div><div class="line">  &#123;</div><div class="line">    featureA: yyy,</div><div class="line">    featureB: yyyy,</div><div class="line">    ...</div><div class="line">  &#125;, </div><div class="line">  ...</div><div class="line">]</div></pre></td></tr></table></figure>
+<h3 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h3><p><strong>将两三个类似的概念放在一起讨论，在一些特定的维度上将两者进行对比，最后总结出结论。</strong></p>
+<h1 id="疑问式"><a href="#疑问式" class="headerlink" title="疑问式"></a>疑问式</h1><h2 id="举例-2"><a href="#举例-2" class="headerlink" title="举例"></a>举例</h2><p><a href="https://zhuanlan.zhihu.com/p/39466226" target="_blank" rel="noopener">《为什么给你设置重重障碍？讲一讲Web开发中的跨域》</a>大纲:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">一、跨域是个什么「问题」？</div><div class="line">二、为什么不让我跨域？</div><div class="line">三、JSONP——最常用的绕过办法</div><div class="line">四、为什么JSONP可以？</div><div class="line">五、跨域资源共享（CORS）</div><div class="line">六、不让跨域请求？还可以直接跨网页</div></pre></td></tr></table></figure>
+<p>文章按照 what（什么是跨域） -&gt; why（为什么会跨域） -&gt; how（怎么解决跨域） 的思路来进行的写作，具有一定的递进关系。</p>
+<h2 id="模式-2"><a href="#模式-2" class="headerlink" title="模式"></a>模式</h2><h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><p>因为这种模式的出现已经有弱逻辑关系了（顺序上有依赖，内容上无依赖），用串行的函数来描述它最适合不过了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">const sectionA = what();</div><div class="line">const sectionB = why();</div><div class="line">const sectionC = how();</div></pre></td></tr></table></figure>
+<h3 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h3><p><strong>通常由多个相关联的问题组合而成，逻辑关系层层推进，比如why(为什么)、what（是什么）、how（怎么样）。</strong></p>
+<h1 id="发散式"><a href="#发散式" class="headerlink" title="发散式"></a>发散式</h1><h2 id="举例-3"><a href="#举例-3" class="headerlink" title="举例"></a>举例</h2><p><a href="http://www.algorithmdog.com/loggingsystem" target="_blank" rel="noopener">《普通程序员怎么理解日志系统》</a>大纲：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1. Logging 系统的雏型</div><div class="line">2. 什么时候打印日志是个问题 —— Level</div><div class="line">3. 打印日志到哪里是还是一个问题 —— Appender</div><div class="line">4. 日志什么样也是个问题 —— Formatter</div><div class="line">5. 高效地打印日志是另外一个问题 —— Efficient</div><div class="line">6. 总结</div></pre></td></tr></table></figure>
+<p>围绕日志系统分条陈述，包括日志级别、内容、存储、内容、性能。</p>
+<h2 id="模式-3"><a href="#模式-3" class="headerlink" title="模式"></a>模式</h2><h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><p>可以用JSON数据类型来描述这种结构<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  sectionA: xxx,</div><div class="line">  sectionB: yyy,</div><div class="line">  sectionC: zzz,</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="小结-3"><a href="#小结-3" class="headerlink" title="小结"></a>小结</h3><p><strong>和清单式有些相似，但它是将一个具体的概念拆分成多个部分，然后针对每个部分进行阐述。</strong></p>
+<h1 id="流程式"><a href="#流程式" class="headerlink" title="流程式"></a>流程式</h1><h2 id="举例-4"><a href="#举例-4" class="headerlink" title="举例"></a>举例</h2><p><a href="https://mp.weixin.qq.com/s/bJX6DVEhM7Ti11tIgjUSsQ" target="_blank" rel="noopener">《如何Docker化任意一个应用？你需要参照这10步》</a>大纲：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">选择基础镜像</div><div class="line">安装必要软件包</div><div class="line">添加自定义文件</div><div class="line">定义容器运行时的用户权限</div><div class="line">定义暴露的端口</div><div class="line">定义入口点（entrypoint）</div><div class="line">定义一种配置方式</div><div class="line">外部化数据</div><div class="line">确保处理好日志</div><div class="line">轮转日志和其他仅追加文件</div></pre></td></tr></table></figure>
+<p>作者按照操作流程编写文章，具有强逻辑。</p>
+<h2 id="模式-4"><a href="#模式-4" class="headerlink" title="模式"></a>模式</h2><h3 id="代码-4"><a href="#代码-4" class="headerlink" title="代码"></a>代码</h3><p>我们还是用函数来描述逻辑。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">const sectionA = step1();</div><div class="line">const sectionB = step2(sectionA);</div><div class="line">const sectionC = step2(sectionB);</div><div class="line">...</div></pre></td></tr></table></figure>
+<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>这种模式并无太多技巧可言，通常适合实践类型的文章，按照操作顺序来讲解。</p>
+<h1 id="探索式"><a href="#探索式" class="headerlink" title="探索式"></a>探索式</h1><h2 id="举例-5"><a href="#举例-5" class="headerlink" title="举例"></a>举例</h2><p><a href="https://yuerblog.cc/2018/06/26/go-push-service/" target="_blank" rel="noopener">《GO千万级消息推送服务》</a>大纲：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">技术核心难点</div><div class="line">解决技术难点</div><div class="line">架构考量</div><div class="line">源代码</div></pre></td></tr></table></figure>
+<p>文章结构简单，逻辑清晰，先提出技术难点，然后给出技术解决方案。</p>
+<h2 id="模式-5"><a href="#模式-5" class="headerlink" title="模式"></a>模式</h2><h3 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h3><p>这种探索方式和循环有些类似：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">while(!isBest(solution)) &#123;</div><div class="line">  solution = findBetterSolution()</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="说明-1"><a href="#说明-1" class="headerlink" title="说明"></a>说明</h3><p>针对开发中的某个问题一步一步探索最优解决方案。一般的思路： 提出问题==&gt;寻找解决方案==&gt;现有方案的问题==&gt;最终优化方案。</p>
+<h1 id="插画式"><a href="#插画式" class="headerlink" title="插画式"></a>插画式</h1><h2 id="举例-6"><a href="#举例-6" class="headerlink" title="举例"></a>举例</h2><p><a href="http://www.yunweipai.com/archives/8056.html" target="_blank" rel="noopener">《你闺女也能看懂的插画版Kubernetes指南》</a>这篇文章比较特别和少见，没有明确的提纲，但是丝毫不影响阅读体验，因为图文穿插的方式能够缓解阅读疲劳，同时更容易理解。</p>
+<h2 id="模式-6"><a href="#模式-6" class="headerlink" title="模式"></a>模式</h2><h3 id="代码-6"><a href="#代码-6" class="headerlink" title="代码"></a>代码</h3><p>如果要用代码来表示这种模式的话那么我们可以把图片看成注释来进行描述：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// comment sectionA</div><div class="line">sectionA</div><div class="line">// comment sectionB</div><div class="line">sectionB</div><div class="line">...</div></pre></td></tr></table></figure>
+<h3 id="小结-4"><a href="#小结-4" class="headerlink" title="小结"></a>小结</h3><p>图文结合，生动形象。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总结一下本文提到的7种写作模式，他们是：</p>
+<ul>
+<li>清单式。</li>
+<li>对比式。</li>
+<li>疑问式。</li>
+<li>发散式。</li>
+<li>流程式。</li>
+<li>探索式。</li>
+<li>插画式。<br>当然我们在写较长的文章的时候可以将多种写作模式结合起来，全文用某种模式，而不同章节内部用其它模式。</li>
+</ul>
+<p>如果要把这7种写作模式抽象成写作原则的话，那么可以用两个词概括：<strong>转化和联接</strong>。</p>
+<p>何谓转化？</p>
+<ul>
+<li>把复杂的事情讲简单。</li>
+<li>把简单的道理讲深刻。</li>
+</ul>
+<p>何谓联接？</p>
+<ul>
+<li>把分散的东西关联起来。</li>
+<li>把关联的东西拆开对比。</li>
+</ul>
+<p>最后给读者一个思考题来检验阅读效果：本文属于那种写作模式，你有没有看出来呢？</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/写作/" rel="tag"># 写作</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/19/art-of-war/" rel="next" title="程序员读《孙子兵法》">
+                <i class="fa fa-chevron-left"></i> 程序员读《孙子兵法》
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/30/rxjs-stream/" rel="prev" title="RxJS进阶——关于流的理解和应用">
+                RxJS进阶——关于流的理解和应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#清单式"><span class="nav-number">1.</span> <span class="nav-text">清单式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#举例"><span class="nav-number">1.1.</span> <span class="nav-text">举例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模式"><span class="nav-number">1.2.</span> <span class="nav-text">模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">1.2.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">1.2.2.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对比式"><span class="nav-number">2.</span> <span class="nav-text">对比式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#举例-1"><span class="nav-number">2.1.</span> <span class="nav-text">举例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模式-1"><span class="nav-number">2.2.</span> <span class="nav-text">模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#疑问式"><span class="nav-number">3.</span> <span class="nav-text">疑问式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#举例-2"><span class="nav-number">3.1.</span> <span class="nav-text">举例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模式-2"><span class="nav-number">3.2.</span> <span class="nav-text">模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-2"><span class="nav-number">3.2.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-2"><span class="nav-number">3.2.2.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#发散式"><span class="nav-number">4.</span> <span class="nav-text">发散式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#举例-3"><span class="nav-number">4.1.</span> <span class="nav-text">举例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模式-3"><span class="nav-number">4.2.</span> <span class="nav-text">模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-3"><span class="nav-number">4.2.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-3"><span class="nav-number">4.2.2.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#流程式"><span class="nav-number">5.</span> <span class="nav-text">流程式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#举例-4"><span class="nav-number">5.1.</span> <span class="nav-text">举例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模式-4"><span class="nav-number">5.2.</span> <span class="nav-text">模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-4"><span class="nav-number">5.2.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说明"><span class="nav-number">5.2.2.</span> <span class="nav-text">说明</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#探索式"><span class="nav-number">6.</span> <span class="nav-text">探索式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#举例-5"><span class="nav-number">6.1.</span> <span class="nav-text">举例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模式-5"><span class="nav-number">6.2.</span> <span class="nav-text">模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-5"><span class="nav-number">6.2.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说明-1"><span class="nav-number">6.2.2.</span> <span class="nav-text">说明</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插画式"><span class="nav-number">7.</span> <span class="nav-text">插画式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#举例-6"><span class="nav-number">7.1.</span> <span class="nav-text">举例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模式-6"><span class="nav-number">7.2.</span> <span class="nav-text">模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-6"><span class="nav-number">7.2.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-4"><span class="nav-number">7.2.2.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

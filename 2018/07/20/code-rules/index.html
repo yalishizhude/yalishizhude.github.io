@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="架构,代码规范," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="web学习社" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="从事web开发已有7个年头，经历过几个团队和不少项目，也面试过一些开发者。发现不同公司对代码规范这一块的要求相差很大，有的公司甚至没有规范。究其缘由，无非是项目紧张，没有时间整理。久而久之，随着项目不断变大，维护变得困难，各种问题暴露出来：代码可读性差、修改容易出bug、逻辑混乱。。。所以在技术上稍有追求的团队都意识到规范的重要性。">
+<meta name="keywords" content="架构,代码规范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3种常见的代码规范类型">
+<meta property="og:url" content="http://yalishizhude.com/2018/07/20/code-rules/index.html">
+<meta property="og:site_name" content="web学习社">
+<meta property="og:description" content="从事web开发已有7个年头，经历过几个团队和不少项目，也面试过一些开发者。发现不同公司对代码规范这一块的要求相差很大，有的公司甚至没有规范。究其缘由，无非是项目紧张，没有时间整理。久而久之，随着项目不断变大，维护变得困难，各种问题暴露出来：代码可读性差、修改容易出bug、逻辑混乱。。。所以在技术上稍有追求的团队都意识到规范的重要性。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-19T01:29:43.721Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3种常见的代码规范类型">
+<meta name="twitter:description" content="从事web开发已有7个年头，经历过几个团队和不少项目，也面试过一些开发者。发现不同公司对代码规范这一块的要求相差很大，有的公司甚至没有规范。究其缘由，无非是项目紧张，没有时间整理。久而久之，随着项目不断变大，维护变得困难，各种问题暴露出来：代码可读性差、修改容易出bug、逻辑混乱。。。所以在技术上稍有追求的团队都意识到规范的重要性。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yalishizhude.com/2018/07/20/code-rules/"/>
+
+
+
+
+
+  <title>3种常见的代码规范类型 | web学习社</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">web学习社</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2018/07/20/code-rules/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="web学习社">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">3种常见的代码规范类型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-20T05:01:25+08:00">
+                2018-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/架构/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>从事web开发已有7个年头，经历过几个团队和不少项目，也面试过一些开发者。<br>发现不同公司对代码规范这一块的要求相差很大，有的公司甚至没有规范。<br>究其缘由，无非是项目紧张，没有时间整理。<br>久而久之，随着项目不断变大，维护变得困难，各种问题暴露出来：代码可读性差、修改容易出bug、逻辑混乱。。。<br>所以在技术上稍有追求的团队都意识到规范的重要性。</p>
+<a id="more"></a>
+<h1 id="代码规范的意义"><a href="#代码规范的意义" class="headerlink" title="代码规范的意义"></a>代码规范的意义</h1><p>先思考一个问题：什么是好的代码？</p>
+<p>你可能给出很多意见，比如：</p>
+<ul>
+<li>少用全局变量。</li>
+<li>高内聚，低耦合。</li>
+<li>遵循单一原则。</li>
+<li>拥有注释说明。</li>
+<li>。。。</li>
+</ul>
+<p>站在开发者个人层面来思考问题，所有这些“独善其身”的道理都正确。<br>但如果更进一步，站在团队的角度，考虑到维护代码的开发者会不断地变更；加入时间维度，考虑到代码会不断地被修改。</p>
+<p>什么样的代码才是好代码？</p>
+<p>曾经看到有位作者说“风格一致”的代码就是好代码，即团队所有人写出来的代码就像是一个人所写的。这个观点我非常赞同。</p>
+<p>有的读者可能会反驳，代码写得一样就是好吗？要是团队成员水平很低，写得代码都很烂呢？</p>
+<p>首先，如果团队成员水平都很低，那么写出来的代码不会是“风格一致”，而会是“风格迥异”。<br>回想自己最初编程的时候是不是经常在网上搜索代码，然后直接赋值粘贴再改改，发现能用就觉得OK了？<br>这种质量的代码不仅成员之间写的代码具有风格差异，就连同一个开发者写的代码也会有所不同。</p>
+<p><strong>“风格一致”背后的意义是什么？</strong></p>
+<p>现在的开发工作被不断分化，前端、后端、交互设计师、产品经理。。。<br>这符合英国经济学家亚当斯密在《国富论》中提出的“分工带来效率”，但是带来的最大问题就是沟通（这里的“沟通”指信息的交流方式）成本上升，例如前端和设计师沟通可能通过psd文件，和后端沟通会通过API。</p>
+<p>所以会有REST API设计风格，会有GraphQL。本质上都是在形成共识，降低沟通成本。“风格一致”的代码规范的作用就和它们一样，旨在降低开发者因写作风格差异而带来的维护成本。因为代码虽然是运行在机器上，但终究还是给人看的。</p>
+<p>为了形成好的代码规范，都有哪些方式？</p>
+<h1 id="看不见的规范"><a href="#看不见的规范" class="headerlink" title="看不见的规范"></a>看不见的规范</h1><p>看不见的规范指的就是“靠人规范”。<br>这是最简单粗暴的方式，依赖开发者个人经验来指点入职新人进行代码编写，或者依靠偶尔进行的代码分享和评审。<br>所有的代码规范都在开发者脑袋里，基本靠语言传递。<br>这种靠“口口相传”的开发规范，对于学习者来说因为无文档可查，全凭个人记忆。<br>所以根据个人经验不同、记忆力不同，不同的开发者会有不同的规范，难以保证代码风格一致。</p>
+<h1 id="看得见的规范"><a href="#看得见的规范" class="headerlink" title="看得见的规范"></a>看得见的规范</h1><p>很多团队都会用编写各种规范文档。<br>百度、谷歌上随手一搜“开发规范”，可以找到大量的文章。<br>这种方式解决了规范执行依赖“老员工靠经验，新员工靠记忆”的问题，因为形成了文字，一方面可以修订，一方面可以查看。<br>但是文档终究只是文档，即使文档写得再好，但代码还是可能写得一团糟。<br>执行效果的保障成了新的问题~</p>
+<h1 id="无处不在的规范"><a href="#无处不在的规范" class="headerlink" title="无处不在的规范"></a>无处不在的规范</h1><p>在这种情况下代码检验工具应运而生，开发者可以把编码规范写成配置文件，再配合工具对代码进行检验。<br>同时在开发环境中使用插件来实时提示开发者遵守校验规则。<br>即使开发者提交了不符合规范的代码，也可以在部署之前用多种方式阻止代码部署，比如利用git的钩子程序或者在持续集成中进行检验。<br>这种方式很具有工程思维，能合理利用工具解决问题，这样的代码已经基本具有“风格一致”的特点了。但校验工具的作用也是有限的，无法理解代码语义。</p>
+<h1 id="理想的代码规范"><a href="#理想的代码规范" class="headerlink" title="理想的代码规范"></a>理想的代码规范</h1><p>既然这些都不完美，到底有没有更好的解决方案？</p>
+<p>没有~也有~</p>
+<p>确实没有找到一劳永逸的工具或方法，但是值得庆幸的是我们可以把他们结合起来：使用静态校验工具来规范代码的基本书写规范，然后对于校验工具无法完成的规范写成文档，最后通过代码合并时的代码审查进行保障。</p>
+<p>例如我为现在前端项目的规范就包括多种形式：</p>
+<ul>
+<li>对于脚本语言TypeScript和预处理语言Sass，直接省略了规范文档，采用的是使用对应的校验工具tslint和sasslint，编辑器集成的插件可以及时提醒开发者遵循规范，对于有疑问的错误信息也很容易在网上进行查找。</li>
+<li>对于比较灵活的部分，如变量命名、文件创建以及代码内容则采用文档描述加上代码评审的方式，评审方式为互评，先由其它开发者查阅代码进行评论，然后再转给管理员进行审核。</li>
+</ul>
+<p>当然这种方式在初期的磨合成本是会略高一些，比如校验规则没有文档说明，评审耗费时间等。但是随着开发不断进行，这种成本会不断降低到趋近于0，因为代码写的越多对规范越熟悉，评审改进次数越多也能促进团队在编码上达成共识。同时在代码达成一致之后这些同事也可以为新加入团队的同事提供指导和帮助。从经济学的角度来说，就是边际成本递减和收益递增。</p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>懂得避免的问题胜过懂得解决问题，好的规范能避免写出糟糕的代码，为以后节省大量重构、修复bug的时间。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/架构/" rel="tag"># 架构</a>
+          
+            <a href="/tags/代码规范/" rel="tag"># 代码规范</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/12/ls/" rel="next" title="动态分栏布局实现">
+                <i class="fa fa-chevron-left"></i> 动态分栏布局实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/19/art-of-war/" rel="prev" title="程序员读《孙子兵法》">
+                程序员读《孙子兵法》 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#代码规范的意义"><span class="nav-number">1.</span> <span class="nav-text">代码规范的意义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#看不见的规范"><span class="nav-number">2.</span> <span class="nav-text">看不见的规范</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#看得见的规范"><span class="nav-number">3.</span> <span class="nav-text">看得见的规范</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#无处不在的规范"><span class="nav-number">4.</span> <span class="nav-text">无处不在的规范</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#理想的代码规范"><span class="nav-number">5.</span> <span class="nav-text">理想的代码规范</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

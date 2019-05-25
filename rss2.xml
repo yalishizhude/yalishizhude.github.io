@@ -3,18 +3,170 @@
   xmlns:atom="http://www.w3.org/2005/Atom"
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>亚里士朱德的博客</title>
-    <link>http://yoursite.com/</link>
+    <title>web学习社</title>
+    <link>http://yalishizhude.com/</link>
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>web技术分享</description>
-    <pubDate>Tue, 12 Jun 2018 14:16:32 GMT</pubDate>
+    <pubDate>Sat, 25 May 2019 06:20:53 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
+      <title>mxGraph使用经验总结</title>
+      <link>http://yalishizhude.com/2019/05/21/mxgraph-knowledge-point/</link>
+      <guid>http://yalishizhude.com/2019/05/21/mxgraph-knowledge-point/</guid>
+      <pubDate>Mon, 20 May 2019 17:52:06 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;mxGraph是一个支持多种语言（Java、JavaScript、PHP、.NET）的画图框架，所绘制的图形可以在主流浏览器以及原生应用上使用。&lt;br&gt;mxGraph官方资料全英文，网上有几篇mxGraph的教程，对于“入门”和“使用”讲解得比较详细。&lt;br&gt;所以这篇文章不是介绍如何画一个图形，写一个hello world，而是重点介绍学习mxGraph时觉得比较重要的、难以理解的或者容易被忽略的知识点。&lt;br&gt;需要读者对mxGraph的文档有一定的了解或者使用mxGraph。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2019/05/21/mxgraph-knowledge-point/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>道路千万条，安全第一条——一次服务器被入侵的处理经过</title>
+      <link>http://yalishizhude.com/2019/04/30/docker-api-loophole/</link>
+      <guid>http://yalishizhude.com/2019/04/30/docker-api-loophole/</guid>
+      <pubDate>Mon, 29 Apr 2019 17:09:03 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&lt;em&gt;容器为何自动停止？&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;服务器为何操作卡顿？&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;进程的神秘连接到底指向何处？&lt;/em&gt;&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2019/04/30/docker-api-loophole/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>多个跨云服务器之间满带宽测速的一种实现方案</title>
+      <link>http://yalishizhude.com/2019/03/31/test-speed/</link>
+      <guid>http://yalishizhude.com/2019/03/31/test-speed/</guid>
+      <pubDate>Sun, 31 Mar 2019 15:01:25 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&lt;em&gt;量变引起质变。&lt;/em&gt;&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2019/03/31/test-speed/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>无依赖开发之封装DOM</title>
+      <link>http://yalishizhude.com/2018/12/21/data-bingding/</link>
+      <guid>http://yalishizhude.com/2018/12/21/data-bingding/</guid>
+      <pubDate>Thu, 20 Dec 2018 21:40:41 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;在&lt;a href=&quot;https://tech.gtxlab.com/web-components.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;《抛开 Vue、React、JQuery 这类第三方js，我们该怎么写代码？》&lt;/a&gt;文章中提到了使用原生的web components技术来开发项目。开发中碰到了一些有挑战性的问题，这篇文章就来记录一下在封装DOM操作时碰到的问题以及解决方式。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2018/12/21/data-bingding/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>抛开 Vue、React、JQuery 这类第三方js，我们该怎么写代码？</title>
+      <link>http://yalishizhude.com/2018/11/14/web-components/</link>
+      <guid>http://yalishizhude.com/2018/11/14/web-components/</guid>
+      <pubDate>Wed, 14 Nov 2018 13:06:41 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&lt;em&gt;首先感谢React、Vue、Angular、Cycle、JQuery 等这些第三方js为开发带来的便利。&lt;/em&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;以下将Vue、React这类常用的框架（库）统称为“第三方js”。&lt;/p&gt;
+&lt;/blockquote&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2018/11/14/web-components/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>利用Docker容器实现代理转发和数据备份</title>
+      <link>http://yalishizhude.com/2018/10/29/container-task/</link>
+      <guid>http://yalishizhude.com/2018/10/29/container-task/</guid>
+      <pubDate>Sun, 28 Oct 2018 19:21:16 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;我们将应用以Docker容器的方式部署到服务器上的时候，通常需要考虑两个方面的的问题：网络和存储。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2018/10/29/container-task/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>RxJS进阶——关于流的理解和应用</title>
+      <link>http://yalishizhude.com/2018/09/30/rxjs-stream/</link>
+      <guid>http://yalishizhude.com/2018/09/30/rxjs-stream/</guid>
+      <pubDate>Sun, 30 Sep 2018 04:22:48 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;RxJS是微软公司推出的响应式编程的JavaScript库。&lt;br&gt;对于它的学习，最开始我的理解是把它当成是 &lt;strong&gt;能优雅地解决异步问题的lodash&lt;/strong&gt;。&lt;br&gt;随着学习的深入，发现它采用了订阅者模式，其中也带有纯函数的思想。&lt;br&gt;直到在使用了RxJS 6之后才了解其少有人意识到的另一面——流。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2018/09/30/rxjs-stream/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>用7段代码来理解常用的写作模式</title>
+      <link>http://yalishizhude.com/2018/08/26/writing-schema/</link>
+      <guid>http://yalishizhude.com/2018/08/26/writing-schema/</guid>
+      <pubDate>Sat, 25 Aug 2018 23:02:53 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;对于开发者来说，“设计模式”这个概念肯定不陌生，它是经过分类的、代码设计经验的总结，能将编写代码进行工程化，从而提升开发效率。&lt;br&gt;简而言之，它就是“代码模板”。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;设计模式 + 代码逻辑 =&amp;gt; 清晰高效的程序&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;“写作模式”这个叫法也借鉴于此，是我针对一些热门技术文章的写作方式进行的总结，能帮我们快速地构思出结构清晰的文章。&lt;br&gt;下面通过7篇热门技术文章来总结7种写作模式。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2018/08/26/writing-schema/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>程序员读《孙子兵法》</title>
+      <link>http://yalishizhude.com/2018/08/19/art-of-war/</link>
+      <guid>http://yalishizhude.com/2018/08/19/art-of-war/</guid>
+      <pubDate>Sun, 19 Aug 2018 01:38:29 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;虽然《孙子兵法》是流传千年、家喻户晓的名著，但大多数人并不一定真正理解它。我之前在读它之时就有两个误解：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;《孙子兵法》讲的是奇谋巧计，教我们怎么去战胜敌人。&lt;/li&gt;
+&lt;li&gt;《孙子兵法》是一本讲军事的古书，和我们普通人的现实生活相隔太远，没有太多借鉴意义。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;听完得到课程《华杉讲透孙子兵法》之后才真正窥见其奥义。那么孙子兵法的核心到底是什么？对于我们的工作又有何帮助？&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2018/08/19/art-of-war/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>3种常见的代码规范类型</title>
+      <link>http://yalishizhude.com/2018/07/20/code-rules/</link>
+      <guid>http://yalishizhude.com/2018/07/20/code-rules/</guid>
+      <pubDate>Thu, 19 Jul 2018 21:01:25 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;从事web开发已有7个年头，经历过几个团队和不少项目，也面试过一些开发者。&lt;br&gt;发现不同公司对代码规范这一块的要求相差很大，有的公司甚至没有规范。&lt;br&gt;究其缘由，无非是项目紧张，没有时间整理。&lt;br&gt;久而久之，随着项目不断变大，维护变得困难，各种问题暴露出来：代码可读性差、修改容易出bug、逻辑混乱。。。&lt;br&gt;所以在技术上稍有追求的团队都意识到规范的重要性。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2018/07/20/code-rules/#disqus_thread</comments>
+    </item>
+    
+    <item>
       <title>动态分栏布局实现</title>
-      <link>http://yoursite.com/2018/06/12/ls/</link>
-      <guid>http://yoursite.com/2018/06/12/ls/</guid>
+      <link>http://yalishizhude.com/2018/06/12/ls/</link>
+      <guid>http://yalishizhude.com/2018/06/12/ls/</guid>
       <pubDate>Tue, 12 Jun 2018 12:28:28 GMT</pubDate>
       <description>
       
@@ -22,13 +174,13 @@
       
       </description>
       
-      <comments>http://yoursite.com/2018/06/12/ls/#disqus_thread</comments>
+      <comments>http://yalishizhude.com/2018/06/12/ls/#disqus_thread</comments>
     </item>
     
     <item>
       <title>CKA认证考试心得</title>
-      <link>http://yoursite.com/2018/05/13/cka/</link>
-      <guid>http://yoursite.com/2018/05/13/cka/</guid>
+      <link>http://yalishizhude.com/2018/05/13/cka/</link>
+      <guid>http://yalishizhude.com/2018/05/13/cka/</guid>
       <pubDate>Sun, 13 May 2018 12:13:41 GMT</pubDate>
       <description>
       
@@ -37,13 +189,13 @@
       
       </description>
       
-      <comments>http://yoursite.com/2018/05/13/cka/#disqus_thread</comments>
+      <comments>http://yalishizhude.com/2018/05/13/cka/#disqus_thread</comments>
     </item>
     
     <item>
       <title>PC端MPA和移动端SPA的路由同构</title>
-      <link>http://yoursite.com/2018/03/28/router4mpa-spa/</link>
-      <guid>http://yoursite.com/2018/03/28/router4mpa-spa/</guid>
+      <link>http://yalishizhude.com/2018/03/28/router4mpa-spa/</link>
+      <guid>http://yalishizhude.com/2018/03/28/router4mpa-spa/</guid>
       <pubDate>Wed, 28 Mar 2018 06:34:00 GMT</pubDate>
       <description>
       
@@ -51,13 +203,13 @@
       
       </description>
       
-      <comments>http://yoursite.com/2018/03/28/router4mpa-spa/#disqus_thread</comments>
+      <comments>http://yalishizhude.com/2018/03/28/router4mpa-spa/#disqus_thread</comments>
     </item>
     
     <item>
       <title>RxWX又添新成员</title>
-      <link>http://yoursite.com/2018/03/23/supplement4rxwx/</link>
-      <guid>http://yoursite.com/2018/03/23/supplement4rxwx/</guid>
+      <link>http://yalishizhude.com/2018/03/23/supplement4rxwx/</link>
+      <guid>http://yalishizhude.com/2018/03/23/supplement4rxwx/</guid>
       <pubDate>Fri, 23 Mar 2018 07:03:54 GMT</pubDate>
       <description>
       
@@ -66,13 +218,13 @@
       
       </description>
       
-      <comments>http://yoursite.com/2018/03/23/supplement4rxwx/#disqus_thread</comments>
+      <comments>http://yalishizhude.com/2018/03/23/supplement4rxwx/#disqus_thread</comments>
     </item>
     
     <item>
       <title>是时候给你的GitHub账号做个总结了</title>
-      <link>http://yoursite.com/2017/12/23/github-summary/</link>
-      <guid>http://yoursite.com/2017/12/23/github-summary/</guid>
+      <link>http://yalishizhude.com/2017/12/23/github-summary/</link>
+      <guid>http://yalishizhude.com/2017/12/23/github-summary/</guid>
       <pubDate>Sat, 23 Dec 2017 06:53:57 GMT</pubDate>
       <description>
       
@@ -80,13 +232,13 @@
       
       </description>
       
-      <comments>http://yoursite.com/2017/12/23/github-summary/#disqus_thread</comments>
+      <comments>http://yalishizhude.com/2017/12/23/github-summary/#disqus_thread</comments>
     </item>
     
     <item>
       <title>RxWX使用教程</title>
-      <link>http://yoursite.com/2017/12/16/intro2rxwx/</link>
-      <guid>http://yoursite.com/2017/12/16/intro2rxwx/</guid>
+      <link>http://yalishizhude.com/2017/12/16/intro2rxwx/</link>
+      <guid>http://yalishizhude.com/2017/12/16/intro2rxwx/</guid>
       <pubDate>Sat, 16 Dec 2017 11:52:24 GMT</pubDate>
       <description>
       
@@ -97,13 +249,13 @@
       
       </description>
       
-      <comments>http://yoursite.com/2017/12/16/intro2rxwx/#disqus_thread</comments>
+      <comments>http://yalishizhude.com/2017/12/16/intro2rxwx/#disqus_thread</comments>
     </item>
     
     <item>
       <title>在Windows10下安装Minikube</title>
-      <link>http://yoursite.com/2017/12/15/minikube-setup/</link>
-      <guid>http://yoursite.com/2017/12/15/minikube-setup/</guid>
+      <link>http://yalishizhude.com/2017/12/15/minikube-setup/</link>
+      <guid>http://yalishizhude.com/2017/12/15/minikube-setup/</guid>
       <pubDate>Fri, 15 Dec 2017 14:08:34 GMT</pubDate>
       <description>
       
@@ -111,13 +263,13 @@
       
       </description>
       
-      <comments>http://yoursite.com/2017/12/15/minikube-setup/#disqus_thread</comments>
+      <comments>http://yalishizhude.com/2017/12/15/minikube-setup/#disqus_thread</comments>
     </item>
     
     <item>
       <title>使用vue-cli的webpack模板的一次优化</title>
-      <link>http://yoursite.com/2017/12/05/webpack-big-file-optimize/</link>
-      <guid>http://yoursite.com/2017/12/05/webpack-big-file-optimize/</guid>
+      <link>http://yalishizhude.com/2017/12/05/webpack-big-file-optimize/</link>
+      <guid>http://yalishizhude.com/2017/12/05/webpack-big-file-optimize/</guid>
       <pubDate>Tue, 05 Dec 2017 14:26:10 GMT</pubDate>
       <description>
       
@@ -133,13 +285,13 @@
       
       </description>
       
-      <comments>http://yoursite.com/2017/12/05/webpack-big-file-optimize/#disqus_thread</comments>
+      <comments>http://yalishizhude.com/2017/12/05/webpack-big-file-optimize/#disqus_thread</comments>
     </item>
     
     <item>
       <title>编写Web组件的6个建议</title>
-      <link>http://yoursite.com/2017/11/17/web-component/</link>
-      <guid>http://yoursite.com/2017/11/17/web-component/</guid>
+      <link>http://yalishizhude.com/2017/11/17/web-component/</link>
+      <guid>http://yalishizhude.com/2017/11/17/web-component/</guid>
       <pubDate>Fri, 17 Nov 2017 13:11:38 GMT</pubDate>
       <description>
       
@@ -147,13 +299,13 @@
       
       </description>
       
-      <comments>http://yoursite.com/2017/11/17/web-component/#disqus_thread</comments>
+      <comments>http://yalishizhude.com/2017/11/17/web-component/#disqus_thread</comments>
     </item>
     
     <item>
       <title>让你的JavaScript成为真正的Java Script</title>
-      <link>http://yoursite.com/2017/10/26/js2js/</link>
-      <guid>http://yoursite.com/2017/10/26/js2js/</guid>
+      <link>http://yalishizhude.com/2017/10/26/js2js/</link>
+      <guid>http://yalishizhude.com/2017/10/26/js2js/</guid>
       <pubDate>Thu, 26 Oct 2017 00:59:12 GMT</pubDate>
       <description>
       
@@ -161,173 +313,7 @@
       
       </description>
       
-      <comments>http://yoursite.com/2017/10/26/js2js/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>从架构到重构</title>
-      <link>http://yoursite.com/2017/09/07/architecture2restruct/</link>
-      <guid>http://yoursite.com/2017/09/07/architecture2restruct/</guid>
-      <pubDate>Thu, 07 Sep 2017 08:09:29 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;重构之后整理了一下对架构的理解，偏重但不仅限于Web前端（以下简称“前端”）。&lt;/p&gt;
-&lt;h1 id=&quot;架构师的职责&quot;&gt;&lt;a href=&quot;#架构师的职责&quot; class=&quot;headerlink&quot; title=&quot;架构师的职责&quot;&gt;&lt;/a&gt;架构师的职责&lt;/h1&gt;&lt;p&gt;不少人一提到架构师就觉得很高大上，什么是架构师？&lt;/p&gt;
-&lt;p&gt;从上千人跨国公司，到十数人的创业公司，架构师的职责各有不同。&lt;/p&gt;
-&lt;p&gt;人数众多的IT公司通常会分成架构（框架）组和业务组，架构（框架）组为业务组提供公用的框架和组件（服务），而业务组负责开发实现需求。&lt;/p&gt;
-&lt;p&gt;创业公司的分工通常没有那么细致，往往需要开发者通常既是架构师也是业务开发者（以下简称为“开发者”）。&lt;/p&gt;
-&lt;p&gt;开发者承担的责任是某个功能模块的实现，而架构师的主要责任是为项目选择合适地技术栈，为开发者搭建一个可持续开发的框架。&lt;/p&gt;
-&lt;p&gt;通常情况下，责任和权利是对等的，这也是架构师的收入和职位比开发者高的原因。&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2017/09/07/architecture2restruct/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>小程序表单优化</title>
-      <link>http://yoursite.com/2017/08/21/miniprogram-form/</link>
-      <guid>http://yoursite.com/2017/08/21/miniprogram-form/</guid>
-      <pubDate>Mon, 21 Aug 2017 08:09:13 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;&lt;em&gt;小程序SDK版本 1.4&lt;/em&gt;&lt;/p&gt;
-&lt;h1 id=&quot;表单校验之难&quot;&gt;&lt;a href=&quot;#表单校验之难&quot; class=&quot;headerlink&quot; title=&quot;表单校验之难&quot;&gt;&lt;/a&gt;表单校验之难&lt;/h1&gt;&lt;p&gt;如果要问微信小程序最难实现的公共业务是什么？应该是&lt;strong&gt;表单校验&lt;/strong&gt;，没有之一。原因如下：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;表单组件在数量上达到11个，居各类组件之首。当然幸运的是，并不是所有的都需要校验。&lt;/li&gt;
-&lt;li&gt;而这些组件操作方式多样，可分为滑动、（多行）输入、点击、点击+滑动。&lt;/li&gt;
-&lt;li&gt;即使是同一个组件，因为业务场景不同就会有不同的校验规则。&lt;/li&gt;
-&lt;li&gt;更麻烦的是，这些组件之间经常还会联动或者关联校验。&lt;br&gt;…&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;但是，作为一个非简单静态页面，有着较多用户交互的小程序，表单校验又是一个非常常用的功能：登录、注册、新增、编辑…&lt;/p&gt;
-&lt;p&gt;总而言之：表单组件的多样性 X 校验规则的多样性 = 复杂的公共业务&lt;/p&gt;
-&lt;p&gt;这么棘手的问题我们怎么来解决它呢？&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2017/08/21/miniprogram-form/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>w3ctech长沙站—8月前端开发专场讲稿</title>
-      <link>http://yoursite.com/2017/08/19/miniprogram-share/</link>
-      <guid>http://yoursite.com/2017/08/19/miniprogram-share/</guid>
-      <pubDate>Sat, 19 Aug 2017 15:33:58 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;今天和大家交流分享的是关于微信小程序的一些开发心得。&lt;br&gt;包括4个部分：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;个人简介。包括我所在的公司和个人的一些情况。&lt;/li&gt;
-&lt;li&gt;小程序的介绍。讲述为什么前端开发者要学习小程序开发以及官方为开发者提供了哪些有价值的资源。&lt;/li&gt;
-&lt;li&gt;小程序与WebApp对比。熟悉WebApp的开发者怎样快速掌握小程序开发，小程序和WebApp有哪些异同点。&lt;/li&gt;
-&lt;li&gt;小程序开发技巧。分享我在开发小程序时碰到的一些问题和解决方法。&lt;/li&gt;
-&lt;/ul&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2017/08/19/miniprogram-share/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>微信小程序组件化（下）</title>
-      <link>http://yoursite.com/2017/08/14/minprogram-component-2/</link>
-      <guid>http://yoursite.com/2017/08/14/minprogram-component-2/</guid>
-      <pubDate>Mon, 14 Aug 2017 06:35:21 GMT</pubDate>
-      <description>
-      
-        &lt;h2 id=&quot;代码实现&quot;&gt;&lt;a href=&quot;#代码实现&quot; class=&quot;headerlink&quot; title=&quot;代码实现&quot;&gt;&lt;/a&gt;代码实现&lt;/h2&gt;&lt;p&gt;单从组件功能而言，wepy已经满足了小程序绝大部分的组件开发需求，堪称完美。&lt;br&gt;但如果权衡整个项目：&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2017/08/14/minprogram-component-2/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>微信小程序组件化（上）</title>
-      <link>http://yoursite.com/2017/08/14/minprogram-component-1/</link>
-      <guid>http://yoursite.com/2017/08/14/minprogram-component-1/</guid>
-      <pubDate>Mon, 14 Aug 2017 06:35:17 GMT</pubDate>
-      <description>
-      
-        &lt;h1 id=&quot;小程序对组件化的“支持”情况&quot;&gt;&lt;a href=&quot;#小程序对组件化的“支持”情况&quot; class=&quot;headerlink&quot; title=&quot;小程序对组件化的“支持”情况&quot;&gt;&lt;/a&gt;小程序对组件化的“支持”情况&lt;/h1&gt;&lt;p&gt;微信小程序（以下简称“小程序”，版本）虽然默认定义了很多有用的组件，但是在开发小程序过程中，往往需要自定义业务组件。&lt;br&gt;而小程序开发者文档中却未对自定义组件给出很好的解决方案或示例。&lt;br&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2017/08/14/minprogram-component-1/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>利用Docker容器搭建高效的Node.js开发环境</title>
-      <link>http://yoursite.com/2017/08/10/docker4node/</link>
-      <guid>http://yoursite.com/2017/08/10/docker4node/</guid>
-      <pubDate>Wed, 09 Aug 2017 22:19:18 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;&lt;em&gt;阅读时间：15分钟&lt;/em&gt; &lt;/p&gt;
-&lt;h1 id=&quot;使用Node-js遇到的问题&quot;&gt;&lt;a href=&quot;#使用Node-js遇到的问题&quot; class=&quot;headerlink&quot; title=&quot;使用Node.js遇到的问题&quot;&gt;&lt;/a&gt;使用Node.js遇到的问题&lt;/h1&gt;&lt;p&gt;Node.js无疑是js开发者的福音，因为它既可用于web端开发，当作构建工具，也可以用于服务端，搭建web服务器。&lt;/p&gt;
-&lt;p&gt;但使用Node.js（尤其是npm）时也会碰到一些麻烦的事情，比如：&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2017/08/10/docker4node/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>【译】REST的6个约束</title>
-      <link>http://yoursite.com/2017/07/25/rest-constraints/</link>
-      <guid>http://yoursite.com/2017/07/25/rest-constraints/</guid>
-      <pubDate>Mon, 24 Jul 2017 18:02:54 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;&lt;em&gt;原文链接：&lt;a href=&quot;https://en.wikipedia.org/wiki/Representational_state_transfer#Client-server&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://en.wikipedia.org/wiki/Representational_state_transfer#Client-server&lt;/a&gt;&lt;/em&gt; &lt;/p&gt;
-&lt;p&gt;定义个一个RESTful系统的时候应该遵循6个约束。&lt;br&gt;它们限制了服务端只能遵循这些约束来处理和响应客户端请求，但是遵循这些约束服务也可以获取理想的非函数化的属性，例如性能、可伸缩、简单程度、可变能力、可见度、灵活性、可信度。&lt;br&gt;如果任何一个服务违背了其中一个原则，将不能被称作RESTful系统。&lt;br&gt;标准的REST约束如下：&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2017/07/25/rest-constraints/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>Angular的依赖注入是怎么实现的？</title>
-      <link>http://yoursite.com/2017/06/26/angular-di/</link>
-      <guid>http://yoursite.com/2017/06/26/angular-di/</guid>
-      <pubDate>Mon, 26 Jun 2017 06:01:08 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;这篇文章是探索对于Angular开发者来说既熟悉又陌生的概念：依赖注入。&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2017/06/26/angular-di/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>为什么你的Angular双向数据绑定会失效？</title>
-      <link>http://yoursite.com/2017/06/20/angular-databinding/</link>
-      <guid>http://yoursite.com/2017/06/20/angular-databinding/</guid>
-      <pubDate>Tue, 20 Jun 2017 07:56:48 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;Angular双向数据绑定原理探究。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;文章源码引用较多，觉得难以理解可以直接跳到末尾总结处。&lt;/em&gt;&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2017/06/20/angular-databinding/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>vueconf杂谈</title>
-      <link>http://yoursite.com/2017/06/02/vueconf/</link>
-      <guid>http://yoursite.com/2017/06/02/vueconf/</guid>
-      <pubDate>Fri, 02 Jun 2017 06:16:39 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;首先感谢大组织w3ctech分享的vueconf相关&lt;a href=&quot;https://vue.w3ctech.com/#schedule&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;ppt和视频&lt;/a&gt;。&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yoursite.com/2017/06/02/vueconf/#disqus_thread</comments>
+      <comments>http://yalishizhude.com/2017/10/26/js2js/#disqus_thread</comments>
     </item>
     
   </channel>
