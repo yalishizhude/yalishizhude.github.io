@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="/rss2.xml" title="web学习社" type="application/atom+xml" />
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
 
 
 
@@ -86,7 +86,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="【译】基于MEAN的全栈开发实例教程4：实现新增功能">
 <meta property="og:url" content="http://yalishizhude.com/2015/11/19/mean-4/index.html">
-<meta property="og:site_name" content="web学习社">
+<meta property="og:site_name" content="亚里士朱德的博客">
 <meta property="og:description" content="原文地址 https://blog.udemy.com/node-js-tutorial感谢来自Udemy的Samantha来信分享  添加一个新视频在这一部分中，你将学习更多关于在Express中创建API端点，利用Angular构建表单，用Monk在Mongo中存储文档。 类似于上一节，我们将在随后几步中将从前端到后端实现这一功能。首先，我们将创建一个添加视频的API。我们将使用Expres">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yalishizhude.com/2015/11/19/mean-4/add.png">
@@ -130,7 +130,7 @@
 
 
 
-  <title>【译】基于MEAN的全栈开发实例教程4：实现新增功能 | web学习社</title>
+  <title>【译】基于MEAN的全栈开发实例教程4：实现新增功能 | 亚里士朱德的博客</title>
   
 
 
@@ -150,6 +150,8 @@
 
 
 
+  <meta name="baidu-site-verification" content="weH21azGfC" />
+  <meta name="google-site-verification" content="Ubo8RbQoNlPmBNmKh4xVG46h496NbplJNWX5usiuONY" />
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -170,7 +172,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">web学习社</span>
+        <span class="site-title">亚里士朱德的博客</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -263,7 +265,30 @@
 </nav>
 
 
-
+<script>
+  if(!/localhost/.test(location.host)) {
+    var pathname = location.pathname
+    var protocol = location.protocol
+    if(/\/$/.test(pathname)) {
+      pathname += 'index.html'
+    }
+    if(protocol==='http:') {
+      protocol = 'https:'
+    }
+    if(protocol!==location.protocol || pathname !== location.pathname) {
+      location = protocol+'//'+location.host + pathname + location.search+location.hash
+    }
+    var foot = document.getElementsByClassName("footer-inner")[0]
+    if(/yalishizhude\.com/.test(location.host)) {
+      document.title = 'web技术天地'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-2</a>'
+    }
+    if(/webxuexishe\.top/.test(location.host)) {
+      document.title = 'web学习社'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>'
+    }
+  }
+</script>
  </div>
     </header>
 
@@ -296,7 +321,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="web学习社">
+      <meta itemprop="name" content="亚里士朱德的博客">
     </span>
 
     
@@ -617,7 +642,7 @@
                 alt="亚里士朱德" />
             
               <p class="site-author-name" itemprop="name">亚里士朱德</p>
-              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+              <p class="site-description motion-element" itemprop="description">专注web技术分享</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -627,7 +652,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">105</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -719,7 +744,7 @@
 
   
 </div>
-<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>
+
 
 
         
@@ -861,6 +886,21 @@
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
 

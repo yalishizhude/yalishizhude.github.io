@@ -3,12 +3,12 @@
   xmlns:atom="http://www.w3.org/2005/Atom"
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>web学习社</title>
+    <title>亚里士朱德的博客</title>
     <link>http://yalishizhude.com/</link>
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
-    <description>web技术分享</description>
-    <pubDate>Wed, 24 Jul 2019 16:52:41 GMT</pubDate>
+    <description>专注web技术分享</description>
+    <pubDate>Wed, 24 Jul 2019 17:13:57 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -23,6 +23,20 @@
       </description>
       
       <comments>http://yalishizhude.com/2019/07/22/tampermonkey-ad/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>你了解HTTPS，但你可能不了解X.509</title>
+      <link>http://yalishizhude.com/2019/06/12/x509/</link>
+      <guid>http://yalishizhude.com/2019/06/12/x509/</guid>
+      <pubDate>Tue, 11 Jun 2019 17:06:43 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&lt;em&gt;世上根本就没有HTTPS协议，只有HTTP协议。——知乎某答友&lt;/em&gt;&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2019/06/12/x509/#disqus_thread</comments>
     </item>
     
     <item>
@@ -295,20 +309,6 @@
       </description>
       
       <comments>http://yalishizhude.com/2017/11/17/web-component/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>让你的JavaScript成为真正的Java Script</title>
-      <link>http://yalishizhude.com/2017/10/26/js2js/</link>
-      <guid>http://yalishizhude.com/2017/10/26/js2js/</guid>
-      <pubDate>Thu, 26 Oct 2017 00:59:12 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;JavaScript为什么叫“JavaScript”？&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yalishizhude.com/2017/10/26/js2js/#disqus_thread</comments>
     </item>
     
   </channel>

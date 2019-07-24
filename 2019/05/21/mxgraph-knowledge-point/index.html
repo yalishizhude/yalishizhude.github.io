@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="/rss2.xml" title="web学习社" type="application/atom+xml" />
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
 
 
 
@@ -86,7 +86,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="mxGraph使用经验总结">
 <meta property="og:url" content="http://yalishizhude.com/2019/05/21/mxgraph-knowledge-point/index.html">
-<meta property="og:site_name" content="web学习社">
+<meta property="og:site_name" content="亚里士朱德的博客">
 <meta property="og:description" content="mxGraph是一个支持多种语言（Java、JavaScript、PHP、.NET）的画图框架，所绘制的图形可以在主流浏览器以及原生应用上使用。mxGraph官方资料全英文，网上有几篇mxGraph的教程，对于“入门”和“使用”讲解得比较详细。所以这篇文章不是介绍如何画一个图形，写一个hello world，而是重点介绍学习mxGraph时觉得比较重要的、难以理解的或者容易被忽略的知识点。需要读者">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yalishizhude.com/2019/05/21/mxgraph-knowledge-point/vis.png">
@@ -132,7 +132,7 @@
 
 
 
-  <title>mxGraph使用经验总结 | web学习社</title>
+  <title>mxGraph使用经验总结 | 亚里士朱德的博客</title>
   
 
 
@@ -152,6 +152,8 @@
 
 
 
+  <meta name="baidu-site-verification" content="weH21azGfC" />
+  <meta name="google-site-verification" content="Ubo8RbQoNlPmBNmKh4xVG46h496NbplJNWX5usiuONY" />
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -172,7 +174,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">web学习社</span>
+        <span class="site-title">亚里士朱德的博客</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -265,7 +267,30 @@
 </nav>
 
 
-
+<script>
+  if(!/localhost/.test(location.host)) {
+    var pathname = location.pathname
+    var protocol = location.protocol
+    if(/\/$/.test(pathname)) {
+      pathname += 'index.html'
+    }
+    if(protocol==='http:') {
+      protocol = 'https:'
+    }
+    if(protocol!==location.protocol || pathname !== location.pathname) {
+      location = protocol+'//'+location.host + pathname + location.search+location.hash
+    }
+    var foot = document.getElementsByClassName("footer-inner")[0]
+    if(/yalishizhude\.com/.test(location.host)) {
+      document.title = 'web技术天地'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-2</a>'
+    }
+    if(/webxuexishe\.top/.test(location.host)) {
+      document.title = 'web学习社'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>'
+    }
+  }
+</script>
  </div>
     </header>
 
@@ -298,7 +323,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="web学习社">
+      <meta itemprop="name" content="亚里士朱德的博客">
     </span>
 
     
@@ -506,8 +531,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/22/tampermonkey-ad/" rel="prev" title="我的页面我做主——浏览器去广告正确姿势">
-                我的页面我做主——浏览器去广告正确姿势 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/06/12/x509/" rel="prev" title="你了解HTTPS，但你可能不了解X.509">
+                你了解HTTPS，但你可能不了解X.509 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -577,7 +602,7 @@
                 alt="亚里士朱德" />
             
               <p class="site-author-name" itemprop="name">亚里士朱德</p>
-              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+              <p class="site-description motion-element" itemprop="description">专注web技术分享</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -587,7 +612,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">105</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -679,7 +704,7 @@
 
   
 </div>
-<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>
+
 
 
         
@@ -821,6 +846,21 @@
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
 

@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="/rss2.xml" title="web学习社" type="application/atom+xml" />
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
 
 
 
@@ -86,7 +86,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="node.js基础教程(6)：自定义模块">
 <meta property="og:url" content="http://yalishizhude.com/2015/06/25/module/index.html">
-<meta property="og:site_name" content="web学习社">
+<meta property="og:site_name" content="亚里士朱德的博客">
 <meta property="og:description" content="要求这个问题和前面一个一样，但是这次需要使用模块。将需要创建两个文件来解决这个问题。 编写一个程序来打印出所给文件目录的所含文件的列表，并且以特定的文件名后缀来过滤这个列表。这次将会提供两个参数，第一个参数是要列举的目录，第二个参数是要过滤的文件扩展名。在终端中打印出过滤出来的文件列表（一个文件一行）。此外，必须使用异步 I/O。 需要编写一个模块文件去做大部分的事情。这个模块必须导出（expor">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-11-17T12:09:49.247Z">
@@ -128,7 +128,7 @@
 
 
 
-  <title>node.js基础教程(6)：自定义模块 | web学习社</title>
+  <title>node.js基础教程(6)：自定义模块 | 亚里士朱德的博客</title>
   
 
 
@@ -148,6 +148,8 @@
 
 
 
+  <meta name="baidu-site-verification" content="weH21azGfC" />
+  <meta name="google-site-verification" content="Ubo8RbQoNlPmBNmKh4xVG46h496NbplJNWX5usiuONY" />
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -168,7 +170,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">web学习社</span>
+        <span class="site-title">亚里士朱德的博客</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -261,7 +263,30 @@
 </nav>
 
 
-
+<script>
+  if(!/localhost/.test(location.host)) {
+    var pathname = location.pathname
+    var protocol = location.protocol
+    if(/\/$/.test(pathname)) {
+      pathname += 'index.html'
+    }
+    if(protocol==='http:') {
+      protocol = 'https:'
+    }
+    if(protocol!==location.protocol || pathname !== location.pathname) {
+      location = protocol+'//'+location.host + pathname + location.search+location.hash
+    }
+    var foot = document.getElementsByClassName("footer-inner")[0]
+    if(/yalishizhude\.com/.test(location.host)) {
+      document.title = 'web技术天地'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-2</a>'
+    }
+    if(/webxuexishe\.top/.test(location.host)) {
+      document.title = 'web学习社'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>'
+    }
+  }
+</script>
  </div>
     </header>
 
@@ -294,7 +319,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="web学习社">
+      <meta itemprop="name" content="亚里士朱德的博客">
     </span>
 
     
@@ -551,7 +576,7 @@ module.exports = function (dir, filterStr, callback) {
                 alt="亚里士朱德" />
             
               <p class="site-author-name" itemprop="name">亚里士朱德</p>
-              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+              <p class="site-description motion-element" itemprop="description">专注web技术分享</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -561,7 +586,7 @@ module.exports = function (dir, filterStr, callback) {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">105</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -653,7 +678,7 @@ module.exports = function (dir, filterStr, callback) {
 
   
 </div>
-<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>
+
 
 
         
@@ -795,6 +820,21 @@ module.exports = function (dir, filterStr, callback) {
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
 

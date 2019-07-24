@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="/rss2.xml" title="web学习社" type="application/atom+xml" />
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
 
 
 
@@ -86,7 +86,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="学习jquery之前了解一下requirejs也无妨">
 <meta property="og:url" content="http://yalishizhude.com/2015/08/22/requirejs/index.html">
-<meta property="og:site_name" content="web学习社">
+<meta property="og:site_name" content="亚里士朱德的博客">
 <meta property="og:description" content="jquery算是最先了解的一个js库，算是一种工具库，提供了很多实用的工具函数，也为其它很多插件提供了开发基础，但是用了这么久，我看不出其中有什么核心的思想性的东西。requirejs的核心思想用一个单词可以概括：AMD。它只做了一件事：模块化。而且这件事做得还挺好：通过简单的配置、调用方式，加速、优化了代码。结合我在项目中的一些使用经验，从以下几个方面总结了一下requirejs的特点。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-11-17T12:09:49.250Z">
@@ -128,7 +128,7 @@
 
 
 
-  <title>学习jquery之前了解一下requirejs也无妨 | web学习社</title>
+  <title>学习jquery之前了解一下requirejs也无妨 | 亚里士朱德的博客</title>
   
 
 
@@ -148,6 +148,8 @@
 
 
 
+  <meta name="baidu-site-verification" content="weH21azGfC" />
+  <meta name="google-site-verification" content="Ubo8RbQoNlPmBNmKh4xVG46h496NbplJNWX5usiuONY" />
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -168,7 +170,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">web学习社</span>
+        <span class="site-title">亚里士朱德的博客</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -261,7 +263,30 @@
 </nav>
 
 
-
+<script>
+  if(!/localhost/.test(location.host)) {
+    var pathname = location.pathname
+    var protocol = location.protocol
+    if(/\/$/.test(pathname)) {
+      pathname += 'index.html'
+    }
+    if(protocol==='http:') {
+      protocol = 'https:'
+    }
+    if(protocol!==location.protocol || pathname !== location.pathname) {
+      location = protocol+'//'+location.host + pathname + location.search+location.hash
+    }
+    var foot = document.getElementsByClassName("footer-inner")[0]
+    if(/yalishizhude\.com/.test(location.host)) {
+      document.title = 'web技术天地'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-2</a>'
+    }
+    if(/webxuexishe\.top/.test(location.host)) {
+      document.title = 'web学习社'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>'
+    }
+  }
+</script>
  </div>
     </header>
 
@@ -294,7 +319,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="web学习社">
+      <meta itemprop="name" content="亚里士朱德的博客">
     </span>
 
     
@@ -558,7 +583,7 @@
                 alt="亚里士朱德" />
             
               <p class="site-author-name" itemprop="name">亚里士朱德</p>
-              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+              <p class="site-description motion-element" itemprop="description">专注web技术分享</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -568,7 +593,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">105</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -660,7 +685,7 @@
 
   
 </div>
-<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>
+
 
 
         
@@ -802,6 +827,21 @@
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
 

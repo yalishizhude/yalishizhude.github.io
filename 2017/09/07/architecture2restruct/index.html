@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="/rss2.xml" title="web学习社" type="application/atom+xml" />
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
 
 
 
@@ -86,7 +86,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="从架构到重构">
 <meta property="og:url" content="http://yalishizhude.com/2017/09/07/architecture2restruct/index.html">
-<meta property="og:site_name" content="web学习社">
+<meta property="og:site_name" content="亚里士朱德的博客">
 <meta property="og:description" content="重构之后整理了一下对架构的理解，偏重但不仅限于Web前端（以下简称“前端”）。 架构师的职责不少人一提到架构师就觉得很高大上，什么是架构师？ 从上千人跨国公司，到十数人的创业公司，架构师的职责各有不同。 人数众多的IT公司通常会分成架构（框架）组和业务组，架构（框架）组为业务组提供公用的框架和组件（服务），而业务组负责开发实现需求。 创业公司的分工通常没有那么细致，往往需要开发者通常既是架构师也是">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yalishizhude.com/2017/09/07/architecture2restruct/api.jpg">
@@ -130,7 +130,7 @@
 
 
 
-  <title>从架构到重构 | web学习社</title>
+  <title>从架构到重构 | 亚里士朱德的博客</title>
   
 
 
@@ -150,6 +150,8 @@
 
 
 
+  <meta name="baidu-site-verification" content="weH21azGfC" />
+  <meta name="google-site-verification" content="Ubo8RbQoNlPmBNmKh4xVG46h496NbplJNWX5usiuONY" />
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -170,7 +172,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">web学习社</span>
+        <span class="site-title">亚里士朱德的博客</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -263,7 +265,30 @@
 </nav>
 
 
-
+<script>
+  if(!/localhost/.test(location.host)) {
+    var pathname = location.pathname
+    var protocol = location.protocol
+    if(/\/$/.test(pathname)) {
+      pathname += 'index.html'
+    }
+    if(protocol==='http:') {
+      protocol = 'https:'
+    }
+    if(protocol!==location.protocol || pathname !== location.pathname) {
+      location = protocol+'//'+location.host + pathname + location.search+location.hash
+    }
+    var foot = document.getElementsByClassName("footer-inner")[0]
+    if(/yalishizhude\.com/.test(location.host)) {
+      document.title = 'web技术天地'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-2</a>'
+    }
+    if(/webxuexishe\.top/.test(location.host)) {
+      document.title = 'web学习社'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>'
+    }
+  }
+</script>
  </div>
     </header>
 
@@ -296,7 +321,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="web学习社">
+      <meta itemprop="name" content="亚里士朱德的博客">
     </span>
 
     
@@ -552,7 +577,7 @@
                 alt="亚里士朱德" />
             
               <p class="site-author-name" itemprop="name">亚里士朱德</p>
-              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+              <p class="site-description motion-element" itemprop="description">专注web技术分享</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -562,7 +587,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">105</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -654,7 +679,7 @@
 
   
 </div>
-<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>
+
 
 
         
@@ -796,6 +821,21 @@
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
 

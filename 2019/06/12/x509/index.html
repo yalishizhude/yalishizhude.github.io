@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="网络安全," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="世上根本就没有HTTPS协议，只有HTTP协议。——知乎某答友">
+<meta name="keywords" content="网络安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你了解HTTPS，但你可能不了解X.509">
+<meta property="og:url" content="http://yalishizhude.com/2019/06/12/x509/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="世上根本就没有HTTPS协议，只有HTTP协议。——知乎某答友">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yalishizhude.com/2019/06/12/x509/certificate.jpg">
+<meta property="og:image" content="http://yalishizhude.com/2019/06/12/x509/certificate-chain.jpg">
+<meta property="og:updated_time" content="2019-07-24T17:04:01.361Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="你了解HTTPS，但你可能不了解X.509">
+<meta name="twitter:description" content="世上根本就没有HTTPS协议，只有HTTP协议。——知乎某答友">
+<meta name="twitter:image" content="http://yalishizhude.com/2019/06/12/x509/certificate.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yalishizhude.com/2019/06/12/x509/"/>
+
+
+
+
+
+  <title>你了解HTTPS，但你可能不了解X.509 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <meta name="baidu-site-verification" content="weH21azGfC" />
+  <meta name="google-site-verification" content="Ubo8RbQoNlPmBNmKh4xVG46h496NbplJNWX5usiuONY" />
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+<script>
+  if(!/localhost/.test(location.host)) {
+    var pathname = location.pathname
+    var protocol = location.protocol
+    if(/\/$/.test(pathname)) {
+      pathname += 'index.html'
+    }
+    if(protocol==='http:') {
+      protocol = 'https:'
+    }
+    if(protocol!==location.protocol || pathname !== location.pathname) {
+      location = protocol+'//'+location.host + pathname + location.search+location.hash
+    }
+    var foot = document.getElementsByClassName("footer-inner")[0]
+    if(/yalishizhude\.com/.test(location.host)) {
+      document.title = 'web技术天地'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-2</a>'
+    }
+    if(/webxuexishe\.top/.test(location.host)) {
+      document.title = 'web学习社'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>'
+    }
+  }
+</script>
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2019/06/12/x509/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">你了解HTTPS，但你可能不了解X.509</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-12T01:06:43+08:00">
+                2019-06-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络安全/" itemprop="url" rel="index">
+                    <span itemprop="name">网络安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>世上根本就没有HTTPS协议，只有HTTP协议。——知乎某答友</em></p>
+<a id="more"></a>
+<p>某天，收到领导指示：学习一下X.509相关原理。</p>
+<p>很多开发者可能和我一样觉得X.509这个词很陌生，但其实我们经常和它打交道，属于典型的“日用而不知”的东西。</p>
+<p>那么X.509是什么呢？<br>X.509是一种<strong>数字证书</strong>的<strong>格式标准</strong>。<br>应用很广泛，现在HTTPS依赖的SSL证书使用的就是使用的X.509格式。这也就是说，每当我们打开https开头的网站都会用到它。</p>
+<h1 id="格式标准"><a href="#格式标准" class="headerlink" title="格式标准"></a>格式标准</h1><p>简单地说，格式标准就像写HTML文件时的规范：开头声明文档类型，<code>html</code>作为根标签，元信息放在<code>head</code>标签中，页面内容放在<code>body</code>标签中等等。<br>当然这个例子不是那么贴切，因为实际上不按照这个格式编写的html文件浏览器也能解析出来。<br>更贴切的例子应该是JSON文件格式，规定了嵌套关系必须用大括号，数组必须用中括号，字符串必须用双引号等等，如果违反了一条其中的规则，那么就无法被正确的解析。</p>
+<p>这个标准的具体内容是什么呢？<br>X.509规定的格式大致如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">版本号</div><div class="line">序列号</div><div class="line">签名算法</div><div class="line">颁发者</div><div class="line">证书有效期</div><div class="line">  开始日期</div><div class="line">  终止日期</div><div class="line">主题</div><div class="line">主题公钥信息</div><div class="line">  公钥算法</div><div class="line">  主体公钥</div><div class="line">颁发者唯一身份信息（可选）</div><div class="line">主题唯一身份信息（可选）</div><div class="line">扩展信息（可选）</div><div class="line">签名</div></pre></td></tr></table></figure>
+<p>下图是某网站的 X.509 证书信息</p>
+<img src="/2019/06/12/x509/certificate.jpg">
+<h1 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h1><p>那么数字证书又是什么？<br>简单的说，数字证书就是通过加密算法来制造的一个网络“身份证”，用来证明通信方的真实身份。<br>这个“身份证”的制作过程也很有意思，并不是由一个机构统一发放，而是层层颁发。<br>比如 A 持有了可信证书，那么它颁发给的 B 的证书也是可信的， B 再颁发给 C 的证书也是可信的。<br>整体结构很像数据结构中的“树”，其中 A 的证书为“根证书”，B 的为“中介证书”，C 的为“终端证书”。<br>而 A、B 都被称作认证机构，简称 CA（Certificate authority）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> 根证书</div><div class="line">   |</div><div class="line">中介证书</div><div class="line">   |</div><div class="line">终端证书</div></pre></td></tr></table></figure>
+<ul>
+<li>根证书：通常预先安装在操作系统和浏览器中，是由大公司和政府联合制作的（用户也可以自己制作，但是会有安全风险），作为证书链的起点。</li>
+<li>中介证书：持有中介证书的CA主要负责给终端颁发证书，这些终端证书既有收费的也有免费的，免费终端证书一般使用期限是1年。</li>
+<li>终端证书：终端证书一般就是我们在浏览器上可以查看到的证书，通常用于具体网站服务中。这类证书不会再用作颁发新的证书。</li>
+</ul>
+<p>每个证书都可以沿着树往上追溯到根证书，从而形成一条信任链。<br>比如下面这种图就是某网站证书的信任链信息。</p>
+<img src="/2019/06/12/x509/certificate-chain.jpg">
+<p>关于 X.509 的内容就分享完了。</p>
+<p>但是心中的疑惑驱使着我继续探索，这证书靠谱么？<br>如果黑客伪造认证机构给木马网站颁发证书呢？</p>
+<h1 id="安全机制"><a href="#安全机制" class="headerlink" title="安全机制"></a>安全机制</h1><p>证书采用的是一种非对称加密机制来保证信息不被窃取和复制。</p>
+<h2 id="加密技术"><a href="#加密技术" class="headerlink" title="加密技术"></a>加密技术</h2><p>这里稍稍解释下非对称机密，先说说密码学。</p>
+<p>信息加密的需求其实一直都存在，从古代开始就使用各种技术来加密重要的信息，但是古代的加密安全程度都是基于加密方式的。</p>
+<p>也就是说，别人如果知道了加密方式，那么就可以解密密文信息。</p>
+<p>而现代的加密技术安全性在于密钥的安全，也就是说加密方式（算法）是公开的，只要密钥不被窃取或泄露，信息就是安全的。</p>
+<p>虽然加密算法有很多种，但是大致上可以分为两类：对称加密和非对称加密。</p>
+<p>对称加密的通信双方都是用同一个密钥进行加解密，而非对称加密则要求使用不同的密钥进行加密和解密。</p>
+<p>再回到证书的颁发过程，现在很多云服务厂商都提供了申请数字证书的功能，它会像CA发起申请，CA收到申请之后，做了下面的事情：</p>
+<ol>
+<li>使用加密算法生成公私钥对。私钥一般是以<code>.key</code>为后缀名的文件，公钥存储于以<code>.csr</code>结尾的文件中。</li>
+<li>在<code>.csr</code>文件中补充一些信息比如有效期限等，颁发者，并用自己的私钥对证书进行签名。这样就生成符合X.509格式的证书。</li>
+<li>用户收到证书后，在web服务器（或负载均衡等设备）上进行部署。</li>
+</ol>
+<h2 id="SSL证书"><a href="#SSL证书" class="headerlink" title="SSL证书"></a>SSL证书</h2><p>符合X.509格式的证书有多种，这里以SSL证书为例。</p>
+<p>常见的场景会是下面这样：</p>
+<ol>
+<li>客户端，比如浏览器会向服务端发送请求，服务端为了证明自己的身份，会发送证书给对方。</li>
+<li>浏览器读取证书的数字签名部分，用自身根证书列表中对应的公钥证书对其进行解密。如果解密成功，并且证书哈希值与签名内的哈希值匹配一致，可证明站点提供的证书确实是该CA根证书签发的，否则给出风险提示。</li>
+<li>验证通过之后，使用证书中的公钥对随机数和对称加密算法加密，发送给服务端，服务端用私钥进行解密，获得密钥和加密算法。</li>
+<li>服务端与浏览器后续通信将会使用新的对称加密算法和随机密钥加密信息。</li>
+</ol>
+<p>证书在整个流程起到了重要的作用，那么能不能通过窃取和伪造的方式来获取通信内容呢？</p>
+<ul>
+<li>窃取。首先证书当然是可以被窃取的，因为它是公开的，但是拿到了证书后也只能和服务端进行通信，不能用来窃取其它信息，至于证书的私钥存储在服务端，更加不可能随意被窃取了。</li>
+<li>伪造。如果有人伪造了一张网站证书，那么浏览器在向CA查询证书信息的时候就会验证失败。</li>
+</ul>
+<p>那这么说就是绝对安全了吗？非也~</p>
+<p>对于DNS劫持的情况还是无解的。比如浏览器访问网站的时候给了一个假证书，然后向CA验证证书的时候又访问了一个假网站，证书就有可能被验证通过。从而黑客可以作为中间方获取并转发双方的数据。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>SSL证书从生成到使用涉及到了三次加解密过程：</p>
+<ol>
+<li>证书生成的时候利用私钥签名，验证证书的时候利用公钥解密。</li>
+<li>确认证书有效后，利用证书中的公钥进行加密，服务端利用私钥解密。</li>
+<li>双方使用新生成的随机密钥进行数据加解密。</li>
+</ol>
+<p>用一张结构图表示下HTTPS和X.509的关系：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">    HTTPS</div><div class="line">  /       \</div><div class="line">HTTP    TLS/SSL</div><div class="line">        /      \</div><div class="line">   通信内容    确认身份</div><div class="line">   对称加密    SSL证书 —— X.509 格式，非对称加密</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/网络安全/" rel="tag"># 网络安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/21/mxgraph-knowledge-point/" rel="next" title="mxGraph使用经验总结">
+                <i class="fa fa-chevron-left"></i> mxGraph使用经验总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/22/tampermonkey-ad/" rel="prev" title="我的页面我做主——浏览器去广告正确姿势">
+                我的页面我做主——浏览器去广告正确姿势 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">专注web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#格式标准"><span class="nav-number">1.</span> <span class="nav-text">格式标准</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数字证书"><span class="nav-number">2.</span> <span class="nav-text">数字证书</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安全机制"><span class="nav-number">3.</span> <span class="nav-text">安全机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#加密技术"><span class="nav-number">3.1.</span> <span class="nav-text">加密技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSL证书"><span class="nav-number">3.2.</span> <span class="nav-text">SSL证书</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
