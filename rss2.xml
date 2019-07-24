@@ -8,8 +8,22 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>web技术分享</description>
-    <pubDate>Sat, 25 May 2019 06:20:53 GMT</pubDate>
+    <pubDate>Wed, 24 Jul 2019 16:52:41 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>我的页面我做主——浏览器去广告正确姿势</title>
+      <link>http://yalishizhude.com/2019/07/22/tampermonkey-ad/</link>
+      <guid>http://yalishizhude.com/2019/07/22/tampermonkey-ad/</guid>
+      <pubDate>Mon, 22 Jul 2019 10:14:10 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&lt;em&gt;会CSS就会去广告~&lt;/em&gt;&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2019/07/22/tampermonkey-ad/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>mxGraph使用经验总结</title>
@@ -128,25 +142,6 @@
       </description>
       
       <comments>http://yalishizhude.com/2018/08/26/writing-schema/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>程序员读《孙子兵法》</title>
-      <link>http://yalishizhude.com/2018/08/19/art-of-war/</link>
-      <guid>http://yalishizhude.com/2018/08/19/art-of-war/</guid>
-      <pubDate>Sun, 19 Aug 2018 01:38:29 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;虽然《孙子兵法》是流传千年、家喻户晓的名著，但大多数人并不一定真正理解它。我之前在读它之时就有两个误解：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;《孙子兵法》讲的是奇谋巧计，教我们怎么去战胜敌人。&lt;/li&gt;
-&lt;li&gt;《孙子兵法》是一本讲军事的古书，和我们普通人的现实生活相隔太远，没有太多借鉴意义。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;听完得到课程《华杉讲透孙子兵法》之后才真正窥见其奥义。那么孙子兵法的核心到底是什么？对于我们的工作又有何帮助？&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yalishizhude.com/2018/08/19/art-of-war/#disqus_thread</comments>
     </item>
     
     <item>

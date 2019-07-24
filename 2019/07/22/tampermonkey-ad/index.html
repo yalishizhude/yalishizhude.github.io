@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="web学习社" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="会CSS就会去广告~">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的页面我做主——浏览器去广告正确姿势">
+<meta property="og:url" content="http://yalishizhude.com/2019/07/22/tampermonkey-ad/index.html">
+<meta property="og:site_name" content="web学习社">
+<meta property="og:description" content="会CSS就会去广告~">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yalishizhude.com/2019/07/22/tampermonkey-ad/tieba.jpg">
+<meta property="og:image" content="http://yalishizhude.com/2019/07/22/tampermonkey-ad/tieba.jpg">
+<meta property="og:updated_time" content="2019-07-24T16:52:41.427Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="我的页面我做主——浏览器去广告正确姿势">
+<meta name="twitter:description" content="会CSS就会去广告~">
+<meta name="twitter:image" content="http://yalishizhude.com/2019/07/22/tampermonkey-ad/tieba.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yalishizhude.com/2019/07/22/tampermonkey-ad/"/>
+
+
+
+
+
+  <title>我的页面我做主——浏览器去广告正确姿势 | web学习社</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">web学习社</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2019/07/22/tampermonkey-ad/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="web学习社">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">我的页面我做主——浏览器去广告正确姿势</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-22T18:14:10+08:00">
+                2019-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>会CSS就会去广告~</em></p>
+<a id="more"></a>
+<h1 id="传统去广告方法的弊端"><a href="#传统去广告方法的弊端" class="headerlink" title="传统去广告方法的弊端"></a>传统去广告方法的弊端</h1><p>我们浏览网页的时候经常不免会看到各种不想看到的广告内容，最简单的方案就是通过浏览器插件来解决，比如大名鼎鼎的AdBlock插件以及国内的各种广告拦截助手。</p>
+<p>但这些插件的拦截能力可定制化程度不高，像AdBlock需要通过其定义的一套语法规则通过CSS选择器来屏蔽一些DOM元素，碰到一些特殊的情况就无能为力了。</p>
+<p>比如一个页面上的某些重要元素被绑定了事件，点击的时候会跳转到广告页面，这时候就不能通过简单的屏蔽DOM元素的方式来实现了。</p>
+<h1 id="简单高效的自定义方式"><a href="#简单高效的自定义方式" class="headerlink" title="简单高效的自定义方式"></a>简单高效的自定义方式</h1><p>对于这些情况我们可以使用一个强大的浏览器插件——Greasemonkey，简称GM，中文俗称为“油猴”，支持Firefox和Chrome浏览器。</p>
+<p>油猴并不是一个专门用来去广告的插件，而是一个往页面中植入JavaScript代码的工具，用来修改页面，或者添加一些功能，比如自动填充表单、显示网盘文件下载链接等。</p>
+<p>开发功能非常简单，只需要通过js调用对应API函数即可。</p>
+<p>简单几行代码，就可以去除大部分页面广告。</p>
+<h1 id="快速入门GM脚本"><a href="#快速入门GM脚本" class="headerlink" title="快速入门GM脚本"></a>快速入门GM脚本</h1><p>油猴的使用非常简单，我们编写一个js脚本，然后配置好对应的网址。</p>
+<p>这样当浏览器访问匹配的网址时，油猴会加载我们编写的js脚本，运行里面的代码。</p>
+<p>简而言之分两步。</p>
+<ol>
+<li>配置脚本。配置项大概在20个左右，下面我们介绍最重要的3个配置项。</li>
+<li>编写脚本。调用插件提供的API函数，为页面添加CSS样式或者执行js代码。</li>
+</ol>
+<ul>
+<li>@include  脚本匹配的网址，支持星号“* ”来匹配任意字符。可以使用多次表示匹配多个网址。</li>
+<li>@grant    声明需要使用的API函数。</li>
+<li>@run-at   脚本执行的时间，有5个可选值，CSS样式我们选择“document-start”在页面渲染之前加载，而js脚本可以选择“document-end”在页面渲染完成后加载。</li>
+</ul>
+<p>需要注意的是，配置参数是在以<code>==UserScript==</code>开头，<code>==/UserScript==</code>结尾的注释中的。</p>
+<p>完整的示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// ==UserScript==</div><div class="line">// @name         XX广告过滤</div><div class="line">// @version      0.1</div><div class="line">// @icon         https://www.xxx.com/favicon.ico</div><div class="line">// @description  try to take over the world!</div><div class="line">// @author       You</div><div class="line">// @include      http*://xx.com/*</div><div class="line">// @grant GM_addStyle</div><div class="line">// @run-at document-start</div><div class="line">// ==/UserScript==</div></pre></td></tr></table></figure>
+<p>具体说明可以参考官方文档：<a href="https://www.tampermonkey.net/documentation.php?ext=dhdg&amp;show=dhdg" target="_blank" rel="noopener">https://www.tampermonkey.net/documentation.php?ext=dhdg&amp;show=dhdg</a></p>
+<h1 id="2种常见场景以及对应的操作"><a href="#2种常见场景以及对应的操作" class="headerlink" title="2种常见场景以及对应的操作"></a>2种常见场景以及对应的操作</h1><h2 id="修改样式"><a href="#修改样式" class="headerlink" title="修改样式"></a>修改样式</h2><p>这是最简单的屏蔽广告的方式，只要配置规则就行了，能屏蔽80%以上的广告。</p>
+<p>以某论坛广告为例，这个论坛的广告是直接夹杂在帖子当中，下方有个小小的字标明广告，一不小心就点进去了。<br>而且帖子中间夹杂着毫不相干的广告，相当影响体验。</p>
+<img src="/2019/07/22/tampermonkey-ad/tieba.jpg">
+<p>这种广告屏蔽起来相当简单，写一条样式规则，将其<code>display</code>属性置为<code>none</code>就行了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.home-place-item &#123;</div><div class="line">  display: none!important;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以防被覆盖，我们可以加上<code>!important</code>提升权限。</p>
+<p>大部分广告可以通过上面 <strong>css选择器 + display属性</strong> 的方式屏蔽。但有些广告处理起来会比较麻烦。</p>
+<p>例如搜索引擎的广告，就使用了一些方式来“保护”。<br>某搜索引擎搜索“机票”可以看到下面的广告信息。</p>
+<img src="/2019/07/22/tampermonkey-ad/tieba.jpg">
+<p>可以看到该广告元素style属性中使用了最高权重的display、visibility两个属性，所以用上面隐藏的方式肯定是无效的。</p>
+<p>所以只能选择其他的方式，这里需要考验大家的css基本功了。<br>让一个元素隐藏的方式有哪些？<br>下面是一种实现方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[cmatchid] &#123;</div><div class="line">  height: 0;</div><div class="line">  overflow: hidden;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="阻止js文件加载"><a href="#阻止js文件加载" class="headerlink" title="阻止js文件加载"></a>阻止js文件加载</h2><p>还有一类广告并不是以静态元素的方式呈现，甚至你在页面上都看不到它，它只在你第一次点击某个功能的时候弹出来。<br>这种处理起来就相对麻烦，因为直接对元素进行修改可能会影响到正常功能使用。<br>但是这种广告的事件绑定一般都是单独写在某个js文件中的，细心查找，然后阻止对应的js文件加载就可以从根本上解决问题。<br>浏览器其实为插件提供了API用来阻止资源加载，但是油猴却没有主动提供。<br>后来在issue中找到了一个隐藏API来实现这个功能。<br>以阻止 <code>https://xx.com</code> 下的文件为例，可以在脚本开头引用<code>webRequest</code>功能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">// @webRequest [&#123;&quot;selector&quot;:&quot;https://xx.com/*&quot;,&quot;action&quot;:&quot;cancel&quot;&#125;]</div></pre></td></tr></table></figure>
+<h1 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h1><p>只要你懂web前端，只要你肯动手，你的网页都可以变成你想象的样子。</p>
+<p>装上插件，去自定义你的页面吧！</p>
+<p>示例脚本地址：<a href="https://github.com/yalishizhude/block-ad-scripts" target="_blank" rel="noopener">https://github.com/yalishizhude/block-ad-scripts</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/21/mxgraph-knowledge-point/" rel="next" title="mxGraph使用经验总结">
+                <i class="fa fa-chevron-left"></i> mxGraph使用经验总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#传统去广告方法的弊端"><span class="nav-number">1.</span> <span class="nav-text">传统去广告方法的弊端</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单高效的自定义方式"><span class="nav-number">2.</span> <span class="nav-text">简单高效的自定义方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#快速入门GM脚本"><span class="nav-number">3.</span> <span class="nav-text">快速入门GM脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2种常见场景以及对应的操作"><span class="nav-number">4.</span> <span class="nav-text">2种常见场景以及对应的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改样式"><span class="nav-number">4.1.</span> <span class="nav-text">修改样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阻止js文件加载"><span class="nav-number">4.2.</span> <span class="nav-text">阻止js文件加载</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更多"><span class="nav-number">5.</span> <span class="nav-text">更多</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
