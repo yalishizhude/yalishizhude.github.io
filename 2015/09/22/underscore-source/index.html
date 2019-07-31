@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="js,underscore," />
+  <meta name="keywords" content="underscore.js," />
 
 
 
@@ -82,14 +82,14 @@
 
 
 <meta name="description" content="underscore 源码版本 1.8.2  起因很多人向我推荐研究js，可以看看一些第三方js类库的源码，而源码之中最好解读也最简短的就是underscore，它也是我平常比较喜欢的一个库，因为它性价比高：体积小、能力强。打开一看，才1000多行，试着读了一下，确实很值得一看，所以对精彩部分做了一下整理。 闭包整个函数在一个闭包中，避免污染全局变量。通过传入this（其实就是window对象）">
-<meta name="keywords" content="js,underscore">
+<meta name="keywords" content="underscore.js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="js高手进阶之路：underscore源码经典（一）">
 <meta property="og:url" content="http://yalishizhude.com/2015/09/22/underscore-source/index.html">
 <meta property="og:site_name" content="亚里士朱德的博客">
 <meta property="og:description" content="underscore 源码版本 1.8.2  起因很多人向我推荐研究js，可以看看一些第三方js类库的源码，而源码之中最好解读也最简短的就是underscore，它也是我平常比较喜欢的一个库，因为它性价比高：体积小、能力强。打开一看，才1000多行，试着读了一下，确实很值得一看，所以对精彩部分做了一下整理。 闭包整个函数在一个闭包中，避免污染全局变量。通过传入this（其实就是window对象）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-17T12:09:49.319Z">
+<meta property="og:updated_time" content="2019-07-31T16:30:05.136Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js高手进阶之路：underscore源码经典（一）">
 <meta name="twitter:description" content="underscore 源码版本 1.8.2  起因很多人向我推荐研究js，可以看看一些第三方js类库的源码，而源码之中最好解读也最简短的就是underscore，它也是我平常比较喜欢的一个库，因为它性价比高：体积小、能力强。打开一看，才1000多行，试着读了一下，确实很值得一看，所以对精彩部分做了一下整理。 闭包整个函数在一个闭包中，避免污染全局变量。通过传入this（其实就是window对象）">
@@ -362,8 +362,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -529,9 +540,7 @@ bStack.pop();
       
         <div class="post-tags">
           
-            <a href="/tags/js/" rel="tag"># js</a>
-          
-            <a href="/tags/underscore/" rel="tag"># underscore</a>
+            <a href="/tags/underscore-js/" rel="tag"># underscore.js</a>
           
         </div>
       
@@ -544,8 +553,8 @@ bStack.pop();
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/16/collection/" rel="next" title="WEB基础知识整理">
-                <i class="fa fa-chevron-left"></i> WEB基础知识整理
+              <a href="/2015/09/16/git/" rel="next" title="git学习总结">
+                <i class="fa fa-chevron-left"></i> git学习总结
               </a>
             
           </div>
@@ -635,7 +644,7 @@ bStack.pop();
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-count">98</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -646,7 +655,7 @@ bStack.pop();
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -657,7 +666,7 @@ bStack.pop();
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">84</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="js," />
+  <meta name="keywords" content="油猴,GM," />
 
 
 
@@ -82,7 +82,7 @@
 
 
 <meta name="description" content="会CSS就会去广告~">
-<meta name="keywords" content="js">
+<meta name="keywords" content="油猴,GM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我的页面我做主——浏览器去广告正确姿势">
 <meta property="og:url" content="http://yalishizhude.com/2019/07/22/tampermonkey-ad/index.html">
@@ -91,7 +91,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yalishizhude.com/2019/07/22/tampermonkey-ad/tieba.jpg">
 <meta property="og:image" content="http://yalishizhude.com/2019/07/22/tampermonkey-ad/baidu.jpg">
-<meta property="og:updated_time" content="2019-07-24T17:13:57.091Z">
+<meta property="og:updated_time" content="2019-07-31T16:30:05.081Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我的页面我做主——浏览器去广告正确姿势">
 <meta name="twitter:description" content="会CSS就会去广告~">
@@ -365,8 +365,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/效率/" itemprop="url" rel="index">
+                    <span itemprop="name">效率</span>
                   </a>
                 </span>
 
@@ -426,7 +437,7 @@
 <p>需要注意的是，配置参数是在以<code>==UserScript==</code>开头，<code>==/UserScript==</code>结尾的注释中的。</p>
 <p>完整的示例如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// ==UserScript==</div><div class="line">// @name         XX广告过滤</div><div class="line">// @version      0.1</div><div class="line">// @icon         https://www.xxx.com/favicon.ico</div><div class="line">// @description  try to take over the world!</div><div class="line">// @author       You</div><div class="line">// @include      http*://xx.com/*</div><div class="line">// @grant GM_addStyle</div><div class="line">// @run-at document-start</div><div class="line">// ==/UserScript==</div></pre></td></tr></table></figure>
-<p>具体说明可以参考官方文档：<a href="https://www.tampermonkey.net/documentation.php?ext=dhdg&amp;show=dhdg" target="_blank" rel="noopener">https://www.tampermonkey.net/documentation.php?ext=dhdg&amp;show=dhdg</a></p>
+<p>具体说明可以参考官方文档：<br><a href="https://www.tampermonkey.net/documentation.php?ext=dhdg&amp;show=dhdg" target="_blank" rel="noopener">https://www.tampermonkey.net/documentation.php?ext=dhdg&amp;show=dhdg</a></p>
 <h1 id="2种常见场景以及对应的操作"><a href="#2种常见场景以及对应的操作" class="headerlink" title="2种常见场景以及对应的操作"></a>2种常见场景以及对应的操作</h1><h2 id="修改样式"><a href="#修改样式" class="headerlink" title="修改样式"></a>修改样式</h2><p>这是最简单的屏蔽广告的方式，只要配置规则就行了，能屏蔽80%以上的广告。</p>
 <p>以某论坛广告为例，这个论坛的广告是直接夹杂在帖子当中，下方有个小小的字标明广告，一不小心就点进去了。<br>而且帖子中间夹杂着毫不相干的广告，相当影响体验。</p>
 <img src="/2019/07/22/tampermonkey-ad/tieba.jpg">
@@ -443,7 +454,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">// @webRequest [&#123;&quot;selector&quot;:&quot;https://xx.com/*&quot;,&quot;action&quot;:&quot;cancel&quot;&#125;]</div></pre></td></tr></table></figure>
 <h1 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h1><p>只要你懂web前端，只要你肯动手，你的网页都可以变成你想象的样子。</p>
 <p>装上插件，去自定义你的页面吧！</p>
-<p>示例脚本地址：<a href="https://github.com/yalishizhude/block-ad-scripts" target="_blank" rel="noopener">https://github.com/yalishizhude/block-ad-scripts</a></p>
+<p>示例脚本地址：<br><a href="https://github.com/yalishizhude/block-ad-scripts" target="_blank" rel="noopener">https://github.com/yalishizhude/block-ad-scripts</a></p>
 
       
     </div>
@@ -469,7 +480,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/js/" rel="tag"># js</a>
+            <a href="/tags/油猴/" rel="tag"># 油猴</a>
+          
+            <a href="/tags/GM/" rel="tag"># GM</a>
           
         </div>
       
@@ -491,6 +504,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/01/js2py-exception/" rel="prev" title="从JavaScript到Python之异常">
+                从JavaScript到Python之异常 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -569,7 +586,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-count">98</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -580,7 +597,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -591,7 +608,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">84</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

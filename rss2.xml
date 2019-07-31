@@ -8,8 +8,29 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>专注web技术分享</description>
-    <pubDate>Wed, 24 Jul 2019 17:13:57 GMT</pubDate>
+    <pubDate>Wed, 31 Jul 2019 17:05:01 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>从JavaScript到Python之异常</title>
+      <link>http://yalishizhude.com/2019/08/01/js2py-exception/</link>
+      <guid>http://yalishizhude.com/2019/08/01/js2py-exception/</guid>
+      <pubDate>Thu, 01 Aug 2019 00:59:12 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;不少前端工程师看到这个标题可能会产生质问：&lt;/p&gt;
+&lt;p&gt;我js用得好好的，能后端能APP，为什么还要学习Python？&lt;/p&gt;
+&lt;p&gt;至少有下面两个理由：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;学习曲线。ES6之后的JavaScript(TypeScript)的在语法上和Python有很多异曲同工的地方，所以学习曲线非常平滑，上手难度很低。&lt;/li&gt;
+&lt;li&gt;应用场景。JavaScript虽然是web开发的王者，但是其在某些方面还是存在一些问题的。比如Node.js虽然可以写后端，但大多用于CGI层，做接口整合和模板渲染，而Python、Java这类语言已被广泛应用于后端服务编写，同时Python在做机器学习等方面也很有优势。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这篇文章我们通过对比两种语言之间的“异常”来学习Python。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2019/08/01/js2py-exception/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>我的页面我做主——浏览器去广告正确姿势</title>
@@ -295,20 +316,6 @@
       </description>
       
       <comments>http://yalishizhude.com/2017/12/05/webpack-big-file-optimize/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>编写Web组件的6个建议</title>
-      <link>http://yalishizhude.com/2017/11/17/web-component/</link>
-      <guid>http://yalishizhude.com/2017/11/17/web-component/</guid>
-      <pubDate>Fri, 17 Nov 2017 13:11:38 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;“组件化”是近几年web前端开发的趋势，关于如何设计出好的组件，本文总结了6点经验，希望对读者有所帮助。&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yalishizhude.com/2017/11/17/web-component/#disqus_thread</comments>
     </item>
     
   </channel>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="js," />
+  <meta name="keywords" content="并发," />
 
 
 
@@ -82,14 +82,14 @@
 
 
 <meta name="description" content="经常在写代码的时候碰到这样的场景：页面初始化时显示loading页，同时启动多个ajax并发请求获取数据，当每个ajax请求返回时结束loading。举个例子，一个下订单的页面，要查询常用地址信息、商品信息、地市信息…而这些请求都是异步的，希望等到所有数据加载完成后再允许用户操作。要实现这个场景容易碰到的一个问题就是多并发怎么控制？下面是一些解决方法和思路：">
-<meta name="keywords" content="js">
+<meta name="keywords" content="并发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈js中多并发的一些处理方法">
 <meta property="og:url" content="http://yalishizhude.com/2015/08/18/js-async/index.html">
 <meta property="og:site_name" content="亚里士朱德的博客">
 <meta property="og:description" content="经常在写代码的时候碰到这样的场景：页面初始化时显示loading页，同时启动多个ajax并发请求获取数据，当每个ajax请求返回时结束loading。举个例子，一个下订单的页面，要查询常用地址信息、商品信息、地市信息…而这些请求都是异步的，希望等到所有数据加载完成后再允许用户操作。要实现这个场景容易碰到的一个问题就是多并发怎么控制？下面是一些解决方法和思路：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-17T12:09:49.205Z">
+<meta property="og:updated_time" content="2019-07-31T16:30:04.784Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈js中多并发的一些处理方法">
 <meta name="twitter:description" content="经常在写代码的时候碰到这样的场景：页面初始化时显示loading页，同时启动多个ajax并发请求获取数据，当每个ajax请求返回时结束loading。举个例子，一个下订单的页面，要查询常用地址信息、商品信息、地市信息…而这些请求都是异步的，希望等到所有数据加载完成后再允许用户操作。要实现这个场景容易碰到的一个问题就是多并发怎么控制？下面是一些解决方法和思路：">
@@ -362,8 +362,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -499,7 +510,7 @@ $.when( d1, d2 ).done(function ( v1, v2 ) {
       
         <div class="post-tags">
           
-            <a href="/tags/js/" rel="tag"># js</a>
+            <a href="/tags/并发/" rel="tag"># 并发</a>
           
         </div>
       
@@ -603,7 +614,7 @@ $.when( d1, d2 ).done(function ( v1, v2 ) {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-count">98</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -614,7 +625,7 @@ $.when( d1, d2 ).done(function ( v1, v2 ) {
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -625,7 +636,7 @@ $.when( d1, d2 ).done(function ( v1, v2 ) {
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">84</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
