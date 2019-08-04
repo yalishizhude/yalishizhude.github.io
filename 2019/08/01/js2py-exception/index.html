@@ -91,7 +91,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yalishizhude.com/2019/08/01/js2py-exception/js-error.jpg">
 <meta property="og:image" content="http://yalishizhude.com/2019/08/01/js2py-exception/py-error.jpg">
-<meta property="og:updated_time" content="2019-07-31T17:05:01.006Z">
+<meta property="og:updated_time" content="2019-07-31T17:07:59.679Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从JavaScript到Python之异常">
 <meta name="twitter:description" content="不少前端工程师看到这个标题可能会产生质问： 我js用得好好的，能后端能APP，为什么还要学习Python？ 至少有下面两个理由：  学习曲线。ES6之后的JavaScript(TypeScript)的在语法上和Python有很多异曲同工的地方，所以学习曲线非常平滑，上手难度很低。 应用场景。JavaScript虽然是web开发的王者，但是其在某些方面还是存在一些问题的。比如Node.js虽然可以写">
@@ -423,7 +423,7 @@
 <p>这篇文章我们通过对比两种语言之间的“异常”来学习Python。</p>
 <a id="more"></a>
 <h1 id="为什么需要对异常进行处理"><a href="#为什么需要对异常进行处理" class="headerlink" title="为什么需要对异常进行处理"></a>为什么需要对异常进行处理</h1><p>异常是编写代码时必须考虑的问题，但却并不是一个热门话题，少有文章提到。<br>尤其在web前端这一块，浏览器的强大容错能力帮工程师解决（隐藏）了大量的异常。<br>但如果忽视异常轻则影响功能运行，重则导致系统崩溃，造成经济损失。</p>
-<h1 id="异常处理三板斧"><a href="#异常处理三板斧" class="headerlink" title="异常处理三板斧"></a>异常处理三板斧</h1><h2 id="一板斧：捕获"><a href="#一板斧：捕获" class="headerlink" title="一板斧：捕获"></a>一板斧：捕获</h2><p>JavaScript 异常捕获关键字与 Python 一致，都是使用<code>try</code>。</p>
+<h1 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h1><h2 id="捕获"><a href="#捕获" class="headerlink" title="捕获"></a>捕获</h2><p>JavaScript 异常捕获关键字与 Python 一致，都是使用<code>try</code>。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// JavaScript</div><div class="line">try &#123;</div><div class="line">  ...</div><div class="line">&#125;</div><div class="line"># Python</div><div class="line">try:</div><div class="line">  ...</div></pre></td></tr></table></figure>
 <p>但是两者都具有局限性：只能用来捕获同步执行代码的异常。</p>
 <p>对于异步代码的异常捕获的情况 JavaScript 处理起来相对复杂，按运行环境就可以分为 Node.js 和 浏览器，按捕获范围又可以分为全部捕获和局部捕获。</p>
@@ -431,7 +431,7 @@
 <p>Python 的情况要简单很多，即使使用异步线程或进程，也可以在函数内部进行捕获，然后其它方式上报。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">def _parse_speed(key_name, speed_list):</div><div class="line">  try:</div><div class="line">    ...</div><div class="line"></div><div class="line">t = threading.Thread(target=_parse_speed, args=(v, speed_list))</div><div class="line">t.start()</div></pre></td></tr></table></figure>
 <p><em>由于异常捕获情况比较复杂，如无特殊说明，后文讨论仅指使用try关键字的同步异常捕获。</em></p>
-<h2 id="二板斧：处理"><a href="#二板斧：处理" class="headerlink" title="二板斧：处理"></a>二板斧：处理</h2><p>再看看JavaScript几种处理异常方式。</p>
+<h2 id="处理"><a href="#处理" class="headerlink" title="处理"></a>处理</h2><p>再看看JavaScript几种处理异常方式。</p>
 <ul>
 <li>catch。catch 语句块用来处理异常，处理方式也相当粗放，try 语句块内的所有异常都会被捕获。</li>
 <li>finally。finally 语句块表示无论是否发生异常，语句块代码<strong>一定会被执行。</strong></li>
@@ -448,7 +448,7 @@
 </ul>
 <p>下面列举使用 except 的几个例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"># 捕获异常实例</div><div class="line">except Exception as e:</div><div class="line"></div><div class="line"># 批量异常捕获</div><div class="line">except (IOError, TypeError):</div><div class="line"></div><div class="line"># 异常分类捕获：</div><div class="line">except OSError as err:</div><div class="line">  ...</div><div class="line">except ValueError:</div><div class="line">  ...</div><div class="line">except:</div><div class="line">  ...</div></pre></td></tr></table></figure>
-<h2 id="三板斧：抛出"><a href="#三板斧：抛出" class="headerlink" title="三板斧：抛出"></a>三板斧：抛出</h2><p>JavaScript 中可以通过关键字 throw 来抛出一个 Error 对象。<br>Python中与之对应的是 raise ，用来抛出一个 Exception 实例。</p>
+<h2 id="抛出"><a href="#抛出" class="headerlink" title="抛出"></a>抛出</h2><p>JavaScript 中可以通过关键字 throw 来抛出一个 Error 对象。<br>Python中与之对应的是 raise ，用来抛出一个 Exception 实例。</p>
 <p>虽然关键字不一样但是写法基本相似：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// JavaScript</div><div class="line">throw Error(...)</div><div class="line"># Python</div><div class="line">raise Exception(...)</div></pre></td></tr></table></figure></p>
 <h2 id="异常类型"><a href="#异常类型" class="headerlink" title="异常类型"></a>异常类型</h2><p>对于 JavaScript 而言，谈异常类的意义不大，处理不同的异常需要手动判断，所以异常类型也比较简单。</p>
 <img src="/2019/08/01/js2py-exception/js-error.jpg">
@@ -516,6 +516,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/04/atomic-habits/" rel="prev" title="普通人如何做到“我命由我不由天”">
+                普通人如何做到“我命由我不由天” <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -594,7 +598,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">100</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -616,7 +620,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">84</span>
+                  <span class="site-state-item-count">85</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -658,7 +662,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么需要对异常进行处理"><span class="nav-number">1.</span> <span class="nav-text">为什么需要对异常进行处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异常处理三板斧"><span class="nav-number">2.</span> <span class="nav-text">异常处理三板斧</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一板斧：捕获"><span class="nav-number">2.1.</span> <span class="nav-text">一板斧：捕获</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二板斧：处理"><span class="nav-number">2.2.</span> <span class="nav-text">二板斧：处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三板斧：抛出"><span class="nav-number">2.3.</span> <span class="nav-text">三板斧：抛出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常类型"><span class="nav-number">2.4.</span> <span class="nav-text">异常类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么需要对异常进行处理"><span class="nav-number">1.</span> <span class="nav-text">为什么需要对异常进行处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异常处理"><span class="nav-number">2.</span> <span class="nav-text">异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#捕获"><span class="nav-number">2.1.</span> <span class="nav-text">捕获</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理"><span class="nav-number">2.2.</span> <span class="nav-text">处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抛出"><span class="nav-number">2.3.</span> <span class="nav-text">抛出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常类型"><span class="nav-number">2.4.</span> <span class="nav-text">异常类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>

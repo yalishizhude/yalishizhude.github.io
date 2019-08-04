@@ -8,8 +8,22 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>专注web技术分享</description>
-    <pubDate>Wed, 31 Jul 2019 17:05:01 GMT</pubDate>
+    <pubDate>Sun, 04 Aug 2019 17:13:08 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>普通人如何做到“我命由我不由天”</title>
+      <link>http://yalishizhude.com/2019/08/04/atomic-habits/</link>
+      <guid>http://yalishizhude.com/2019/08/04/atomic-habits/</guid>
+      <pubDate>Sun, 04 Aug 2019 14:26:24 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;掌控习惯就是掌控人生的开始~&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2019/08/04/atomic-habits/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>从JavaScript到Python之异常</title>
@@ -294,28 +308,6 @@
       </description>
       
       <comments>http://yalishizhude.com/2017/12/15/minikube-setup/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>使用vue-cli的webpack模板的一次优化</title>
-      <link>http://yalishizhude.com/2017/12/05/webpack-big-file-optimize/</link>
-      <guid>http://yalishizhude.com/2017/12/05/webpack-big-file-optimize/</guid>
-      <pubDate>Tue, 05 Dec 2017 14:26:10 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;使用过vuejs的开发者一定对vue-cli不陌生，这个命令行工具提供了几个常用的搭建项目的模板，目前官方支持6个模板：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;webpack &lt;/li&gt;
-&lt;li&gt;webpack-simple&lt;/li&gt;
-&lt;li&gt;browserify&lt;/li&gt;
-&lt;li&gt;browserify-simple&lt;/li&gt;
-&lt;li&gt;pwa&lt;/li&gt;
-&lt;li&gt;simple&lt;/li&gt;
-&lt;/ul&gt;
-      
-      </description>
-      
-      <comments>http://yalishizhude.com/2017/12/05/webpack-big-file-optimize/#disqus_thread</comments>
     </item>
     
   </channel>
