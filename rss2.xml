@@ -8,8 +8,29 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>专注web技术分享</description>
-    <pubDate>Sun, 04 Aug 2019 17:13:08 GMT</pubDate>
+    <pubDate>Wed, 07 Aug 2019 17:18:31 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>钢铁侠是怎样炼成的：一段给人启示的英雄传奇</title>
+      <link>http://yalishizhude.com/2019/08/07/iron-man/</link>
+      <guid>http://yalishizhude.com/2019/08/07/iron-man/</guid>
+      <pubDate>Wed, 07 Aug 2019 13:17:32 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;被称为硅谷钢铁侠的埃隆·马斯克（Elon Musk），&lt;br&gt;是继乔布斯之后，硅谷最受瞩目的创业家和实业家。&lt;br&gt;也是电影《钢铁侠》的原型。&lt;br&gt;取得了很多令人艳羡的成就：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;拥有电动汽车标杆品牌特斯拉，&lt;/li&gt;
+&lt;li&gt;创立了世界上最稳定的火箭运营商Space X，&lt;/li&gt;
+&lt;li&gt;国际支付公司PayPal的联合创始人，&lt;/li&gt;
+&lt;li&gt;美国最大太阳能公司Solar City最大股东&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而普通人能取得以上任何一项成就足以称为成功。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2019/08/07/iron-man/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>普通人如何做到“我命由我不由天”</title>
@@ -18,7 +39,7 @@
       <pubDate>Sun, 04 Aug 2019 14:26:24 GMT</pubDate>
       <description>
       
-        &lt;p&gt;掌控习惯就是掌控人生的开始~&lt;/p&gt;
+        &lt;p&gt;&lt;em&gt;掌控习惯就是掌控人生的开始~&lt;/em&gt;&lt;/p&gt;
       
       </description>
       
@@ -294,20 +315,6 @@
       </description>
       
       <comments>http://yalishizhude.com/2017/12/16/intro2rxwx/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>在Windows10下安装Minikube</title>
-      <link>http://yalishizhude.com/2017/12/15/minikube-setup/</link>
-      <guid>http://yalishizhude.com/2017/12/15/minikube-setup/</guid>
-      <pubDate>Fri, 15 Dec 2017 14:08:34 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;花了两天时间，终于将Minikube部署成功了，心情久久不能平静，于是写篇文章纪念一下，顺便提醒后来者，避免踩坑~&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yalishizhude.com/2017/12/15/minikube-setup/#disqus_thread</comments>
     </item>
     
   </channel>
