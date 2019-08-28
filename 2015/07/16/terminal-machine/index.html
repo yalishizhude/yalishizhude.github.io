@@ -267,9 +267,6 @@
   if(!/localhost/.test(location.host)) {
     var pathname = location.pathname
     var protocol = location.protocol
-    if(/\/$/.test(pathname)) {
-      pathname += 'index.html'
-    }
     if(protocol==='http:') {
       protocol = 'https:'
     }
@@ -295,7 +292,6 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
   <div id="posts" class="posts-expand">
     
 
@@ -430,6 +426,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">/* 复杂验证！ */</div><div class="line">var province = &apos;11;12;13;14;15;21;22;23;31;32;33;34;35;36;37;41;42;43;44;45;46;50;51;52;53;54;61;62;63;64;65;71;81;82;91;&apos;;</div><div class="line">var iSum = 0;</div><div class="line">var info = &apos;&apos;, sBirthday = &apos;&apos;;</div><div class="line">if (!/^\d&#123;17&#125;(\d|x)$/i.test(value))return false;</div><div class="line">value = value.replace(/x$/i, &quot;a&quot;);</div><div class="line">if (province.indexOf(value.substr(0, 2) + &apos;;&apos;) === -1)return false;//&quot;Error:非法地区&quot;;</div><div class="line">sBirthday = value.substr(6, 4) + &quot;/&quot; + Number(value.substr(10, 2)) + &quot;/&quot; + Number(value.substr(12, 2));</div><div class="line">var d = new Date(sBirthday);</div><div class="line">if (sBirthday !== (d.getFullYear() + &quot;/&quot; + (d.getMonth() + 1) + &quot;/&quot; + d.getDate()))return false;//&quot;Error:非法生日&quot;;</div><div class="line">for (var i = 17; i &gt;= 0; i--) iSum += (Math.pow(2, i) % 11) * parseInt(value.charAt(17 - i), 11);</div><div class="line">if (iSum % 11 !== 1)return false;//&quot;Error:非法证号&quot;;</div><div class="line">return true;</div></pre></td></tr></table></figure>
 <p>触控效果比较难搞，之前考虑用a标签的active样式来做点击效果，但是由于IE8的双击判断间隔有问题，具体问题参见我的另一篇<a href="http://yalishizhude.github.io/2015/07/01/click-or-dbclick/" target="_blank" rel="noopener">博客</a>。后来用dblclick双击事件来调用click事件，pc端上没有问题，部署到终端机的时候还是显示迟钝，效果不理想。改用mousedown和mouseup效果也不好。有更好的方法请告知我~</p>
 
+        <hr/>
+<p>
+  <i>我的新书<b><a href="https://item.jd.com/12562349.html?dist=jd" target="_blank">《了不起的JavaScript工程师：从前端到全端高级进阶》</b></a>已经上架，获得了阮一峰老师等众多技术专家推荐，希望能帮助更多前端工程师一起成长提升，拥有全面能力和全局视野，成为了不起的JavaScript工程师！</i>
+  <a href="https://item.jd.com/12562349.html?dist=jd" target="_blank"><img src="/uploads/book.png"/></a>
+</p>
       
     </div>
     
@@ -495,7 +496,6 @@
   </article>
 
 
-
     <div class="post-spread">
       
     </div>
@@ -558,7 +558,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">102</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -580,7 +580,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">89</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -267,9 +267,6 @@
   if(!/localhost/.test(location.host)) {
     var pathname = location.pathname
     var protocol = location.protocol
-    if(/\/$/.test(pathname)) {
-      pathname += 'index.html'
-    }
     if(protocol==='http:') {
       protocol = 'https:'
     }
@@ -295,7 +292,6 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
   <div id="posts" class="posts-expand">
     
 
@@ -439,6 +435,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">const handle = pipe(</div><div class="line">  switchMap(() =&gt; getStatus$()), // 查询状态</div><div class="line">  filter(x =&gt; x===&apos;stop&apos; || x===&apos;finish&apos;) // &apos;controlling&apos;状态下继续轮询，其它状态进行对应操作</div><div class="line">  takeWhile(x =&gt; x!==&apos;stop&apos;) // 当为&apos;stop&apos;时结束轮询</div><div class="line">  tap(() =&gt; &#123;</div><div class="line">    // 后续操作</div><div class="line">  &#125;)</div><div class="line">  takeWhile(() =&gt; false) // 操作完成结束轮询</div><div class="line">)</div><div class="line">start$().pipe(</div><div class="line">  switchMap(() =&gt; interval(1000)), // 开始轮询</div><div class="line">  handle</div><div class="line">).subscribe();</div><div class="line">// 直接复用查询状态代码和后续操作部分代码</div><div class="line">other.pipe(</div><div class="line">  handle</div><div class="line">).subscribe()</div></pre></td></tr></table></figure>
 <p>总结一下。RxJS比较完整的理解应该是基于流的订阅者模式，而流的灵活性体现在可拆分和聚合，有了pipe管道的加入，流的可复用性增强，因此更容易对代码逻辑进行抽象。</p>
 
+        <hr/>
+<p>
+  <i>我的新书<b><a href="https://item.jd.com/12562349.html?dist=jd" target="_blank">《了不起的JavaScript工程师：从前端到全端高级进阶》</b></a>已经上架，获得了阮一峰老师等众多技术专家推荐，希望能帮助更多前端工程师一起成长提升，拥有全面能力和全局视野，成为了不起的JavaScript工程师！</i>
+  <a href="https://item.jd.com/12562349.html?dist=jd" target="_blank"><img src="/uploads/book.png"/></a>
+</p>
       
     </div>
     
@@ -504,7 +505,6 @@
   </article>
 
 
-
     <div class="post-spread">
       
     </div>
@@ -558,7 +558,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">102</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -580,7 +580,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">89</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

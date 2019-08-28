@@ -8,8 +8,22 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>专注web技术分享</description>
-    <pubDate>Wed, 07 Aug 2019 17:18:31 GMT</pubDate>
+    <pubDate>Wed, 28 Aug 2019 15:33:30 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>从今天开始，成为一名了不起的JavaScript工程师！</title>
+      <link>http://yalishizhude.com/2019/08/28/book/</link>
+      <guid>http://yalishizhude.com/2019/08/28/book/</guid>
+      <pubDate>Wed, 28 Aug 2019 15:23:35 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;一部站在工程师角度，帮助前端工程师提升能力和视野的书上架了！&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2019/08/28/book/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>钢铁侠是怎样炼成的：一段给人启示的英雄传奇</title>
@@ -298,23 +312,6 @@
       </description>
       
       <comments>http://yalishizhude.com/2017/12/23/github-summary/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>RxWX使用教程</title>
-      <link>http://yalishizhude.com/2017/12/16/intro2rxwx/</link>
-      <guid>http://yalishizhude.com/2017/12/16/intro2rxwx/</guid>
-      <pubDate>Sat, 16 Dec 2017 11:52:24 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;之前写过一个开源项目&lt;a href=&quot;https://github.com/yalishizhude/RxWX&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RxWX&lt;/a&gt;，将RxJS移植到微信小程序（以下简称”小程序“）中。&lt;/p&gt;
-&lt;p&gt;RxWX项目地址和介绍：&lt;a href=&quot;https://github.com/yalishizhude/RxWX&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/yalishizhude/RxWX&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;关于RxJS的介绍，读者可以去看&lt;a href=&quot;http://reactivex.io/rxjs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;官方说明&lt;/a&gt;或者关注公众号“Web学习社”的后续文章介绍，这篇文章主要讲解RxWX的几个使用场景。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;微信小程序SDK版本：1.7.0&lt;/em&gt;&lt;br&gt;&lt;em&gt;微信开发者工具版本：1.01&lt;/em&gt;&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yalishizhude.com/2017/12/16/intro2rxwx/#disqus_thread</comments>
     </item>
     
   </channel>

@@ -267,9 +267,6 @@
   if(!/localhost/.test(location.host)) {
     var pathname = location.pathname
     var protocol = location.protocol
-    if(/\/$/.test(pathname)) {
-      pathname += 'index.html'
-    }
     if(protocol==='http:') {
       protocol = 'https:'
     }
@@ -295,7 +292,6 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
   <div id="posts" class="posts-expand">
     
 
@@ -433,6 +429,11 @@ inStream.pipe(map(function (chunk) {
 <p>  req.pipe(map(function (chunk) {<br>    return chunk.toString().toUpperCase()<br>  })).pipe(res)<br>})</p>
 <p>server.listen(Number(process.argv[2]))<br>`</p>
 
+        <hr/>
+<p>
+  <i>我的新书<b><a href="https://item.jd.com/12562349.html?dist=jd" target="_blank">《了不起的JavaScript工程师：从前端到全端高级进阶》</b></a>已经上架，获得了阮一峰老师等众多技术专家推荐，希望能帮助更多前端工程师一起成长提升，拥有全面能力和全局视野，成为了不起的JavaScript工程师！</i>
+  <a href="https://item.jd.com/12562349.html?dist=jd" target="_blank"><img src="/uploads/book.png"/></a>
+</p>
       
     </div>
     
@@ -498,7 +499,6 @@ inStream.pipe(map(function (chunk) {
   </article>
 
 
-
     <div class="post-spread">
       
     </div>
@@ -561,7 +561,7 @@ inStream.pipe(map(function (chunk) {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">102</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -583,7 +583,7 @@ inStream.pipe(map(function (chunk) {
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">89</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

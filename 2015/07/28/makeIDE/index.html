@@ -267,9 +267,6 @@
   if(!/localhost/.test(location.host)) {
     var pathname = location.pathname
     var protocol = location.protocol
-    if(/\/$/.test(pathname)) {
-      pathname += 'index.html'
-    }
     if(protocol==='http:') {
       protocol = 'https:'
     }
@@ -295,7 +292,6 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
   <div id="posts" class="posts-expand">
     
 
@@ -494,6 +490,11 @@ module.exports = function (grunt) {
 };
 </code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实在开发中，最消耗时间的就是鼠标的点击和工具的切换。所以现在流行多显示器开发，让共工具在不同的屏幕上操作，减少了点击任务栏、最小化、最大化这种机械操作。另一方面IDE的出现、快捷键的使用减少鼠标的点击。<br>传统的IDE在开发中往往伴随这一些问题，所以了解各种工具并搭建属于自己的最适用于项目的开发环境，应当是每一位开发者追求高效开发的必经之路。这篇抛砖引玉的文章也正是出于此目的~</p>
 
+        <hr/>
+<p>
+  <i>我的新书<b><a href="https://item.jd.com/12562349.html?dist=jd" target="_blank">《了不起的JavaScript工程师：从前端到全端高级进阶》</b></a>已经上架，获得了阮一峰老师等众多技术专家推荐，希望能帮助更多前端工程师一起成长提升，拥有全面能力和全局视野，成为了不起的JavaScript工程师！</i>
+  <a href="https://item.jd.com/12562349.html?dist=jd" target="_blank"><img src="/uploads/book.png"/></a>
+</p>
       
     </div>
     
@@ -563,7 +564,6 @@ module.exports = function (grunt) {
   </article>
 
 
-
     <div class="post-spread">
       
     </div>
@@ -626,7 +626,7 @@ module.exports = function (grunt) {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">102</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -648,7 +648,7 @@ module.exports = function (grunt) {
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">89</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

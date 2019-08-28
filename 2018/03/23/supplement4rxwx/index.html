@@ -267,9 +267,6 @@
   if(!/localhost/.test(location.host)) {
     var pathname = location.pathname
     var protocol = location.protocol
-    if(/\/$/.test(pathname)) {
-      pathname += 'index.html'
-    }
     if(protocol==='http:') {
       protocol = 'https:'
     }
@@ -295,7 +292,6 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
   <div id="posts" class="posts-expand">
     
 
@@ -438,6 +434,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">import rxwx, &#123; Rx &#125; from &apos;../../util/RxWX.js&apos;;</div><div class="line">Page(&#123;</div><div class="line">  navigate: new Rx.Subject(),</div><div class="line">  onReady() &#123;</div><div class="line">    Rx.Observable.of().multicast(this.navigate)</div><div class="line">      .debounceTime(1000)</div><div class="line">      .switchMap(url =&gt; rxwx.navigateTo(&#123;</div><div class="line">        url</div><div class="line">      &#125;))</div><div class="line">      .subscribe()</div><div class="line">  &#125;,</div><div class="line">  open(e) &#123;</div><div class="line">    this.navigate.next(&apos;../setTask/setTask&apos;)</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <p>其他具体优化期待各位读者在使用中体会~</p>
 
+        <hr/>
+<p>
+  <i>我的新书<b><a href="https://item.jd.com/12562349.html?dist=jd" target="_blank">《了不起的JavaScript工程师：从前端到全端高级进阶》</b></a>已经上架，获得了阮一峰老师等众多技术专家推荐，希望能帮助更多前端工程师一起成长提升，拥有全面能力和全局视野，成为了不起的JavaScript工程师！</i>
+  <a href="https://item.jd.com/12562349.html?dist=jd" target="_blank"><img src="/uploads/book.png"/></a>
+</p>
       
     </div>
     
@@ -505,7 +506,6 @@
   </article>
 
 
-
     <div class="post-spread">
       
     </div>
@@ -568,7 +568,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">102</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -590,7 +590,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">89</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

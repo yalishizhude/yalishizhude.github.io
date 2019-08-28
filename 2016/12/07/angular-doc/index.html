@@ -270,9 +270,6 @@
   if(!/localhost/.test(location.host)) {
     var pathname = location.pathname
     var protocol = location.protocol
-    if(/\/$/.test(pathname)) {
-      pathname += 'index.html'
-    }
     if(protocol==='http:') {
       protocol = 'https:'
     }
@@ -298,7 +295,6 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
   <div id="posts" class="posts-expand">
     
 
@@ -445,6 +441,11 @@
 <h2 id="示例项目"><a href="#示例项目" class="headerlink" title="示例项目"></a>示例项目</h2><p><a href="https://github.com/yalishizhude/ngdocs-demo" target="_blank" rel="noopener">ngdocs-demo</a><br><img src="/2016/12/07/angular-doc/screen.png"><br>更多示例：<br><a href="https://github.com/angular-translate/angular-translate/tree/master/src" target="_blank" rel="noopener">angular-translate</a><a href="https://github.com/angular-translate/angular-translate/tree/master/src" target="_blank" rel="noopener">https://github.com/angular-translate/angular-translate/tree/master/src</a><br><a href="https://github.com/angular-ui/ui-router/tree/master/src/ng1" target="_blank" rel="noopener">ui-router</a><a href="https://github.com/angular-ui/ui-router/tree/master/src/ng1" target="_blank" rel="noopener">https://github.com/angular-ui/ui-router/tree/master/src/ng1</a></p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>一个优秀的项目应该实现：<strong>代码注释即API文档，接口文档即mock服务器。</strong><br>本文实现了第一个要求，而第二个要求的实现可以查看我之前的文章<br><a href="http://yalishizhude.github.io/2016/01/06/api-test-3/" target="_blank" rel="noopener">接口调试（下）——让接口服务器为前后端解耦</a><br>以及开源项目<a href="https://github.com/yalishizhude/api-document" target="_blank" rel="noopener">api-document</a>、<a href="https://github.com/yalishizhude/api-mock" target="_blank" rel="noopener">api-mock</a>。</p>
 
+        <hr/>
+<p>
+  <i>我的新书<b><a href="https://item.jd.com/12562349.html?dist=jd" target="_blank">《了不起的JavaScript工程师：从前端到全端高级进阶》</b></a>已经上架，获得了阮一峰老师等众多技术专家推荐，希望能帮助更多前端工程师一起成长提升，拥有全面能力和全局视野，成为了不起的JavaScript工程师！</i>
+  <a href="https://item.jd.com/12562349.html?dist=jd" target="_blank"><img src="/uploads/book.png"/></a>
+</p>
       
     </div>
     
@@ -510,7 +511,6 @@
   </article>
 
 
-
     <div class="post-spread">
       
     </div>
@@ -573,7 +573,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">102</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -595,7 +595,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">89</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
