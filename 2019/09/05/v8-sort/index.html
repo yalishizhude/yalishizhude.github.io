@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="算法,JavaScript,V8," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="算法对于前端工程师来说总有一层神秘色彩，这篇文章通过解读V8源码，带你探索Array.prototype.sort函数下的算法实现。">
+<meta name="keywords" content="算法,JavaScript,V8">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【深度】扒开V8引擎的源码，我找到了你们想要的前端算法（下次面试官再问算法，用它怼回去！）">
+<meta property="og:url" content="http://yalishizhude.com/2019/09/05/v8-sort/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="算法对于前端工程师来说总有一层神秘色彩，这篇文章通过解读V8源码，带你探索Array.prototype.sort函数下的算法实现。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-04T16:58:09.774Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【深度】扒开V8引擎的源码，我找到了你们想要的前端算法（下次面试官再问算法，用它怼回去！）">
+<meta name="twitter:description" content="算法对于前端工程师来说总有一层神秘色彩，这篇文章通过解读V8源码，带你探索Array.prototype.sort函数下的算法实现。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yalishizhude.com/2019/09/05/v8-sort/"/>
+
+
+
+
+
+  <title>【深度】扒开V8引擎的源码，我找到了你们想要的前端算法（下次面试官再问算法，用它怼回去！） | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <meta name="baidu-site-verification" content="weH21azGfC" />
+  <meta name="google-site-verification" content="Ubo8RbQoNlPmBNmKh4xVG46h496NbplJNWX5usiuONY" />
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+<script>
+  if(!/localhost/.test(location.host)) {
+    var pathname = location.pathname
+    var protocol = location.protocol
+    if(protocol==='http:') {
+      protocol = 'https:'
+    }
+    if(protocol!==location.protocol || pathname !== location.pathname) {
+      location = protocol+'//'+location.host + pathname + location.search+location.hash
+    }
+    var foot = document.getElementsByClassName("footer-inner")[0]
+    if(/yalishizhude\.com/.test(location.host)) {
+      document.title = 'web技术天地'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-2</a>'
+    }
+    if(/webxuexishe\.top/.test(location.host)) {
+      document.title = 'web学习社'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>'
+    }
+  }
+</script>
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2019/09/05/v8-sort/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【深度】扒开V8引擎的源码，我找到了你们想要的前端算法（下次面试官再问算法，用它怼回去！）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-05T07:07:11+08:00">
+                2019-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>算法对于前端工程师来说总有一层神秘色彩，这篇文章通过解读V8源码，带你探索<code>Array.prototype.sort</code>函数下的算法实现。</p>
+<a id="more"></a>
+<p>来，先把你用过的和听说过的排序算法都列出来：</p>
+<ul>
+<li>快速排序</li>
+<li>冒泡排序</li>
+<li>插入排序</li>
+<li>归并排序</li>
+<li>堆排序</li>
+<li>希尔排序</li>
+<li>选择排序</li>
+<li>计数排序</li>
+<li>桶排序</li>
+<li>基数排序</li>
+<li>…</li>
+</ul>
+<p>答题环节到了， sort 函数使用的以上哪一种算法？</p>
+<p>如果你在网上搜索过关于 sort 源码的文章，可能会告诉你数组长度小于10用插入排序，否则用快速排序。</p>
+<p>开始我也是这么认为的，可当我带着答案去 GitHub 验证的时候发现并非如此。</p>
+<p>首先我并没有找到对应的 js 源码（文章说实现逻辑是用js写的），因为但新版本的V8源码已经修改，改用<code>V8 Torque</code>。<code>V8 Torque</code>是专门用来开发V8而创造的语言，语法类似TypeScript（再一次证明TypeScript的价值），它的编译器使用<code>CodeStubAssembler</code>转换成高效的汇编代码。<br>简单理解起来就是创造了一个类似TypeScript的高效的高级语言，这个语言的文件后缀是<code>tq</code>。</p>
+<p>这里需要感谢 <a href="https://justjavac.com/about.html" target="_blank" rel="noopener">justjavac</a> 大神指点~</p>
+<p>其次当我开始阅读源码的时候，并没有找到使用快速排序的代码，也没有找到判断数组长度的常数值10。</p>
+<p>所有的证据表明，之前的源码解读文章很可能已经过时。</p>
+<p>那么最新版本的 V8 用的是什么排序算法呢？</p>
+<h1 id="算法解读"><a href="#算法解读" class="headerlink" title="算法解读"></a>算法解读</h1><p>V8引擎在xx版本之后就舍弃了快速排序，因为它不是稳定的排序算法，在最坏情况下，时间复杂度会降级到O(n^2)。<br>而是采用了一种混合排序的算法：TimSort。<br>这种功能算法最初用于Python语言中，严格地说它t不属于以上10种排序算法中的任何一种，属于一种混合排序算法：<br>在数据量小的子数组中使用<strong>插入排序</strong>，然后再使用<strong>归并排序</strong>将有序的子数组进行合并排序，时间复杂度为 O(nlogn) 。</p>
+<p>结合V8源码，具体实现步骤如下：</p>
+<ol>
+<li>判断数组长度，小于2直接返回，不排序。</li>
+<li>开始循环。</li>
+<li>找出一个有序子数组，我们称之为“run”，长度为 currentRunLength 。</li>
+<li>计算最小合并序列长度 minRunLength （这个值会根据数组长度动态变化，在32~64之间）。</li>
+<li>比较 currentRunLength 和 minRunLength ，如果 currentRunLength &gt;= minRunLength ，否则采用插入排序补足数组长度至 minRunLength ，将 run 压入栈 pendingRuns 中。</li>
+<li>每次有新的 run 被压入 pendingRuns 时保证栈内任意3个连续的 run（run0, run1, run2）从下至上满足run0&gt;run1+run2 &amp;&amp; run1&gt;run2 ，不满足的话进行调整直至满足。</li>
+<li>如果剩余子数组为0，结束循环。</li>
+<li>合并栈中所有 run，排序结束。</li>
+</ol>
+<h1 id="源码解读"><a href="#源码解读" class="headerlink" title="源码解读"></a>源码解读</h1><h2 id="源码路径"><a href="#源码路径" class="headerlink" title="源码路径"></a>源码路径</h2><p><code>/thrid_party/v8/builtins/array-sort.tq</code></p>
+<h2 id="调用栈"><a href="#调用栈" class="headerlink" title="调用栈"></a>调用栈</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">1386 ArrayPrototypeSort</div><div class="line">1403 ArrayTimSort</div><div class="line">1369 ArrayTimSortImpl</div><div class="line">1260 ComputeMinRunLength // 计算 minRunLength</div><div class="line">// while循环 </div><div class="line">1262 CountAndMakeRun // 计算当前 run 的长度</div><div class="line">1267 BinaryInsertionSort // 用插入排序补足 run 长度</div><div class="line">1274 MergeCollapse // 放入 pendingRuns 并根据需要进行调整</div><div class="line">// 循环结束 </div><div class="line">1281 MergeForceCollapse // 合并 pendingRuns 中所有 run</div></pre></td></tr></table></figure>
+<h2 id="核心源码"><a href="#核心源码" class="headerlink" title="核心源码"></a>核心源码</h2><p>tq语言虽然有些不一样，但如果有TypeScript基础的话阅读起来应该不成问题。<br>下面重点解读3个函数的源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">// 在while循环之前调用，每次排序只调用一次，用来计算 minRunLength</div><div class="line">macro ComputeMinRunLength(nArg: Smi): Smi &#123;</div><div class="line">  let n: Smi = nArg;</div><div class="line">  let r: Smi = 0;</div><div class="line"></div><div class="line">  assert(n &gt;= 0);</div><div class="line">  // 不断除以2，得到结果在 32~64 之间</div><div class="line">  while (n &gt;= 64) &#123;</div><div class="line">    r = r | (n &amp; 1);</div><div class="line">    n = n &gt;&gt; 1;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  const minRunLength: Smi = n + r;</div><div class="line">  assert(nArg &lt; 64 || (32 &lt;= minRunLength &amp;&amp; minRunLength &lt;= 64));</div><div class="line">  return minRunLength;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">// 计算第一个 run 的长度</div><div class="line">macro CountAndMakeRun(implicit context: Context, sortState: SortState)(</div><div class="line">    lowArg: Smi, high: Smi): Smi &#123;</div><div class="line">  assert(lowArg &lt; high);</div><div class="line">  // 这里保存的才是我们传入的数组数据</div><div class="line">  const workArray = sortState.workArray;</div><div class="line"></div><div class="line">  const low: Smi = lowArg + 1;</div><div class="line">  if (low == high) return 1;</div><div class="line"></div><div class="line">  let runLength: Smi = 2;</div><div class="line"></div><div class="line">  const elementLow = UnsafeCast&lt;JSAny&gt;(workArray.objects[low]);</div><div class="line">  const elementLowPred = UnsafeCast&lt;JSAny&gt;(workArray.objects[low - 1]);</div><div class="line">  // 调用比对函数来比对数据</div><div class="line">  let order = sortState.Compare(elementLow, elementLowPred);</div><div class="line"></div><div class="line">  const isDescending: bool = order &lt; 0 ? true : false;</div><div class="line"></div><div class="line">  let previousElement: JSAny = elementLow;</div><div class="line">  // 遍历子数组并计算 run 的长度</div><div class="line">  for (let idx: Smi = low + 1; idx &lt; high; ++idx) &#123;</div><div class="line">    const currentElement = UnsafeCast&lt;JSAny&gt;(workArray.objects[idx]);</div><div class="line">    order = sortState.Compare(currentElement, previousElement);</div><div class="line"></div><div class="line">    if (isDescending) &#123;</div><div class="line">      if (order &gt;= 0) break;</div><div class="line">    &#125; else &#123;</div><div class="line">      if (order &lt; 0) break;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    previousElement = currentElement;</div><div class="line">    ++runLength;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  if (isDescending) &#123;</div><div class="line">    ReverseRange(workArray, lowArg, lowArg + runLength);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  return runLength;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">// 调整 pendingRuns ，使栈长度大于3时，所有 run 都满足 run[n]&gt;run[n+1]+run[n+2] 且 run[n+1]&gt;run2[n+2]</div><div class="line">transitioning macro MergeCollapse(context: Context, sortState: SortState) &#123;</div><div class="line">    const pendingRuns: FixedArray = sortState.pendingRuns;</div><div class="line"></div><div class="line">    while (GetPendingRunsSize(sortState) &gt; 1) &#123;</div><div class="line">      let n: Smi = GetPendingRunsSize(sortState) - 2;</div><div class="line"></div><div class="line">      if (!RunInvariantEstablished(pendingRuns, n + 1) ||</div><div class="line">          !RunInvariantEstablished(pendingRuns, n)) &#123;</div><div class="line">        if (GetPendingRunLength(pendingRuns, n - 1) &lt;</div><div class="line">            GetPendingRunLength(pendingRuns, n + 1)) &#123;</div><div class="line">          --n;</div><div class="line">        &#125;</div><div class="line">        MergeAt(n); // 将第 n 个 run 和第 n+1 个 run 进行合并</div><div class="line">      &#125; else if (</div><div class="line">          GetPendingRunLength(pendingRuns, n) &lt;=</div><div class="line">          GetPendingRunLength(pendingRuns, n + 1)) &#123;</div><div class="line">        MergeAt(n); // 将第 n 个 run 和第 n+1 个 run 进行合并</div><div class="line">      &#125; else &#123;</div><div class="line">        break;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>下次面试前端岗位的时候，如果面试官问你算法题，你可以莞尔一笑地问他/她：</p>
+<p><em>知道 Array 的 sort 函数使用了什么算法吗？TimSort要不要了解一下？</em></p>
+<p>当然如果因此搞得面试官难堪而导致拿不到offer可别怪作者~</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://github.com/v8/v8" target="_blank" rel="noopener">V8源码</a></li>
+<li><a href="https://juejin.im/post/5c472940e51d455249762bef" target="_blank" rel="noopener">《V8引擎中的排序》</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzI2MTY0OTg2Nw==&amp;mid=2247483816&amp;idx=1&amp;sn=079af3d70efcb68efa7400f09decb59c&amp;chksm=ea56650cdd21ec1ace7c8fd168d62feb636e4b32f9a4d90329fe479489d8e7a70e612df8920b&amp;token=2074049324&amp;lang=zh_CN#rd" target="_blank" rel="noopener">《男科一梦（再续一集）-TimSort的实现》</a></li>
+</ul>
+
+        <hr/>
+<p>
+  一部由众多技术专家推荐，
+  帮你成为具有全面能力和全局视野工程师的进阶利器——
+  <a href="https://item.jd.com/12562349.html?dist=jd">《了不起的JavaScript工程师》</a>出版了！
+  点击下方链接即刻踏上进阶之路！
+  <ul>
+    <li>淘宝：<a href="https://detail.tmall.com/item.htm?id=600756390664">https://detail.tmall.com/item.htm?id=600756390664</a></li>
+    <li>京东：<a href="https://item.jd.com/12562349.html?dist=jd">https://item.jd.com/12562349.html?dist=jd</a></li>
+    <li>当当：<a href="http://product.dangdang.com/27922044.html">http://product.dangdang.com/27922044.html</a></li>
+  </ul>
+  <br/><img src="/uploads/book.png" onclick=""/>
+</p>
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/V8/" rel="tag"># V8</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/03/vscode-ppt/" rel="next" title="99%的工程师都不知道VSCode还有这个功能">
+                <i class="fa fa-chevron-left"></i> 99%的工程师都不知道VSCode还有这个功能
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">专注web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#算法解读"><span class="nav-number">1.</span> <span class="nav-text">算法解读</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#源码解读"><span class="nav-number">2.</span> <span class="nav-text">源码解读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#源码路径"><span class="nav-number">2.1.</span> <span class="nav-text">源码路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用栈"><span class="nav-number">2.2.</span> <span class="nav-text">调用栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核心源码"><span class="nav-number">2.3.</span> <span class="nav-text">核心源码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

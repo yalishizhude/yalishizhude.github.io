@@ -8,8 +8,43 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>专注web技术分享</description>
-    <pubDate>Wed, 28 Aug 2019 15:33:30 GMT</pubDate>
+    <pubDate>Wed, 04 Sep 2019 16:58:09 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>【深度】扒开V8引擎的源码，我找到了你们想要的前端算法（下次面试官再问算法，用它怼回去！）</title>
+      <link>http://yalishizhude.com/2019/09/05/v8-sort/</link>
+      <guid>http://yalishizhude.com/2019/09/05/v8-sort/</guid>
+      <pubDate>Wed, 04 Sep 2019 23:07:11 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;算法对于前端工程师来说总有一层神秘色彩，这篇文章通过解读V8源码，带你探索&lt;code&gt;Array.prototype.sort&lt;/code&gt;函数下的算法实现。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2019/09/05/v8-sort/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>99%的工程师都不知道VSCode还有这个功能</title>
+      <link>http://yalishizhude.com/2019/09/03/vscode-ppt/</link>
+      <guid>http://yalishizhude.com/2019/09/03/vscode-ppt/</guid>
+      <pubDate>Tue, 03 Sep 2019 01:51:10 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;经常在团队内部进行技术分享，最苦恼的一件事就是写PPT：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;找模板&lt;/li&gt;
+&lt;li&gt;对其字体&lt;/li&gt;
+&lt;li&gt;设置过度动画&lt;/li&gt;
+&lt;li&gt;。。。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;调着调着，一天就过去了~&lt;br&gt;结果是耗费了大量时间做出来的PPT还不好看。&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2019/09/03/vscode-ppt/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>从今天开始，成为一名了不起的JavaScript工程师！</title>
@@ -283,35 +318,6 @@
       </description>
       
       <comments>http://yalishizhude.com/2018/03/28/router4mpa-spa/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>RxWX又添新成员</title>
-      <link>http://yalishizhude.com/2018/03/23/supplement4rxwx/</link>
-      <guid>http://yalishizhude.com/2018/03/23/supplement4rxwx/</guid>
-      <pubDate>Fri, 23 Mar 2018 07:03:54 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;&lt;em&gt;RxWX简介：&lt;a href=&quot;https://github.com/yalishizhude/RxWX&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RxWX&lt;/a&gt;是可以让你写出更高效更优雅微信小程序的开源项目，它主要完成了两项工作：将RxJS移植到小程序端和将wx原生API转化成Observable对象。&lt;/em&gt;&lt;br&gt;&lt;em&gt;项目地址：&lt;a href=&quot;https://github.com/yalishizhude/RxWX&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/yalishizhude/RxWX&lt;/a&gt;&lt;/em&gt;&lt;br&gt;&lt;em&gt;npm模块名：rxjs-wx&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;感谢开发者的支持和关注，使得RxWX项目不断迭代和进步，新版本得RxWX根据小程序新的API和issue中大家提出的问题，进行了一些优化和修复。&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yalishizhude.com/2018/03/23/supplement4rxwx/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>是时候给你的GitHub账号做个总结了</title>
-      <link>http://yalishizhude.com/2017/12/23/github-summary/</link>
-      <guid>http://yalishizhude.com/2017/12/23/github-summary/</guid>
-      <pubDate>Sat, 23 Dec 2017 06:53:57 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;时间飞逝，2017年转眼就要过去了，又到了写总结的时候了。怎么给自己为开源项目写的代码做个总结？&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yalishizhude.com/2017/12/23/github-summary/#disqus_thread</comments>
     </item>
     
   </channel>
