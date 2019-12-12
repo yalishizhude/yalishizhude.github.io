@@ -266,26 +266,37 @@
 
 
 <script>
-  if(!/localhost/.test(location.host)) {
-    var pathname = location.pathname
-    var protocol = location.protocol
-    if(protocol==='http:') {
-      protocol = 'https:'
-    }
-    if(protocol!==location.protocol || pathname !== location.pathname) {
-      location = protocol+'//'+location.host + pathname + location.search+location.hash
-    }
+(function() {
+  if(/localhost/.test(location.host)) return
+  var pathname = location.pathname
+  var protocol = location.protocol
+  if(protocol==='http:') {
+    protocol = 'https:'
+  }
+  if(protocol!==location.protocol || pathname !== location.pathname) {
+    location = protocol+'//'+location.host + pathname + location.search+location.hash
+  }
+  function initBeian() {
     var foot = document.getElementsByClassName("footer-inner")[0]
+    var site = document.getElementsByClassName('site-title')[0]
+    if(!foot||!site) {
+      setTimeout(initBeian, 500)
+      return
+    }
     if(/yalishizhude\.com/.test(location.host)) {
-      document.title = 'web技术天地'
-      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-2</a>'
+      location.pathname === '/' ? document.title = 'web技术天地': void 0
+      site.textContent = 'web技术天地'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="http://www.beian.miit.gov.cn">湘ICP备17023661号-2</a>'
     }
     if(/webxuexishe\.top/.test(location.host)) {
-      document.title = 'web学习社'
-      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>'
+      location.pathname === '/' ? document.title = 'web学习社' : void 0
+      site.textContent = 'web学习社'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="http://www.beian.miit.gov.cn">湘ICP备17023661号-1</a>'
     }
   }
 </script>
+<a style="display:none" href="https://www.liuliangbao.cn/" title="流量宝" target="_blank">流量宝</a>
+
  </div>
     </header>
 
@@ -628,7 +639,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -650,7 +661,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -677,26 +688,40 @@
           
           
 
-          
-
+          <section>
+  <hr style="margin:20px 0;height:1px">
+  <center>
+    作者书籍(点击图片查看详情)：<br>
+    <a href="https://item.jd.com/12562349.html?dist=jd" target="_blank">
+      <img src="/uploads/book.png">
+    </a>
+  </center>
+  <p style="line-height:1.5;margin-bottom:0;text-align:left;">
+    帮你成为具有<b>全面能力</b>和<b>全局视野</b>工程师的进阶利器！<br>
+    <a href="http://www.ruanyifeng.com/home.html" target="_blank">阮一峰</a>、<a href="https://www.zhihu.com/people/fouber/activities" target="_blank">张云龙</a>等技术大神强力推荐！<br>
+  </p>
+  <center>
+    <img src="/uploads/webxuexishe.png">
+  </center>
+</section>
         </div>
       </section>
 
       
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
+      <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc">
 
+          
             
-              
-            
+          
 
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原理篇"><span class="nav-number">1.</span> <span class="nav-text">原理篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用价值"><span class="nav-number">1.1.</span> <span class="nav-text">使用价值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#供需"><span class="nav-number">1.2.</span> <span class="nav-text">供需</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信息透明度"><span class="nav-number">1.3.</span> <span class="nav-text">信息透明度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跳槽不是什么"><span class="nav-number">1.4.</span> <span class="nav-text">跳槽不是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#跳槽不是为了追求价值最大化，原因有两个："><span class="nav-number">1.4.1.</span> <span class="nav-text">跳槽不是为了追求价值最大化，原因有两个：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳槽不是找工作"><span class="nav-number">1.4.2.</span> <span class="nav-text">跳槽不是找工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳槽不是加薪砝码"><span class="nav-number">1.4.3.</span> <span class="nav-text">跳槽不是加薪砝码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序员如何谈薪资"><span class="nav-number">1.4.4.</span> <span class="nav-text">程序员如何谈薪资</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跳槽到底为了什么"><span class="nav-number">1.5.</span> <span class="nav-text">跳槽到底为了什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#求职的本质"><span class="nav-number">1.5.1.</span> <span class="nav-text">求职的本质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳槽的意义"><span class="nav-number">1.5.2.</span> <span class="nav-text">跳槽的意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳槽的原则"><span class="nav-number">1.5.3.</span> <span class="nav-text">跳槽的原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳槽的节奏路线"><span class="nav-number">1.5.4.</span> <span class="nav-text">跳槽的节奏路线</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#准备篇"><span class="nav-number">2.</span> <span class="nav-text">准备篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JbDeer职业画布"><span class="nav-number">2.1.</span> <span class="nav-text">JbDeer职业画布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#构造价值"><span class="nav-number">2.1.1.</span> <span class="nav-text">构造价值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传递价值"><span class="nav-number">2.1.2.</span> <span class="nav-text">传递价值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自我认识和自我实现"><span class="nav-number">2.2.</span> <span class="nav-text">自我认识和自我实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#职业象限"><span class="nav-number">2.3.</span> <span class="nav-text">职业象限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#市场需求分析"><span class="nav-number">2.4.</span> <span class="nav-text">市场需求分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定量分析"><span class="nav-number">2.4.1.</span> <span class="nav-text">定量分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定性分析"><span class="nav-number">2.4.2.</span> <span class="nav-text">定性分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据需求调整自己的定位"><span class="nav-number">2.5.</span> <span class="nav-text">根据需求调整自己的定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建个人品牌"><span class="nav-number">2.6.</span> <span class="nav-text">构建个人品牌</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学会沟通和写作"><span class="nav-number">2.7.</span> <span class="nav-text">学会沟通和写作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#条理性"><span class="nav-number">2.7.1.</span> <span class="nav-text">条理性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑性"><span class="nav-number">2.7.2.</span> <span class="nav-text">逻辑性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始你的开源项目"><span class="nav-number">2.8.</span> <span class="nav-text">开始你的开源项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过开源项目转型"><span class="nav-number">2.8.1.</span> <span class="nav-text">通过开源项目转型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开源项目不似乎遥不可及"><span class="nav-number">2.8.2.</span> <span class="nav-text">开源项目不似乎遥不可及</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提升架构能力"><span class="nav-number">2.9.</span> <span class="nav-text">提升架构能力</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DRY"><span class="nav-number">2.9.1.</span> <span class="nav-text">DRY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正交性"><span class="nav-number">2.9.2.</span> <span class="nav-text">正交性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#操作篇"><span class="nav-number">3.</span> <span class="nav-text">操作篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简历的本质"><span class="nav-number">3.1.</span> <span class="nav-text">简历的本质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简历要说什么"><span class="nav-number">3.2.</span> <span class="nav-text">简历要说什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FAB法则"><span class="nav-number">3.2.1.</span> <span class="nav-text">FAB法则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给论据别给论题"><span class="nav-number">3.2.2.</span> <span class="nav-text">给论据别给论题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对比量化成长"><span class="nav-number">3.2.3.</span> <span class="nav-text">对比量化成长</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工具和模板"><span class="nav-number">3.2.4.</span> <span class="nav-text">工具和模板</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求职渠道"><span class="nav-number">3.3.</span> <span class="nav-text">求职渠道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#人脉：最优途径"><span class="nav-number">3.3.1.</span> <span class="nav-text">人脉：最优途径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#竞拍：遍历潜在机会"><span class="nav-number">3.3.2.</span> <span class="nav-text">竞拍：遍历潜在机会</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#猎头"><span class="nav-number">3.3.3.</span> <span class="nav-text">猎头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常规渠道"><span class="nav-number">3.3.4.</span> <span class="nav-text">常规渠道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直投"><span class="nav-number">3.3.5.</span> <span class="nav-text">直投</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面试准备"><span class="nav-number">3.4.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面试常见问题"><span class="nav-number">3.5.</span> <span class="nav-text">面试常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要离职"><span class="nav-number">3.5.1.</span> <span class="nav-text">为什么要离职</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遇到过最大挑战以及解决办法"><span class="nav-number">3.5.2.</span> <span class="nav-text">遇到过最大挑战以及解决办法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#你希望三年后成为一个什么样的人"><span class="nav-number">3.5.3.</span> <span class="nav-text">你希望三年后成为一个什么样的人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#你还有什么要问我们的"><span class="nav-number">3.5.4.</span> <span class="nav-text">你还有什么要问我们的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知己知彼"><span class="nav-number">3.6.</span> <span class="nav-text">知己知彼</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准时和礼节"><span class="nav-number">3.7.</span> <span class="nav-text">准时和礼节</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
+          
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原理篇"><span class="nav-number">1.</span> <span class="nav-text">原理篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用价值"><span class="nav-number">1.1.</span> <span class="nav-text">使用价值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#供需"><span class="nav-number">1.2.</span> <span class="nav-text">供需</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信息透明度"><span class="nav-number">1.3.</span> <span class="nav-text">信息透明度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跳槽不是什么"><span class="nav-number">1.4.</span> <span class="nav-text">跳槽不是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#跳槽不是为了追求价值最大化，原因有两个："><span class="nav-number">1.4.1.</span> <span class="nav-text">跳槽不是为了追求价值最大化，原因有两个：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳槽不是找工作"><span class="nav-number">1.4.2.</span> <span class="nav-text">跳槽不是找工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳槽不是加薪砝码"><span class="nav-number">1.4.3.</span> <span class="nav-text">跳槽不是加薪砝码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序员如何谈薪资"><span class="nav-number">1.4.4.</span> <span class="nav-text">程序员如何谈薪资</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跳槽到底为了什么"><span class="nav-number">1.5.</span> <span class="nav-text">跳槽到底为了什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#求职的本质"><span class="nav-number">1.5.1.</span> <span class="nav-text">求职的本质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳槽的意义"><span class="nav-number">1.5.2.</span> <span class="nav-text">跳槽的意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳槽的原则"><span class="nav-number">1.5.3.</span> <span class="nav-text">跳槽的原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳槽的节奏路线"><span class="nav-number">1.5.4.</span> <span class="nav-text">跳槽的节奏路线</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#准备篇"><span class="nav-number">2.</span> <span class="nav-text">准备篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JbDeer职业画布"><span class="nav-number">2.1.</span> <span class="nav-text">JbDeer职业画布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#构造价值"><span class="nav-number">2.1.1.</span> <span class="nav-text">构造价值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传递价值"><span class="nav-number">2.1.2.</span> <span class="nav-text">传递价值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自我认识和自我实现"><span class="nav-number">2.2.</span> <span class="nav-text">自我认识和自我实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#职业象限"><span class="nav-number">2.3.</span> <span class="nav-text">职业象限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#市场需求分析"><span class="nav-number">2.4.</span> <span class="nav-text">市场需求分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定量分析"><span class="nav-number">2.4.1.</span> <span class="nav-text">定量分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定性分析"><span class="nav-number">2.4.2.</span> <span class="nav-text">定性分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据需求调整自己的定位"><span class="nav-number">2.5.</span> <span class="nav-text">根据需求调整自己的定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建个人品牌"><span class="nav-number">2.6.</span> <span class="nav-text">构建个人品牌</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学会沟通和写作"><span class="nav-number">2.7.</span> <span class="nav-text">学会沟通和写作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#条理性"><span class="nav-number">2.7.1.</span> <span class="nav-text">条理性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑性"><span class="nav-number">2.7.2.</span> <span class="nav-text">逻辑性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始你的开源项目"><span class="nav-number">2.8.</span> <span class="nav-text">开始你的开源项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过开源项目转型"><span class="nav-number">2.8.1.</span> <span class="nav-text">通过开源项目转型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开源项目不似乎遥不可及"><span class="nav-number">2.8.2.</span> <span class="nav-text">开源项目不似乎遥不可及</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提升架构能力"><span class="nav-number">2.9.</span> <span class="nav-text">提升架构能力</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DRY"><span class="nav-number">2.9.1.</span> <span class="nav-text">DRY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正交性"><span class="nav-number">2.9.2.</span> <span class="nav-text">正交性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#操作篇"><span class="nav-number">3.</span> <span class="nav-text">操作篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简历的本质"><span class="nav-number">3.1.</span> <span class="nav-text">简历的本质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简历要说什么"><span class="nav-number">3.2.</span> <span class="nav-text">简历要说什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FAB法则"><span class="nav-number">3.2.1.</span> <span class="nav-text">FAB法则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给论据别给论题"><span class="nav-number">3.2.2.</span> <span class="nav-text">给论据别给论题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对比量化成长"><span class="nav-number">3.2.3.</span> <span class="nav-text">对比量化成长</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工具和模板"><span class="nav-number">3.2.4.</span> <span class="nav-text">工具和模板</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求职渠道"><span class="nav-number">3.3.</span> <span class="nav-text">求职渠道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#人脉：最优途径"><span class="nav-number">3.3.1.</span> <span class="nav-text">人脉：最优途径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#竞拍：遍历潜在机会"><span class="nav-number">3.3.2.</span> <span class="nav-text">竞拍：遍历潜在机会</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#猎头"><span class="nav-number">3.3.3.</span> <span class="nav-text">猎头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常规渠道"><span class="nav-number">3.3.4.</span> <span class="nav-text">常规渠道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直投"><span class="nav-number">3.3.5.</span> <span class="nav-text">直投</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面试准备"><span class="nav-number">3.4.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面试常见问题"><span class="nav-number">3.5.</span> <span class="nav-text">面试常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要离职"><span class="nav-number">3.5.1.</span> <span class="nav-text">为什么要离职</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遇到过最大挑战以及解决办法"><span class="nav-number">3.5.2.</span> <span class="nav-text">遇到过最大挑战以及解决办法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#你希望三年后成为一个什么样的人"><span class="nav-number">3.5.3.</span> <span class="nav-text">你希望三年后成为一个什么样的人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#你还有什么要问我们的"><span class="nav-number">3.5.4.</span> <span class="nav-text">你还有什么要问我们的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知己知彼"><span class="nav-number">3.6.</span> <span class="nav-text">知己知彼</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准时和礼节"><span class="nav-number">3.7.</span> <span class="nav-text">准时和礼节</span></a></li></ol></li></ol></div>
+          
+        
+        </div>
+      </section>
       <!--/noindex-->
       
 

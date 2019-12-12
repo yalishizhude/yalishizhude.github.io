@@ -263,26 +263,37 @@
 
 
 <script>
-  if(!/localhost/.test(location.host)) {
-    var pathname = location.pathname
-    var protocol = location.protocol
-    if(protocol==='http:') {
-      protocol = 'https:'
-    }
-    if(protocol!==location.protocol || pathname !== location.pathname) {
-      location = protocol+'//'+location.host + pathname + location.search+location.hash
-    }
+(function() {
+  if(/localhost/.test(location.host)) return
+  var pathname = location.pathname
+  var protocol = location.protocol
+  if(protocol==='http:') {
+    protocol = 'https:'
+  }
+  if(protocol!==location.protocol || pathname !== location.pathname) {
+    location = protocol+'//'+location.host + pathname + location.search+location.hash
+  }
+  function initBeian() {
     var foot = document.getElementsByClassName("footer-inner")[0]
+    var site = document.getElementsByClassName('site-title')[0]
+    if(!foot||!site) {
+      setTimeout(initBeian, 500)
+      return
+    }
     if(/yalishizhude\.com/.test(location.host)) {
-      document.title = 'web技术天地'
-      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-2</a>'
+      location.pathname === '/' ? document.title = 'web技术天地': void 0
+      site.textContent = 'web技术天地'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="http://www.beian.miit.gov.cn">湘ICP备17023661号-2</a>'
     }
     if(/webxuexishe\.top/.test(location.host)) {
-      document.title = 'web学习社'
-      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>'
+      location.pathname === '/' ? document.title = 'web学习社' : void 0
+      site.textContent = 'web学习社'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="http://www.beian.miit.gov.cn">湘ICP备17023661号-1</a>'
     }
   }
 </script>
+<a style="display:none" href="https://www.liuliangbao.cn/" title="流量宝" target="_blank">流量宝</a>
+
  </div>
     </header>
 
@@ -316,7 +327,7 @@
                 目前共计 29 个分类
             </div>
             <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">48</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/CSS/">CSS</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/HTML/">HTML</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/JavaScript/">JavaScript</a><span class="category-list-count">33</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/微信/">微信</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/微信小程序/">微信小程序</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/架构/">架构</a><span class="category-list-count">4</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端/">后端</a><span class="category-list-count">27</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/后端/Node-js/">Node.js</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端/Python/">Python</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/工具/开发/">开发</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/效率/">效率</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/运维/">运维</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/网络/">网络</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/网络/安全/">安全</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网络/架构/">架构</a><span class="category-list-count">4</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/职场/">职场</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/职场/写作/">写作</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/职场/分析/">分析</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书/">读书</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/读书/传记/">传记</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书/心理学/">心理学</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书/职场/">职场</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/运维/Docker/">Docker</a><span class="category-list-count">3</span></li></ul></li></ul>
+              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">49</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/CSS/">CSS</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/HTML/">HTML</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/JavaScript/">JavaScript</a><span class="category-list-count">33</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/微信/">微信</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/微信小程序/">微信小程序</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/架构/">架构</a><span class="category-list-count">4</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端/">后端</a><span class="category-list-count">27</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/后端/Node-js/">Node.js</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端/Python/">Python</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/工具/开发/">开发</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/效率/">效率</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/运维/">运维</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/网络/">网络</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/网络/安全/">安全</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网络/架构/">架构</a><span class="category-list-count">4</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/职场/">职场</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/职场/写作/">写作</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/职场/分析/">分析</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书/">读书</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/读书/传记/">传记</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书/心理学/">心理学</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书/职场/">职场</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/运维/Docker/">Docker</a><span class="category-list-count">3</span></li></ul></li></ul>
             </div>
           </div>
         
@@ -378,7 +389,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -400,7 +411,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -427,8 +438,22 @@
           
           
 
-          
-
+          <section>
+  <hr style="margin:20px 0;height:1px">
+  <center>
+    作者书籍(点击图片查看详情)：<br>
+    <a href="https://item.jd.com/12562349.html?dist=jd" target="_blank">
+      <img src="/uploads/book.png">
+    </a>
+  </center>
+  <p style="line-height:1.5;margin-bottom:0;text-align:left;">
+    帮你成为具有<b>全面能力</b>和<b>全局视野</b>工程师的进阶利器！<br>
+    <a href="http://www.ruanyifeng.com/home.html" target="_blank">阮一峰</a>、<a href="https://www.zhihu.com/people/fouber/activities" target="_blank">张云龙</a>等技术大神强力推荐！<br>
+  </p>
+  <center>
+    <img src="/uploads/webxuexishe.png">
+  </center>
+</section>
         </div>
       </section>
 

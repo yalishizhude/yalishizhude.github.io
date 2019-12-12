@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="HTML," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="下面两段代码从HTML语义化的角度来看有什么问题？">
+<meta name="keywords" content="HTML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大多数前端工程师了解但并不擅长的HTML语义化">
+<meta property="og:url" content="http://yalishizhude.com/2019/11/27/html-tag/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="下面两段代码从HTML语义化的角度来看有什么问题？">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yalishizhude.com/2019/11/27/html-tag/baidu.jpg">
+<meta property="og:image" content="http://yalishizhude.com/2019/11/27/html-tag/jianshu.jpg">
+<meta property="og:image" content="http://yalishizhude.com/2019/11/27/html-tag/taobao.jpg">
+<meta property="og:image" content="http://yalishizhude.com/2019/11/27/html-tag/flowchart.png">
+<meta property="og:image" content="http://yalishizhude.com/2019/11/27/html-tag/categories.gif">
+<meta property="og:image" content="http://yalishizhude.com/2019/11/27/html-tag/flow.jpg">
+<meta property="og:updated_time" content="2019-12-12T15:06:50.919Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="大多数前端工程师了解但并不擅长的HTML语义化">
+<meta name="twitter:description" content="下面两段代码从HTML语义化的角度来看有什么问题？">
+<meta name="twitter:image" content="http://yalishizhude.com/2019/11/27/html-tag/baidu.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yalishizhude.com/2019/11/27/html-tag/"/>
+
+
+
+
+
+  <title>大多数前端工程师了解但并不擅长的HTML语义化 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <meta name="baidu-site-verification" content="weH21azGfC" />
+  <meta name="google-site-verification" content="Ubo8RbQoNlPmBNmKh4xVG46h496NbplJNWX5usiuONY" />
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+<script>
+(function() {
+  if(/localhost/.test(location.host)) return
+  var pathname = location.pathname
+  var protocol = location.protocol
+  if(protocol==='http:') {
+    protocol = 'https:'
+  }
+  if(protocol!==location.protocol || pathname !== location.pathname) {
+    location = protocol+'//'+location.host + pathname + location.search+location.hash
+  }
+  function initBeian() {
+    var foot = document.getElementsByClassName("footer-inner")[0]
+    var site = document.getElementsByClassName('site-title')[0]
+    if(!foot||!site) {
+      setTimeout(initBeian, 500)
+      return
+    }
+    if(/yalishizhude\.com/.test(location.host)) {
+      location.pathname === '/' ? document.title = 'web技术天地': void 0
+      site.textContent = 'web技术天地'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="http://www.beian.miit.gov.cn">湘ICP备17023661号-2</a>'
+    }
+    if(/webxuexishe\.top/.test(location.host)) {
+      location.pathname === '/' ? document.title = 'web学习社' : void 0
+      site.textContent = 'web学习社'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="http://www.beian.miit.gov.cn">湘ICP备17023661号-1</a>'
+    }
+  }
+</script>
+<a style="display:none" href="https://www.liuliangbao.cn/" title="流量宝" target="_blank">流量宝</a>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2019/11/27/html-tag/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">大多数前端工程师了解但并不擅长的HTML语义化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-27T16:06:43+08:00">
+                2019-11-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>下面两段代码从HTML语义化的角度来看有什么问题？</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 示例1 --&gt;</div><div class="line">&lt;label&gt;作者: &lt;input type=&quot;author&quot; texture=&quot;deep pile&quot;&gt;&lt;/label&gt;</div><div class="line">&lt;!-- 示例2 --&gt;</div><div class="line">&lt;body&gt;</div><div class="line">  &lt;h1&gt;【深度】扒开V8引擎的源码，我找到了你们想要的前端算法&lt;/h1&gt;</div><div class="line">  &lt;h2&gt;下次面试官再问算法，用它怼回去！&lt;/h2&gt;</div><div class="line">  ...</div></pre></td></tr></table></figure>
+<p><em>读者可以先试试将上面例子中的代码进行语义化，再来看文末的答案。</em></p>
+<p>HTML 语义化（按照 <a href="https://www.w3.org/" target="_blank" rel="noopener">W3C</a> 规范正确地使用标签元素和其属性，以下简称“语义化”，HTML 指 HTML5）被很多文章提到，但内容大多是先宣传语义化的必要性，然后劝说读者在开发中多使用语义化标签。</p>
+<p>本文不宣传必要性， 也不卖力推荐大多数读者能写出语义化的代码，只对语义化的现状进行探究，并给出可行的语义化操作方式。</p>
+<h1 id="语义化的现状"><a href="#语义化的现状" class="headerlink" title="语义化的现状"></a>语义化的现状</h1><p>我们以非语义化标签的滥用为例来看看目前网页的语义化程度。</p>
+<p>非语义化的标签其实只有两个 div 和 span，本来这两个标签只是作为默认标签的补充，但现实是它们的使用频率却远超其它语义化标签。</p>
+<p>下面是一段统计标签数量的 js 脚本，用它可以统计出网页上各个标签数量和占比。</p>
+<p>打开浏览器控制台，执行下面的代码就可以得到结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var total = 0</div><div class="line">var obj = Array.prototype.reduce.call(document.querySelectorAll(&apos;*&apos;), (acc, cur) =&gt; &#123;</div><div class="line">  let tag = cur.tagName.toLowerCase()</div><div class="line">  acc[tag]= acc[tag] || 0</div><div class="line">  acc[tag]++</div><div class="line">  total++</div><div class="line">  return acc</div><div class="line">&#125;, &#123;&#125;)</div><div class="line">var list = []</div><div class="line">for(let k in obj) list.push(&#123;tag: k, times: obj[k], ratio: (obj[k] * 100 / total).toFixed(2) + &apos;%&apos;&#125;)</div><div class="line">console.clear()</div><div class="line">console.table(list.sort((a, b) =&gt; b.times - a.times))</div></pre></td></tr></table></figure>
+<p>先来看看我们使用最频繁的搜索引擎页面，语义化程度为<em>67.5%</em>。<br><img src="/2019/11/27/html-tag/baidu.jpg"></p>
+<p>最好实现语义化的页面莫过于文章帖子类的页面，但是某博客网站页面语义化程度<em>61.29%</em>。<br><img src="/2019/11/27/html-tag/jianshu.jpg"></p>
+<p>再看看市值排行世界前列的某电商网站页面，语义化程度为<em>43.19%</em>。<br><img src="/2019/11/27/html-tag/taobao.jpg"></p>
+<p>更多的统计数据就不贴出来了，总体情况是语义化程度很低。</p>
+<p>为什么语义化如此不受待见？</p>
+<h1 id="语义化的阻碍"><a href="#语义化的阻碍" class="headerlink" title="语义化的阻碍"></a>语义化的阻碍</h1><p>我们来看看现实开发场景中是如何一步一步地把工程师推向无语义化的道路上的。</p>
+<h2 id="语义化的成本"><a href="#语义化的成本" class="headerlink" title="语义化的成本"></a>语义化的成本</h2><p>HTML定义了100多个标签，如果要把它们全部记住，确实有些难度。</p>
+<p>即使分类记忆，也有十几类，如果再加上各个标签不同的属性，记忆量并不算小。</p>
+<p>所以使用的时候可能还需要查文档。</p>
+<p>就开发效率来说不如直接使用 div 和 span 来实现功能。</p>
+<h2 id="语义化的收益"><a href="#语义化的收益" class="headerlink" title="语义化的收益"></a>语义化的收益</h2><p>使用一项技术，首先考虑其收益，或者说它能解决什么问题，那么语义化能带来什么呢？</p>
+<ul>
+<li>代码可读性提升。</li>
+<li>利于SEO。</li>
+<li>关爱视觉障碍用户。</li>
+<li>…</li>
+</ul>
+<p>说了这么多，其实归纳起来就一点：<strong>增强可识别性</strong>。</p>
+<p>识别性的重要性不言而喻，没有识别性就像电影《风语咒》中那个村里很多人都叫王富贵，喊一声王富贵一片人回头。</p>
+<p>如此说来语义化势在必行？</p>
+<p>非也~</p>
+<p>HTML 语义化并不是实现可识别性的唯一手段，标签 id、属性、样式名都可以。</p>
+<p>写个CSS样式类，顺便就把识别性的问题解决了（试想一下，如果不能自定样式，或者样式只能使用类选择器，谁还能不语义化？），样式类重复再通过属性或id来识别。</p>
+<p>和前面这几种方式相比，语义化没有明显的使用收益。</p>
+<h2 id="非语义化的损失"><a href="#非语义化的损失" class="headerlink" title="非语义化的损失"></a>非语义化的损失</h2><p>从开发者的角度考虑，如果不使用语义化的标签会有什么坏处呢？</p>
+<p>很遗憾，几乎没有~</p>
+<ul>
+<li>论代码的可读性，可不是HTML语义化就能解决的，况且id和css样式类几乎也能解决。</li>
+<li>论SEO，其它手段也有：写好 meta 标签，多用链接。当然花钱肯定是最直接见效的。</li>
+<li>至于考虑视觉障碍用户，这个需求的优先级就不用过多解释了，中小型公司压根都不会考虑。</li>
+</ul>
+<p>既然底层开发者没有语义化的动力，那么管理者是否能通过规则来推动语义化呢？</p>
+<p>我在<a href="https://juejin.im/post/5ced3f24e51d454d1d62849d" target="_blank" rel="noopener">《3种常见的代码规范类型》</a>提到过，如果要让规则落地执行，光靠人的自律是很难实现的，靠人力来实现他律效率又太低，所以建立自动化的校验机制，将人力他律作为补充，才是高效的方案。</p>
+<p>很多时候我们会用到代码检查工具比如 eslint、tslint ，HTML 的检查工具也有几个，不过这些检查工具只能做语法检查，无法进行语义检查。</p>
+<p>举个例子，用驼峰命名规则可以检查出 <code>parent_node</code> 这种变量名称不符合规范，但对于一个变量是该叫<code>a</code>还是该叫<code>user</code>检查工具则无能为力了。</p>
+<p>所以强制语义化这条路也走不通。</p>
+<p>语义化真的只能放弃吗？</p>
+<p>对于大多数工程师而言，恐怕是的。</p>
+<p>编写语义化代码并不能直接带来开发效率提升，也不能凭此得到领导赏识而升职加薪……</p>
+<p>但对于有技术追求的工程师而言，并不是！</p>
+<p>他们知道做对的事比做容易的事更重要！</p>
+<h1 id="语义化之路"><a href="#语义化之路" class="headerlink" title="语义化之路"></a>语义化之路</h1><p>如果你已决定踏上语义化的道路，相信以下3个步骤可以帮助你。</p>
+<h2 id="1-正确标签使用属性"><a href="#1-正确标签使用属性" class="headerlink" title="1.正确标签使用属性"></a>1.正确标签使用属性</h2><p>对于具有一定开发经验的工程师而言，非语义化的编程习惯是长久形成的，需要一口气全部改掉之前的编程习惯很难。</p>
+<p>不建议一口气把所有标签全部记下来，然后把之前的页面推倒重写，全盘实现语义化。</p>
+<p>比较耗时耗力，很容易生成挫败感而放弃。</p>
+<p>所以推荐的方式是逐步实现语义化，从一个标签甚至一个属性开始。具体例子请看示例1</p>
+<p>这一阶段重要的是养成语义化的习惯。</p>
+<p>很多情况下能坚持下来形成习惯就已经成功一半了。</p>
+<h2 id="2-理解文档结构"><a href="#2-理解文档结构" class="headerlink" title="2.理解文档结构"></a>2.理解文档结构</h2><p>养成习惯以后就可以从结构上考虑页面的语义化了。</p>
+<p>非语义化最主要的问题就是 div 和 span 标签滥用。</p>
+<p>完全不使用 div 和 span 并不现实，毕竟这两个标签被发明出来也是有使用价值的。</p>
+<p>所以可以首先找出一些容易被滥用的区域，这样就能大大增加页面语义化的程度。</p>
+<p>首先要考虑的就是减少不必要的 div 和 span 标签，然后才是考虑用合适的语义化标签来取代。</p>
+<p>比如日常开发中和文本相关的内容比较多，那么考虑使用 h1~h6 , p , q , b … 这些标签来取代 div 和span。</p>
+<p>即使是布局方面也可以使用一些结构性标签，如： main , section , footer , aside , header 来取代 div。具体例子请看示例2</p>
+<h2 id="3-分类记忆"><a href="#3-分类记忆" class="headerlink" title="3.分类记忆"></a>3.分类记忆</h2><p>如果要做到完全语义化，还可以利用工具。</p>
+<p>下面是一张 html5 使用流程图，仅供参考。</p>
+<img src="/2019/11/27/html-tag/flowchart.png">
+<p>W3C 也给出了一个分类方法，很形象，动画图如下：</p>
+<img src="/2019/11/27/html-tag/categories.gif">
+<p>具体效果可以查看这个<a href="https://www.w3.org/TR/2016/REC-html51-20161101/dom.html#content-models" target="_blank" rel="noopener">网站</a></p>
+<p>参考以上两张图，我整理了一个操作性更强的版本。</p>
+<p>首先一些基础标签我们不需要考虑在内，尤其是在开发单页应用的时候，我们主要考虑开发组件时可能用到的标签。</p>
+<p><code>!DOCTYPE,html,head,meta,base,link,style,body,script,noscript,&lt;!--  --&gt;</code></p>
+<p>然后将剩下几十个标签进行分类，不一定完全贴切，但便于记忆和使用。</p>
+<img src="/2019/11/27/html-tag/flow.jpg">
+<p>当然无论使用那种方式，前提还是记住这些标签的含义和属性。</p>
+<p>这戏工具的作用只是在我们写页面的时候，帮我们快速准确地判断要使用哪个标签。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>语义化就像是前端成长道路上的一颗石子，失去每一颗石子似乎都不会造成影响，但只有聚集更多的石子才能铺成更长的路~</p>
+<p>熟练编写语义化的页面并不能直接帮你成为高级前端工程师，但语义化却能体现前端工程师的工作习惯和技术素养。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 示例1语义化 --&gt;</div><div class="line">&lt;!-- type值修改为浏览器可识别的值 --&gt;</div><div class="line">&lt;!-- 自定义属性使用data前缀 --&gt; </div><div class="line">&lt;label&gt;作者: &lt;input type=&quot;text&quot; class=&quot;author&quot; data-texture=&quot;deep pile&quot;&gt;&lt;/label&gt;</div><div class="line"></div><div class="line">&lt;!-- 示例2语义化 --&gt;</div><div class="line">&lt;!-- 当出现主标题和子标题时，应使用hgroup标签作为父元素 --&gt;</div><div class="line">&lt;body&gt;</div><div class="line">  &lt;hgroup&gt;</div><div class="line">    &lt;h1&gt;【深度】扒开V8引擎的源码，我找到了你们想要的前端算法&lt;/h1&gt;</div><div class="line">    &lt;h2&gt;下次面试官再问算法，用它怼回去！&lt;/h2&gt;</div><div class="line">  &lt;/hgroup&gt;</div><div class="line">  ...</div></pre></td></tr></table></figure>
+<p>附上答案同时再给读者留一道思考题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 可点击的图标 --&gt;</div><div class="line">&lt;div class=&quot;lazy avatar avatar loaded immediate&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;!-- 点击后弹出的菜单 --&gt;</div><div class="line">&lt;ul class=&quot;nav-menu user-dropdown-list&quot;&gt;</div><div class="line">  &lt;div class=&quot;nav-menu-item-group&quot;&gt;</div><div class="line">    &lt;li class=&quot;nav-menu-item&quot;&gt;</div><div class="line">      &lt;a href=&quot;/user/592447fb44d904006ce996f8&quot; class=&quot;link-icon&quot;&gt;</div><div class="line">        &lt;i class=&quot;fengwei fw-person&quot;&gt;&lt;/i&gt;</div><div class="line">        &lt;span&gt;我的主页&lt;/span&gt;</div><div class="line">      &lt;/a&gt;</div><div class="line">    &lt;/li&gt;</div><div class="line">    &lt;li class=&quot;nav-menu-item&quot;&gt;</div><div class="line">      &lt;a href=&quot;/user/592447fb44d904006ce996f8/likes&quot;&gt;</div><div class="line">        &lt;img src=&quot;https://b-gold-cdn.xitu.io/v3/static/img/zan.e9d7698.svg&quot; class=&quot;zan&quot;&gt;</div><div class="line">        &lt;span&gt;我赞过的&lt;/span&gt;</div><div class="line">      &lt;/a&gt;</div><div class="line">    &lt;/li&gt;</div><div class="line">    &lt;li class=&quot;nav-menu-item&quot;&gt;</div><div class="line">      &lt;a href=&quot;/user/592447fb44d904006ce996f8/collections&quot;&gt;</div><div class="line">        &lt;img src=&quot;https://b-gold-cdn.xitu.io/v3/static/img/collect.02e2979.svg&quot; class=&quot;collect&quot;&gt;</div><div class="line">        &lt;span&gt;我的收藏集&lt;/span&gt;</div><div class="line">      &lt;/a&gt;</div><div class="line">    &lt;/li&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">  &lt;div class=&quot;nav-menu-item-group&quot;&gt;</div><div class="line">    &lt;li class=&quot;nav-menu-item&quot;&gt;</div><div class="line">      &lt;a&gt;</div><div class="line">        &lt;i class=&quot;fengwei fw-logout&quot;&gt;&lt;/i&gt;</div><div class="line">        &lt;span&gt;登出&lt;/span&gt;</div><div class="line">      &lt;/a&gt;</div><div class="line">    &lt;/li&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;/ul&gt;</div></pre></td></tr></table></figure>
+<p>参考：</p>
+<ul>
+<li><a href="https://www.zcfy.cc/article/html5-element-flowchart-1870.html" target="_blank" rel="noopener">《HTML5 元素选择流程图》</a></li>
+<li><a href="https://www.w3cplus.com/a11y/writing-html-with-accessibility-in-mind.html" target="_blank" rel="noopener">《A11Y 101：编写HTML时要考虑可访问性》</a></li>
+<li><a href="https://www.zhihu.com/question/20765148" target="_blank" rel="noopener">如何设计无障碍网页？制作为盲人使用的网页该注意哪些方面？</a></li>
+<li><a href="https://html.spec.whatwg.org/multipage/dom.html#semantics-2" target="_blank" rel="noopener">《HTML Living Standard》</a></li>
+</ul>
+
+        <hr/>
+<p>
+  一部由众多技术专家推荐，
+  帮你成为具有全面能力和全局视野工程师的进阶利器——
+  <a href="https://item.jd.com/12562349.html?dist=jd">《了不起的JavaScript工程师》</a>出版了！
+  点击下方链接即刻踏上进阶之路！
+  <ul>
+    <li>淘宝：<a href="https://detail.tmall.com/item.htm?id=600756390664">https://detail.tmall.com/item.htm?id=600756390664</a></li>
+    <li>京东：<a href="https://item.jd.com/12562349.html?dist=jd">https://item.jd.com/12562349.html?dist=jd</a></li>
+    <li>当当：<a href="http://product.dangdang.com/27922044.html">http://product.dangdang.com/27922044.html</a></li>
+  </ul>
+  <br/><img src="/uploads/book.png" onclick=""/>
+</p>
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTML/" rel="tag"># HTML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/20/api-server/" rel="next" title="API文档管理工具折射出的技术视野">
+                <i class="fa fa-chevron-left"></i> API文档管理工具折射出的技术视野
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">专注web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">106</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          <section>
+  <hr style="margin:20px 0;height:1px">
+  <center>
+    作者书籍(点击图片查看详情)：<br>
+    <a href="https://item.jd.com/12562349.html?dist=jd" target="_blank">
+      <img src="/uploads/book.png">
+    </a>
+  </center>
+  <p style="line-height:1.5;margin-bottom:0;text-align:left;">
+    帮你成为具有<b>全面能力</b>和<b>全局视野</b>工程师的进阶利器！<br>
+    <a href="http://www.ruanyifeng.com/home.html" target="_blank">阮一峰</a>、<a href="https://www.zhihu.com/people/fouber/activities" target="_blank">张云龙</a>等技术大神强力推荐！<br>
+  </p>
+  <center>
+    <img src="/uploads/webxuexishe.png">
+  </center>
+</section>
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+      <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc">
+
+          
+            
+          
+
+          
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#语义化的现状"><span class="nav-number">1.</span> <span class="nav-text">语义化的现状</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语义化的阻碍"><span class="nav-number">2.</span> <span class="nav-text">语义化的阻碍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语义化的成本"><span class="nav-number">2.1.</span> <span class="nav-text">语义化的成本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语义化的收益"><span class="nav-number">2.2.</span> <span class="nav-text">语义化的收益</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非语义化的损失"><span class="nav-number">2.3.</span> <span class="nav-text">非语义化的损失</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语义化之路"><span class="nav-number">3.</span> <span class="nav-text">语义化之路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-正确标签使用属性"><span class="nav-number">3.1.</span> <span class="nav-text">1.正确标签使用属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-理解文档结构"><span class="nav-number">3.2.</span> <span class="nav-text">2.理解文档结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-分类记忆"><span class="nav-number">3.3.</span> <span class="nav-text">3.分类记忆</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          
+        
+        </div>
+      </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

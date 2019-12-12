@@ -263,26 +263,37 @@
 
 
 <script>
-  if(!/localhost/.test(location.host)) {
-    var pathname = location.pathname
-    var protocol = location.protocol
-    if(protocol==='http:') {
-      protocol = 'https:'
-    }
-    if(protocol!==location.protocol || pathname !== location.pathname) {
-      location = protocol+'//'+location.host + pathname + location.search+location.hash
-    }
+(function() {
+  if(/localhost/.test(location.host)) return
+  var pathname = location.pathname
+  var protocol = location.protocol
+  if(protocol==='http:') {
+    protocol = 'https:'
+  }
+  if(protocol!==location.protocol || pathname !== location.pathname) {
+    location = protocol+'//'+location.host + pathname + location.search+location.hash
+  }
+  function initBeian() {
     var foot = document.getElementsByClassName("footer-inner")[0]
+    var site = document.getElementsByClassName('site-title')[0]
+    if(!foot||!site) {
+      setTimeout(initBeian, 500)
+      return
+    }
     if(/yalishizhude\.com/.test(location.host)) {
-      document.title = 'web技术天地'
-      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-2</a>'
+      location.pathname === '/' ? document.title = 'web技术天地': void 0
+      site.textContent = 'web技术天地'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="http://www.beian.miit.gov.cn">湘ICP备17023661号-2</a>'
     }
     if(/webxuexishe\.top/.test(location.host)) {
-      document.title = 'web学习社'
-      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>'
+      location.pathname === '/' ? document.title = 'web学习社' : void 0
+      site.textContent = 'web学习社'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="http://www.beian.miit.gov.cn">湘ICP备17023661号-1</a>'
     }
   }
 </script>
+<a style="display:none" href="https://www.liuliangbao.cn/" title="流量宝" target="_blank">流量宝</a>
+
  </div>
     </header>
 
@@ -292,6 +303,322 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2016/12/07/angular-doc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/12/07/angular-doc/" itemprop="url">你会用AngularJS，但你会写AngularJS文档么？</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-07T11:12:29+08:00">
+                2016-12-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/架构/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><em>涉及知识：gulp javascript</em><br><em>建议阅读：4分钟</em></p>
+<p>我们经常在写代码的时候要求写好注释，方便日后维护。但其实注释还有一个重要的用途：<strong>生成API文档。</strong></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/12/07/angular-doc/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2016/11/28/spider/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/11/28/spider/" itemprop="url">拿好这段代码，愿你求职路上不再迷茫</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-28T11:39:41+08:00">
+                2016-11-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><em>涉及知识：数据库（mongodb）node.js</em><br><em>建议阅读：3分钟</em></p>
+<p>经常有人问：“我是该学Angular还是React？该用gulp还是webpack…”<br>这篇文章就是要 <strong>交给大家一把钥匙，专门解答这类问题。</strong></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/11/28/spider/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1559,327 +1886,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2016/03/21/rhinoceros-bom/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亚里士朱德">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亚里士朱德的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/03/21/rhinoceros-bom/" itemprop="url">一起来啃犀牛书：BOM</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-21T23:38:40+08:00">
-                2016-03-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>《javascript权威指南》这本书就像是js界的圣经，对于大神和新手都应该是必读书。但是这本近千页的书已经厚到让人望而生畏，要通读它不仅要时间也需要毅力。为了提升自己在js语言上的深度，所以抱着工匠精神开始研读，此文包含书中实用性较强的一些知识点和代码，算做读书笔记吧~</p>
-</blockquote>
-<img src="/2016/03/21/rhinoceros-bom/bom.png">
-<p>BOM全称为Browser Object Model浏览器对象模型，也就是浏览器端的window对象及其默认属性和函数。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/03/21/rhinoceros-bom/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2016/03/14/rhinoceros-event/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="亚里士朱德">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="亚里士朱德的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/03/14/rhinoceros-event/" itemprop="url">一起来啃犀牛书：事件处理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-14T02:30:07+08:00">
-                2016-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>《javascript权威指南》这本书就像是js界的圣经，对于大神和新手都应该是必读书。但是这本近千页的书已经厚到让人望而生畏，要通读它不仅要时间也需要毅力。为了提升自己在js语言上的深度，所以抱着工匠精神开始研读，此文包含书中实用性较强的一些知识点和代码，算做读书笔记吧~</p>
-</blockquote>
-<img src="/2016/03/14/rhinoceros-event/event.png">
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/03/14/rhinoceros-event/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1934,7 +1940,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1956,7 +1962,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1983,8 +1989,22 @@
           
           
 
-          
-
+          <section>
+  <hr style="margin:20px 0;height:1px">
+  <center>
+    作者书籍(点击图片查看详情)：<br>
+    <a href="https://item.jd.com/12562349.html?dist=jd" target="_blank">
+      <img src="/uploads/book.png">
+    </a>
+  </center>
+  <p style="line-height:1.5;margin-bottom:0;text-align:left;">
+    帮你成为具有<b>全面能力</b>和<b>全局视野</b>工程师的进阶利器！<br>
+    <a href="http://www.ruanyifeng.com/home.html" target="_blank">阮一峰</a>、<a href="https://www.zhihu.com/people/fouber/activities" target="_blank">张云龙</a>等技术大神强力推荐！<br>
+  </p>
+  <center>
+    <img src="/uploads/webxuexishe.png">
+  </center>
+</section>
         </div>
       </section>
 

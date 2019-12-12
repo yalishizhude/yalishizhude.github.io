@@ -264,26 +264,37 @@
 
 
 <script>
-  if(!/localhost/.test(location.host)) {
-    var pathname = location.pathname
-    var protocol = location.protocol
-    if(protocol==='http:') {
-      protocol = 'https:'
-    }
-    if(protocol!==location.protocol || pathname !== location.pathname) {
-      location = protocol+'//'+location.host + pathname + location.search+location.hash
-    }
+(function() {
+  if(/localhost/.test(location.host)) return
+  var pathname = location.pathname
+  var protocol = location.protocol
+  if(protocol==='http:') {
+    protocol = 'https:'
+  }
+  if(protocol!==location.protocol || pathname !== location.pathname) {
+    location = protocol+'//'+location.host + pathname + location.search+location.hash
+  }
+  function initBeian() {
     var foot = document.getElementsByClassName("footer-inner")[0]
+    var site = document.getElementsByClassName('site-title')[0]
+    if(!foot||!site) {
+      setTimeout(initBeian, 500)
+      return
+    }
     if(/yalishizhude\.com/.test(location.host)) {
-      document.title = 'web技术天地'
-      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-2</a>'
+      location.pathname === '/' ? document.title = 'web技术天地': void 0
+      site.textContent = 'web技术天地'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="http://www.beian.miit.gov.cn">湘ICP备17023661号-2</a>'
     }
     if(/webxuexishe\.top/.test(location.host)) {
-      document.title = 'web学习社'
-      foot.innerHTML += '<a class="theme-link" target="_blank" href="www.beian.miit.gov.cn">湘ICP备17023661号-1</a>'
+      location.pathname === '/' ? document.title = 'web学习社' : void 0
+      site.textContent = 'web学习社'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="http://www.beian.miit.gov.cn">湘ICP备17023661号-1</a>'
     }
   }
 </script>
+<a style="display:none" href="https://www.liuliangbao.cn/" title="流量宝" target="_blank">流量宝</a>
+
  </div>
     </header>
 
@@ -587,7 +598,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -609,7 +620,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -636,26 +647,40 @@
           
           
 
-          
-
+          <section>
+  <hr style="margin:20px 0;height:1px">
+  <center>
+    作者书籍(点击图片查看详情)：<br>
+    <a href="https://item.jd.com/12562349.html?dist=jd" target="_blank">
+      <img src="/uploads/book.png">
+    </a>
+  </center>
+  <p style="line-height:1.5;margin-bottom:0;text-align:left;">
+    帮你成为具有<b>全面能力</b>和<b>全局视野</b>工程师的进阶利器！<br>
+    <a href="http://www.ruanyifeng.com/home.html" target="_blank">阮一峰</a>、<a href="https://www.zhihu.com/people/fouber/activities" target="_blank">张云龙</a>等技术大神强力推荐！<br>
+  </p>
+  <center>
+    <img src="/uploads/webxuexishe.png">
+  </center>
+</section>
         </div>
       </section>
 
       
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
+      <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc">
 
+          
             
-              
-            
+          
 
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#驱动意志力的能量来自哪里"><span class="nav-number">1.</span> <span class="nav-text">驱动意志力的能量来自哪里</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#任务清单简史，从上帝到凯里"><span class="nav-number">2.</span> <span class="nav-text">任务清单简史，从上帝到凯里</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#决策疲劳"><span class="nav-number">3.</span> <span class="nav-text">决策疲劳</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#意志力可以培养吗"><span class="nav-number">4.</span> <span class="nav-text">意志力可以培养吗</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深入黑暗之最战胜自己"><span class="nav-number">5.</span> <span class="nav-text">深入黑暗之最战胜自己</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#节食风暴"><span class="nav-number">6.</span> <span class="nav-text">节食风暴</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于意志力的10个启示："><span class="nav-number">7.</span> <span class="nav-text">关于意志力的10个启示：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#了解你的极限。"><span class="nav-number">7.1.</span> <span class="nav-text">了解你的极限。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#留意你的症状"><span class="nav-number">7.2.</span> <span class="nav-text">留意你的症状</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#挑选你的战斗"><span class="nav-number">7.3.</span> <span class="nav-text">挑选你的战斗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列个任务清单——至少列个“不做清单”"><span class="nav-number">7.4.</span> <span class="nav-text">列个任务清单——至少列个“不做清单”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#当心计划谬误"><span class="nav-number">7.5.</span> <span class="nav-text">当心计划谬误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不要忘了小事情"><span class="nav-number">7.6.</span> <span class="nav-text">不要忘了小事情</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#积极拖延的力量"><span class="nav-number">7.7.</span> <span class="nav-text">积极拖延的力量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#别无选择"><span class="nav-number">7.8.</span> <span class="nav-text">别无选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#追踪了解"><span class="nav-number">7.9.</span> <span class="nav-text">追踪了解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#经常奖励"><span class="nav-number">7.10.</span> <span class="nav-text">经常奖励</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
+          
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#驱动意志力的能量来自哪里"><span class="nav-number">1.</span> <span class="nav-text">驱动意志力的能量来自哪里</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#任务清单简史，从上帝到凯里"><span class="nav-number">2.</span> <span class="nav-text">任务清单简史，从上帝到凯里</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#决策疲劳"><span class="nav-number">3.</span> <span class="nav-text">决策疲劳</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#意志力可以培养吗"><span class="nav-number">4.</span> <span class="nav-text">意志力可以培养吗</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深入黑暗之最战胜自己"><span class="nav-number">5.</span> <span class="nav-text">深入黑暗之最战胜自己</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#节食风暴"><span class="nav-number">6.</span> <span class="nav-text">节食风暴</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于意志力的10个启示："><span class="nav-number">7.</span> <span class="nav-text">关于意志力的10个启示：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#了解你的极限。"><span class="nav-number">7.1.</span> <span class="nav-text">了解你的极限。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#留意你的症状"><span class="nav-number">7.2.</span> <span class="nav-text">留意你的症状</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#挑选你的战斗"><span class="nav-number">7.3.</span> <span class="nav-text">挑选你的战斗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列个任务清单——至少列个“不做清单”"><span class="nav-number">7.4.</span> <span class="nav-text">列个任务清单——至少列个“不做清单”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#当心计划谬误"><span class="nav-number">7.5.</span> <span class="nav-text">当心计划谬误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不要忘了小事情"><span class="nav-number">7.6.</span> <span class="nav-text">不要忘了小事情</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#积极拖延的力量"><span class="nav-number">7.7.</span> <span class="nav-text">积极拖延的力量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#别无选择"><span class="nav-number">7.8.</span> <span class="nav-text">别无选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#追踪了解"><span class="nav-number">7.9.</span> <span class="nav-text">追踪了解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#经常奖励"><span class="nav-number">7.10.</span> <span class="nav-text">经常奖励</span></a></li></ol></li></ol></div>
+          
+        
+        </div>
+      </section>
       <!--/noindex-->
       
 

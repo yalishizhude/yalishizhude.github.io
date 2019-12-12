@@ -8,8 +8,36 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>专注web技术分享</description>
-    <pubDate>Wed, 04 Sep 2019 16:58:09 GMT</pubDate>
+    <pubDate>Thu, 12 Dec 2019 15:06:50 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>大多数前端工程师了解但并不擅长的HTML语义化</title>
+      <link>http://yalishizhude.com/2019/11/27/html-tag/</link>
+      <guid>http://yalishizhude.com/2019/11/27/html-tag/</guid>
+      <pubDate>Wed, 27 Nov 2019 08:06:43 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;下面两段代码从HTML语义化的角度来看有什么问题？&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2019/11/27/html-tag/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>API文档管理工具折射出的技术视野</title>
+      <link>http://yalishizhude.com/2019/09/20/api-server/</link>
+      <guid>http://yalishizhude.com/2019/09/20/api-server/</guid>
+      <pubDate>Fri, 20 Sep 2019 00:05:16 GMT</pubDate>
+      <description>
+      
+        &lt;h1 id=&quot;什么是技术视野&quot;&gt;&lt;a href=&quot;#什么是技术视野&quot; class=&quot;headerlink&quot; title=&quot;什么是技术视野&quot;&gt;&lt;/a&gt;什么是技术视野&lt;/h1&gt;&lt;p&gt;网上看到不少关于如何提升技术视野的讨论，但却没有人给出定义，到底什么是技术视野？&lt;/p&gt;
+      
+      </description>
+      
+      <comments>http://yalishizhude.com/2019/09/20/api-server/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>【深度】扒开V8引擎的源码，我找到了你们想要的前端算法（下次面试官再问算法，用它怼回去！）</title>
@@ -289,35 +317,6 @@
       </description>
       
       <comments>http://yalishizhude.com/2018/06/12/ls/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>CKA认证考试心得</title>
-      <link>http://yalishizhude.com/2018/05/13/cka/</link>
-      <guid>http://yalishizhude.com/2018/05/13/cka/</guid>
-      <pubDate>Sun, 13 May 2018 12:13:41 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;上周四通过了一次国外的考试，关于考试内容和形式应该大部分读者都没有遇到过，所以写这篇文章和大家分享一下。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;如果你对考试内容或者Kubernetes不感兴趣可以直接阅读考试总结部分。&lt;/em&gt;&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yalishizhude.com/2018/05/13/cka/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>PC端MPA和移动端SPA的路由同构</title>
-      <link>http://yalishizhude.com/2018/03/28/router4mpa-spa/</link>
-      <guid>http://yalishizhude.com/2018/03/28/router4mpa-spa/</guid>
-      <pubDate>Wed, 28 Mar 2018 06:34:00 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;&lt;em&gt;同一个路由，不同的架构~&lt;/em&gt;&lt;/p&gt;
-      
-      </description>
-      
-      <comments>http://yalishizhude.com/2018/03/28/router4mpa-spa/#disqus_thread</comments>
     </item>
     
   </channel>

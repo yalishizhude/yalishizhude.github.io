@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="API,技术视野," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="亚里士朱德的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="什么是技术视野网上看到不少关于如何提升技术视野的讨论，但却没有人给出定义，到底什么是技术视野？">
+<meta name="keywords" content="API,技术视野">
+<meta property="og:type" content="article">
+<meta property="og:title" content="API文档管理工具折射出的技术视野">
+<meta property="og:url" content="http://yalishizhude.com/2019/09/20/api-server/index.html">
+<meta property="og:site_name" content="亚里士朱德的博客">
+<meta property="og:description" content="什么是技术视野网上看到不少关于如何提升技术视野的讨论，但却没有人给出定义，到底什么是技术视野？">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-10-17T13:37:24.513Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="API文档管理工具折射出的技术视野">
+<meta name="twitter:description" content="什么是技术视野网上看到不少关于如何提升技术视野的讨论，但却没有人给出定义，到底什么是技术视野？">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yalishizhude.com/2019/09/20/api-server/"/>
+
+
+
+
+
+  <title>API文档管理工具折射出的技术视野 | 亚里士朱德的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?50c11529d99042df91bc2061f66f8db6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <meta name="baidu-site-verification" content="weH21azGfC" />
+  <meta name="google-site-verification" content="Ubo8RbQoNlPmBNmKh4xVG46h496NbplJNWX5usiuONY" />
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">亚里士朱德的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+<script>
+(function() {
+  if(/localhost/.test(location.host)) return
+  var pathname = location.pathname
+  var protocol = location.protocol
+  if(protocol==='http:') {
+    protocol = 'https:'
+  }
+  if(protocol!==location.protocol || pathname !== location.pathname) {
+    location = protocol+'//'+location.host + pathname + location.search+location.hash
+  }
+  function initBeian() {
+    var foot = document.getElementsByClassName("footer-inner")[0]
+    var site = document.getElementsByClassName('site-title')[0]
+    if(!foot||!site) {
+      setTimeout(initBeian, 500)
+      return
+    }
+    if(/yalishizhude\.com/.test(location.host)) {
+      location.pathname === '/' ? document.title = 'web技术天地': void 0
+      site.textContent = 'web技术天地'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="http://www.beian.miit.gov.cn">湘ICP备17023661号-2</a>'
+    }
+    if(/webxuexishe\.top/.test(location.host)) {
+      location.pathname === '/' ? document.title = 'web学习社' : void 0
+      site.textContent = 'web学习社'
+      foot.innerHTML += '<a class="theme-link" target="_blank" href="http://www.beian.miit.gov.cn">湘ICP备17023661号-1</a>'
+    }
+  }
+</script>
+<a style="display:none" href="https://www.liuliangbao.cn/" title="流量宝" target="_blank">流量宝</a>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yalishizhude.com/2019/09/20/api-server/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="亚里士朱德">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亚里士朱德的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">API文档管理工具折射出的技术视野</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-20T08:05:16+08:00">
+                2019-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/职场/" itemprop="url" rel="index">
+                    <span itemprop="name">职场</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/职场/分析/" itemprop="url" rel="index">
+                    <span itemprop="name">分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="什么是技术视野"><a href="#什么是技术视野" class="headerlink" title="什么是技术视野"></a>什么是技术视野</h1><p>网上看到不少关于如何提升技术视野的讨论，但却没有人给出定义，到底什么是技术视野？</p>
+<a id="more"></a>
+<p><strong>所谓技术视野，就是看问题时所能切换的不同角（维）度。</strong></p>
+<p>下面就以API管理工具（以下简称“管理工具”）为例，来探讨背后隐藏的技术视野。</p>
+<h1 id="API管理工具"><a href="#API管理工具" class="headerlink" title="API管理工具"></a>API管理工具</h1><h2 id="零视角"><a href="#零视角" class="headerlink" title="零视角"></a>零视角</h2><p>曾经在一个小型创业公司用到过最简单的管理工具，就是一个开源的文档管理工具，界面功能类似wiki（维基百科）。</p>
+<p>这样的工具确实能满足核心需求——API在线文档化，并支持用户管理。</p>
+<p>可是深想一层，对于管理工具的使用者——工程师，操作足够友好，功能足够完善吗？</p>
+<p>使用这类管理工具很多时候都会出现文档与代码不一致的情况，也就是说工程师都不愿意去维护这个文档。</p>
+<p>因为编写修改文档是个耗费时间的事情，短期来看，<strong>维护了既无利益，不维护也无危害~</strong></p>
+<p>所以有时候接口的变更通过口头协商而非文档协商。</p>
+<blockquote>
+<p>小结：零视角其实谈不上视野，是大多数工程师的最容易形成的思维方式，特点就是只关注功能/问题本身。</p>
+</blockquote>
+<h2 id="单一视角"><a href="#单一视角" class="headerlink" title="单一视角"></a>单一视角</h2><p>当时为了解决上面的问题，同时为了练手所学的Node.js，我写了第一版的管理工具，并参加了线下沙龙分享。</p>
+<p>现在看来其实当初的写的项目还是比较粗糙的，除了展示界面相较于wiki更加美观之外，主要加入了 Mock 功能。</p>
+<p>更好的开源项目也有不少，比如阿里的<code>RAP</code>和国外的<code>APIDOC</code>。</p>
+<p>之所以把它们归为一类讨论，那是因为它们都体现了开发者的单一视角。</p>
+<p><code>RAP</code>就是典型地站在前端工程师的角度开发的。</p>
+<p>比如第一版是以页面来对接口进行分组，这种分组方式显然不合理，后端之间的服务调用不涉及页面怎么办呢？所以第二版对此进行了修改。</p>
+<p>又比如和 MockJS 深度绑定，为前端工程师提供 Mock 功能。</p>
+<p>MockJS 确实很不错，不但支持数据模拟，还支持数据校验，后端也是使用前端工程师所熟悉的 Node.js 编写。</p>
+<p>缺点呢后面在讲其他管理工具的时候再对比分析。</p>
+<p><code>APIDOC</code>则是站在后端工程师角度来编写，增加了通过代码注释生成文档的功能。</p>
+<blockquote>
+<p>小结：视角的建立意味着从0到1的质变，技术视野开始形成。此视野的工程师不再只关注功能实现或问题解决。</p>
+</blockquote>
+<h2 id="多视角"><a href="#多视角" class="headerlink" title="多视角"></a>多视角</h2><p>偶然间读到 Martin Fowler大神的一篇关于契约测试的文章很受启发，文中提出了一种构想，通过管理工具来对前后端进行校验，从而保障文档与代码的一致性。</p>
+<p>于是开发了第2版的管理工具。这一版同时从前后端两个角度设计。</p>
+<p>对于前端不仅支持 Mock服务，同时还能对请求参数进行校验，甚至模拟服务端响应异常。<br>对于后端增加了类似 postman 调试接口功能，同时由于采用 JSON-Schema规范，可以直接将schema移植到后端代码中作为校验规则来校验参数。（<code>RAP</code>的局限性也在于此，MockJS的校验只能用于 Node.js和浏览器端，其它语言编写的服务端则无法使用。同时对于后端来说也没有如 Mock 服务器般好用的调试功能。）</p>
+<p>当然它和一些知名的管理工具 <code>Swagger</code> 、 <code>RAML</code>还是有些差距，比如工具链不够丰富，不能通过注释生成代码。</p>
+<blockquote>
+<p>小结：多视角的建立是从1到N的量变，而这个过程需要积累更多的经验，最终形成全局视野。</p>
+</blockquote>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>经常看到一些公司在招聘高级前端工程师的时候会要求掌握一门以上后的端语言或者说把掌握后端语言作为加分项，真正的用意不一定会要求前端工程师写后端代码，但掌握后端语言的前端工程师会多一个思考维度，也就是技术视野更丰富。</p>
+<p>很多工程师以为自己和大神的差距是技术，但这种差距只是表象，而实质的差距是思维方式和技术视野。</p>
+<p>技术视野不一样工程师，即使是做同样的事情，取得的成就也会不一样，这也是为什么我会在写书的时候注重帮助读者提升技术视野~</p>
+<ul>
+<li><p>一个工程师做事情如果总是只考虑把事情完成，零视角解决问题，最多只能成为中级工程师。</p>
+</li>
+<li><p>能跳出事情本身，站在一个合理的角度进行思考，长久积累下来就能达到高级工程师的水准。</p>
+</li>
+<li><p>考虑事情的前因后果以及所在系统中的各种联动关系，已然是架构师的视野了。</p>
+</li>
+</ul>
+
+        <hr/>
+<p>
+  一部由众多技术专家推荐，
+  帮你成为具有全面能力和全局视野工程师的进阶利器——
+  <a href="https://item.jd.com/12562349.html?dist=jd">《了不起的JavaScript工程师》</a>出版了！
+  点击下方链接即刻踏上进阶之路！
+  <ul>
+    <li>淘宝：<a href="https://detail.tmall.com/item.htm?id=600756390664">https://detail.tmall.com/item.htm?id=600756390664</a></li>
+    <li>京东：<a href="https://item.jd.com/12562349.html?dist=jd">https://item.jd.com/12562349.html?dist=jd</a></li>
+    <li>当当：<a href="http://product.dangdang.com/27922044.html">http://product.dangdang.com/27922044.html</a></li>
+  </ul>
+  <br/><img src="/uploads/book.png" onclick=""/>
+</p>
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/webxuexishe.png" alt="亚里士朱德 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>更多WEB技术分享请订阅微信公众号“WEB学习社”</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/API/" rel="tag"># API</a>
+          
+            <a href="/tags/技术视野/" rel="tag"># 技术视野</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/05/v8-sort/" rel="next" title="【深度】扒开V8引擎的源码，我找到了你们想要的前端算法（下次面试官再问算法，用它怼回去！）">
+                <i class="fa fa-chevron-left"></i> 【深度】扒开V8引擎的源码，我找到了你们想要的前端算法（下次面试官再问算法，用它怼回去！）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/27/html-tag/" rel="prev" title="大多数前端工程师了解但并不擅长的HTML语义化">
+                大多数前端工程师了解但并不擅长的HTML语义化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/head.jpg"
+                alt="亚里士朱德" />
+            
+              <p class="site-author-name" itemprop="name">亚里士朱德</p>
+              <p class="site-description motion-element" itemprop="description">专注web技术分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">106</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          <section>
+  <hr style="margin:20px 0;height:1px">
+  <center>
+    作者书籍(点击图片查看详情)：<br>
+    <a href="https://item.jd.com/12562349.html?dist=jd" target="_blank">
+      <img src="/uploads/book.png">
+    </a>
+  </center>
+  <p style="line-height:1.5;margin-bottom:0;text-align:left;">
+    帮你成为具有<b>全面能力</b>和<b>全局视野</b>工程师的进阶利器！<br>
+    <a href="http://www.ruanyifeng.com/home.html" target="_blank">阮一峰</a>、<a href="https://www.zhihu.com/people/fouber/activities" target="_blank">张云龙</a>等技术大神强力推荐！<br>
+  </p>
+  <center>
+    <img src="/uploads/webxuexishe.png">
+  </center>
+</section>
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+      <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc">
+
+          
+            
+          
+
+          
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是技术视野"><span class="nav-number">1.</span> <span class="nav-text">什么是技术视野</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#API管理工具"><span class="nav-number">2.</span> <span class="nav-text">API管理工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#零视角"><span class="nav-number">2.1.</span> <span class="nav-text">零视角</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单一视角"><span class="nav-number">2.2.</span> <span class="nav-text">单一视角</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多视角"><span class="nav-number">2.3.</span> <span class="nav-text">多视角</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          
+        
+        </div>
+      </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亚里士朱德</span>
+
+  
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
